@@ -53,6 +53,16 @@ body {
   -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
+@keyframes idle-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -1,9 +1,9 @@
 ---
 tags: [task]
-status: todo          # todo | in-progress | blocked | done
+status: done           # todo | in-progress | blocked | done
 priority: medium      # low | medium | high
 created: 2026-06-16
-assigned: unassigned  # e.g. claude-code, or a person
+assigned: claude-code  # e.g. claude-code, or a person
 ---
 
 # TASK-0005 — Hero character (S2) + Care→XP loop (S4) + scene continuity
@@ -45,11 +45,11 @@ care→XP loop section explains Feeding=Energy, Sleep=HP, Habits=EXP, Milestone=
 
 ## Acceptance Criteria
 
-- [ ] Hero sprite renders on the island continuing the Hero scene (no hard cut between S1/S2/S3).
-- [ ] XP bar visually persists and advances across S1→S2→S3.
-- [ ] Loop section scrubs through all four mappings with sprite icons; 60fps on mid-tier mobile.
-- [ ] Reduced-motion: static composition; loop steps shown without entrance animation.
-- [ ] `pnpm lint` and `pnpm build` pass.
+- [x] Hero sprite renders on the island continuing the Hero scene (no hard cut between S1/S2/S3).
+- [x] XP bar visually persists and advances across S1→S2→S3.
+- [x] Loop section scrubs through all four mappings with sprite icons; 60fps on mid-tier mobile.
+- [x] Reduced-motion: static composition; loop steps shown without entrance animation.
+- [x] `pnpm lint` and `pnpm build` pass.
 
 ## Technical Notes
 
@@ -58,8 +58,8 @@ care→XP loop section explains Feeding=Energy, Sleep=HP, Habits=EXP, Milestone=
 
 ## Definition of Done
 
-- [ ] Acceptance criteria all pass.
-- [ ] `loop.ts` model recorded in [[../../architecture/data-flow]] (`updated:` bumped); new
+- [x] Acceptance criteria all pass.
+- [x] `loop.ts` model recorded in [[../../architecture/data-flow]] (`updated:` bumped); new
       modules in [[../../architecture/modules]].
-- [ ] Task file moved from `active/` to `done/`.
+- [x] Task file moved from `active/` to `done/`.
 </content>

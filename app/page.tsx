@@ -14,13 +14,15 @@
  * -> S6 Parent Mode, Pricing -> S11 Waitlist (pricing isn't set pre-launch; the
  * waitlist is the answer), FAQ -> S10 FAQ. The CTA always targets S11 waitlist.
  *
- * S1 (Hero) and S3 (Reveal) are real components as of TASK-0003. S2 (Hero
- * Appears) stays a placeholder until TASK-0005. S10 (FAQ), S11 (Waitlist), and
- * S12 (Footer) are real components as of TASK-0004.
+ * S1 (Hero), S2 (Hero Appears), S3 (Reveal), and S4 (Care -> XP loop) are real
+ * components as of TASK-0003/TASK-0005. S10 (FAQ), S11 (Waitlist), and S12
+ * (Footer) are real components as of TASK-0004.
  */
 
 import { Hero } from "@/components/sections/Hero";
+import { HeroCharacter } from "@/components/sections/HeroCharacter";
 import { Reveal } from "@/components/sections/Reveal";
+import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Faq } from "@/components/sections/Faq";
 import { WaitlistSignup } from "@/components/sections/WaitlistSignup";
 import { SiteFooter } from "@/components/ui/SiteFooter";
@@ -50,13 +52,13 @@ export default function Home() {
         <Hero />
 
         {/* S2 — The Hero Appears */}
-        <SectionPlaceholder id="hero-appears" label="S2 · The Hero Appears" />
+        <HeroCharacter />
 
         {/* S3 — The Reveal */}
         <Reveal />
 
         {/* S4 — Care -> XP loop (the RPG mechanic; nav "RPG System" anchors here) */}
-        <SectionPlaceholder id="rpg-system" label="S4 · Care to XP loop" />
+        <HowItWorks />
 
         {/* S5 — Feature Showcase */}
         <SectionPlaceholder id="features" label="S5 · Feature Showcase" />

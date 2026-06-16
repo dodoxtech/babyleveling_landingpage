@@ -53,9 +53,9 @@ declare function spritePath(key: SpriteKey): string;
 
 ### Narrative content models (landed in TASK-0001)
 
-Types only for now except `hero.ts` (see below) — copy is a separate workstream
-(`multilingual-copywriter` / `story-architect`); sections populate the rest once real
-content lands.
+Types only for now except `hero.ts` and `loop.ts` (see below) — copy is a separate
+workstream (`multilingual-copywriter` / `story-architect`); sections populate the rest
+once real content lands.
 
 ```ts
 // lib/content/loop.ts — the care→XP mapping (S4)
@@ -68,6 +68,17 @@ interface AppMode { id: 'parent' | 'rpg'; name: string; promise: string; bullets
 // lib/content/family.ts — co-op framing (S9)
 interface FamilyRole { id: string; role: string; blurb: string; sprite: string; }
 ```
+
+### Loop content model (real copy landed in TASK-0005)
+
+```ts
+export const loopSteps: LoopStep[];   // English copy, per planning/05-copy-multilingual.md "S4 Care -> XP loop"
+```
+
+`HowItWorks.tsx` is the first consumer, so `loop.ts` graduated from "types only" to real
+English copy here — the same reason `hero.ts`/`nav.ts`/`faq.ts` did in earlier tasks. The
+four steps fix the mapping from `planning/01-strategy.md` §3 (S4): Feeding=Energy,
+Sleep=HP, Habits=EXP, Milestone=Achievement. JA/VI variants land in TASK-0011.
 
 > [!note] `sprites.ts` is generated, not authored. Edit the manifests in `tools/sprites/`
 > and re-run the exporter rather than editing the file. See [[setup/getting-started]].
