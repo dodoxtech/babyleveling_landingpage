@@ -1,6 +1,6 @@
 ---
 tags: [feature]
-status: planned
+status: implemented
 updated: 2026-06-16
 ---
 

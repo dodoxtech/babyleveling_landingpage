@@ -80,6 +80,21 @@ English copy here — the same reason `hero.ts`/`nav.ts`/`faq.ts` did in earlier
 four steps fix the mapping from `planning/01-strategy.md` §3 (S4): Feeding=Energy,
 Sleep=HP, Habits=EXP, Milestone=Achievement. JA/VI variants land in TASK-0011.
 
+### Features & modes content models (real copy landed in TASK-0006)
+
+```ts
+export const features: Feature[];    // English copy, per planning/05-copy-multilingual.md "S5 Feature Showcase"
+export const appModes: AppMode[];    // English copy, per planning/05-copy-multilingual.md "S6 Parent Mode"
+```
+
+`FeatureShowcase.tsx` and `ParentMode.tsx` are the first consumers, so `features.ts` and
+`modes.ts` graduate from "types only" to real English copy here. `Feature.accent` holds a
+CSS color value (a design-token `var(...)` or hex) consumed directly as an inline style —
+no Tailwind class lookup table to keep in sync as cards are added/removed. `AppMode.bullets`
+back representative stat panels (count-up numbers, a representative growth-chart line) per
+TASK-0006's explicit scope note that a real chart data pipeline is out of scope. JA/VI
+variants land in TASK-0011.
+
 > [!note] `sprites.ts` is generated, not authored. Edit the manifests in `tools/sprites/`
 > and re-run the exporter rather than editing the file. See [[setup/getting-started]].
 

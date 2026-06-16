@@ -14,15 +14,18 @@
  * -> S6 Parent Mode, Pricing -> S11 Waitlist (pricing isn't set pre-launch; the
  * waitlist is the answer), FAQ -> S10 FAQ. The CTA always targets S11 waitlist.
  *
- * S1 (Hero), S2 (Hero Appears), S3 (Reveal), and S4 (Care -> XP loop) are real
- * components as of TASK-0003/TASK-0005. S10 (FAQ), S11 (Waitlist), and S12
- * (Footer) are real components as of TASK-0004.
+ * S1 (Hero), S2 (Hero Appears), S3 (Reveal), S4 (Care -> XP loop), S5 (Feature
+ * Showcase), and S6 (Parent Mode) are real components as of TASK-0003/
+ * TASK-0005/TASK-0006. S10 (FAQ), S11 (Waitlist), and S12 (Footer) are real
+ * components as of TASK-0004.
  */
 
 import { Hero } from "@/components/sections/Hero";
 import { HeroCharacter } from "@/components/sections/HeroCharacter";
 import { Reveal } from "@/components/sections/Reveal";
 import { HowItWorks } from "@/components/sections/HowItWorks";
+import { FeatureShowcase } from "@/components/sections/FeatureShowcase";
+import { ParentMode } from "@/components/sections/ParentMode";
 import { Faq } from "@/components/sections/Faq";
 import { WaitlistSignup } from "@/components/sections/WaitlistSignup";
 import { SiteFooter } from "@/components/ui/SiteFooter";
@@ -61,10 +64,10 @@ export default function Home() {
         <HowItWorks />
 
         {/* S5 — Feature Showcase */}
-        <SectionPlaceholder id="features" label="S5 · Feature Showcase" />
+        <FeatureShowcase />
 
         {/* S6 — Parent Mode */}
-        <SectionPlaceholder id="parents" label="S6 · Parent Mode" />
+        <ParentMode />
 
         {/* S7 — Screenshot Gallery */}
         <SectionPlaceholder id="screenshots" label="S7 · Screenshot Gallery" />

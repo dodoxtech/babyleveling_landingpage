@@ -26,6 +26,7 @@ the public landing / waitlist site that markets that app.**
 ### Features
 - [[features/hero-section]] — above-the-fold hero + primary CTA
 - [[features/feature-showcase]] — gameplay feature grid (XP, quests, skill tree…)
+- [[features/parent-mode]] — RPG ⟷ Parent mode toggle
 - [[features/theme-gallery]] — Royal / Warrior / Zen theme showcase
 - [[features/screenshot-gallery]] — app screenshot carousel
 - [[features/waitlist-signup]] — email capture / waitlist

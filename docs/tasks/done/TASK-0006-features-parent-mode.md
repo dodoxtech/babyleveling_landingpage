@@ -1,9 +1,9 @@
 ---
 tags: [task]
-status: todo          # todo | in-progress | blocked | done
+status: done           # todo | in-progress | blocked | done
 priority: medium      # low | medium | high
 created: 2026-06-16
-assigned: unassigned  # e.g. claude-code, or a person
+assigned: claude-code  # e.g. claude-code, or a person
 ---
 
 # TASK-0006 — Feature Showcase (S5) + Parent Mode (S6)
@@ -46,12 +46,12 @@ toggle that morphs one panel between a quest card and a clean clinical chart.
 
 ## Acceptance Criteria
 
-- [ ] All six feature cards render from `features.ts`; adding/removing a card needs only a data edit.
-- [ ] Cards stack to one column on mobile and stay legible; per-card accent colors match the app palette.
-- [ ] Mode toggle morphs the panel smoothly; reduced-motion = instant swap, final numbers.
-- [ ] Reveal uses scale+blur-from-depth (no generic slide-up); 60fps maintained.
-- [ ] WCAG AA contrast on all card text; cards are keyboard-focusable where interactive.
-- [ ] `pnpm lint` and `pnpm build` pass.
+- [x] All six feature cards render from `features.ts`; adding/removing a card needs only a data edit.
+- [x] Cards stack to one column on mobile and stay legible; per-card accent colors match the app palette.
+- [x] Mode toggle morphs the panel smoothly; reduced-motion = instant swap, final numbers.
+- [x] Reveal uses scale+blur-from-depth (no generic slide-up); 60fps maintained.
+- [x] WCAG AA contrast on all card text; cards are keyboard-focusable where interactive.
+- [x] `pnpm lint` and `pnpm build` pass.
 
 ## Technical Notes
 
@@ -61,8 +61,8 @@ toggle that morphs one panel between a quest card and a clean clinical chart.
 
 ## Definition of Done
 
-- [ ] Acceptance criteria all pass.
-- [ ] `modes.ts` recorded in [[../../architecture/data-flow]] (`updated:` bumped);
+- [x] Acceptance criteria all pass.
+- [x] `modes.ts` recorded in [[../../architecture/data-flow]] (`updated:` bumped);
       [[../../features/feature-showcase]] `updated:` bumped; new modules in [[../../architecture/modules]].
-- [ ] Task file moved from `active/` to `done/`.
+- [x] Task file moved from `active/` to `done/`.
 </content>
