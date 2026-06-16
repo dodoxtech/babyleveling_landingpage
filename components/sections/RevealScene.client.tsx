@@ -1,18 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLenis } from "lenis/react";
 import { useReducedMotion } from "@/lib/motion";
 import { spritePath } from "@/lib/content/sprites";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface RevealSceneProps {
   headline: string;
   body: string;
   ctaLabel: string;
 }
+
+type GsapModule = typeof import("gsap");
+type ScrollTriggerModule = typeof import("gsap/ScrollTrigger");
 
 /**
  * S3 — The Reveal scene mechanics. Pins the section and scrubs a peel/dissolve
@@ -32,6 +32,15 @@ interface RevealSceneProps {
  * touching this component — GSAP timelines are independent per
  * `ScrollTrigger.create` call, so there's no shared-state coupling to undo
  * later.
+ *
+ * GSAP/ScrollTrigger load via a dynamic `import()` inside the effect below,
+ * not a static top-level import — Hero (S1) needs zero GSAP, so keeping it
+ * out of this section's module graph keeps GSAP's bytes out of the
+ * above-the-fold bundle entirely; they're only fetched once this section
+ * actually mounts (TASK-0008 perf hardening). `useLenis` wires
+ * `ScrollTrigger.update()` into Lenis's own scroll tick so the pinned scrub
+ * stays exactly in sync with Lenis's smoothed scroll position rather than
+ * relying on ScrollTrigger's default native-`scroll`-event timing.
  */
 export function RevealScene({ headline, body, ctaLabel }: RevealSceneProps) {
   const reducedMotion = useReducedMotion();
@@ -39,6 +48,13 @@ export function RevealScene({ headline, body, ctaLabel }: RevealSceneProps) {
   const fantasyRef = useRef<HTMLDivElement>(null);
   const dashboardRef = useRef<HTMLDivElement>(null);
   const bloomRef = useRef<HTMLDivElement>(null);
+  const scrollTriggerRef = useRef<ScrollTriggerModule["ScrollTrigger"] | null>(
+    null,
+  );
+
+  useLenis(() => {
+    scrollTriggerRef.current?.update();
+  });
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -48,40 +64,56 @@ export function RevealScene({ headline, body, ctaLabel }: RevealSceneProps) {
     const bloom = bloomRef.current;
     if (!section || !fantasy || !dashboard || !bloom) return;
 
-    // Dashboard starts hidden behind the fantasy skin; bloom starts dark.
-    gsap.set(dashboard, { autoAlpha: 0 });
-    gsap.set(bloom, { autoAlpha: 0 });
+    let disposed = false;
+    let tween: ReturnType<GsapModule["gsap"]["timeline"]> | undefined;
 
-    const tween = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: "+=120%",
-        scrub: true,
-        pin: true,
-        anticipatePin: 1,
-      },
+    import("gsap").then(async ({ gsap }) => {
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      if (disposed) return;
+      gsap.registerPlugin(ScrollTrigger);
+      scrollTriggerRef.current = ScrollTrigger;
+
+      // Dashboard starts hidden behind the fantasy skin; bloom starts dark.
+      gsap.set(dashboard, { autoAlpha: 0 });
+      gsap.set(bloom, { autoAlpha: 0 });
+
+      tween = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "+=120%",
+          scrub: true,
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
+
+      tween
+        .to(bloom, { autoAlpha: 1, duration: 0.4, ease: "power1.in" }, 0)
+        .to(
+          fantasy,
+          {
+            autoAlpha: 0,
+            scale: 1.08,
+            rotateX: -6,
+            y: "-4%",
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+          0.1,
+        )
+        .to(
+          dashboard,
+          { autoAlpha: 1, duration: 0.5, ease: "power2.out" },
+          0.35,
+        );
     });
 
-    tween
-      .to(bloom, { autoAlpha: 1, duration: 0.4, ease: "power1.in" }, 0)
-      .to(
-        fantasy,
-        {
-          autoAlpha: 0,
-          scale: 1.08,
-          rotateX: -6,
-          y: "-4%",
-          duration: 0.6,
-          ease: "power2.inOut",
-        },
-        0.1,
-      )
-      .to(dashboard, { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, 0.35);
-
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+      disposed = true;
+      tween?.scrollTrigger?.kill();
+      tween?.kill();
+      scrollTriggerRef.current = null;
     };
   }, [reducedMotion]);
 

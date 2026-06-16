@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 
@@ -66,21 +66,27 @@ export function HeroLogoReveal({ text }: HeroLogoRevealProps) {
       className="block"
     >
       {words.map((word, wordIndex) => (
-        <span
-          key={`${word}-${wordIndex}`}
-          className="inline-block whitespace-nowrap"
-        >
-          {word.split("").map((char, charIndex) => (
-            <motion.span
-              key={`${char}-${charIndex}`}
-              variants={letter}
-              className="inline-block"
-            >
-              {char}
-            </motion.span>
-          ))}
+        // The inter-word space is a sibling of the word's `inline-block`, not
+        // nested inside it: a space as the last child of an `inline-block`
+        // (doubly so combined with `whitespace-nowrap`) sits at the edge of
+        // that box's own line box and gets trimmed by the browser's
+        // whitespace-collapsing rules, silently swallowing every space in
+        // the headline. Keeping it outside, in the parent's normal flow,
+        // preserves it.
+        <Fragment key={`${word}-${wordIndex}`}>
+          <span className="inline-block whitespace-nowrap">
+            {word.split("").map((char, charIndex) => (
+              <motion.span
+                key={`${char}-${charIndex}`}
+                variants={letter}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
+            ))}
+          </span>
           {wordIndex < words.length - 1 ? " " : ""}
-        </span>
+        </Fragment>
       ))}
     </motion.span>
   );

@@ -15,13 +15,16 @@ interface FeatureCardProps {
  * One S5 glass card: scale+blur-in on scroll (per the storyboard — "staggered
  * scale+blur-in from depth", explicitly not the generic slide-up banned in
  * §7's motion principles) with a per-card accent glow, and a hover/focus
- * XP-bar micro-anim. The bar fill is a plain CSS `transition-[width]`, not a
- * Framer animation — it's a hover/focus affordance, not an entrance, so the
- * project-wide `prefers-reduced-motion` CSS block (globals.css) already
- * collapses its duration to ~0 for those users; only the scroll-triggered
- * entrance needs the explicit `useReducedMotion()` gate Framer Motion can't
- * pick up from that media query on its own (it animates inline styles
- * directly, bypassing CSS transitions).
+ * XP-bar micro-anim. The bar fill is a plain CSS `transition-transform`
+ * (`scaleX` on a full-width, `origin-left` track) rather than an animated
+ * `width` — `width` is a layout property and forces reflow on every hover/
+ * focus, where `transform` is compositor-only (TASK-0008 perf hardening).
+ * It's a hover/focus affordance, not an entrance, so the project-wide
+ * `prefers-reduced-motion` CSS block (globals.css) already collapses its
+ * duration to ~0 for those users; only the scroll-triggered entrance needs
+ * the explicit `useReducedMotion()` gate Framer Motion can't pick up from
+ * that media query on its own (it animates inline styles directly,
+ * bypassing CSS transitions).
  *
  * `tabIndex={0}` + `focus-visible`/`focus` styling makes the card itself
  * focusable so keyboard users can reach the same hover micro-interaction
@@ -70,7 +73,7 @@ export function FeatureCard({ feature, index, className }: FeatureCardProps) {
 
         <div
           aria-hidden="true"
-          className="mt-5 h-1 w-0 rounded-full transition-[width] duration-500 ease-out group-hover:w-full group-focus:w-full"
+          className="mt-5 h-1 w-full origin-left scale-x-0 rounded-full transition-transform duration-500 ease-out group-hover:scale-x-100 group-focus:scale-x-100"
           style={{ backgroundColor: feature.accent }}
         />
       </div>
