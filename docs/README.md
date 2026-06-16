@@ -29,6 +29,7 @@ the public landing / waitlist site that markets that app.**
 - [[features/parent-mode]] — RPG ⟷ Parent mode toggle
 - [[features/theme-gallery]] — Royal / Warrior / Zen theme showcase
 - [[features/screenshot-gallery]] — app screenshot carousel
+- [[features/family-sharing]] — co-op party / family sharing
 - [[features/waitlist-signup]] — email capture / waitlist
 - [[features/faq]] — frequently asked questions
 

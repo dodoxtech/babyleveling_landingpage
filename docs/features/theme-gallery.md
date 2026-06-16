@@ -1,6 +1,6 @@
 ---
 tags: [feature]
-status: planned
+status: implemented
 updated: 2026-06-16
 ---
 
@@ -37,7 +37,8 @@ theme definitions exactly:
 ## Data
 
 - Driven by the `AppTheme[]` model in `lib/content/themes.ts` — see [[architecture/data-flow]].
-- Theme art assets live in `public/` keyed by `art`.
+- No theme art asset exists yet; the live preview recolors purely from each theme's
+  `palette` (CSS values), so `art` is a descriptive key reserved for future art.
 
 ## Related
 - [[features/feature-showcase]]

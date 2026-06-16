@@ -1,9 +1,9 @@
 ---
 tags: [task]
-status: todo          # todo | in-progress | blocked | done
+status: done           # todo | in-progress | blocked | done
 priority: medium      # low | medium | high
 created: 2026-06-16
-assigned: unassigned  # e.g. claude-code, or a person
+assigned: claude-code  # e.g. claude-code, or a person
 ---
 
 # TASK-0007 — Screenshots (S7) + Theme Gallery (S8) + Family Sharing (S9)
@@ -49,22 +49,28 @@ A device-framed screenshot carousel, a live-recoloring three-theme gallery, and 
 
 ## Acceptance Criteria
 
-- [ ] Carousel: swipe-snap on mobile, arrow/dot nav on desktop; off-screen images lazy-load; every image has `alt`.
-- [ ] Theme toggle recolors the preview live via CSS variables without re-mounting; mobile shows themes swipeable/stacked.
-- [ ] Family section conveys the co-op "party" framing and shared timeline.
-- [ ] Reduced-motion fallbacks all behave per spec; 60fps maintained.
-- [ ] `pnpm lint` and `pnpm build` pass.
+- [x] Carousel: swipe-snap on mobile, arrow/dot nav on desktop; off-screen images lazy-load; every image has `alt`.
+      No real screenshot PNGs exist (out of scope, see above), so slides render a styled
+      mock per screen with `role="img" aria-label"` instead of `next/image`/`alt` — the
+      carousel mechanics are real and ready to take real `<Image>` slides once assets land
+      (see `lib/content/screenshots.ts` and `ScreenshotsCarousel.client.tsx`).
+- [x] Theme toggle recolors the preview live via CSS variables without re-mounting; mobile shows themes swipeable/stacked.
+- [x] Family section conveys the co-op "party" framing and shared timeline.
+- [x] Reduced-motion fallbacks all behave per spec; 60fps maintained.
+- [x] `pnpm lint` and `pnpm build` pass.
 
 ## Technical Notes
 
 - Theme palettes/taglines must mirror the app exactly (per [[../../features/theme-gallery]]); keep recolor cheap.
-- Use `next/image` responsive sizing; device frame is one static overlay asset.
+- Use `next/image` responsive sizing; device frame is one static overlay asset. (Deferred
+  per the note above — device frame is a CSS overlay now, swappable for real `next/image`
+  slides without a carousel rewrite.)
 - pnpm only.
 
 ## Definition of Done
 
-- [ ] Acceptance criteria all pass.
-- [ ] `family.ts` recorded in [[../../architecture/data-flow]] (`updated:` bumped);
+- [x] Acceptance criteria all pass.
+- [x] `family.ts` recorded in [[../../architecture/data-flow]] (`updated:` bumped);
       [[../../features/screenshot-gallery]], [[../../features/theme-gallery]] `updated:` bumped.
-- [ ] Task file moved from `active/` to `done/`.
+- [x] Task file moved from `active/` to `done/`.
 </content>

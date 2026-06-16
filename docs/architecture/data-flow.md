@@ -95,6 +95,24 @@ back representative stat panels (count-up numbers, a representative growth-chart
 TASK-0006's explicit scope note that a real chart data pipeline is out of scope. JA/VI
 variants land in TASK-0011.
 
+### Screenshots, themes & family content models (real copy landed in TASK-0007)
+
+```ts
+export const screenshots: Screenshot[];   // English copy, per planning/05-copy-multilingual.md "S7 Screenshots"
+export const themes: AppTheme[];          // mirrors the app's Royal/Warrior/Zen palettes exactly
+export const familyRoles: FamilyRole[];   // English copy, per planning/05-copy-multilingual.md "S9 Family Sharing"
+```
+
+`Screenshots.tsx`, `ThemeGallery.tsx`, and `FamilyShare.tsx` are the first consumers, so
+`screenshots.ts`, `themes.ts`, and `family.ts` graduate from "types only" to real English
+copy here. No real screenshot PNGs or theme art assets exist yet (TASK-0007 explicitly puts
+producing those out of scope) — `Screenshot.src` names the future asset path and
+`AppTheme.art` is a descriptive key reserved for future art, but the sections currently
+render styled stand-ins driven by the rest of each model (`alt`/`caption`, `palette`) rather
+than those two fields; see the comments in `lib/content/screenshots.ts` and
+`lib/content/themes.ts`. `FamilyRole.sprite` points at an existing activity icon (no adult
+character art exists yet either). JA/VI variants land in TASK-0011.
+
 > [!note] `sprites.ts` is generated, not authored. Edit the manifests in `tools/sprites/`
 > and re-run the exporter rather than editing the file. See [[setup/getting-started]].
 

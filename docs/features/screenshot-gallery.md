@@ -1,6 +1,6 @@
 ---
 tags: [feature]
-status: planned
+status: implemented
 updated: 2026-06-16
 ---
 
@@ -32,7 +32,8 @@ tree, and the trophy room. Screens are framed in an iPhone/Apple Watch mockup to
 ## Data
 
 - Driven by the `Screenshot[]` manifest in `lib/content/screenshots.ts` — see [[architecture/data-flow]].
-- Image files live in `public/screenshots/`.
+- Real screenshot files will live in `public/screenshots/` once the design track delivers
+  them; until then, `Screenshots.tsx` renders a styled stand-in per `Screenshot.id`.
 
 ## Related
 - [[features/feature-showcase]]
