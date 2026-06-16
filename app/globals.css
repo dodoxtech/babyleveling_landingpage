@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --bg-void: #0a0a14;
+  --bg-raised: #12121f;
+  --text-hi: #f4f4fa;
+  --text-lo: #99aaaa;
+
+  --accent-feed: #ff7a45;
+  --accent-sleep: #c4b5fd;
+  --accent-growth: #5eead4;
+
+  --grad-plasma-from: #7c3aed;
+  --grad-plasma-to: #ec4899;
+
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-blur: 12px;
+}
+
+@theme inline {
+  --color-void: var(--bg-void);
+  --color-raised: var(--bg-raised);
+  --color-hi: var(--text-hi);
+  --color-lo: var(--text-lo);
+  --color-feed: var(--accent-feed);
+  --color-sleep: var(--accent-sleep);
+  --color-growth: var(--accent-growth);
+  --color-plasma-from: var(--grad-plasma-from);
+  --color-plasma-to: var(--grad-plasma-to);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background: var(--bg-void);
+  color: var(--text-hi);
+}
+
+.bg-grad-plasma {
+  background-image: linear-gradient(
+    135deg,
+    var(--grad-plasma-from),
+    var(--grad-plasma-to)
+  );
+}
+
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

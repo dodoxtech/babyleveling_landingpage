@@ -1,0 +1,12 @@
+# auto-generated, do not hand-format
+lib/content/sprites.ts
+pnpm-lock.yaml
+
+# markdown across the repo (Obsidian vault, skill docs) has its own conventions
+**/*.md
+
+# sprite pipeline data, not app source
+tools/sprites/manifests/
+
+.next/
+node_modules/

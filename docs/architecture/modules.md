@@ -14,15 +14,17 @@ updated: 2026-06-16
 | **app** | `app/` | Routing, root layout, page composition, the `/api/waitlist` route handler. The only module that owns routes and server endpoints. |
 | **sections** | `components/sections/` | One component per landing-page section (Hero, FeatureShowcase, ThemeGallery, Screenshots, WaitlistSignup, FAQ, Footer). Each renders content from `lib/content`. |
 | **ui** | `components/ui/` | Reusable, content-agnostic primitives: `Button`, `GlassCard`, `XPBar`, `Badge`. No knowledge of page content. |
-| **content** | `lib/content/` | Typed, static content data — the feature list, theme definitions, FAQ entries, screenshot manifest. The single source of marketing copy. |
+| **providers** | `components/providers/` | Root-level client islands wired once in `app/layout.tsx` (currently `LenisProvider` for smooth scroll). No content/business logic. |
+| **content** | `lib/content/` | Typed, static content data — hero, loop, modes, family, features, themes, FAQ, screenshots, sprites. The single source of marketing copy. |
 | **waitlist** | `lib/waitlist.ts` + `app/api/waitlist/route.ts` | Client submission helper + server handler for email capture. |
 
 ## Dependency graph
 
 ```
-app          ──→ sections, ui, content, waitlist (api)
+app          ──→ sections, ui, content, waitlist (api), providers
 sections     ──→ ui, content, waitlist (client helper)
 ui           ──→ (no internal dependencies)
+providers    ──→ lib/motion.ts (reduced-motion / low-power check)
 content      ──→ (no internal dependencies — pure typed data)
 waitlist     ──→ (external email/storage provider only)
 ```

@@ -19,40 +19,52 @@ through the app.
 
 | Layer | Choice | Why |
 |-------|--------|-----|
-| Framework | **Next.js (App Router)** | SSG/SSR for SEO on a marketing page; file-based routing; first-class Vercel deploy. See [[decisions/ADR-0001-web-stack]]. |
-| Language | **TypeScript** | Typed content models (features, themes, FAQ) — see [[data-flow]]. |
-| Styling | **Tailwind CSS** | Utility-first; fast to match the app's dark, neon, glassmorphic aesthetic. |
-| UI | **React 18 (Server + Client Components)** | Default to Server Components; client only where interaction is needed (carousel, form). |
+| Framework | **Next.js 15.5 (App Router, Turbopack)** | SSG/SSR for SEO on a marketing page; file-based routing; first-class Vercel deploy. See [[decisions/ADR-0001-web-stack]]. |
+| Language | **TypeScript 5.9** | Typed content models (features, themes, FAQ) — see [[data-flow]]. |
+| Styling | **Tailwind CSS 4** | Utility-first; fast to match the app's dark, neon, glassmorphic aesthetic. |
+| UI | **React 19 (Server + Client Components)** | Default to Server Components; client only where interaction is needed (carousel, form, Lenis). |
+| Smooth scroll | **Lenis 1.3** (`lenis/react`, root client island) | Scroll-as-timeline for the S1→S3 narrative; disabled under `prefers-reduced-motion`. |
 | Forms | **Next.js Route Handler** (`app/api/waitlist`) | Server-side email capture; pluggable into a provider (Resend / Mailchimp / Supabase). |
 | Deploy | **Vercel** | Zero-config Next.js hosting, preview deploys per PR. |
-| Tooling | ESLint + Prettier | Lint/format consistency. |
+| Tooling | ESLint 9 + Prettier 3 | Lint/format consistency. |
 
-> [!warning] Not yet installed
-> None of the above is in the repo yet. `package.json`, `next.config.js`, and `tailwind.config.ts`
-> are created by the bootstrap task — see [[setup/getting-started]]. Update this table whenever a
-> dependency is added or changed.
+> [!note] Tailwind 4 is CSS-first
+> Tailwind 4 has no `tailwind.config.ts` — theme tokens (colors, fonts) are declared directly in
+> `app/globals.css` via `@theme inline`, sourced from CSS vars (`--bg-void`, `--text-hi`,
+> `--accent-feed`, etc., per the design tokens in
+> [[../planning/03-storyboard-motion-visual#8-2-design-tokens]]). The bootstrap task originally
+> assumed a `tailwind.config.ts` file; this supersedes that for Tailwind v4.
 
-## Project layout (planned)
+> [!note] Installed (TASK-0001 bootstrap)
+> The stack above is in the repo as of the bootstrap task. `package.json`, `next.config.ts`,
+> `postcss.config.mjs`, `eslint.config.mjs`, and `app/globals.css` own the build config — see
+> [[setup/getting-started]]. Update this table whenever a dependency is added or changed.
+
+## Project layout
 
 ```
 /
 ├── app/                      → Next.js App Router
-│   ├── layout.tsx            → root layout, fonts, metadata, <body> shell
+│   ├── layout.tsx            → root layout, fonts, metadata, LenisProvider, <body> shell
 │   ├── page.tsx              → landing page (composes all sections)
-│   ├── globals.css           → Tailwind directives + theme CSS vars
+│   ├── globals.css           → Tailwind v4 import + @theme design tokens
 │   └── api/
 │       └── waitlist/route.ts → POST handler for waitlist signups
 ├── components/
 │   ├── sections/             → Hero, FeatureShowcase, ThemeGallery, Screenshots,
 │   │                           WaitlistSignup, FAQ, Footer
-│   └── ui/                   → shared primitives (Button, GlassCard, XPBar, Badge)
+│   ├── ui/                   → shared primitives (Button, GlassCard, XPBar, Badge)
+│   └── providers/            → root client islands (LenisProvider)
 ├── lib/
-│   ├── content/              → typed content data (features, themes, faq, screenshots)
+│   ├── content/              → typed content data (hero, loop, modes, family, features,
+│   │                           themes, faq, screenshots, sprites)
+│   ├── motion.ts             → prefers-reduced-motion / low-power detection
 │   └── waitlist.ts           → client → /api/waitlist submission helper
-├── public/                   → static assets (screenshots, theme art, og image, favicon)
+├── public/                   → static assets (sprites, screenshots, theme art, og image, favicon)
 ├── docs/                     → this Obsidian vault
-├── tailwind.config.ts
-├── next.config.js
+├── next.config.ts
+├── postcss.config.mjs        → Tailwind v4 PostCSS plugin
+├── eslint.config.mjs
 └── package.json
 ```
 

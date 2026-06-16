@@ -51,6 +51,26 @@ type SpriteKey = string;            // e.g. "babyGirl.happy", "icon.bottle"
 declare function spritePath(key: SpriteKey): string;
 ```
 
+### Narrative content models (landed in TASK-0001)
+
+Types only for now — copy is a separate workstream (`multilingual-copywriter` /
+`story-architect`); sections populate these once real content lands.
+
+```ts
+// lib/content/hero.ts
+interface HeroContent { eyebrow: string; headline: string; tagline: string; ctaLabel: string; }
+
+// lib/content/loop.ts — the care→XP mapping (S4)
+interface LoopStep { id: string; realAction: string; gameReward: string; icon: string; }
+// e.g. { realAction: "Feeding", gameReward: "+Energy", icon: "icon.bottle" }
+
+// lib/content/modes.ts — Parent Mode vs RPG Mode (S6)
+interface AppMode { id: 'parent' | 'rpg'; name: string; promise: string; bullets: string[]; }
+
+// lib/content/family.ts — co-op framing (S9)
+interface FamilyRole { id: string; role: string; blurb: string; sprite: string; }
+```
+
 > [!note] `sprites.ts` is generated, not authored. Edit the manifests in `tools/sprites/`
 > and re-run the exporter rather than editing the file. See [[setup/getting-started]].
 

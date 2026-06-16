@@ -1,9 +1,9 @@
 ---
 tags: [task]
-status: todo          # todo | in-progress | blocked | done
+status: done           # todo | in-progress | blocked | done
 priority: high        # low | medium | high
 created: 2026-06-16
-assigned: unassigned  # e.g. claude-code, or a person
+assigned: claude-code  # e.g. claude-code, or a person
 ---
 
 # TASK-0001 — Bootstrap the Next.js foundation (P0 / Milestone M1)
@@ -60,14 +60,15 @@ types in place — ready for section work to begin.
 
 ## Acceptance Criteria
 
-- [ ] `pnpm install` succeeds; only `pnpm-lock.yaml` is committed (no `package-lock.json` / `yarn.lock`).
-- [ ] `pnpm dev` serves a blank styled page on the dark `--bg-void` background.
-- [ ] `pnpm lint` passes with no errors.
-- [ ] `pnpm build` succeeds with no errors.
-- [ ] Design tokens from the planning Visual Plan exist as CSS vars and are usable via Tailwind.
-- [ ] Lenis smooth scroll is active and respects `prefers-reduced-motion` (disabled when set).
-- [ ] All listed `lib/content/*` model types compile and are importable; `sprites.ts` unchanged.
-- [ ] A Vercel preview deploy renders the shell (D-07 — may be tracked separately if no Vercel access yet).
+- [x] `pnpm install` succeeds; only `pnpm-lock.yaml` is committed (no `package-lock.json` / `yarn.lock`).
+- [x] `pnpm dev` serves a blank styled page on the dark `--bg-void` background.
+- [x] `pnpm lint` passes with no errors.
+- [x] `pnpm build` succeeds with no errors.
+- [x] Design tokens from the planning Visual Plan exist as CSS vars and are usable via Tailwind.
+- [x] Lenis smooth scroll is active and respects `prefers-reduced-motion` (disabled when set).
+- [x] All listed `lib/content/*` model types compile and are importable; `sprites.ts` unchanged.
+- [ ] A Vercel preview deploy renders the shell (D-07 — **tracked separately**, no Vercel
+      account access in this session; needs the repo connected to a Vercel project).
 
 ## Technical Notes
 
@@ -82,9 +83,13 @@ types in place — ready for section work to begin.
 
 ## Definition of Done
 
-- [ ] Acceptance criteria all pass.
-- [ ] Affected docs updated and `updated:` date bumped (per repo `CLAUDE.md`): mark the
-      "Not yet installed" warning in [[../../architecture/overview]] resolved + record real
-      deps; bump [[../../architecture/data-flow]] when the new content models land.
-- [ ] Task file moved from `active/` to `done/`.
+- [x] Acceptance criteria all pass (except the Vercel deploy, tracked separately per its own
+      allowance above).
+- [x] Affected docs updated and `updated:` date bumped (per repo `CLAUDE.md`): resolved the
+      "Not yet installed" warning in [[../../architecture/overview]] + recorded real deps and
+      the Tailwind v4 (no `tailwind.config.ts`) deviation; [[../../architecture/data-flow]]
+      updated with the landed `hero`/`loop`/`modes`/`family` models; [[../../architecture/modules]]
+      updated with the new `providers` module; [[../../setup/getting-started]] updated to
+      reflect the actual bootstrap (Next 15.5.19 pin, scaffold-then-merge approach).
+- [x] Task file moved from `active/` to `done/`.
 </content>

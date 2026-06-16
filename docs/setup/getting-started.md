@@ -7,10 +7,9 @@ updated: 2026-06-16
 
 > Onboarding and build instructions for the BabyLeveling landing page.
 
-> [!warning] Pre-implementation
-> The app code does not exist yet — the repo currently holds only a `LICENSE` and this
-> `docs/` vault. The **Bootstrap** section below is the first task; everything after it is
-> the steady-state workflow once the project is scaffolded. Stack rationale lives in
+> [!note] Bootstrapped (TASK-0001)
+> The Next.js shell is in place — see [[architecture/overview]] for the installed stack.
+> **Daily development** below is the steady-state workflow. Stack rationale lives in
 > [[decisions/ADR-0001-web-stack]].
 
 ## Prerequisites
@@ -19,25 +18,34 @@ updated: 2026-06-16
 - Git.
 - (For deploy) a Vercel account.
 
-## Bootstrap (first time only)
+## Bootstrap (historical — already done)
 
-Scaffold a Next.js + TypeScript + Tailwind project in the repo root:
+The shell was scaffolded with `create-next-app` pinned to Next 15 (the task predates Next 16,
+and the stack is fixed at Next.js 15 + React 19 per [[decisions/ADR-0001-web-stack]]):
 
 ```bash
-# from the repo root (keep existing LICENSE and docs/)
-pnpm dlx create-next-app@latest . \
+pnpm dlx create-next-app@15.5.19 . \
   --typescript --tailwind --app --eslint --src-dir=false --import-alias "@/*" \
   --use-pnpm
 ```
 
-Then create the planned structure from [[architecture/overview]]:
+Because the repo already held `LICENSE`, `docs/`, `lib/`, `public/`, `tools/`, and `.claude/`,
+`create-next-app` refused to scaffold directly into `.` (non-empty dir check). The actual
+bootstrap scaffolded into a throwaway temp directory, then the generated `app/`, `package.json`,
+`pnpm-lock.yaml`, `tsconfig.json`, `eslint.config.mjs`, `postcss.config.mjs`, `next.config.ts`,
+and `.gitignore` were copied into the repo root and customized (design tokens, fonts, Lenis,
+content-model types — see [[architecture/overview]] and [[data-flow]]).
+
+> [!note] Tailwind v4 — no `tailwind.config.ts`
+> `create-next-app@15.5.19` ships Tailwind 4, which configures theme tokens in CSS
+> (`app/globals.css`, `@theme inline`) instead of a JS/TS config file. There is no
+> `tailwind.config.ts` in this repo by design — see the note in [[architecture/overview]].
+
+If re-bootstrapping from scratch, recreate the planned structure from [[architecture/overview]]:
 
 ```bash
-mkdir -p components/sections components/ui lib/content app/api/waitlist public/screenshots
+mkdir -p components/sections components/ui components/providers lib/content app/api/waitlist public/screenshots
 ```
-
-Commit the scaffold, then update [[architecture/overview]] (mark the stack "installed") and
-bump its `updated:` date.
 
 ## Daily development
 
@@ -45,6 +53,7 @@ bump its `updated:` date.
 pnpm install       # install dependencies
 pnpm dev           # start dev server at http://localhost:3000
 pnpm lint          # ESLint
+pnpm format        # Prettier --write (pnpm format:check for CI)
 pnpm build         # production build (verifies SSG/SSR)
 pnpm start         # serve the production build locally
 ```
@@ -65,11 +74,7 @@ python3 -m pip install -r tools/sprites/requirements.txt   # one-time
 python3 tools/sprites/export_sprites.py                    # export all sheets
 ```
 
-After bootstrap, add a script to `package.json` so it runs as `pnpm sprites`:
-
-```json
-{ "scripts": { "sprites": "python3 tools/sprites/export_sprites.py" } }
-```
+Also runs as `pnpm sprites` (wired into `package.json`'s `scripts`).
 
 Full details (manifests, crop tuning, background removal, usage in components) live in
 `tools/sprites/README.md`. The generated `public/sprites/` PNGs and `lib/content/sprites.ts`
@@ -92,9 +97,9 @@ WAITLIST_PROVIDER_API_KEY=
 
 ## Build configuration
 
-Build tooling and config files (`next.config.js`, `tailwind.config.ts`, `tsconfig.json`,
-ESLint/Prettier) are owned here. **Any change to build config or tooling must be reflected
-in this file**, with the `updated:` date bumped.
+Build tooling and config files (`next.config.ts`, `postcss.config.mjs` (Tailwind v4),
+`tsconfig.json`, `eslint.config.mjs`, `.prettierrc.json`) are owned here. **Any change to
+build config or tooling must be reflected in this file**, with the `updated:` date bumped.
 
 > [!note] Repo hygiene
 > The git remote uses SSH (`git@github.com:...`) with a dedicated key — no credentials in the
