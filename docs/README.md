@@ -35,6 +35,10 @@ the public landing / waitlist site that markets that app.**
 - [[decisions/README]] — ADR index
 - [[decisions/ADR-0001-web-stack]] — choose Next.js + Tailwind
 
+### Planning
+- [[planning/README]] — the complete 20-part landing-page planning package (strategy → tasks)
+- [[planning/01-strategy]] · [[planning/02-architecture]] · [[planning/03-storyboard-motion-visual]] · [[planning/04-seo-aeo]] · [[planning/05-copy-multilingual]] · [[planning/06-execution]] · [[planning/reconciliation-log]]
+
 ### Setup
 - [[setup/getting-started]] — onboarding + build instructions
 
