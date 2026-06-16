@@ -1,0 +1,89 @@
+{
+  "sheet": "../sheets/girl-sheet.png",
+  "sections": [
+    {
+      "key": "babyGirl",
+      "remove_background": true,
+      "tolerance": 34,
+      "grid": { "origin": [480, 48], "cell": [130, 172], "pitch": [131, 214], "cols": 4 },
+      "sprites": [
+        "happy", "laughing", "curious", "excited",
+        "sleepy", "sad", "thinking", "surprised",
+        { "name": "portrait", "rect": [14, 86, 304, 384], "remove_background": false }
+      ]
+    },
+    {
+      "key": "babyGirl",
+      "remove_background": true,
+      "tolerance": 34,
+      "grid": { "origin": [1019, 48], "cell": [122, 172], "pitch": [124, 214], "cols": 4 },
+      "sprites": [
+        "sitting", "crawling", "standing", "waving",
+        "drinkingMilk", "eating", "playing", "sleeping"
+      ]
+    },
+    {
+      "key": "icon",
+      "remove_background": true,
+      "tolerance": 28,
+      "grid": { "origin": [26, 561], "cell": [72, 72], "pitch": [82, 0], "cols": 5 },
+      "sprites": ["breastfeeding", "bottle", "solidFood", "meal", "water"]
+    },
+    {
+      "key": "icon",
+      "remove_background": true,
+      "tolerance": 28,
+      "grid": { "origin": [445, 561], "cell": [72, 72], "pitch": [85, 0], "cols": 4 },
+      "sprites": ["sleep", "nap", "sleepTime", "nightSleep"]
+    },
+    {
+      "key": "icon",
+      "remove_background": true,
+      "tolerance": 28,
+      "grid": { "origin": [798, 561], "cell": [72, 72], "pitch": [77, 0], "cols": 4 },
+      "sprites": ["diaper", "pee", "poop", "changeDiaper"]
+    },
+    {
+      "key": "icon",
+      "remove_background": true,
+      "tolerance": 28,
+      "grid": { "origin": [23, 716], "cell": [72, 72], "pitch": [84, 0], "cols": 5 },
+      "sprites": ["play", "tummyTime", "bath", "outing", "book"]
+    },
+    {
+      "key": "icon",
+      "remove_background": true,
+      "tolerance": 28,
+      "grid": { "origin": [443, 716], "cell": [72, 72], "pitch": [75, 0], "cols": 5 },
+      "sprites": ["height", "weight", "temperature", "medicine", "vaccine"]
+    },
+    {
+      "key": "icon",
+      "remove_background": true,
+      "tolerance": 28,
+      "grid": { "origin": [815, 716], "cell": [72, 72], "pitch": [71, 0], "cols": 4 },
+      "sprites": ["milestone", "skills", "learning", "checkup"]
+    },
+    {
+      "key": "icon",
+      "remove_background": true,
+      "tolerance": 28,
+      "grid": { "origin": [32, 876], "cell": [72, 72], "pitch": [88, 0], "cols": 4 },
+      "sprites": ["photo", "video", "memory", "family"]
+    },
+    {
+      "key": "icon",
+      "remove_background": true,
+      "tolerance": 28,
+      "grid": { "origin": [412, 876], "cell": [72, 72], "pitch": [82, 0], "cols": 4 },
+      "sprites": ["reminder", "alert", "calendar", "settings"]
+    },
+    {
+      "key": "icon",
+      "remove_background": true,
+      "tolerance": 28,
+      "grid": { "origin": [753, 876], "cell": [72, 72], "pitch": [83, 0], "cols": 4 },
+      "sprites": ["star", "trophy", "gift", "badge"]
+    }
+  ]
+}

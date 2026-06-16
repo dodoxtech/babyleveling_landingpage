@@ -35,7 +35,7 @@ One or two sentences: the outcome when this is done.
 
 - [ ] Objective, checkable condition 1
 - [ ] Objective, checkable condition 2
-- [ ] `npm run build` succeeds with no errors
+- [ ] `pnpm build` succeeds with no errors
 
 ## Technical Notes
 

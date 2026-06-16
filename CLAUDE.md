@@ -7,6 +7,17 @@ Vercel. See `docs/` for the full architecture and decisions.
 > [!note] The repo is pre-implementation — only `LICENSE` + `docs/` exist today. Start from
 > `docs/setup/getting-started.md` (Bootstrap section).
 
+## Package manager (REQUIRED)
+
+> This project uses **pnpm** as its only package manager. Do **not** use `npm` or `yarn` —
+> mixing managers creates conflicting lockfiles.
+
+- Install deps: `pnpm install`
+- Add a dependency: `pnpm add <pkg>` (`pnpm add -D <pkg>` for dev deps)
+- Run scripts: `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm start`
+- One-off binaries: `pnpm dlx <pkg>` (the pnpm equivalent of `npx`)
+- The committed lockfile is `pnpm-lock.yaml`; never commit `package-lock.json` or `yarn.lock`.
+
 ## Documentation Rules (REQUIRED)
 
 > Any change to **project structure**, **data flow**, or **features** must be reflected in

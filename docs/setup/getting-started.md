@@ -15,7 +15,7 @@ updated: 2026-06-16
 
 ## Prerequisites
 
-- **Node.js 20 LTS+** and a package manager (`npm`, `pnpm`, or `yarn`).
+- **Node.js 20 LTS+** and **pnpm** (`corepack enable pnpm`, or `npm i -g pnpm`).
 - Git.
 - (For deploy) a Vercel account.
 
@@ -25,8 +25,9 @@ Scaffold a Next.js + TypeScript + Tailwind project in the repo root:
 
 ```bash
 # from the repo root (keep existing LICENSE and docs/)
-npx create-next-app@latest . \
-  --typescript --tailwind --app --eslint --src-dir=false --import-alias "@/*"
+pnpm dlx create-next-app@latest . \
+  --typescript --tailwind --app --eslint --src-dir=false --import-alias "@/*" \
+  --use-pnpm
 ```
 
 Then create the planned structure from [[architecture/overview]]:
@@ -41,17 +42,38 @@ bump its `updated:` date.
 ## Daily development
 
 ```bash
-npm install        # install dependencies
-npm run dev        # start dev server at http://localhost:3000
-npm run lint       # ESLint
-npm run build      # production build (verifies SSG/SSR)
-npm start          # serve the production build locally
+pnpm install       # install dependencies
+pnpm dev           # start dev server at http://localhost:3000
+pnpm lint          # ESLint
+pnpm build         # production build (verifies SSG/SSR)
+pnpm start         # serve the production build locally
 ```
 
 ## Project layout
 
 See [[architecture/overview]] for the full tree and [[architecture/modules]] for module
 boundaries and dependency rules.
+
+## Sprite assets
+
+Baby character art and activity icons are sliced from source character sheets by a Python
+pipeline in `tools/sprites/` (requires Python 3 + Pillow). It outputs individual transparent
+PNGs to `public/sprites/<group>/<name>.png` and a typed index at `lib/content/sprites.ts`.
+
+```bash
+python3 -m pip install -r tools/sprites/requirements.txt   # one-time
+python3 tools/sprites/export_sprites.py                    # export all sheets
+```
+
+After bootstrap, add a script to `package.json` so it runs as `pnpm sprites`:
+
+```json
+{ "scripts": { "sprites": "python3 tools/sprites/export_sprites.py" } }
+```
+
+Full details (manifests, crop tuning, background removal, usage in components) live in
+`tools/sprites/README.md`. The generated `public/sprites/` PNGs and `lib/content/sprites.ts`
+are checked in; `tools/sprites/preview/` (QA contact sheets) is gitignored.
 
 ## Environment variables
 
@@ -74,9 +96,10 @@ Build tooling and config files (`next.config.js`, `tailwind.config.ts`, `tsconfi
 ESLint/Prettier) are owned here. **Any change to build config or tooling must be reflected
 in this file**, with the `updated:` date bumped.
 
-> [!warning] Repo hygiene
-> The git remote currently embeds a GitHub personal access token in its URL. Rotate that
-> token and re-add the remote without credentials before sharing or pushing.
+> [!note] Repo hygiene
+> The git remote uses SSH (`git@github.com:...`) with a dedicated key — no credentials in the
+> URL. A personal access token was previously embedded in the remote and removed; revoke that
+> old token at github.com/settings/tokens if not already done.
 
 ## Related
 - [[architecture/overview]]
