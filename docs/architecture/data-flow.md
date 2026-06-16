@@ -1,0 +1,98 @@
+---
+tags: [architecture]
+updated: 2026-06-16
+---
+
+# Data Models & State Flow
+
+> What data exists on the landing page and how it moves between layers.
+> Modules referenced here are defined in [[modules]].
+
+## Two kinds of data
+
+1. **Static content** — marketing copy and assets, known at build time. The bulk of the site.
+2. **Waitlist submission** — the one piece of runtime, user-generated data.
+
+## Content models
+
+Defined as typed data in `lib/content/` (TypeScript types/interfaces). These are the
+single source of marketing copy; sections render them.
+
+```ts
+// lib/content/features.ts
+interface Feature {
+  id: string;
+  title: string;        // e.g. "Skill Tree"
+  blurb: string;        // one-line description
+  icon: string;         // asset key in /public
+  accent: string;       // Tailwind/CSS accent token
+}
+
+// lib/content/themes.ts — mirrors the app's three themes
+interface AppTheme {
+  id: 'royal' | 'warrior' | 'zen';
+  name: string;         // "Royal", "Warrior", "Zen"
+  tagline: string;      // "Soft power.", "Forged in fire.", "Gentle and intentional."
+  palette: { bg: string; accent: string; highlight: string };
+  art: string;          // background art asset key
+}
+
+// lib/content/faq.ts
+interface FaqItem { id: string; question: string; answer: string; }
+
+// lib/content/screenshots.ts
+interface Screenshot { id: string; src: string; alt: string; caption?: string; }
+```
+
+## Waitlist model
+
+```ts
+// lib/waitlist.ts
+interface WaitlistEntry {
+  email: string;
+  source?: string;      // optional UTM / referrer tag
+  createdAt: string;    // ISO timestamp, set server-side
+}
+```
+
+## Static content flow (build time → render)
+
+```
+lib/content/*  (typed data)
+      │
+      ▼
+Server Component section  (e.g. FeatureShowcase reads features)
+      │
+      ▼
+HTML rendered at build (SSG) → served via Vercel CDN
+```
+
+Static content never round-trips to a server at runtime. It is imported directly and
+rendered in Server Components, so most of the page ships as static HTML/CSS.
+
+## Waitlist flow (runtime)
+
+```
+WaitlistSignup (Client Component)
+      │  user submits email
+      ▼
+lib/waitlist.ts  → fetch POST /api/waitlist
+      │
+      ▼
+app/api/waitlist/route.ts  (server)
+      │  validate email, stamp createdAt
+      ▼
+External provider (Resend / Mailchimp / Supabase)
+      │
+      ▼
+Response → WaitlistSignup shows success / error state
+```
+
+State here is local and ephemeral: the form holds `idle | submitting | success | error` in
+component state. There is no global client store — the site has no cross-section shared
+runtime state.
+
+## Related
+- [[modules]]
+- [[overview]]
+- [[features/waitlist-signup]]
