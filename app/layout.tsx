@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Geist } from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
+import { SiteHeader } from "@/components/ui/SiteHeader";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,7 +32,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${fraunces.variable} font-sans antialiased`}
       >
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          <SiteHeader />
+          {children}
+        </LenisProvider>
       </body>
     </html>
   );

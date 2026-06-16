@@ -24,6 +24,9 @@ through the app.
 | Styling | **Tailwind CSS 4** | Utility-first; fast to match the app's dark, neon, glassmorphic aesthetic. |
 | UI | **React 19 (Server + Client Components)** | Default to Server Components; client only where interaction is needed (carousel, form, Lenis). |
 | Smooth scroll | **Lenis 1.3** (`lenis/react`, root client island) | Scroll-as-timeline for the S1→S3 narrative; disabled under `prefers-reduced-motion`. |
+| Scroll choreography | **GSAP 3.15 + ScrollTrigger** | Pinned scrub for the S3 Reveal peel/dissolve. Plugin registered client-side only (`gsap.registerPlugin(ScrollTrigger)` inside a `"use client"` module); never imported in a Server Component. |
+| Component motion | **Framer Motion 12** | Micro-interactions and entrance choreography (e.g. the Hero's per-character letter drop-in) that animate already-painted, server-rendered text — never used for content that must appear at first paint, since Framer Motion resolves `initial` state to inline styles during SSR. |
+| 3D / WebGL | **React Three Fiber 9 + Drei 10** (+ `three`) | The two WebGL scenes allowed under R-1 (Hero starfield now; S2 in TASK-0005). Always a lazy-loaded (`next/dynamic`-style `lazy()` + `Suspense`) client island, paused off-screen via `IntersectionObserver`, DPR capped at 2, never the LCP element (R-2). `@types/three` is a dev dependency since `three` ships no bundled types. |
 | Forms | **Next.js Route Handler** (`app/api/waitlist`) | Server-side email capture; pluggable into a provider (Resend / Mailchimp / Supabase). |
 | Deploy | **Vercel** | Zero-config Next.js hosting, preview deploys per PR. |
 | Tooling | ESLint 9 + Prettier 3 | Lint/format consistency. |
@@ -51,15 +54,21 @@ through the app.
 │   └── api/
 │       └── waitlist/route.ts → POST handler for waitlist signups
 ├── components/
-│   ├── sections/             → Hero, FeatureShowcase, ThemeGallery, Screenshots,
-│   │                           WaitlistSignup, FAQ, Footer
-│   ├── ui/                   → shared primitives (Button, GlassCard, XPBar, Badge)
+│   ├── sections/             → Hero (+ HeroCanvas.client, HeroCanvasMount.client,
+│   │                           HeroLogoReveal.client), Reveal (+ RevealScene.client),
+│   │                           FeatureShowcase, ThemeGallery, Screenshots,
+│   │                           WaitlistSignup, Faq, Footer
+│   ├── ui/                   → shared primitives: SiteHeader (S0 app frame, server) +
+│   │                           SiteHeaderClient (scroll/menu island), SiteFooter
+│   │                           (S12, server), Button, GlassCard, XPBar, Badge
 │   └── providers/            → root client islands (LenisProvider)
 ├── lib/
 │   ├── content/              → typed content data (hero, loop, modes, family, features,
-│   │                           themes, faq, screenshots, sprites)
+│   │                           themes, faq, screenshots, sprites, nav)
 │   ├── motion.ts             → prefers-reduced-motion / low-power detection
-│   └── waitlist.ts           → client → /api/waitlist submission helper
+│   ├── waitlist.ts           → WaitlistEntry type + client → /api/waitlist submission helper
+│   └── waitlist-provider.ts  → server-only WaitlistProvider interface + in-memory stub
+│                                (TODO: swap in a real provider — see [[modules]])
 ├── public/                   → static assets (sprites, screenshots, theme art, og image, favicon)
 ├── docs/                     → this Obsidian vault
 ├── next.config.ts

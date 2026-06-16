@@ -53,13 +53,11 @@ declare function spritePath(key: SpriteKey): string;
 
 ### Narrative content models (landed in TASK-0001)
 
-Types only for now — copy is a separate workstream (`multilingual-copywriter` /
-`story-architect`); sections populate these once real content lands.
+Types only for now except `hero.ts` (see below) — copy is a separate workstream
+(`multilingual-copywriter` / `story-architect`); sections populate the rest once real
+content lands.
 
 ```ts
-// lib/content/hero.ts
-interface HeroContent { eyebrow: string; headline: string; tagline: string; ctaLabel: string; }
-
 // lib/content/loop.ts — the care→XP mapping (S4)
 interface LoopStep { id: string; realAction: string; gameReward: string; icon: string; }
 // e.g. { realAction: "Feeding", gameReward: "+Energy", icon: "icon.bottle" }
@@ -73,6 +71,48 @@ interface FamilyRole { id: string; role: string; blurb: string; sprite: string; 
 
 > [!note] `sprites.ts` is generated, not authored. Edit the manifests in `tools/sprites/`
 > and re-run the exporter rather than editing the file. See [[setup/getting-started]].
+
+### Nav content model (landed in TASK-0002)
+
+```ts
+// lib/content/nav.ts
+interface NavLink { id: string; label: string; href: string; }
+interface LocaleOption { id: string; label: string; }
+
+export const navLinks: NavLink[];        // Features, RPG System, For Parents, Pricing, FAQ
+export const navCta: { label: string; href: string };   // "Join the waitlist" -> #waitlist
+export const localeOptions: LocaleOption[];               // EN / 日本語 / Tiếng Việt stub
+export const wordmark: string;
+```
+
+Unlike the other narrative models, `nav.ts` ships real English copy (not just types) because
+`SiteHeader` (S0) renders now — it's the one section already built. All `navLinks`/`navCta`
+hrefs are in-page anchors on the single-page landing composition (`app/page.tsx`); the
+standalone `/features`, `/rpg-system`, `/parents`, `/pricing` depth pages referenced in
+[[../planning/02-architecture#4-1-sitemap-tree]] don't exist yet (P1/P3), so each link
+anchors to the landing section covering the same topic instead. `localeOptions` is a
+non-functional stub — real i18n routing is TASK-0011.
+
+### Hero content model (real copy landed in TASK-0003)
+
+```ts
+// lib/content/hero.ts
+interface HeroContent {
+  eyebrow: string;
+  headline: string;
+  headlineEmphasis: string;  // second headline line, gradient-emphasized
+  tagline: string;
+  ctaLabel: string;
+  ctaSubLabel: string;
+}
+
+export const heroContent: HeroContent;   // English copy, per planning/05-copy-multilingual.md "S1 Hero"
+```
+
+`Hero.tsx` is the first consumer, so `hero.ts` graduated from "types only" to real English
+copy here (the same reason `nav.ts` did in TASK-0002). JA/VI variants land in TASK-0011. The
+S3 Reveal's copy (headline/body/CTA) stays a local `const` inside `Reveal.tsx` rather than a
+new `lib/content/reveal.ts` model, since no other section currently needs to read it.
 
 ## Waitlist model
 

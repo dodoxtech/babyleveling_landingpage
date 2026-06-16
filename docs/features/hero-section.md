@@ -1,6 +1,6 @@
 ---
 tags: [feature]
-status: planned
+status: implemented
 updated: 2026-06-16
 ---
 
@@ -35,6 +35,28 @@ dark starfield background, neon-gradient logo, an XP-bar motif.
 
 - Static copy (headline, tagline, CTA label) lives in `lib/content/` — see [[architecture/data-flow]].
 - The CTA scrolls to / focuses the [[features/waitlist-signup]] form (no separate route).
+
+## Implementation (TASK-0003)
+
+- `components/sections/Hero.tsx` — Server Component text shell (eyebrow, gradient
+  headline, SEO-bearing `<h2>` tagline per R-3, CTA, XP-bar accent). This is the
+  LCP element; verified in the production build's prerendered HTML that the headline
+  renders as plain visible text with no client-only opacity wrapper.
+- `components/sections/HeroCanvasMount.client.tsx` — decides static-still vs. lazy
+  R3F starfield based on `lib/motion.ts`'s reduced-motion/low-power check; defers the
+  `HeroCanvas.client` dynamic import via `requestIdleCallback` so it never competes
+  with text for first paint.
+- `components/sections/HeroCanvas.client.tsx` — the React Three Fiber + Drei
+  starfield: capped DPR (≤2), fixed star count, no per-frame allocations in
+  `useFrame`, paused (`frameloop="never"`) via `IntersectionObserver` when off-screen.
+- `components/sections/HeroLogoReveal.client.tsx` — Framer Motion per-character
+  drop-in for the headline's first line. Renders plain static text until one
+  `requestAnimationFrame` after mount (avoiding Framer Motion's SSR `opacity:0`
+  inline-style behavior, which would otherwise hurt LCP), then swaps to the
+  animated version; reduced motion never swaps.
+- Confirmed via build output: the three.js/R3F/Drei bundle is excluded from the
+  route's First Load JS (208 kB) and lives in its own chunk, fetched only when
+  `HeroCanvasMount` decides to load it.
 
 ## Related
 - [[features/waitlist-signup]]

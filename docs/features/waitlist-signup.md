@@ -1,6 +1,6 @@
 ---
 tags: [feature]
-status: planned
+status: implemented
 updated: 2026-06-16
 ---
 
@@ -16,12 +16,12 @@ through a Next.js route handler to an email/storage provider — see [[architect
 
 ## User Stories
 
-- [ ] As a visitor, I can enter my email and join the waitlist in one step.
-- [ ] As a visitor, I get immediate inline feedback (submitting → success / error).
-- [ ] As a visitor, I see a clear success state confirming I'm on the list.
-- [ ] As a visitor who submits an invalid email, I get a helpful validation message.
-- [ ] As a visitor, I am not asked for anything beyond an email.
-- [ ] As a returning visitor, submitting the same email again does not error confusingly.
+- [x] As a visitor, I can enter my email and join the waitlist in one step.
+- [x] As a visitor, I get immediate inline feedback (submitting → success / error).
+- [x] As a visitor, I see a clear success state confirming I'm on the list.
+- [x] As a visitor who submits an invalid email, I get a helpful validation message.
+- [x] As a visitor, I am not asked for anything beyond an email.
+- [x] As a returning visitor, submitting the same email again does not error confusingly.
 
 ## UX notes
 
@@ -38,6 +38,30 @@ through a Next.js route handler to an email/storage provider — see [[architect
 - Client helper: `lib/waitlist.ts`. Server endpoint: `app/api/waitlist/route.ts`.
 - Provider (Resend / Mailchimp / Supabase) is pluggable behind the route handler; the
   choice is **not yet made** — capture it in a future ADR when decided. See [[decisions/README]].
+
+## Implementation (TASK-0004)
+
+- `components/sections/WaitlistSignup.tsx` — Client Component, S11. Local state machine
+  `idle | submitting | success | error` (no global store). Client-validates the email via
+  `isValidEmail` before POST; always re-validates server-side. A hidden honeypot field
+  (`company`) sits next to the real input. On success (`created` or `duplicate` — both
+  render identically) the form is replaced by a celebratory "+1 Party Member" badge;
+  under reduced motion the badge renders static with no scale/opacity entrance (Framer
+  Motion is skipped entirely, mirroring `HeroLogoReveal`'s reduced-motion gate).
+- `lib/waitlist.ts` — `WaitlistEntry` type, `isValidEmail()`, and `submitToWaitlist()`
+  (fetch `POST /api/waitlist`, normalizes network/parse failures into the same
+  `{ ok: false }` shape as a server error so the form only branches once).
+- `app/api/waitlist/route.ts` — validates email shape + length server-side, rejects
+  honeypot-filled submissions, applies a fixed-window in-memory rate limit (5
+  requests/IP/60s), stamps `createdAt`, then delegates storage to `getWaitlistProvider()`.
+  Resubmitting the same email returns `200 { status: "duplicate" }`, never an error.
+- `lib/waitlist-provider.ts` — the `WaitlistProvider` interface + an in-memory stub
+  implementation. **The real provider (Resend / Mailchimp / Supabase) is still not
+  chosen** — see the TODO in [[architecture/modules]]; that decision gets its own ADR
+  when made.
+- Verified manually via `curl POST /api/waitlist`: valid email → `200 created`; same
+  email resubmitted → `200 duplicate`; invalid/missing email → `400` with a helpful
+  message; honeypot filled → `400`; 6th rapid request from the same IP → `429`.
 
 ## Related
 - [[features/hero-section]]
