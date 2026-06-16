@@ -1,0 +1,30 @@
+# BabyLeveling
+
+> BabyLeveling is a gamified baby-tracking app for iOS and Apple Watch that turns feeding,
+> sleep, and growth logs into XP for a fantasy hero.
+
+It does everything a serious baby tracker does — feeding, sleep, diapers, growth, health
+records, family sharing, a full activity timeline — and reframes it as an RPG. Every logged
+activity feeds a fantasy hero: feeding restores energy, sleep recovers HP, healthy habits earn
+EXP, and milestones unlock achievements.
+
+## Key facts
+
+- Platforms: iPhone (iOS 17+) and Apple Watch.
+- Category: gamified baby tracker / parenting RPG app.
+- Two modes: RPG Mode (the same data as an adventure) and Parent Mode (clean,
+  pediatrician-ready charts and records) — neither is a skin on the other.
+- Core mechanics: XP & Levels, Daily Quests, Skill Tree, Achievements, Streaks & Buffs,
+  Apple Watch 2-tap logging.
+- Three visual themes per baby: Royal ("Soft power."), Warrior ("Forged in fire."), Zen
+  ("Gentle and intentional.").
+- Family sharing: partners and grandparents join the same baby's quest and timeline.
+- Status: pre-launch. Pricing is not yet set. Join the waitlist for launch-day access.
+- Privacy: baby data belongs to the user; it is not sold or shared with advertisers.
+- Differentiator: the only baby tracker where caring for your child levels up a hero —
+  competitors (Huckleberry, Baby Tracker, Glow Baby) track activity without a reward loop.
+
+## Pages
+
+- Home (full narrative + waitlist, including features, the care-to-XP mechanic, Parent
+  Mode, and FAQ): /

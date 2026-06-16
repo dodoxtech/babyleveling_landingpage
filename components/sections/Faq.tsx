@@ -1,4 +1,5 @@
 import { faqItems } from "@/lib/content/faq";
+import { FaqPageJsonLd } from "@/components/seo/JsonLd";
 
 /**
  * S10 — FAQ / Trust (Act V pre-close). Server Component: a fully native
@@ -17,6 +18,7 @@ export function Faq() {
       aria-label="S10 · FAQ"
       className="border-b border-white/5 px-6 py-24 sm:py-32"
     >
+      <FaqPageJsonLd items={faqItems} />
       <div className="mx-auto w-full max-w-3xl">
         <div className="mb-12 text-center">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">

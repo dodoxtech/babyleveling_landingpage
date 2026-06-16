@@ -33,4 +33,8 @@ performance, conversion, storytelling/brand, and content — per
 - **i18n library/approach** — sub-path chosen; library (next-intl vs. native) pending ADR.
 - **Pricing model** — affects `/pricing` copy; "free at launch + founder perks" assumed until set.
 - **Display typeface licensing** — comp uses a high-contrast serif placeholder; final pending.
+- **Production domain** — affects `metadataBase`, canonical URLs, OG/Twitter `url`, sitemap,
+  robots' `Sitemap:` line, and `llms.txt`. `lib/seo.ts`'s `SITE_URL` defaults to the placeholder
+  `https://babyleveling.app`, overridable via `NEXT_PUBLIC_SITE_URL` per environment — no code
+  change needed once a real domain is chosen (TASK-0009).
 </content>

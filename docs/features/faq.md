@@ -45,8 +45,8 @@ price, privacy of baby data, and launch timing. Reduces friction before the wait
   phrased as a real user/AI-answer-engine question), covering: what it is, the RPG
   angle, platforms (iOS 17+ / Apple Watch), pricing/launch timing, baby-data privacy,
   tracker-vs-game positioning, and family sharing.
-- `FAQPage` JSON-LD structured data is **not** added here — that's owned by
-  TASK-0009 (SEO/AEO metadata), which already references this content.
+- `FAQPage` JSON-LD structured data is mounted directly in `Faq.tsx` via
+  `FaqPageJsonLd` (`components/seo/JsonLd.tsx`), landed in TASK-0009.
 
 ## Related
 - [[features/waitlist-signup]]

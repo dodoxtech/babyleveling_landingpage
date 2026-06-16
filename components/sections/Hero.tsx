@@ -1,6 +1,7 @@
 import { heroContent } from "@/lib/content/hero";
 import { HeroLogoReveal } from "@/components/sections/HeroLogoReveal.client";
 import { HeroCanvasMount } from "@/components/sections/HeroCanvasMount.client";
+import { SITE_DESCRIPTOR } from "@/lib/seo";
 
 /**
  * S1 — Hero ("A new game has begun"). Server Component: the eyebrow, gradient
@@ -40,15 +41,15 @@ export function Hero() {
           </span>
         </h1>
 
-        {/*
-          R-3: an SEO-bearing h2 names the product category within the first
-          crawlable screen, without breaking the visual "withhold the reveal"
-          beat — it is visually de-emphasized to read as a tagline, not a pitch.
-        */}
         <h2 className="text-lg text-lo sm:text-xl">{heroContent.tagline}</h2>
-        <p className="sr-only">
-          BabyLeveling is a gamified baby tracker app for iOS and Apple Watch.
-        </p>
+        {/*
+          R-3: a second, `sr-only` h2 names the product category ("gamified
+          baby tracker app") within the first crawlable screen, satisfying
+          the SEO-bearing-h2 requirement without breaking the visual
+          "withhold the reveal" beat — the visible tagline above stays
+          poetic; this sibling heading carries the keyword instead.
+        */}
+        <h2 className="sr-only">{SITE_DESCRIPTOR}</h2>
 
         <div className="flex flex-col items-center gap-3">
           <a

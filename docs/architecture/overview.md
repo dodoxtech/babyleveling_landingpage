@@ -48,28 +48,36 @@ through the app.
 ```
 /
 ├── app/                      → Next.js App Router
-│   ├── layout.tsx            → root layout, fonts, metadata, LenisProvider, <body> shell
-│   ├── page.tsx              → landing page (composes all sections)
+│   ├── layout.tsx            → root layout, fonts, metadata, SiteJsonLd, LenisProvider, <body> shell
+│   ├── page.tsx               → landing page (composes all sections)
 │   ├── globals.css           → Tailwind v4 import + @theme design tokens
+│   ├── sitemap.ts            → MetadataRoute.Sitemap (TASK-0009)
+│   ├── robots.ts             → MetadataRoute.Robots, allows reputable AI crawlers (TASK-0009)
+│   ├── opengraph-image.tsx   → generated OG/Twitter card image, next/og (TASK-0009)
 │   └── api/
 │       └── waitlist/route.ts → POST handler for waitlist signups
 ├── components/
 │   ├── sections/             → Hero (+ HeroCanvas.client, HeroCanvasMount.client,
-│   │                           HeroLogoReveal.client), Reveal (+ RevealScene.client),
-│   │                           FeatureShowcase, ThemeGallery, Screenshots,
-│   │                           WaitlistSignup, Faq, Footer
+│   │                           HeroLogoReveal.client), HeroCharacter (+ ...client islands),
+│   │                           Reveal (+ RevealScene.client), HowItWorks (+ ...client),
+│   │                           FeatureShowcase (+ FeatureCard.client), ParentMode,
+│   │                           Screenshots (+ ScreenshotsCarousel.client), ThemeGallery,
+│   │                           FamilyShare (+ FamilyShareParty.client), WaitlistSignup,
+│   │                           Faq, Footer
 │   ├── ui/                   → shared primitives: SiteHeader (S0 app frame, server) +
 │   │                           SiteHeaderClient (scroll/menu island), SiteFooter
 │   │                           (S12, server), Button, GlassCard, XPBar, Badge
-│   └── providers/            → root client islands (LenisProvider)
+│   ├── providers/            → root client islands (LenisProvider)
+│   └── seo/                  → JsonLd.tsx — SiteJsonLd, FaqPageJsonLd (TASK-0009)
 ├── lib/
 │   ├── content/              → typed content data (hero, loop, modes, family, features,
 │   │                           themes, faq, screenshots, sprites, nav)
 │   ├── motion.ts             → prefers-reduced-motion / low-power detection
+│   ├── seo.ts                → SITE_URL/SITE_TITLE/SITE_DESCRIPTION/SITE_DESCRIPTOR (TASK-0009)
 │   ├── waitlist.ts           → WaitlistEntry type + client → /api/waitlist submission helper
 │   └── waitlist-provider.ts  → server-only WaitlistProvider interface + in-memory stub
 │                                (TODO: swap in a real provider — see [[modules]])
-├── public/                   → static assets (sprites, screenshots, theme art, og image, favicon)
+├── public/                   → static assets (sprites, llms.txt, screenshots, theme art, favicon)
 ├── docs/                     → this Obsidian vault
 ├── next.config.ts
 ├── postcss.config.mjs        → Tailwind v4 PostCSS plugin

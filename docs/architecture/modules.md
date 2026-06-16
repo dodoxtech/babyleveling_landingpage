@@ -11,23 +11,25 @@ updated: 2026-06-16
 
 | Module | Path | Responsibility |
 |--------|------|----------------|
-| **app** | `app/` | Routing, root layout, page composition, the `/api/waitlist` route handler. The only module that owns routes and server endpoints. |
+| **app** | `app/` | Routing, root layout, page composition, the `/api/waitlist` route handler, and the SEO/AEO system routes added in TASK-0009 (`sitemap.ts`, `robots.ts`, `opengraph-image.tsx`). The only module that owns routes and server endpoints. |
 | **sections** | `components/sections/` | One component per landing-page section (Hero, HeroCharacter, Reveal, HowItWorks, FeatureShowcase, ParentMode, Screenshots, ThemeGallery, FamilyShare, WaitlistSignup, Faq, Footer). Each renders content from `lib/content`. Server Component by default; splits into a `*.client.tsx` island only where a section needs scroll/animation state (e.g. `Hero.tsx` → `HeroCanvasMount.client.tsx`/`HeroCanvas.client.tsx`/`HeroLogoReveal.client.tsx`; `Reveal.tsx` → `RevealScene.client.tsx`; `HeroCharacter.tsx` (S2, TASK-0005) → `HeroCharacterMount.client.tsx`/`HeroCharacterScene.client.tsx` (the R3F island-continuation scene) + `HeroCharacterXpBar.client.tsx` (the GSAP-scrubbed XP-bar hand-off); `HowItWorks.tsx` (S4, TASK-0005) → `HowItWorksSteps.client.tsx` (Framer Motion `whileInView` chip reveal); `FeatureShowcase.tsx` (S5, TASK-0006) → `FeatureCard.client.tsx` (per-card scroll reveal + hover/focus XP-bar micro-anim); `Screenshots.tsx` (S7, TASK-0007) → `ScreenshotsCarousel.client.tsx` (snap-scroll + arrow/dot nav over per-screen mock content); `FamilyShare.tsx` (S9, TASK-0007) → `FamilyShareParty.client.tsx` (the scroll-orchestrated gather)). `WaitlistSignup.tsx` (S11, TASK-0004), `ParentMode.tsx` (S6, TASK-0006), and `ThemeGallery.tsx` (S8, TASK-0007) are themselves top-level `"use client"` components (not split into an island) since the entire section is interactive — `ParentMode` owns the `rpg\|parent` toggle state and renders `StatNumber.client.tsx` (count-up stat) inside either panel; `ThemeGallery` owns the active-theme state and swaps the live preview's inline styles without remounting it. `Faq.tsx` (S10, TASK-0004) stays a Server Component — native `<details>`/`<summary>` needs no client JS. Reads `lib/motion.ts` directly (not just via `providers`) to decide reduced-motion/low-power fallbacks per section. |
 | **ui** | `components/ui/` | Reusable, content-agnostic-ish primitives: `SiteHeader` (+ `SiteHeaderClient` scroll/menu island), `SiteFooter` (S12, TASK-0004), `Button`, `GlassCard`, `XPBar`, `Badge`. `SiteHeader` and `SiteFooter` read `lib/content/nav` for their labels/links — the only `ui` components allowed to import `content`, since the app frame (S0) and footer (S12) are persistent chrome/closing-chrome rather than narrative sections. `SiteFooter` reuses `navLinks`/`localeOptions` from the same `nav.ts` model as `SiteHeader` so the two never drift out of sync. |
 | **providers** | `components/providers/` | Root-level client islands wired once in `app/layout.tsx` (currently `LenisProvider` for smooth scroll). No content/business logic. |
 | **content** | `lib/content/` | Typed, static content data — hero, loop, modes, family, features, themes, FAQ, screenshots, sprites, nav. The single source of marketing copy. `faq.ts` (TASK-0004) ships real English `FaqItem[]` data, not just types — same graduation `hero.ts`/`nav.ts` went through in earlier tasks. |
 | **waitlist** | `lib/waitlist.ts` + `lib/waitlist-provider.ts` + `app/api/waitlist/route.ts` | Client submission helper + server handler for email capture. `lib/waitlist.ts` (client-safe) holds the `WaitlistEntry` type, `isValidEmail()`, and `submitToWaitlist()`. `lib/waitlist-provider.ts` (server-only) defines the `WaitlistProvider` interface the route handler depends on, plus an in-memory stub implementation behind `getWaitlistProvider()`. |
+| **seo** | `lib/seo.ts` + `components/seo/` | Sitewide SEO/AEO constants (`SITE_URL`, `SITE_TITLE`, `SITE_DESCRIPTION`, `SITE_DESCRIPTOR` — see [[../planning/04-seo-aeo]] §9.5/§10.3) and JSON-LD components (`JsonLd.tsx`: `SiteJsonLd` for `Organization`/`WebSite`/`MobileApplication`, mounted once in `app/layout.tsx`; `FaqPageJsonLd`, mounted in `Faq.tsx` since it's specific to that section's content). Landed TASK-0009. A leaf module: pure constants/markup, no business logic. |
 
 ## Dependency graph
 
 ```
-app          ──→ sections, ui, content, waitlist (api), providers
-sections     ──→ ui, content, waitlist (client helper), lib/motion.ts
+app          ──→ sections, ui, content, waitlist (api), providers, seo
+sections     ──→ ui, content, waitlist (client helper), lib/motion.ts, seo (Faq → FaqPageJsonLd)
 ui           ──→ content (SiteHeader + SiteFooter, both read lib/content/nav)
 providers    ──→ lib/motion.ts (reduced-motion / low-power check)
 content      ──→ (no internal dependencies — pure typed data)
 waitlist     ──→ WaitlistProvider interface (lib/waitlist-provider.ts);
                  no concrete external email/storage provider wired yet
+seo          ──→ (no internal dependencies — pure constants + markup)
 ```
 
 > [!todo] Waitlist provider not yet implemented
