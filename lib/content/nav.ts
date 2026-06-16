@@ -7,22 +7,21 @@ export interface NavLink {
 
 /**
  * S0 nav copy — see docs/planning/05-copy-multilingual.md (`nav.*` keys).
- * Links point at in-page anchors on the one-page landing composition
- * (docs/planning/02-architecture.md §5 section breakdown); the standalone
- * `/features`, `/rpg-system`, `/parents`, `/pricing` depth pages are a later
- * phase (P1/P3, see 06-execution.md) and don't exist yet. English only for
- * now; locale switching lands in TASK-0011.
+ * `SiteHeader`/`SiteFooter` are persistent chrome rendered once in
+ * `app/layout.tsx`, so they render on every route, including the TASK-0010
+ * depth pages below — links must be real paths, not in-page anchors, since
+ * an anchor like `#features` only resolves on the page that actually has a
+ * `#features` element (home). The five depth pages now exist
+ * (`/features`, `/rpg-system`, `/parents`, `/pricing`, `/faq`), so all of
+ * them point there. English only for now; locale switching lands in
+ * TASK-0011.
  */
 export const navLinks: NavLink[] = [
-  { id: "features", label: "Features", href: "#features" },
-  { id: "rpg", label: "RPG System", href: "#rpg-system" },
-  { id: "parents", label: "For Parents", href: "#parents" },
-  // No pricing is set pre-launch (see docs/planning/05-copy-multilingual.md S10
-  // "Launching soon — join the waitlist ... to hear pricing the moment it's
-  // set"); the answer to "Pricing" today is the waitlist, so it anchors there
-  // until the standalone `/pricing` depth page ships (P1/P3).
-  { id: "pricing", label: "Pricing", href: "#waitlist" },
-  { id: "faq", label: "FAQ", href: "#faq" },
+  { id: "features", label: "Features", href: "/features" },
+  { id: "rpg", label: "RPG System", href: "/rpg-system" },
+  { id: "parents", label: "For Parents", href: "/parents" },
+  { id: "pricing", label: "Pricing", href: "/pricing" },
+  { id: "faq", label: "FAQ", href: "/faq" },
 ];
 
 /** The single header CTA — always points at the S11 waitlist section. */

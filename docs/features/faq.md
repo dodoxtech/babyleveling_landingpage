@@ -47,7 +47,11 @@ price, privacy of baby data, and launch timing. Reduces friction before the wait
   tracker-vs-game positioning, and family sharing.
 - `FAQPage` JSON-LD structured data is mounted directly in `Faq.tsx` via
   `FaqPageJsonLd` (`components/seo/JsonLd.tsx`), landed in TASK-0009.
+- `app/faq/page.tsx` (TASK-0010) renders `<Faq />` directly under its own page-level
+  `<h1>` — a standalone, schema-rich mirror of this same block, per
+  docs/planning/02-architecture.md §4.1. No second copy of the data or markup to drift.
 
 ## Related
 - [[features/waitlist-signup]]
+- [[features/depth-pages]]
 - [[architecture/data-flow]]

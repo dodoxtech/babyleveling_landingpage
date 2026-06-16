@@ -51,9 +51,14 @@ through the app.
 │   ├── layout.tsx            → root layout, fonts, metadata, SiteJsonLd, LenisProvider, <body> shell
 │   ├── page.tsx               → landing page (composes all sections)
 │   ├── globals.css           → Tailwind v4 import + @theme design tokens
-│   ├── sitemap.ts            → MetadataRoute.Sitemap (TASK-0009)
+│   ├── sitemap.ts            → MetadataRoute.Sitemap (TASK-0009; +5 depth-page URLs, TASK-0010)
 │   ├── robots.ts             → MetadataRoute.Robots, allows reputable AI crawlers (TASK-0009)
 │   ├── opengraph-image.tsx   → generated OG/Twitter card image, next/og (TASK-0009)
+│   ├── features/page.tsx     → /features depth page (TASK-0010)
+│   ├── rpg-system/page.tsx   → /rpg-system depth page (TASK-0010)
+│   ├── parents/page.tsx      → /parents depth page (TASK-0010)
+│   ├── pricing/page.tsx      → /pricing depth page (TASK-0010)
+│   ├── faq/page.tsx          → /faq depth page (TASK-0010) — renders <Faq/> directly
 │   └── api/
 │       └── waitlist/route.ts → POST handler for waitlist signups
 ├── components/
@@ -68,7 +73,8 @@ through the app.
 │   │                           SiteHeaderClient (scroll/menu island), SiteFooter
 │   │                           (S12, server), Button, GlassCard, XPBar, Badge
 │   ├── providers/            → root client islands (LenisProvider)
-│   └── seo/                  → JsonLd.tsx — SiteJsonLd, FaqPageJsonLd (TASK-0009)
+│   └── seo/                  → JsonLd.tsx (SiteJsonLd, FaqPageJsonLd, BreadcrumbJsonLd),
+│                                Breadcrumbs.tsx, DepthPageShell.tsx (TASK-0009/TASK-0010)
 ├── lib/
 │   ├── content/              → typed content data (hero, loop, modes, family, features,
 │   │                           themes, faq, screenshots, sprites, nav)

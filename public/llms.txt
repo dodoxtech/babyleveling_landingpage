@@ -28,3 +28,8 @@ EXP, and milestones unlock achievements.
 
 - Home (full narrative + waitlist, including features, the care-to-XP mechanic, Parent
   Mode, and FAQ): /
+- Features — every feature in depth: /features
+- RPG System — how the care-to-XP loop works: /rpg-system
+- For Parents — Parent Mode, rigor, and data privacy: /parents
+- Pricing — not yet set; waitlist members hear first: /pricing
+- FAQ — standalone, full question list: /faq

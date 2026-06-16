@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { localeOptions, navCta, navLinks, wordmark } from "@/lib/content/nav";
 import { SiteHeaderClient } from "@/components/ui/SiteHeaderClient";
 
@@ -28,12 +29,12 @@ export function SiteHeader() {
         />
 
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          <a
-            href="#top"
+          <Link
+            href="/"
             className="bg-grad-plasma rounded-md bg-clip-text text-xl font-bold tracking-tight text-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--grad-plasma-to)]"
           >
             {wordmark}
-          </a>
+          </Link>
 
           <nav
             aria-label="Primary"
@@ -42,12 +43,12 @@ export function SiteHeader() {
             <ul className="flex items-center gap-8">
               {navLinks.map((link) => (
                 <li key={link.id}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-lo transition-colors hover:text-hi focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--grad-plasma-to)]"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

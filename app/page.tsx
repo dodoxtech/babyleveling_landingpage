@@ -2,15 +2,13 @@
  * Landing page composition (S0–S12), per docs/planning/02-architecture.md §5.
  *
  * S0 (Nav / Brand Frame) is mounted once in `app/layout.tsx` as persistent chrome,
- * not here — every route gets the header.
- *
- * Section IDs double as the nav anchors in `lib/content/nav.ts`. The standalone
- * `/features`, `/rpg-system`, `/parents`, `/pricing` depth pages (sitemap tier 2,
- * P1/P3) don't exist yet, so each primary nav link points at the landing section
- * that covers the same topic: Features -> S5 Feature Showcase, RPG System -> S4
- * Care-to-XP loop (the mechanic `/rpg-system` will explain in depth), For Parents
- * -> S6 Parent Mode, Pricing -> S11 Waitlist (pricing isn't set pre-launch; the
- * waitlist is the answer), FAQ -> S10 FAQ. The CTA always targets S11 waitlist.
+ * not here — every route gets the header. As of TASK-0010, the primary nav's
+ * Features/RPG System/For Parents/Pricing/FAQ links point at the standalone
+ * `/features`, `/rpg-system`, `/parents`, `/pricing`, `/faq` depth pages
+ * (`lib/content/nav.ts`), not at the section IDs below — those IDs remain as
+ * landmarks/`aria-label`s and as targets for in-page narrative links (e.g.
+ * Reveal's "See how it works" CTA), not nav targets. The header CTA always
+ * targets S11 waitlist (`#waitlist`), which exists on every page.
  *
  * Every section S1–S12 is a real component as of TASK-0003/TASK-0004/TASK-0005/
  * TASK-0006/TASK-0007.
@@ -42,7 +40,7 @@ export default function Home() {
         {/* S3 — The Reveal */}
         <Reveal />
 
-        {/* S4 — Care -> XP loop (the RPG mechanic; nav "RPG System" anchors here) */}
+        {/* S4 — Care -> XP loop (the RPG mechanic; see /rpg-system for the depth version) */}
         <HowItWorks />
 
         {/* S5 — Feature Showcase */}

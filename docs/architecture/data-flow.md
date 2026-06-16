@@ -116,6 +116,18 @@ character art exists yet either). JA/VI variants land in TASK-0011.
 > [!note] `sprites.ts` is generated, not authored. Edit the manifests in `tools/sprites/`
 > and re-run the exporter rather than editing the file. See [[setup/getting-started]].
 
+### Depth pages (landed in TASK-0010)
+
+No new content models — `/features`, `/rpg-system`, and `/parents` read the same
+`features`/`loopSteps`/`appModes` data the home sections do (plus, for `/parents` and
+`/pricing`, specific `faqItems` entries looked up by `id`), so a fact can't drift between
+the home narrative and its depth-page counterpart. The only genuinely new per-page content
+is each page's own `<h1>`/intro copy and the `FEATURE_DEPTH_COPY`/`LOOP_DEPTH_COPY` lookup
+records (one elaboration sentence per feature/loop step), which stay local `const`s in
+`app/features/page.tsx`/`app/rpg-system/page.tsx` — same reasoning `Reveal.tsx` and
+`WaitlistSignup.tsx` record for their own local copy: no other page needs to read it.
+`/faq` has no new copy at all — it renders `<Faq />` directly under its own `<h1>`.
+
 ### Nav content model (landed in TASK-0002)
 
 ```ts
@@ -130,12 +142,18 @@ export const wordmark: string;
 ```
 
 Unlike the other narrative models, `nav.ts` ships real English copy (not just types) because
-`SiteHeader` (S0) renders now — it's the one section already built. All `navLinks`/`navCta`
-hrefs are in-page anchors on the single-page landing composition (`app/page.tsx`); the
-standalone `/features`, `/rpg-system`, `/parents`, `/pricing` depth pages referenced in
-[[../planning/02-architecture#4-1-sitemap-tree]] don't exist yet (P1/P3), so each link
-anchors to the landing section covering the same topic instead. `localeOptions` is a
+`SiteHeader` (S0) renders now — it's the one section already built. `localeOptions` is a
 non-functional stub — real i18n routing is TASK-0011.
+
+**`navLinks` hrefs (updated TASK-0010):** originally in-page anchors on the home composition,
+since the standalone `/features`/`/rpg-system`/`/parents`/`/pricing` depth pages referenced in
+[[../planning/02-architecture#4-1-sitemap-tree]] didn't exist yet. Now that TASK-0010 has built
+them (plus a standalone `/faq`), every `navLinks` entry points at its real route instead — an
+anchor like `#features` only resolves on the one page that actually has a `#features` element,
+and `SiteHeader`/`SiteFooter` are persistent chrome rendered on every route via `app/layout.tsx`,
+so a route-relative anchor would silently do nothing on any other page. `navCta.href` stays
+`#waitlist`: every page (home and all five depth pages, via `DepthPageShell`) renders its own
+`<WaitlistSignup />`, so that anchor genuinely resolves everywhere.
 
 ### Hero content model (real copy landed in TASK-0003)
 

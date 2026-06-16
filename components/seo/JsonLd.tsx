@@ -88,3 +88,30 @@ export function FaqPageJsonLd({ items }: FaqPageJsonLdProps) {
     />
   );
 }
+
+export interface BreadcrumbItem {
+  label: string;
+  href: string;
+}
+
+interface BreadcrumbJsonLdProps {
+  items: BreadcrumbItem[];
+}
+
+/** `BreadcrumbList` schema for a depth page. See §9.6. `href`s are site-relative; resolved against `SITE_URL` for the schema's absolute `item` URLs. */
+export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: items.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.label,
+          item: `${SITE_URL}${item.href === "/" ? "" : item.href}`,
+        })),
+      }}
+    />
+  );
+}

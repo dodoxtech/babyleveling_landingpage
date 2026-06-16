@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
+import Link from "next/link";
 import type { NavLink } from "@/lib/content/nav";
 
 const SCROLL_CONDENSE_THRESHOLD = 24;
@@ -108,13 +109,13 @@ export function SiteHeaderClient({
           <ul className="flex flex-col">
             {navLinks.map((link) => (
               <li key={link.id}>
-                <a
+                <Link
                   href={link.href}
                   onClick={closeMenu}
                   className="block rounded-lg px-4 py-3 text-base text-hi/90 transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--grad-plasma-to)]"
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

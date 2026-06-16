@@ -11,10 +11,11 @@ and growth as if your baby were a character leveling up in an RPG. **This reposi
 the public landing / waitlist site that markets that app.**
 
 > [!note] Project status
-> The landing page is **pre-implementation**. Today the repo contains only a `LICENSE`.
-> These docs describe the *intended* architecture (see [[decisions/ADR-0001-web-stack]])
-> so the build can start from a documented plan rather than guesswork. Feature content is
-> grounded in the real app it promotes, not invented.
+> The landing page is **implemented through Milestone M4** (TASK-0001–0010): the full
+> one-page narrative (S1–S12), motion/performance hardening, SEO/AEO metadata, and the
+> five depth pages all ship. See `docs/tasks/done/` for what's landed and
+> [[decisions/ADR-0001-web-stack]] for the architecture decision behind it. Feature
+> content is grounded in the real app it promotes, not invented.
 
 ## Navigation
 
@@ -32,6 +33,7 @@ the public landing / waitlist site that markets that app.**
 - [[features/family-sharing]] — co-op party / family sharing
 - [[features/waitlist-signup]] — email capture / waitlist
 - [[features/faq]] — frequently asked questions
+- [[features/depth-pages]] — /features, /rpg-system, /parents, /pricing SEO depth pages
 
 ### Decisions
 - [[decisions/README]] — ADR index

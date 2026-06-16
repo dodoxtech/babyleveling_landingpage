@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { localeOptions, navLinks, wordmark } from "@/lib/content/nav";
 
 /**
@@ -27,12 +28,12 @@ export function SiteFooter() {
       <div className="mx-auto w-full max-w-7xl">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div className="col-span-2 flex flex-col gap-3 sm:col-span-1">
-            <a
-              href="#top"
+            <Link
+              href="/"
               className="bg-grad-plasma w-fit rounded-md bg-clip-text text-xl font-bold tracking-tight text-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--grad-plasma-to)]"
             >
               {wordmark}
-            </a>
+            </Link>
             <p className="text-sm text-lo">Every day is a new quest.</p>
           </div>
 
@@ -93,12 +94,12 @@ function FooterColumn({
       <ul className="flex flex-col gap-2">
         {links.map((link) => (
           <li key={link.id}>
-            <a
+            <Link
               href={link.href}
               className="text-sm text-lo transition-colors hover:text-hi focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--grad-plasma-to)]"
             >
               {link.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
