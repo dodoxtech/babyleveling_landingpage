@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-16
+updated: 2026-06-17
 ---
 
 # Architecture Overview
@@ -27,6 +27,7 @@ through the app.
 | Scroll choreography | **GSAP 3.15 + ScrollTrigger** | Pinned scrub for the S3 Reveal peel/dissolve and the S2 XP-bar hand-off. Hero (S1) needs zero GSAP, so as of TASK-0008 both consumers (`RevealScene.client.tsx`, `HeroCharacterXpBar.client.tsx`) load it via a dynamic `import("gsap")`/`import("gsap/ScrollTrigger")` inside their effect, not a static top-level import — this keeps GSAP's bytes out of the above-the-fold bundle and only fetches them once the section actually mounts (measured: Route `/` First Load JS dropped ~44kB). Each also calls `useLenis()` to drive `ScrollTrigger.update()` from Lenis's own scroll tick, keeping the scrub in sync with Lenis's smoothed position instead of relying on ScrollTrigger's default native-`scroll`-event timing. Never imported in a Server Component. |
 | Component motion | **Framer Motion 12** | Micro-interactions and entrance choreography (e.g. the Hero's per-character letter drop-in) that animate already-painted, server-rendered text — never used for content that must appear at first paint, since Framer Motion resolves `initial` state to inline styles during SSR. Used in the Hero (above the fold), so unlike GSAP it isn't worth deferring — it's already a required part of the critical bundle. |
 | 3D / WebGL | **React Three Fiber 9 + Drei 10** (+ `three`) | The two WebGL scenes allowed under R-1: Hero's starfield (`HeroCanvas.client.tsx`, S1) and the island-continuation scene (`HeroCharacterScene.client.tsx`, S2, landed TASK-0005). Both are lazy-loaded (`lazy()` + `Suspense`) client islands, paused off-screen via `IntersectionObserver` (`frameloop="never"` when not intersecting), DPR capped at 2, never the LCP element (R-2), never rendered at all under reduced motion/low-power. `@types/three` is a dev dependency since `three` ships no bundled types. |
+| i18n | **Native Next.js App Router sub-path routing** + static JSON dictionaries | No library; `app/[locale]/` + `middleware.ts` + `lib/i18n/`. See [[decisions/ADR-0003-i18n-approach]]. EN is default (unprefixed), `/ja` + `/vi` are sub-path prefixed. |
 | Forms | **Next.js Route Handler** (`app/api/waitlist`) | Server-side email capture; pluggable into a provider (Resend / Mailchimp / Supabase). |
 | Deploy | **Vercel** | Zero-config Next.js hosting, preview deploys per PR. |
 | Tooling | ESLint 9 + Prettier 3 | Lint/format consistency. |
@@ -48,17 +49,19 @@ through the app.
 ```
 /
 ├── app/                      → Next.js App Router
-│   ├── layout.tsx            → root layout, fonts, metadata, SiteJsonLd, LenisProvider, <body> shell
-│   ├── page.tsx               → landing page (composes all sections)
+│   ├── [locale]/             → locale sub-path segment (en|ja|vi); middleware rewrites
+│   │   │                       unprefixed /… to /en/… so English stays visibly un-prefixed
+│   │   ├── layout.tsx        → locale root layout: fonts, metadata, hreflang, SiteHeader
+│   │   ├── page.tsx          → landing page (composes all sections S1–S12)
+│   │   ├── opengraph-image.tsx → generated OG/Twitter card image, next/og (TASK-0009)
+│   │   ├── features/page.tsx → /features depth page (TASK-0010, locale-aware TASK-0011)
+│   │   ├── rpg-system/page.tsx → /rpg-system depth page (TASK-0010, locale-aware TASK-0011)
+│   │   ├── parents/page.tsx  → /parents depth page (TASK-0010, locale-aware TASK-0011)
+│   │   ├── pricing/page.tsx  → /pricing depth page (TASK-0010, locale-aware TASK-0011)
+│   │   └── faq/page.tsx      → /faq depth page (TASK-0010, locale-aware TASK-0011)
 │   ├── globals.css           → Tailwind v4 import + @theme design tokens
 │   ├── sitemap.ts            → MetadataRoute.Sitemap (TASK-0009; +5 depth-page URLs, TASK-0010)
 │   ├── robots.ts             → MetadataRoute.Robots, allows reputable AI crawlers (TASK-0009)
-│   ├── opengraph-image.tsx   → generated OG/Twitter card image, next/og (TASK-0009)
-│   ├── features/page.tsx     → /features depth page (TASK-0010)
-│   ├── rpg-system/page.tsx   → /rpg-system depth page (TASK-0010)
-│   ├── parents/page.tsx      → /parents depth page (TASK-0010)
-│   ├── pricing/page.tsx      → /pricing depth page (TASK-0010)
-│   ├── faq/page.tsx          → /faq depth page (TASK-0010) — renders <Faq/> directly
 │   └── api/
 │       └── waitlist/route.ts → POST handler for waitlist signups
 ├── components/

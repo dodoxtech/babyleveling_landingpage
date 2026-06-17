@@ -6,6 +6,8 @@ import type { Screenshot } from "@/lib/content/screenshots";
 
 interface ScreenshotsCarouselProps {
   screenshots: Screenshot[];
+  prevLabel: string;
+  nextLabel: string;
 }
 
 /**
@@ -28,7 +30,11 @@ interface ScreenshotsCarouselProps {
  * project-wide reduced-motion CSS rule in `globals.css`, no extra branch
  * needed here.
  */
-export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
+export function ScreenshotsCarousel({
+  screenshots,
+  prevLabel,
+  nextLabel,
+}: ScreenshotsCarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -92,7 +98,7 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
       <div className="mt-2 hidden items-center justify-center gap-4 sm:flex">
         <button
           type="button"
-          aria-label="Previous screenshot"
+          aria-label={prevLabel}
           onClick={() => scrollToIndex(Math.max(activeIndex - 1, 0))}
           disabled={activeIndex === 0}
           className="glass flex h-10 w-10 items-center justify-center rounded-full text-hi transition-opacity hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--grad-plasma-to)] disabled:opacity-30"
@@ -117,7 +123,7 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
 
         <button
           type="button"
-          aria-label="Next screenshot"
+          aria-label={nextLabel}
           onClick={() =>
             scrollToIndex(Math.min(activeIndex + 1, screenshots.length - 1))
           }

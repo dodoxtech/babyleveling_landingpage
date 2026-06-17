@@ -1,5 +1,11 @@
-import { faqItems } from "@/lib/content/faq";
+import { getFaqItems } from "@/lib/content/faq";
 import { FaqPageJsonLd } from "@/components/seo/JsonLd";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/config";
+
+interface FaqProps {
+  locale: Locale;
+}
 
 /**
  * S10 — FAQ / Trust (Act V pre-close). Server Component: a fully native
@@ -11,27 +17,29 @@ import { FaqPageJsonLd } from "@/components/seo/JsonLd";
  * (no height transition is applied), so there is nothing to gate behind
  * `prefers-reduced-motion` — it is already instant for every visitor.
  */
-export function Faq() {
+export function Faq({ locale }: FaqProps) {
+  const { faq } = getDictionary(locale).home;
+  const items = getFaqItems(locale);
+
   return (
     <section
       id="faq"
       aria-label="S10 · FAQ"
       className="border-b border-white/5 px-6 py-24 sm:py-32"
     >
-      <FaqPageJsonLd items={faqItems} />
+      <FaqPageJsonLd items={items} />
       <div className="mx-auto w-full max-w-3xl">
         <div className="mb-12 text-center">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">
-            Trust
+            {faq.eyebrow}
           </p>
           <h2 className="font-display mt-3 text-[clamp(2rem,5vw,3rem)] leading-[1.1] tracking-tight text-hi">
-            Your baby&apos;s data is yours. iOS 17+ &amp; Apple Watch. Launching
-            soon.
+            {faq.title}
           </h2>
         </div>
 
         <div className="flex flex-col gap-3">
-          {faqItems.map((item) => (
+          {items.map((item) => (
             <details
               key={item.id}
               id={item.id}

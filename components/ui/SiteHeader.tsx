@@ -1,6 +1,10 @@
 import Link from "next/link";
-import { localeOptions, navCta, navLinks, wordmark } from "@/lib/content/nav";
+import { navLinks, navCtaHref, wordmark } from "@/lib/content/nav";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import { localeHref } from "@/lib/i18n/paths";
+import type { Locale } from "@/lib/i18n/config";
 import { SiteHeaderClient } from "@/components/ui/SiteHeaderClient";
+import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 
 /**
  * Quiet header CTA treatment: a glass pill with a plasma-accent border and a
@@ -12,25 +16,43 @@ import { SiteHeaderClient } from "@/components/ui/SiteHeaderClient";
 export const CTA_CLASSNAME =
   "glass rounded-full border border-[var(--grad-plasma-to)] px-4 py-2 text-sm font-medium text-hi transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--grad-plasma-to)]";
 
+interface SiteHeaderProps {
+  locale: Locale;
+}
+
 /**
  * S0 — Nav / Brand Frame. A whisper-thin glass bar: transparent at the top of the
  * page, condensing to a glass surface on scroll (handled by the small client
  * island below). Server-rendered by default; only the scroll/menu state is client.
+ *
+ * As of TASK-0011: accepts `locale`, resolves nav labels from the dictionary,
+ * prefixes hrefs with `localeHref`, and mounts the real `LocaleSwitcher`.
  */
-export function SiteHeader() {
+export function SiteHeader({ locale }: SiteHeaderProps) {
+  const dict = getDictionary(locale);
+  const ctaLabel = dict.nav.cta;
+  const ctaHref = navCtaHref;
+  const wordmarkHref = localeHref(locale, "/");
+
+  const resolvedLinks = navLinks.map((link) => ({
+    id: link.id,
+    href: localeHref(locale, link.path),
+    label: dict.nav[link.id],
+  }));
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 h-[4.5rem]">
       <div className="relative flex h-full items-center">
         {/* Client island: condense-on-scroll overlay + mobile hamburger/menu. */}
         <SiteHeaderClient
-          navLinks={navLinks}
-          ctaLabel={navCta.label}
-          ctaHref={navCta.href}
+          navLinks={resolvedLinks}
+          ctaLabel={ctaLabel}
+          ctaHref={ctaHref}
         />
 
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link
-            href="/"
+            href={wordmarkHref}
             className="bg-grad-plasma rounded-md bg-clip-text text-xl font-bold tracking-tight text-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--grad-plasma-to)]"
           >
             {wordmark}
@@ -41,7 +63,7 @@ export function SiteHeader() {
             className="hidden items-center gap-8 md:flex"
           >
             <ul className="flex items-center gap-8">
-              {navLinks.map((link) => (
+              {resolvedLinks.map((link) => (
                 <li key={link.id}>
                   <Link
                     href={link.href}
@@ -55,44 +77,18 @@ export function SiteHeader() {
           </nav>
 
           <div className="hidden items-center gap-5 md:flex">
-            <LocaleSwitcherStub />
-            <a href={navCta.href} className={CTA_CLASSNAME}>
-              {navCta.label}
+            <LocaleSwitcher current={locale} />
+            <a href={ctaHref} className={CTA_CLASSNAME}>
+              {ctaLabel}
             </a>
           </div>
 
           {/* Mobile: sticky CTA stays visible; hamburger toggle is the client island above. */}
-          <a href={navCta.href} className={`${CTA_CLASSNAME} md:hidden`}>
-            {navCta.label}
+          <a href={ctaHref} className={`${CTA_CLASSNAME} md:hidden`}>
+            {ctaLabel}
           </a>
         </div>
       </div>
     </header>
-  );
-}
-
-/**
- * Non-functional locale-switcher stub (EN / 日本語 / Tiếng Việt). Real routing lands
- * in TASK-0011; for now this only announces the current locale and lists the
- * options as plain, disabled-looking text so it never implies broken behavior.
- */
-function LocaleSwitcherStub() {
-  return (
-    <div
-      className="flex items-center gap-1 text-xs text-lo"
-      aria-label="Language (coming soon)"
-    >
-      {localeOptions.map((locale, index) => (
-        <span key={locale.id} className="flex items-center gap-1">
-          {index > 0 && <span aria-hidden="true">·</span>}
-          <span
-            className={index === 0 ? "text-hi" : undefined}
-            aria-current={index === 0 ? "true" : undefined}
-          >
-            {locale.label}
-          </span>
-        </span>
-      ))}
-    </div>
   );
 }

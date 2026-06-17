@@ -1,7 +1,13 @@
-import { heroContent } from "@/lib/content/hero";
 import { HeroLogoReveal } from "@/components/sections/HeroLogoReveal.client";
 import { HeroCanvasMount } from "@/components/sections/HeroCanvasMount.client";
+import { HeroCta } from "@/components/sections/HeroCta.client";
 import { SITE_DESCRIPTOR } from "@/lib/seo";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/config";
+
+interface HeroProps {
+  locale: Locale;
+}
 
 /**
  * S1 — Hero ("A new game has begun"). Server Component: the eyebrow, gradient
@@ -12,7 +18,9 @@ import { SITE_DESCRIPTOR } from "@/lib/seo";
  * (`HeroLogoReveal`) that only animates the already-painted wordmark, so it
  * never delays first paint of the text itself.
  */
-export function Hero() {
+export function Hero({ locale }: HeroProps) {
+  const { hero } = getDictionary(locale).home;
+
   return (
     <section
       id="hero"
@@ -31,17 +39,17 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-8 py-24 text-center">
         <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">
-          {heroContent.eyebrow}
+          {hero.eyebrow}
         </p>
 
         <h1 className="font-display text-[clamp(3rem,9vw,9rem)] leading-[1.05] tracking-tight text-hi">
-          <HeroLogoReveal text={heroContent.headline} />
+          <HeroLogoReveal text={hero.headline} />
           <span className="bg-grad-plasma block bg-clip-text text-transparent">
-            {heroContent.headlineEmphasis}
+            {hero.headlineEmphasis}
           </span>
         </h1>
 
-        <h2 className="text-lg text-lo sm:text-xl">{heroContent.tagline}</h2>
+        <h2 className="text-lg text-lo sm:text-xl">{hero.tagline}</h2>
         {/*
           R-3: a second, `sr-only` h2 names the product category ("gamified
           baby tracker app") within the first crawlable screen, satisfying
@@ -51,15 +59,11 @@ export function Hero() {
         */}
         <h2 className="sr-only">{SITE_DESCRIPTOR}</h2>
 
-        <div className="flex flex-col items-center gap-3">
-          <a
-            href="#waitlist"
-            className="bg-grad-plasma rounded-full px-8 py-4 text-base font-semibold text-white shadow-lg shadow-[var(--grad-plasma-from)]/30 transition-transform hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--grad-plasma-to)] motion-safe:active:scale-[0.97]"
-          >
-            {heroContent.ctaLabel}
-          </a>
-          <span className="text-xs text-lo">{heroContent.ctaSubLabel}</span>
-        </div>
+        <HeroCta
+          labelA={hero.ctaLabel}
+          labelB={getDictionary(locale).home.waitlist.ctaVariantB}
+          subLabel={hero.ctaSubLabel}
+        />
 
         <HeroXpBar />
       </div>

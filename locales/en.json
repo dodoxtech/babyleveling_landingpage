@@ -1,0 +1,206 @@
+{
+  "nav": {
+    "cta": "Join the waitlist",
+    "features": "Features",
+    "rpg": "RPG System",
+    "parents": "For Parents",
+    "pricing": "Pricing",
+    "faq": "FAQ"
+  },
+  "footer": {
+    "tagline": "Every day is a new quest.",
+    "explore": "Explore",
+    "company": "Company",
+    "legal": "Legal",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "home": "Home"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "A new game has begun",
+      "headline": "You just had a baby.",
+      "headlineEmphasis": "You also just started a new game.",
+      "tagline": "Every day is a new quest.",
+      "ctaLabel": "Join the waitlist",
+      "ctaSubLabel": "Be first in line at launch."
+    },
+    "heroChar": {
+      "line": "Every hero starts at Level 1.",
+      "alt": "A small hero, just beginning its adventure"
+    },
+    "reveal": {
+      "headline": "The hero is your baby. The XP is real life.",
+      "body": "Every feed, every nap, every tiny milestone — it all counts. BabyLeveling turns the care you already give into a story you grow together.",
+      "cta": "See how it works →"
+    },
+    "loop": { "eyebrow": "The mechanic", "title": "Feed. Sleep. Grow. Level up." },
+    "features": {
+      "eyebrow": "The gameplay",
+      "title": "A full RPG, built on real baby care."
+    },
+    "modes": {
+      "eyebrow": "Two lenses, one truth",
+      "title": "Two modes. One source of truth.",
+      "tablistLabel": "App mode",
+      "statLevel": "Level",
+      "statTotalXp": "Total XP",
+      "statDayStreak": "Day streak",
+      "statFeedsLogged": "Feeds logged",
+      "statSleepTracked": "Sleep tracked",
+      "statWeight": "Weight",
+      "chartAlt": "Representative growth chart, trending steadily upward"
+    },
+    "shots": {
+      "eyebrow": "Proof",
+      "title": "This is what your adventure looks like.",
+      "prevLabel": "Previous screenshot",
+      "nextLabel": "Next screenshot"
+    },
+    "themes": {
+      "eyebrow": "Identity",
+      "title": "Choose the world your hero grows up in.",
+      "tablistLabel": "Theme",
+      "previewLabel": "Preview {name} theme"
+    },
+    "family": {
+      "eyebrow": "Belonging",
+      "title": "Raise them together. Level up as a party.",
+      "body": "Invite a partner and grandparents. Everyone caring for your baby joins the same quest — and shares the same timeline."
+    },
+    "faq": {
+      "eyebrow": "Trust",
+      "title": "Your baby's data is yours. iOS 17+ & Apple Watch. Launching soon."
+    },
+    "waitlist": {
+      "headline": "Be there at Level 1.",
+      "body": "Your adventure begins at launch. Claim your spot on the waitlist.",
+      "placeholder": "you@email.com",
+      "emailLabel": "Email address",
+      "cta": "Join the waitlist",
+      "ctaVariantB": "Begin your hero's story",
+      "ctaSubmitting": "Joining…",
+      "invalid": "Please enter a valid email.",
+      "error": "Something went wrong — try again.",
+      "successHeadline": "You're in. +1 Party Member!",
+      "successBody": "We'll email you the moment the quest begins."
+    }
+  },
+  "blog": {
+    "h1": "Blog",
+    "tagline": "Insights for new parents.",
+    "published": "Published",
+    "readMore": "Read →",
+    "backToBlog": "← All posts",
+    "relatedReading": "Related reading"
+  },
+  "about": {
+    "h1": "About BabyLeveling",
+    "missionHeading": "Our mission",
+    "missionBody": "BabyLeveling exists to make the hardest months of new parenthood feel a little less like survival — and a little more like a game you're actually winning.",
+    "whyHeading": "Why we built this",
+    "whyBody": "Every new parent we know started tracking their baby's feeding and sleep out of anxiety, not curiosity. A notebook on the nightstand. A notes app. A spreadsheet. None of it lasted past the first week. The data was there, but the habit wasn't — because there was no reward for building it. We built BabyLeveling to fix that. The XP, the levels, the achievements — they're not decoration. They're the reason you open the app at 3 a.m. instead of skipping it.",
+    "whatHeading": "What BabyLeveling is",
+    "whatBody": "BabyLeveling is a gamified baby activity tracker for iOS and Apple Watch. It tracks feeding, sleep, growth, and milestones — and turns every log into XP for a fantasy hero. It ships with two modes: RPG Mode (the game) and Parent Mode (the clinical tracker). Same data, two presentations, one tap to switch.",
+    "privacyHeading": "Your baby's data is yours",
+    "privacyBody": "All data lives on your device. Nothing is uploaded to our servers without your explicit consent. Read our full privacy policy to see exactly how we handle baby data."
+  },
+  "contact": {
+    "h1": "Get in touch",
+    "intro": "Questions, press inquiries, partnership ideas — we read everything.",
+    "emailLabel": "Your email",
+    "subjectLabel": "Subject",
+    "subjectSupport": "Support",
+    "subjectPress": "Press",
+    "subjectPartnerships": "Partnerships",
+    "subjectOther": "Other",
+    "messageLabel": "Message",
+    "submit": "Send message",
+    "submitting": "Sending…",
+    "success": "Message sent! We'll get back to you soon.",
+    "error": "Something went wrong — try again.",
+    "invalid": "Please enter a valid email and a message.",
+    "emailDirect": "Or email us directly:",
+    "directEmail": "hello@babyleveling.app"
+  },
+  "legal": {
+    "privacyH1": "Privacy Policy",
+    "termsH1": "Terms of Service",
+    "lastUpdated": "Last updated"
+  },
+  "depth": {
+    "features": {
+      "h1": "Every feature. One full RPG.",
+      "intro": "BabyLeveling is a gamified baby activity tracker for iOS and Apple Watch — here's everything it tracks, and every way that tracking turns into a game.",
+      "closing": [
+        { "text": "Curious exactly how a feed or a nap turns into XP? " },
+        { "text": "See the care-to-XP system in depth", "href": "/rpg-system" },
+        { "text": ", or " },
+        { "text": "read about Parent Mode", "href": "/parents" },
+        { "text": " if you want the clinical side first." }
+      ],
+      "featureDepth": {
+        "xp-levels": "Every log — a feed, a nap, a diaper change — adds XP toward your baby's next level, so progress is visible every single day, not just at milestones.",
+        "daily-quests": "Quests reset every day, turning the same routine into a fresh, completable goal each morning instead of an open-ended chore list.",
+        "skill-tree": "Each branch maps to a category of growth, so you can see at a glance where your baby is leveling up fastest.",
+        "achievements": "Badges stay in a permanent trophy case, so the wins from week one are still there to look back on at month twelve.",
+        "streaks-buffs": "Streaks track consecutive days of consistent logging, with bonus XP as the reward for simply showing up.",
+        "apple-watch": "Built for one-handed, middle-of-the-night use, so you never have to fully wake up — or unlock your phone — just to log a feed."
+      }
+    },
+    "rpgSystem": {
+      "h1": "Real care. Real XP. No skin-deep gamification.",
+      "intro": "BabyLeveling is a parenting RPG app: every real act of care — feeding, sleep, healthy habits, milestones — maps directly to a game reward. Here's exactly how the loop works.",
+      "closing": [
+        { "text": "Want the full RPG, not just the loop? " },
+        { "text": "See every feature this powers", "href": "/features" },
+        { "text": ". And this exact data also " },
+        { "text": "feeds Parent Mode", "href": "/parents" },
+        { "text": " — nothing here replaces a rigorous tracker, it adds to one." }
+      ],
+      "loopDepth": {
+        "feeding": "Every bottle, breastfeeding session, or solid-food log restores your hero's energy meter — the same way feeding restores your baby's.",
+        "sleep": "Naps and night sleep recover HP, because rest is recovery, in the game and in real life.",
+        "habits": "Tummy time, bath time, reading — the small daily habits compound into EXP the same way they compound into development.",
+        "milestone": "A first smile, a first roll, a first word — each one pops an achievement, permanently recorded in the trophy room."
+      }
+    },
+    "parents": {
+      "h1": "Practical when you need it. Magical when you want it.",
+      "whatItTracksHeading": "What Parent Mode tracks",
+      "dataIsYoursHeading": "Your baby's data is yours",
+      "twoModesHeading": "Two modes, one source of truth",
+      "twoModesBody": "Parent Mode and RPG Mode read the exact same activity log — toggling between them never loses rigor or swaps in different data. Parent Mode just presents it the way a pediatrician visit, or a 3 a.m. gut-check, actually needs.",
+      "closing": [
+        { "text": "Want to see the same data as an adventure? " },
+        { "text": "Read about the RPG system", "href": "/rpg-system" },
+        { "text": ", or " },
+        { "text": "check the full FAQ", "href": "/faq" },
+        { "text": " for more on privacy, platforms, and launch timing." }
+      ]
+    },
+    "pricing": {
+      "h1": "Be there at launch — free.",
+      "sectionTitle": "What we know today",
+      "bullets": [
+        "Joining the waitlist is free and always will be.",
+        "Waitlist members get launch-day access and founder perks ahead of the public release.",
+        "The final pricing model isn't set — we'll email the waitlist the moment it is, before it's public anywhere else."
+      ],
+      "closing": [
+        { "text": "Not sure it's for you yet? " },
+        { "text": "See every feature", "href": "/features" },
+        { "text": " or " },
+        { "text": "read the full FAQ", "href": "/faq" },
+        { "text": " before you decide." }
+      ]
+    },
+    "faq": { "h1": "Frequently asked questions." }
+  }
+}

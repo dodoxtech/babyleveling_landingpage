@@ -1,23 +1,35 @@
 import Link from "next/link";
-import { localeOptions, navLinks, wordmark } from "@/lib/content/nav";
+import { navLinks, wordmark } from "@/lib/content/nav";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import { localeHref } from "@/lib/i18n/paths";
+import type { Locale } from "@/lib/i18n/config";
+import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
+
+interface SiteFooterProps {
+  locale: Locale;
+}
 
 /**
- * S12 — Footer (close). Server Component: wayfinding + legal + a non-functional
- * locale stub mirroring `SiteHeader`'s. Sitemap columns reuse the same
- * Features/RPG System/For Parents/Pricing/FAQ link set as the header nav
- * (`lib/content/nav.ts`) so the two never drift out of sync.
+ * S12 — Footer (close). Server Component: wayfinding + legal + the real
+ * `LocaleSwitcher` (TASK-0011). Sitemap columns reuse the same nav link
+ * structure as the header (`lib/content/nav.ts`), with labels from the locale
+ * dictionary and hrefs prefixed via `localeHref`.
  *
  * Legal/About/Blog links point at real paths from the sitemap
  * (docs/planning/02-architecture.md §4.1) that don't exist yet — TASK-0012
- * builds them. They're included now because the footer's job is wayfinding to
- * the *eventual* full site, same as a real product footer ships links to
- * pages still in progress. They are not labeled "coming soon" because they
- * resolve to real, stable URLs (a 404 until built, not a placeholder anchor);
- * only the locale switcher below is explicitly marked non-functional, since
- * that one silently does nothing rather than 404.
+ * builds them. They are not labeled "coming soon" because they resolve to
+ * real, stable URLs (a 404 until built, not a placeholder anchor).
  */
-export function SiteFooter() {
+export function SiteFooter({ locale }: SiteFooterProps) {
+  const dict = getDictionary(locale);
+  const { footer, nav } = dict;
   const year = new Date().getFullYear();
+
+  const exploreLinks = navLinks.map((link) => ({
+    id: link.id,
+    href: localeHref(locale, link.path),
+    label: nav[link.id],
+  }));
 
   return (
     <footer
@@ -29,46 +41,42 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div className="col-span-2 flex flex-col gap-3 sm:col-span-1">
             <Link
-              href="/"
+              href={localeHref(locale, "/")}
               className="bg-grad-plasma w-fit rounded-md bg-clip-text text-xl font-bold tracking-tight text-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--grad-plasma-to)]"
             >
               {wordmark}
             </Link>
-            <p className="text-sm text-lo">Every day is a new quest.</p>
+            <p className="text-sm text-lo">{footer.tagline}</p>
           </div>
 
           <FooterColumn
-            heading="Explore"
-            links={navLinks.map((link) => ({
-              id: link.id,
-              label: link.label,
-              href: link.href,
-            }))}
+            heading={footer.explore}
+            links={exploreLinks}
           />
 
           <FooterColumn
-            heading="Company"
+            heading={footer.company}
             links={[
-              { id: "about", label: "About", href: "/about" },
-              { id: "blog", label: "Blog", href: "/blog" },
-              { id: "contact", label: "Contact", href: "/contact" },
+              { id: "about", label: footer.about, href: localeHref(locale, "/about") },
+              { id: "blog", label: footer.blog, href: localeHref(locale, "/blog") },
+              { id: "contact", label: footer.contact, href: localeHref(locale, "/contact") },
             ]}
           />
 
           <FooterColumn
-            heading="Legal"
+            heading={footer.legal}
             links={[
-              { id: "privacy", label: "Privacy", href: "/legal/privacy" },
-              { id: "terms", label: "Terms", href: "/legal/terms" },
+              { id: "privacy", label: footer.privacy, href: localeHref(locale, "/legal/privacy") },
+              { id: "terms", label: footer.terms, href: localeHref(locale, "/legal/terms") },
             ]}
           />
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
           <p className="text-xs text-lo">
-            © {year} {wordmark}. All rights reserved.
+            © {year} {wordmark}. {footer.rights}
           </p>
-          <LocaleSwitcherStub />
+          <LocaleSwitcher current={locale} />
         </div>
       </div>
     </footer>
@@ -103,32 +111,6 @@ function FooterColumn({
           </li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-/**
- * Non-functional locale-switcher stub (EN / 日本語 / Tiếng Việt) — mirrors
- * `SiteHeader`'s `LocaleSwitcherStub` exactly (same markup/behavior), since
- * real i18n routing (TASK-0011) will replace both at once.
- */
-function LocaleSwitcherStub() {
-  return (
-    <div
-      className="flex items-center gap-1 text-xs text-lo"
-      aria-label="Language (coming soon)"
-    >
-      {localeOptions.map((locale, index) => (
-        <span key={locale.id} className="flex items-center gap-1">
-          {index > 0 && <span aria-hidden="true">·</span>}
-          <span
-            className={index === 0 ? "text-hi" : undefined}
-            aria-current={index === 0 ? "true" : undefined}
-          >
-            {locale.label}
-          </span>
-        </span>
-      ))}
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getWaitlistProvider } from "@/lib/waitlist-provider";
 import type { WaitlistEntry } from "@/lib/waitlist";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import { defaultLocale, isLocale } from "@/lib/i18n/config";
 
 /**
  * POST /api/waitlist — the site's one dynamic surface (see
@@ -9,6 +11,11 @@ import type { WaitlistEntry } from "@/lib/waitlist";
  * applies a basic in-memory rate-limit, then hands off to a `WaitlistProvider`
  * (see lib/waitlist-provider.ts) — storage/email-provider choice is explicitly
  * deferred, see the TODO in docs/architecture/modules.md.
+ *
+ * Error strings are localized from the `locale` the client sends (see
+ * `lib/waitlist.ts`'s `submitToWaitlist`, TASK-0011) — falls back to `en` if
+ * absent/invalid, since the client-side validation message is always shown
+ * first for the common "invalid email" case regardless.
  */
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -42,6 +49,7 @@ function getClientKey(request: NextRequest): string {
 interface WaitlistRequestBody {
   email?: unknown;
   source?: unknown;
+  locale?: unknown;
   /** Honeypot: a hidden field real visitors never fill; bots that fill every
    * field trip it. Any non-empty value rejects the request. */
   company?: unknown;
@@ -49,40 +57,36 @@ interface WaitlistRequestBody {
 
 export async function POST(request: NextRequest) {
   const clientKey = getClientKey(request);
-  if (isRateLimited(clientKey)) {
-    return NextResponse.json(
-      { error: "Too many requests — please try again in a minute." },
-      { status: 429 },
-    );
-  }
 
-  let body: WaitlistRequestBody;
+  let body: WaitlistRequestBody = {};
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json(
-      { error: "Please enter a valid email." },
-      { status: 400 },
-    );
+    // Fall through with an empty body — handled by the email-validation branch below.
+  }
+
+  const rawLocale = body.locale;
+  const locale =
+    typeof rawLocale === "string" && isLocale(rawLocale)
+      ? rawLocale
+      : defaultLocale;
+  const { waitlist: messages } = getDictionary(locale).home;
+
+  if (isRateLimited(clientKey)) {
+    return NextResponse.json({ error: messages.error }, { status: 429 });
   }
 
   // Honeypot field: real visitors never see or fill this input. Respond with
   // a generic success-shaped rejection so bots get no signal to adapt on,
   // while real users never hit this path at all.
   if (typeof body.company === "string" && body.company.trim() !== "") {
-    return NextResponse.json(
-      { error: "Please enter a valid email." },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: messages.invalid }, { status: 400 });
   }
 
   const email = typeof body.email === "string" ? body.email.trim() : "";
 
   if (!email || email.length > MAX_EMAIL_LENGTH || !EMAIL_PATTERN.test(email)) {
-    return NextResponse.json(
-      { error: "Please enter a valid email." },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: messages.invalid }, { status: 400 });
   }
 
   const source = typeof body.source === "string" ? body.source : undefined;
@@ -100,9 +104,6 @@ export async function POST(request: NextRequest) {
     // either way (per docs/features/waitlist-signup.md user story).
     return NextResponse.json({ status: result.status }, { status: 200 });
   } catch {
-    return NextResponse.json(
-      { error: "Something went wrong — try again." },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: messages.error }, { status: 500 });
   }
 }

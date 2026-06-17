@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { appModes } from "@/lib/content/modes";
+import { getAppModes } from "@/lib/content/modes";
 import { useReducedMotion } from "@/lib/motion";
 import { spritePath } from "@/lib/content/sprites";
 import { StatNumber } from "@/components/sections/StatNumber.client";
-
-/** S6 copy — see docs/planning/05-copy-multilingual.md ("S6 Parent Mode"). */
-const PARENT_MODE_TITLE = "Two modes. One source of truth.";
+import { getDictionary, type Dictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/config";
 
 type ModeId = "rpg" | "parent";
 
@@ -18,17 +17,25 @@ interface Stat {
   suffix?: string;
 }
 
-const RPG_STATS: Stat[] = [
-  { label: "Level", value: 14 },
-  { label: "Total XP", value: 1240 },
-  { label: "Day streak", value: 12 },
-];
+interface ParentModeProps {
+  locale: Locale;
+}
 
-const PARENT_STATS: Stat[] = [
-  { label: "Feeds logged", value: 182 },
-  { label: "Sleep tracked", value: 96, suffix: "%" },
-  { label: "Weight", value: 14, suffix: " lb" },
-];
+function buildStats(modes: Dictionary["home"]["modes"]) {
+  const rpgStats: Stat[] = [
+    { label: modes.statLevel, value: 14 },
+    { label: modes.statTotalXp, value: 1240 },
+    { label: modes.statDayStreak, value: 12 },
+  ];
+
+  const parentStats: Stat[] = [
+    { label: modes.statFeedsLogged, value: 182 },
+    { label: modes.statSleepTracked, value: 96, suffix: "%" },
+    { label: modes.statWeight, value: 14, suffix: " lb" },
+  ];
+
+  return { rpgStats, parentStats };
+}
 
 /**
  * S6 — Parent Mode: The Real Tracker (Act III). The entire section is one
@@ -46,11 +53,14 @@ const PARENT_STATS: Stat[] = [
  * swap, per §7.3), and `StatNumber` skips its count-up to show the final
  * value directly.
  */
-export function ParentMode() {
+export function ParentMode({ locale }: ParentModeProps) {
   const [mode, setMode] = useState<ModeId>("rpg");
   const reducedMotion = useReducedMotion();
+  const dict = getDictionary(locale);
+  const appModes = getAppModes(locale);
   const active = appModes.find((m) => m.id === mode) ?? appModes[0];
   const transitionDuration = reducedMotion ? 0 : 0.35;
+  const { rpgStats, parentStats } = buildStats(dict.home.modes);
 
   return (
     <section
@@ -60,15 +70,15 @@ export function ParentMode() {
     >
       <div className="mx-auto w-full max-w-3xl text-center">
         <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">
-          Two lenses, one truth
+          {dict.home.modes.eyebrow}
         </p>
         <h2 className="font-display mt-3 text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-hi">
-          {PARENT_MODE_TITLE}
+          {dict.home.modes.title}
         </h2>
 
         <div
           role="tablist"
-          aria-label="App mode"
+          aria-label={dict.home.modes.tablistLabel}
           className="glass mx-auto mt-10 inline-flex rounded-full p-1"
         >
           {appModes.map((m) => (
@@ -119,9 +129,13 @@ export function ParentMode() {
               </ul>
 
               {mode === "parent" ? (
-                <ChartPanel reducedMotion={reducedMotion} />
+                <ChartPanel
+                  reducedMotion={reducedMotion}
+                  stats={parentStats}
+                  chartAlt={dict.home.modes.chartAlt}
+                />
               ) : (
-                <QuestPanel reducedMotion={reducedMotion} />
+                <QuestPanel reducedMotion={reducedMotion} stats={rpgStats} />
               )}
             </motion.div>
           </AnimatePresence>
@@ -132,13 +146,19 @@ export function ParentMode() {
 }
 
 /** RPG-mode panel: sprite + the quest-card stat trio. */
-function QuestPanel({ reducedMotion }: { reducedMotion: boolean }) {
+function QuestPanel({
+  reducedMotion,
+  stats,
+}: {
+  reducedMotion: boolean;
+  stats: Stat[];
+}) {
   return (
     <div className="mt-8 flex items-center gap-4 border-t border-white/10 pt-6">
       {/* eslint-disable-next-line @next/next/no-img-element -- small decorative icon inside an interactive panel */}
       <img src={spritePath("babyGirl.excited")} alt="" width={48} height={48} />
       <div className="grid flex-1 grid-cols-3 gap-3 text-center">
-        {RPG_STATS.map((stat) => (
+        {stats.map((stat) => (
           <div key={stat.label}>
             <StatNumber
               value={stat.value}
@@ -154,14 +174,22 @@ function QuestPanel({ reducedMotion }: { reducedMotion: boolean }) {
 }
 
 /** Parent-mode panel: a clean, flatter chart + the same stats read as health data. */
-function ChartPanel({ reducedMotion }: { reducedMotion: boolean }) {
+function ChartPanel({
+  reducedMotion,
+  stats,
+  chartAlt,
+}: {
+  reducedMotion: boolean;
+  stats: Stat[];
+  chartAlt: string;
+}) {
   return (
     <div className="mt-8 border-t border-white/10 pt-6">
       <svg
         viewBox="0 0 240 64"
         className="h-16 w-full"
         role="img"
-        aria-label="Representative growth chart, trending steadily upward"
+        aria-label={chartAlt}
       >
         <motion.polyline
           points="0,52 40,46 80,40 120,34 160,22 200,16 240,8"
@@ -178,7 +206,7 @@ function ChartPanel({ reducedMotion }: { reducedMotion: boolean }) {
       </svg>
 
       <div className="mt-4 grid grid-cols-3 gap-3 text-center">
-        {PARENT_STATS.map((stat) => (
+        {stats.map((stat) => (
           <div key={stat.label}>
             <StatNumber
               value={stat.value}

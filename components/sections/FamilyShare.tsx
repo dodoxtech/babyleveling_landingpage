@@ -1,10 +1,11 @@
-import { familyRoles } from "@/lib/content/family";
+import { getFamilyRoles } from "@/lib/content/family";
 import { FamilyShareParty } from "@/components/sections/FamilyShareParty.client";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/config";
 
-/** S9 copy — see docs/planning/05-copy-multilingual.md ("S9 Family Sharing"). */
-const FAMILY_SHARE_TITLE = "Raise them together. Level up as a party.";
-const FAMILY_SHARE_BODY =
-  "Invite a partner and grandparents. Everyone caring for your baby joins the same quest — and shares the same timeline.";
+interface FamilyShareProps {
+  locale: Locale;
+}
 
 /**
  * S9 — Family Sharing: A Co-op Quest (Act IV). Server shell that owns the
@@ -12,7 +13,9 @@ const FAMILY_SHARE_BODY =
  * scroll-orchestrated gather lives in the client island since Framer
  * Motion's `whileInView` needs the DOM/viewport.
  */
-export function FamilyShare() {
+export function FamilyShare({ locale }: FamilyShareProps) {
+  const { family } = getDictionary(locale).home;
+
   return (
     <section
       id="family"
@@ -22,17 +25,17 @@ export function FamilyShare() {
       <div className="mx-auto w-full max-w-4xl">
         <div className="mb-16 text-center">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">
-            Belonging
+            {family.eyebrow}
           </p>
           <h2 className="font-display mt-3 text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-hi">
-            {FAMILY_SHARE_TITLE}
+            {family.title}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-lo">
-            {FAMILY_SHARE_BODY}
+            {family.body}
           </p>
         </div>
 
-        <FamilyShareParty roles={familyRoles} />
+        <FamilyShareParty roles={getFamilyRoles(locale)} />
       </div>
     </section>
   );

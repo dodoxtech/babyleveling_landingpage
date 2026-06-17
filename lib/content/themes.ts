@@ -1,3 +1,5 @@
+import type { Locale } from "@/lib/i18n/config";
+
 /** Mirrors the app's three per-baby themes exactly. */
 export interface AppTheme {
   id: "royal" | "warrior" | "zen";
@@ -7,36 +9,65 @@ export interface AppTheme {
   art: string;
 }
 
+interface ThemeBase {
+  id: "royal" | "warrior" | "zen";
+  palette: { bg: string; accent: string; highlight: string };
+  art: string;
+}
+
 /**
  * S8 Theme Gallery copy — see docs/planning/05-copy-multilingual.md ("S8 Themes") and
- * docs/features/theme-gallery.md. `palette` values mirror the design tokens in
- * docs/planning/03-storyboard-motion-visual.md §8.2 exactly (Royal: bubblegum pink ->
- * champagne gold; Warrior: ember orange -> battle gold; Zen: soft matcha -> misty blue),
- * since the live preview recolors purely from these three CSS-var values — no separate
- * background art asset exists yet (producing real theme art is explicitly out of scope
- * for TASK-0007), so `art` is a descriptive key reserved for when one lands, not a path
- * the component reads. English only for now; JA/VI variants land in TASK-0011.
+ * docs/features/theme-gallery.md. `palette`/`art` are locale-independent design tokens
+ * (see TASK-0007); `name` (Royal/Warrior/Zen) stays untranslated across locales per the
+ * brand-terms rule (TASK-0011), only `tagline` is translated below.
  */
-export const themes: AppTheme[] = [
+const THEME_BASE: ThemeBase[] = [
   {
     id: "royal",
-    name: "Royal",
-    tagline: "Soft power.",
     palette: { bg: "#241027", accent: "#f9a8d4", highlight: "#fde68a" },
     art: "royal-radiant",
   },
   {
     id: "warrior",
-    name: "Warrior",
-    tagline: "Forged in fire.",
     palette: { bg: "#231209", accent: "#ff7a45", highlight: "#fbbf24" },
     art: "warrior-forge",
   },
   {
     id: "zen",
-    name: "Zen",
-    tagline: "Gentle and intentional.",
     palette: { bg: "#0d1f1c", accent: "#5eead4", highlight: "#bfdbfe" },
     art: "zen-grove",
   },
 ];
+
+const THEME_TEXT: Record<Locale, Record<string, { tagline: string }>> = {
+  en: {
+    royal: { tagline: "Soft power." },
+    warrior: { tagline: "Forged in fire." },
+    zen: { tagline: "Gentle and intentional." },
+  },
+  ja: {
+    royal: { tagline: "やわらかな、強さ。" },
+    warrior: { tagline: "炎で鍛える。" },
+    zen: { tagline: "おだやかに、ていねいに。" },
+  },
+  vi: {
+    royal: { tagline: "Sức mạnh dịu dàng." },
+    warrior: { tagline: "Tôi luyện trong lửa." },
+    zen: { tagline: "Nhẹ nhàng và chú tâm." },
+  },
+};
+
+const THEME_NAMES: Record<AppTheme["id"], string> = {
+  royal: "Royal",
+  warrior: "Warrior",
+  zen: "Zen",
+};
+
+export function getThemes(locale: Locale): AppTheme[] {
+  const text = THEME_TEXT[locale];
+  return THEME_BASE.map((base) => ({
+    ...base,
+    name: THEME_NAMES[base.id],
+    tagline: text[base.id].tagline,
+  }));
+}

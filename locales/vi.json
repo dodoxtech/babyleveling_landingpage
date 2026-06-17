@@ -1,0 +1,206 @@
+{
+  "nav": {
+    "cta": "Tham gia danh sách chờ",
+    "features": "Tính năng",
+    "rpg": "Hệ thống RPG",
+    "parents": "Dành cho ba mẹ",
+    "pricing": "Giá",
+    "faq": "Hỏi đáp"
+  },
+  "footer": {
+    "tagline": "Mỗi ngày là một nhiệm vụ mới.",
+    "explore": "Khám phá",
+    "company": "Công ty",
+    "legal": "Pháp lý",
+    "about": "Về chúng tôi",
+    "blog": "Blog",
+    "contact": "Liên hệ",
+    "privacy": "Quyền riêng tư",
+    "terms": "Điều khoản",
+    "rights": "Mọi quyền được bảo lưu."
+  },
+  "common": {
+    "home": "Trang chủ"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Một trò chơi mới vừa bắt đầu",
+      "headline": "Bạn vừa có em bé.",
+      "headlineEmphasis": "Bạn cũng vừa bắt đầu một trò chơi mới.",
+      "tagline": "Mỗi ngày là một nhiệm vụ mới.",
+      "ctaLabel": "Tham gia danh sách chờ",
+      "ctaSubLabel": "Là người đầu tiên khi ra mắt."
+    },
+    "heroChar": {
+      "line": "Mọi người hùng đều bắt đầu từ Cấp 1.",
+      "alt": "Một người hùng nhỏ, vừa bắt đầu cuộc phiêu lưu"
+    },
+    "reveal": {
+      "headline": "Người hùng chính là bé. EXP chính là cuộc sống thật.",
+      "body": "Mỗi cữ bú, mỗi giấc ngủ, mỗi cột mốc nhỏ xíu — tất cả đều có ý nghĩa. BabyLeveling biến tình yêu thương bạn đang trao thành một hành trình lớn lên cùng nhau.",
+      "cta": "Xem cách hoạt động →"
+    },
+    "loop": { "eyebrow": "Cơ chế", "title": "Ăn. Ngủ. Lớn. Lên cấp." },
+    "features": {
+      "eyebrow": "Lối chơi",
+      "title": "Một game RPG đúng nghĩa, dựng trên việc chăm con thật."
+    },
+    "modes": {
+      "eyebrow": "Hai góc nhìn, một sự thật",
+      "title": "Hai chế độ. Một nguồn dữ liệu.",
+      "tablistLabel": "Chế độ ứng dụng",
+      "statLevel": "Cấp độ",
+      "statTotalXp": "Tổng XP",
+      "statDayStreak": "Chuỗi ngày",
+      "statFeedsLogged": "Số cữ bú đã ghi",
+      "statSleepTracked": "Tỷ lệ giấc ngủ đã theo dõi",
+      "statWeight": "Cân nặng",
+      "chartAlt": "Biểu đồ tăng trưởng minh họa, có xu hướng tăng đều"
+    },
+    "shots": {
+      "eyebrow": "Minh chứng",
+      "title": "Hành trình của bạn trông như thế này.",
+      "prevLabel": "Ảnh trước",
+      "nextLabel": "Ảnh tiếp theo"
+    },
+    "themes": {
+      "eyebrow": "Bản sắc",
+      "title": "Chọn thế giới nơi người hùng của bạn lớn lên.",
+      "tablistLabel": "Giao diện",
+      "previewLabel": "Xem trước giao diện {name}"
+    },
+    "family": {
+      "eyebrow": "Gắn kết",
+      "title": "Cùng nuôi con. Cùng lên cấp như một đội.",
+      "body": "Mời bạn đời và ông bà. Mọi người chăm bé đều tham gia cùng một nhiệm vụ — và chung một dòng thời gian."
+    },
+    "faq": {
+      "eyebrow": "Tin tưởng",
+      "title": "Dữ liệu của bé là của bạn. iOS 17+ & Apple Watch. Sắp ra mắt."
+    },
+    "waitlist": {
+      "headline": "Có mặt ngay từ Cấp 1.",
+      "body": "Hành trình bắt đầu khi ra mắt. Giữ chỗ trong danh sách chờ.",
+      "placeholder": "ban@email.com",
+      "emailLabel": "Địa chỉ email",
+      "cta": "Tham gia danh sách chờ",
+      "ctaVariantB": "Bắt đầu câu chuyện anh hùng",
+      "ctaSubmitting": "Đang tham gia…",
+      "invalid": "Vui lòng nhập email hợp lệ.",
+      "error": "Có lỗi xảy ra — thử lại nhé.",
+      "successHeadline": "Xong rồi. +1 thành viên đội!",
+      "successBody": "Chúng tôi sẽ email ngay khi cuộc phiêu lưu bắt đầu."
+    }
+  },
+  "blog": {
+    "h1": "Blog",
+    "tagline": "Chia sẻ dành cho ba mẹ mới.",
+    "published": "Ngày đăng",
+    "readMore": "Đọc tiếp →",
+    "backToBlog": "← Tất cả bài viết",
+    "relatedReading": "Đọc thêm"
+  },
+  "about": {
+    "h1": "Về BabyLeveling",
+    "missionHeading": "Sứ mệnh của chúng tôi",
+    "missionBody": "BabyLeveling ra đời để biến những tháng đầu đời khó nhọc của người mới làm cha mẹ bớt phần \"sống sót\" — và giống một trò chơi bạn đang thực sự chiến thắng hơn.",
+    "whyHeading": "Tại sao chúng tôi xây dựng điều này",
+    "whyBody": "Những người mới làm cha mẹ mà chúng tôi biết đều bắt đầu ghi chép cữ bú và giấc ngủ của con vì lo lắng, không phải tò mò. Một cuốn sổ tay bên giường. Ứng dụng ghi chú. Bảng tính. Không cái nào kéo dài quá tuần đầu. Dữ liệu có đó, nhưng thói quen thì không — vì không có phần thưởng cho việc xây dựng nó. Chúng tôi xây dựng BabyLeveling để giải quyết điều đó. XP, cấp độ, thành tựu — không phải trang trí. Chúng là lý do bạn mở ứng dụng lúc 3 giờ sáng thay vì bỏ qua.",
+    "whatHeading": "BabyLeveling là gì",
+    "whatBody": "BabyLeveling là ứng dụng theo dõi hoạt động em bé dạng game hóa cho iOS và Apple Watch. Theo dõi cữ bú, giấc ngủ, tăng trưởng và các cột mốc — biến mỗi lần ghi nhận thành XP cho một anh hùng kỳ ảo. Có hai chế độ: Chế độ RPG (trò chơi) và Chế độ Phụ huynh (theo dõi lâm sàng). Cùng dữ liệu, hai giao diện, một chạm để chuyển đổi.",
+    "privacyHeading": "Dữ liệu con bạn thuộc về bạn",
+    "privacyBody": "Tất cả dữ liệu được lưu trên thiết bị của bạn. Không có gì được tải lên máy chủ của chúng tôi nếu không có sự đồng ý rõ ràng của bạn. Đọc chính sách quyền riêng tư đầy đủ để xem cách chúng tôi xử lý dữ liệu em bé."
+  },
+  "contact": {
+    "h1": "Liên hệ",
+    "intro": "Câu hỏi, yêu cầu báo chí, ý tưởng hợp tác — chúng tôi đọc tất cả.",
+    "emailLabel": "Email của bạn",
+    "subjectLabel": "Chủ đề",
+    "subjectSupport": "Hỗ trợ",
+    "subjectPress": "Báo chí",
+    "subjectPartnerships": "Hợp tác",
+    "subjectOther": "Khác",
+    "messageLabel": "Nội dung",
+    "submit": "Gửi tin nhắn",
+    "submitting": "Đang gửi…",
+    "success": "Đã gửi! Chúng tôi sẽ liên hệ lại sớm.",
+    "error": "Có lỗi xảy ra — vui lòng thử lại.",
+    "invalid": "Vui lòng nhập email hợp lệ và nội dung tin nhắn.",
+    "emailDirect": "Hoặc email trực tiếp:",
+    "directEmail": "hello@babyleveling.app"
+  },
+  "legal": {
+    "privacyH1": "Chính sách quyền riêng tư",
+    "termsH1": "Điều khoản dịch vụ",
+    "lastUpdated": "Cập nhật lần cuối"
+  },
+  "depth": {
+    "features": {
+      "h1": "Mọi tính năng. Một game RPG trọn vẹn.",
+      "intro": "BabyLeveling là ứng dụng theo dõi em bé kiểu game cho iPhone và Apple Watch — đây là tất cả những gì app ghi nhận, và mọi cách việc ghi nhận đó biến thành một trò chơi.",
+      "closing": [
+        { "text": "Muốn biết chính xác một cữ bú hay giấc ngủ trở thành XP như thế nào? " },
+        { "text": "Xem chi tiết hệ thống chăm sóc thành XP", "href": "/rpg-system" },
+        { "text": ". Hoặc " },
+        { "text": "đọc về Chế độ Ba Mẹ", "href": "/parents" },
+        { "text": " nếu bạn muốn tìm hiểu khía cạnh thực tế trước." }
+      ],
+      "featureDepth": {
+        "xp-levels": "Mỗi lần ghi nhận — một cữ bú, một giấc ngủ, một lần thay tã — đều cộng XP hướng tới cấp độ tiếp theo của bé, giúp tiến trình hiện rõ mỗi ngày, không chỉ ở các cột mốc.",
+        "daily-quests": "Nhiệm vụ đặt lại mỗi ngày, biến cùng một thói quen thành mục tiêu mới có thể hoàn thành mỗi buổi sáng, thay vì danh sách việc cần làm không hồi kết.",
+        "skill-tree": "Mỗi nhánh ánh xạ với một danh mục phát triển, giúp bạn nhìn một cái biết ngay bé đang lên cấp nhanh nhất ở đâu.",
+        "achievements": "Huy hiệu ở lại vĩnh viễn trong tủ cúp, vì vậy những thành tựu từ tuần đầu tiên vẫn còn đó để nhìn lại vào tháng thứ mười hai.",
+        "streaks-buffs": "Chuỗi theo dõi những ngày ghi nhận liên tục, với XP thưởng là phần thưởng cho việc đơn giản là có mặt mỗi ngày.",
+        "apple-watch": "Được xây dựng để dùng một tay, lúc nửa đêm, để bạn không bao giờ phải thức hẳn dậy — hay mở khóa điện thoại — chỉ để ghi một cữ bú."
+      }
+    },
+    "rpgSystem": {
+      "h1": "Chăm sóc thật. XP thật. Không phải game hóa hời hợt.",
+      "intro": "BabyLeveling là một ứng dụng RPG dành cho ba mẹ: mỗi hành động chăm sóc thật — cho bú, giấc ngủ, thói quen tốt, các cột mốc — đều ánh xạ trực tiếp thành một phần thưởng trong game. Đây là cách vòng lặp đó hoạt động.",
+      "closing": [
+        { "text": "Muốn biết cả bộ RPG đầy đủ, không chỉ vòng lặp này? " },
+        { "text": "Xem mọi tính năng được vận hành bởi nó", "href": "/features" },
+        { "text": ". Và chính dữ liệu này cũng " },
+        { "text": "tiếp sức cho Chế độ Ba Mẹ", "href": "/parents" },
+        { "text": " — không có gì ở đây thay thế một bộ theo dõi nghiêm túc, nó chỉ bổ sung thêm cho nó." }
+      ],
+      "loopDepth": {
+        "feeding": "Mỗi bình sữa, mỗi cữ bú mẹ, hay mỗi lần ăn dặm đều hồi phục thanh năng lượng của người hùng — cũng như việc cho bú hồi phục năng lượng cho bé.",
+        "sleep": "Giấc ngủ ngắn và giấc ngủ đêm hồi phục HP, vì nghỉ ngơi là hồi phục, trong game và trong cuộc sống thật.",
+        "habits": "Tập lẫy, tắm, đọc sách — những thói quen nhỏ hàng ngày tích lũy thành EXP theo cách chúng tích lũy thành sự phát triển.",
+        "milestone": "Nụ cười đầu tiên, lần lẫy đầu tiên, từ đầu tiên — mỗi cái đều bật lên một thành tựu, được ghi lại vĩnh viễn trong phòng cúp."
+      }
+    },
+    "parents": {
+      "h1": "Thực tế khi bạn cần. Kỳ diệu khi bạn muốn.",
+      "whatItTracksHeading": "Chế độ Ba Mẹ theo dõi những gì",
+      "dataIsYoursHeading": "Dữ liệu của bé là của bạn",
+      "twoModesHeading": "Hai chế độ, một nguồn dữ liệu duy nhất",
+      "twoModesBody": "Chế độ Ba Mẹ và Chế độ RPG đọc đúng một nhật ký hoạt động — chuyển đổi giữa hai chế độ không bao giờ làm mất độ chính xác hay đổi sang dữ liệu khác. Chế độ Ba Mẹ chỉ trình bày nó theo cách mà một buổi khám bác sĩ, hay một lần kiểm tra lúc 3 giờ sáng, thật sự cần.",
+      "closing": [
+        { "text": "Muốn xem cùng dữ liệu đó dưới dạng một cuộc phiêu lưu? " },
+        { "text": "Đọc về hệ thống RPG", "href": "/rpg-system" },
+        { "text": ", hoặc " },
+        { "text": "xem toàn bộ phần Hỏi đáp", "href": "/faq" },
+        { "text": " để biết thêm về quyền riêng tư, thiết bị hỗ trợ, và thời điểm ra mắt." }
+      ]
+    },
+    "pricing": {
+      "h1": "Có mặt từ ngày ra mắt — miễn phí.",
+      "sectionTitle": "Những gì chúng tôi biết hôm nay",
+      "bullets": [
+        "Tham gia danh sách chờ là miễn phí và sẽ luôn miễn phí.",
+        "Thành viên danh sách chờ được truy cập từ ngày ra mắt và nhận ưu đãi dành cho người đến trước, trước khi phát hành công khai.",
+        "Mô hình giá cuối cùng vẫn chưa được ấn định — chúng tôi sẽ email cho danh sách chờ ngay khi có, trước khi công bố ở bất kỳ đâu khác."
+      ],
+      "closing": [
+        { "text": "Chưa chắc app này phù hợp với bạn? " },
+        { "text": "Xem mọi tính năng", "href": "/features" },
+        { "text": " hoặc " },
+        { "text": "đọc toàn bộ phần Hỏi đáp", "href": "/faq" },
+        { "text": " trước khi quyết định." }
+      ]
+    },
+    "faq": { "h1": "Các câu hỏi thường gặp." }
+  }
+}

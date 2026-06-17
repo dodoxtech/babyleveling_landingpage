@@ -2,12 +2,18 @@
 
 import { useEffect, useId, useState } from "react";
 import Link from "next/link";
-import type { NavLink } from "@/lib/content/nav";
 
 const SCROLL_CONDENSE_THRESHOLD = 24;
 
+/** A fully-resolved nav link: locale-prefixed href + translated label, computed by the server SiteHeader. */
+export interface ResolvedNavLink {
+  id: string;
+  href: string;
+  label: string;
+}
+
 interface SiteHeaderClientProps {
-  navLinks: NavLink[];
+  navLinks: ResolvedNavLink[];
   ctaLabel: string;
   ctaHref: string;
 }

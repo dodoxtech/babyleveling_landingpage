@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { themes } from "@/lib/content/themes";
+import { getThemes } from "@/lib/content/themes";
 import { useReducedMotion } from "@/lib/motion";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/config";
 
-/** S8 copy — see docs/planning/05-copy-multilingual.md ("S8 Themes"). */
-const THEME_GALLERY_TITLE = "Choose the world your hero grows up in.";
+interface ThemeGalleryProps {
+  locale: Locale;
+}
 
 /**
  * S8 — Theme Gallery (Act IV). A single top-level `"use client"` component
@@ -26,7 +29,9 @@ const THEME_GALLERY_TITLE = "Choose the world your hero grows up in.";
  * duration too, which is the more conservative — and correct — outcome for
  * visitors who opted out of motion at the OS level.)
  */
-export function ThemeGallery() {
+export function ThemeGallery({ locale }: ThemeGalleryProps) {
+  const themes = getThemes(locale);
+  const { themes: themesCopy } = getDictionary(locale).home;
   const [activeId, setActiveId] = useState(themes[0].id);
   const reducedMotion = useReducedMotion();
   const active = themes.find((theme) => theme.id === activeId) ?? themes[0];
@@ -39,15 +44,15 @@ export function ThemeGallery() {
     >
       <div className="mx-auto w-full max-w-4xl text-center">
         <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">
-          Identity
+          {themesCopy.eyebrow}
         </p>
         <h2 className="font-display mt-3 text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-hi">
-          {THEME_GALLERY_TITLE}
+          {themesCopy.title}
         </h2>
 
         <div
           role="tablist"
-          aria-label="Theme"
+          aria-label={themesCopy.tablistLabel}
           className="glass mx-auto mt-10 inline-flex gap-1 rounded-full p-1"
         >
           {themes.map((theme) => (
@@ -124,7 +129,7 @@ export function ThemeGallery() {
               key={theme.id}
               type="button"
               onClick={() => setActiveId(theme.id)}
-              aria-label={`Preview ${theme.name} theme`}
+              aria-label={themesCopy.previewLabel.replace("{name}", theme.name)}
               aria-pressed={activeId === theme.id}
               className={`glass flex w-40 shrink-0 snap-center flex-col gap-2 rounded-2xl p-4 text-left transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--grad-plasma-to)] ${
                 activeId === theme.id

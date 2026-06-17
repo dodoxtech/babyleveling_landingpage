@@ -1,12 +1,12 @@
 import { spritePath } from "@/lib/content/sprites";
 import { HeroCharacterMount } from "@/components/sections/HeroCharacterMount.client";
 import { HeroCharacterXpBar } from "@/components/sections/HeroCharacterXpBar.client";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/config";
 
-/**
- * S2 copy — see docs/planning/05-copy-multilingual.md ("S2 Hero Appears").
- * Local to this section, same reasoning `Reveal.tsx` records for its own copy.
- */
-const HERO_APPEARS_LINE = "Every hero starts at Level 1.";
+interface HeroCharacterProps {
+  locale: Locale;
+}
 
 /**
  * S2 — The Hero Appears (Act I). Server shell: the headline is static HTML
@@ -16,7 +16,9 @@ const HERO_APPEARS_LINE = "Every hero starts at Level 1.";
  * immediately, under reduced motion, and to screen readers, independent of
  * whether the canvas behind it ever mounts.
  */
-export function HeroCharacter() {
+export function HeroCharacter({ locale }: HeroCharacterProps) {
+  const { heroChar } = getDictionary(locale).home;
+
   return (
     <section
       id="hero-appears"
@@ -29,14 +31,14 @@ export function HeroCharacter() {
         {/* eslint-disable-next-line @next/next/no-img-element -- foreground hero sprite layered over a decorative R3F backdrop; not the LCP element (below the fold) */}
         <img
           src={spritePath("babyGirl.waving")}
-          alt="A small hero, just beginning its adventure"
+          alt={heroChar.alt}
           width={140}
           height={140}
           className="motion-safe:animate-[idle-bob_3s_ease-in-out_infinite] drop-shadow-[0_0_50px_rgba(124,58,237,0.5)]"
         />
 
         <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-hi">
-          {HERO_APPEARS_LINE}
+          {heroChar.line}
         </h2>
 
         <HeroCharacterXpBar />

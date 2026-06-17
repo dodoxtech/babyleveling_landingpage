@@ -89,6 +89,46 @@ export function FaqPageJsonLd({ items }: FaqPageJsonLdProps) {
   );
 }
 
+interface ArticleJsonLdProps {
+  title: string;
+  description: string;
+  datePublished: string;
+  author: string;
+  url: string;
+}
+
+/** `Article` schema for blog posts. See docs/planning/04-seo-aeo.md §9.6. */
+export function ArticleJsonLd({
+  title,
+  description,
+  datePublished,
+  author,
+  url,
+}: ArticleJsonLdProps) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: title,
+        description,
+        datePublished,
+        author: {
+          "@type": "Organization",
+          name: author,
+          url: SITE_URL,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: SITE_NAME,
+          url: SITE_URL,
+        },
+        url,
+      }}
+    />
+  );
+}
+
 export interface BreadcrumbItem {
   label: string;
   href: string;

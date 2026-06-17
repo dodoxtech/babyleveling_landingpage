@@ -1,8 +1,11 @@
-import { features } from "@/lib/content/features";
+import { getFeatures } from "@/lib/content/features";
 import { FeatureCard } from "@/components/sections/FeatureCard.client";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/config";
 
-/** S5 copy — see docs/planning/05-copy-multilingual.md ("S5 Feature Showcase"). */
-const FEATURE_SHOWCASE_TITLE = "A full RPG, built on real baby care.";
+interface FeatureShowcaseProps {
+  locale: Locale;
+}
 
 /**
  * S5 — Feature Showcase (Act III). Server shell that owns the section
@@ -13,7 +16,9 @@ const FEATURE_SHOWCASE_TITLE = "A full RPG, built on real baby care.";
  * XP & Levels is the mechanic every other card builds on, so it earns the
  * bigger tile.
  */
-export function FeatureShowcase() {
+export function FeatureShowcase({ locale }: FeatureShowcaseProps) {
+  const { features: featuresCopy } = getDictionary(locale).home;
+
   return (
     <section
       id="features"
@@ -23,15 +28,15 @@ export function FeatureShowcase() {
       <div className="mx-auto w-full max-w-6xl">
         <div className="mb-16 text-center">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">
-            The gameplay
+            {featuresCopy.eyebrow}
           </p>
           <h2 className="font-display mt-3 text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-hi">
-            {FEATURE_SHOWCASE_TITLE}
+            {featuresCopy.title}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, index) => (
+          {getFeatures(locale).map((feature, index) => (
             <FeatureCard
               key={feature.id}
               feature={feature}

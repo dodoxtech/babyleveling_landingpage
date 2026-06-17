@@ -87,3 +87,9 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Custom cursor — hide native cursor when the JS cursor is active */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
+}

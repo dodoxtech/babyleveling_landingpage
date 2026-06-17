@@ -1,8 +1,11 @@
-import { screenshots } from "@/lib/content/screenshots";
+import { getScreenshots } from "@/lib/content/screenshots";
 import { ScreenshotsCarousel } from "@/components/sections/ScreenshotsCarousel.client";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import type { Locale } from "@/lib/i18n/config";
 
-/** S7 copy — see docs/planning/05-copy-multilingual.md ("S7 Screenshots"). */
-const SCREENSHOTS_TITLE = "This is what your adventure looks like.";
+interface ScreenshotsProps {
+  locale: Locale;
+}
 
 /**
  * S7 — Screenshot Gallery / Proof (Act III). Server shell that owns the
@@ -10,7 +13,9 @@ const SCREENSHOTS_TITLE = "This is what your adventure looks like.";
  * + arrow/dot nav mechanics live in the client island since they need the
  * DOM/viewport.
  */
-export function Screenshots() {
+export function Screenshots({ locale }: ScreenshotsProps) {
+  const { shots } = getDictionary(locale).home;
+
   return (
     <section
       id="screenshots"
@@ -20,14 +25,18 @@ export function Screenshots() {
       <div className="mx-auto w-full max-w-5xl">
         <div className="mb-16 text-center">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">
-            Proof
+            {shots.eyebrow}
           </p>
           <h2 className="font-display mt-3 text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-hi">
-            {SCREENSHOTS_TITLE}
+            {shots.title}
           </h2>
         </div>
 
-        <ScreenshotsCarousel screenshots={screenshots} />
+        <ScreenshotsCarousel
+          screenshots={getScreenshots(locale)}
+          prevLabel={shots.prevLabel}
+          nextLabel={shots.nextLabel}
+        />
       </div>
     </section>
   );
