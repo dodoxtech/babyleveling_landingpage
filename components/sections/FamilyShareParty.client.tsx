@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
-import { spritePath, type SpriteKey } from "@/lib/content/sprites";
+import { assetPath } from "@/lib/content/assets";
 import type { FamilyRole } from "@/lib/content/family";
 
 interface FamilySharePartyProps {
@@ -11,7 +11,7 @@ interface FamilySharePartyProps {
 
 /**
  * Each party member arrives from a different origin/direction (a true
- * "gather", per the storyboard — explicitly not the generic stagger-up
+ * "gather", per the storyboard  -  explicitly not the generic stagger-up
  * pattern banned in §7's motion principles), converging onto one shared
  * timeline. Offsets cycle for any roster length.
  */
@@ -23,8 +23,8 @@ const GATHER_OFFSETS = [
 ];
 
 /**
- * S9 — the party-gather client island. Reduced motion: every member and the
- * connecting timeline render at their final state immediately (per §7.3 —
+ * S9  -  the party-gather client island. Reduced motion: every member and the
+ * connecting timeline render at their final state immediately (per §7.3  - 
  * "family elements appear immediately").
  */
 export function FamilyShareParty({ roles }: FamilySharePartyProps) {
@@ -87,7 +87,7 @@ export function FamilyShareParty({ roles }: FamilySharePartyProps) {
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- small decorative party-member icon */}
               <img
-                src={spritePath(role.sprite as SpriteKey)}
+                src={assetPath(role.sprite)}
                 alt=""
                 width={32}
                 height={32}

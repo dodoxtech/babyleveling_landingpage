@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const { parents: d } = getDictionary(locale).depth;
-  const title = `${d.h1} — ${SITE_NAME}`;
+  const title = `${d.h1}  -  ${SITE_NAME}`;
   const description = d.twoModesBody;
   const path = "/parents";
   return {
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 /**
- * `/parents` — the trust/rigor depth page for the skeptic/optimizer persona.
+ * `/parents`  -  the trust/rigor depth page for the skeptic/optimizer persona.
  * As of TASK-0011, fully locale-aware: headings and body copy from the
  * dictionary; Parent Mode bullets from `getAppModes(locale)`; privacy answer
  * from `getFaqItems(locale)`.

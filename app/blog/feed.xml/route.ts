@@ -11,7 +11,7 @@ function escapeXml(str: string): string {
 }
 
 /**
- * GET /blog/feed.xml — RSS 2.0 feed for the English blog.
+ * GET /blog/feed.xml  -  RSS 2.0 feed for the English blog.
  * Blog posts are English-only (see TASK-0012 scope), so the feed lives outside
  * the locale segment. The middleware matcher `/((?!_next|api|.*\\..*).*)` skips
  * paths containing dots, so this route is never rewritten by locale routing.

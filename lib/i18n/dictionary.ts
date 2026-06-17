@@ -3,7 +3,7 @@ import ja from "@/locales/ja.json";
 import vi from "@/locales/vi.json";
 import type { Locale } from "@/lib/i18n/config";
 
-/** A run of text, optionally a link — lets a translated sentence reorder a
+/** A run of text, optionally a link  -  lets a translated sentence reorder a
  * link anywhere in the sentence instead of assuming English word order. */
 export interface RichTextPart {
   text: string;

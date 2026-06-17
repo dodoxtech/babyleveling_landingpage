@@ -1,7 +1,7 @@
 "use client";
 
 // ---------------------------------------------------------------------------
-// Analytics — structured event layer.
+// Analytics  -  structured event layer.
 //
 // Posts to /api/analytics in production; console.log in development.
 // No third-party SDK required. Wire to any provider (Plausible, PostHog,
@@ -53,7 +53,7 @@ export function trackEvent(name: EventName, props?: EventProps): void {
 }
 
 // ---------------------------------------------------------------------------
-// A/B harness — CTA copy variants.
+// A/B harness  -  CTA copy variants.
 // Assignment is random on first visit; stored in localStorage so it is stable
 // across sessions on the same device. SSR always returns "a" (no localStorage
 // access), so the initial render is deterministic and hydration is safe.
@@ -64,7 +64,7 @@ export type CtaVariant = "a" | "b";
 const AB_KEY = "bl_cta_variant";
 
 /** Returns the stable CTA variant for this browser session. Safe to call in
- *  client components only — returns "a" on the server. */
+ *  client components only  -  returns "a" on the server. */
 export function getCtaVariant(): CtaVariant {
   if (typeof window === "undefined") return "a";
   try {

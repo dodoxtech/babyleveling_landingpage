@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
-import { spritePath, type SpriteKey } from "@/lib/content/sprites";
+import { assetPath } from "@/lib/content/assets";
 import type { LoopStep } from "@/lib/content/loop";
 
 interface HowItWorksStepsProps {
@@ -10,16 +10,16 @@ interface HowItWorksStepsProps {
 }
 
 /**
- * S4 — the care->XP mapping rendered as glass chips (real action -> reward),
+ * S4  -  the care->XP mapping rendered as glass chips (real action -> reward),
  * each "popping" with a spring as it scrolls into view (per the storyboard's
- * "reward chip pops with spring + sprite icon spark"). Pure DOM/CSS — no
+ * "reward chip pops with spring + sprite icon spark"). Pure DOM/CSS  -  no
  * WebGL (a third scene would break R-1) and no GSAP pin, since a four-step
  * pinned scrub here would add scroll-trap risk for little narrative payoff
  * over a per-card `whileInView` reveal; each card still advances in scroll
  * order, so the sequence still reads as scrubbed.
  *
  * Reduced motion: every card renders at its final, fully-visible state with
- * no entrance transition (per §7.3 — "elements appear immediately").
+ * no entrance transition (per §7.3  -  "elements appear immediately").
  */
 export function HowItWorksSteps({ steps }: HowItWorksStepsProps) {
   const reducedMotion = useReducedMotion();
@@ -44,7 +44,7 @@ export function HowItWorksSteps({ steps }: HowItWorksStepsProps) {
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- small decorative icon, not the LCP element */}
           <img
-            src={spritePath(step.icon as SpriteKey)}
+            src={assetPath(step.icon)}
             alt=""
             width={36}
             height={36}

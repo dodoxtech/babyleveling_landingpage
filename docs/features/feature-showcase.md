@@ -1,7 +1,7 @@
 ---
 tags: [feature]
 status: implemented
-updated: 2026-06-16
+updated: 2026-06-17
 ---
 
 # Feature Showcase
@@ -10,16 +10,17 @@ updated: 2026-06-16
 
 ## Overview
 
-A responsive grid of glassmorphic cards, each highlighting one pillar of the app. Content
-maps directly to the real app's mechanics (from the app's design system):
+A responsive asymmetric grid of tactile RPG feature tiles. Content maps directly to
+the real app mechanics while the presentation stays cheerful, character-driven, and
+consistent with the landing page's bright game-world theme:
 
 | Card | Hook |
 |------|------|
 | **XP & Levels** | Every feed, sleep, and growth log earns XP; your baby levels up. |
-| **Daily Quests** | Tracking becomes daily missions — "3 feeds today = +320 XP". |
+| **Daily Quests** | Tracking becomes daily missions: "3 feeds today = +320 XP". |
 | **Skill Tree** | Milestones (smile, roll over, first words) as an unlockable RPG skill tree. |
 | **Achievements** | Hexagonal badges and trophies for streaks and milestones. |
-| **Streaks & Buffs** | Consistency rewards — "🔥 3-day streak, +50 XP bonus". |
+| **Streaks & Buffs** | Consistency rewards: "3-day streak, +50 XP bonus". |
 | **Apple Watch** | Log feeding/sleep from the wrist in ≤ 2 taps. |
 
 ## User Stories
@@ -31,9 +32,9 @@ maps directly to the real app's mechanics (from the app's design system):
 
 ## UX notes
 
-- Glassmorphic cards: translucent surface, subtle border, accent inner glow — matches `CardStyle`.
-- Accent color varies per card (feed=orange, sleep=lavender, etc.) to echo the app palette.
-- Cards reveal on scroll (fade + rise); disabled under reduced motion.
+- Tactile white cards with chunky borders and the global BabyLeveling shadow system.
+- Cards reveal on scroll and lift on hover; disabled under reduced motion.
+- The section includes a real generated scene asset instead of a fake product mock.
 - Keep copy short — one title + one blurb per card.
 
 ## Data

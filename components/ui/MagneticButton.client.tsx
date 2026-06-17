@@ -5,12 +5,12 @@ import { useReducedMotion } from "@/lib/motion";
 
 interface MagneticButtonProps extends ComponentPropsWithoutRef<"a"> {
   children: ReactNode;
-  /** Strength of the magnetic pull [0–1]. Default 0.35. */
+  /** Strength of the magnetic pull [0-1]. Default 0.35. */
   strength?: number;
 }
 
 /**
- * Wraps an <a> tag with a magnetic hover effect — the element subtly follows
+ * Wraps an <a> tag with a magnetic hover effect  -  the element subtly follows
  * the cursor within its bounding box. Desktop-only: on pointer:coarse (touch)
  * or reduced-motion devices, renders as a plain <a> with zero overhead.
  *

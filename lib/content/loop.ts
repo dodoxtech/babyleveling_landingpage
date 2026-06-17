@@ -1,16 +1,17 @@
 import type { Locale } from "@/lib/i18n/config";
+import type { AssetKey } from "@/lib/content/assets";
 
 /** One step in the care -> XP mapping, e.g. { realAction: "Feeding", gameReward: "+Energy", icon: "icon.bottle" } */
 export interface LoopStep {
   id: string;
   realAction: string;
   gameReward: string;
-  icon: string;
+  icon: AssetKey;
 }
 
 interface LoopStepBase {
   id: string;
-  icon: string;
+  icon: AssetKey;
 }
 
 interface LoopStepText {
@@ -19,15 +20,15 @@ interface LoopStepText {
 }
 
 /**
- * S4 Care -> XP loop copy — see docs/planning/05-copy-multilingual.md ("S4 Care -> XP
+ * S4 Care -> XP loop copy  -  see docs/planning/05-copy-multilingual.md ("S4 Care -> XP
  * loop") and the mapping fixed in docs/planning/01-strategy.md §3 (S4): Feeding=Energy,
  * Sleep=HP, Habits=EXP, Milestone=Achievement. Translated text lives in `LOOP_STEP_TEXT`
- * below, keyed by `Locale` then `LoopStep.id` — see TASK-0011.
+ * below, keyed by `Locale` then `LoopStep.id`  -  see TASK-0011.
  */
 const LOOP_STEP_BASE: LoopStepBase[] = [
   { id: "feeding", icon: "icon.bottle" },
-  { id: "sleep", icon: "icon.sleep" },
-  { id: "habits", icon: "icon.skills" },
+  { id: "sleep", icon: "icon.moon-star" },
+  { id: "habits", icon: "icon.achievement" },
   { id: "milestone", icon: "icon.trophy" },
 ];
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getSoundEnabled, setSoundEnabled } from "@/lib/sound";
 
 /**
- * Opt-in sound toggle — a small fixed button in the bottom-right corner.
+ * Opt-in sound toggle  -  a small fixed button in the bottom-right corner.
  * Muted by default (per reconciliation R-8). Preference persists in localStorage.
  * Keyboard accessible: button role, visible focus ring, descriptive aria-label.
  */

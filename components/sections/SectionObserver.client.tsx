@@ -11,7 +11,7 @@ interface SectionObserverProps {
 
 /**
  * Thin wrapper that fires a `section_viewed` analytics event when ≥ 40 % of
- * its children enter the viewport. Renders as a plain <div> — no style impact.
+ * its children enter the viewport. Renders as a plain <div>  -  no style impact.
  * Uses `observeSection` from `lib/analytics` which unobserves after first fire.
  */
 export function SectionObserver({

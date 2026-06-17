@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-16
+updated: 2026-06-17
 ---
 
 # Getting Started
@@ -29,7 +29,7 @@ pnpm dlx create-next-app@15.5.19 . \
   --use-pnpm
 ```
 
-Because the repo already held `LICENSE`, `docs/`, `lib/`, `public/`, `tools/`, and `.claude/`,
+Because the repo already held `LICENSE`, `docs/`, `lib/`, `public/`, and `.claude/`,
 `create-next-app` refused to scaffold directly into `.` (non-empty dir check). The actual
 bootstrap scaffolded into a throwaway temp directory, then the generated `app/`, `package.json`,
 `pnpm-lock.yaml`, `tsconfig.json`, `eslint.config.mjs`, `postcss.config.mjs`, `next.config.ts`,
@@ -62,23 +62,6 @@ pnpm start         # serve the production build locally
 
 See [[architecture/overview]] for the full tree and [[architecture/modules]] for module
 boundaries and dependency rules.
-
-## Sprite assets
-
-Baby character art and activity icons are sliced from source character sheets by a Python
-pipeline in `tools/sprites/` (requires Python 3 + Pillow). It outputs individual transparent
-PNGs to `public/sprites/<group>/<name>.png` and a typed index at `lib/content/sprites.ts`.
-
-```bash
-python3 -m pip install -r tools/sprites/requirements.txt   # one-time
-python3 tools/sprites/export_sprites.py                    # export all sheets
-```
-
-Also runs as `pnpm sprites` (wired into `package.json`'s `scripts`).
-
-Full details (manifests, crop tuning, background removal, usage in components) live in
-`tools/sprites/README.md`. The generated `public/sprites/` PNGs and `lib/content/sprites.ts`
-are checked in; `tools/sprites/preview/` (QA contact sheets) is gitignored.
 
 ## Environment variables
 

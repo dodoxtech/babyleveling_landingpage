@@ -1,38 +1,65 @@
-import { getLoopSteps } from "@/lib/content/loop";
-import { HowItWorksSteps } from "@/components/sections/HowItWorksSteps.client";
-import { getDictionary } from "@/lib/i18n/dictionary";
+import Image from "next/image";
 import type { Locale } from "@/lib/i18n/config";
 
 interface HowItWorksProps {
   locale: Locale;
 }
 
-/**
- * S4 — How It Works: Care -> XP (Act III). Server shell that owns the section
- * landmark, title, and the data import; the scroll-popped chip reveal lives
- * in the client island (`HowItWorksSteps`) since Framer Motion's
- * `whileInView` needs the DOM/viewport.
- */
-export function HowItWorks({ locale }: HowItWorksProps) {
-  const { loop } = getDictionary(locale).home;
+const loop = [
+  {
+    title: "Tap a care action",
+    desc: "Feed, nap, diaper, medicine, play, and growth logs stay one thumb away.",
+    icon: "/assets/icons/bottle.png",
+  },
+  {
+    title: "Earn baby XP",
+    desc: "Each log adds XP, protects streaks, and makes consistency feel rewarding.",
+    icon: "/assets/icons/xp-badge.png",
+  },
+  {
+    title: "Unlock a memory",
+    desc: "Milestones turn into achievements your family can revisit later.",
+    icon: "/assets/icons/achievement.png",
+  },
+] as const;
 
+export function HowItWorks({ locale: _locale }: HowItWorksProps) {
   return (
     <section
       id="rpg-system"
-      aria-label="S4 · Care to XP loop"
-      className="border-b border-white/5 px-6 py-24 sm:py-32"
+      aria-label="RPG care loop"
+      className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
     >
-      <div className="mx-auto w-full max-w-5xl">
-        <div className="mb-16 text-center">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">
-            {loop.eyebrow}
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+        <div>
+          <h2 className="text-h2">The RPG loop is the care loop.</h2>
+          <p className="mt-4 max-w-[35rem] text-lg leading-8 text-[var(--text-secondary)]">
+            BabyLeveling does not gamify pressure. It makes the tiny care
+            actions easier to notice, repeat, and celebrate.
           </p>
-          <h2 className="font-display mt-3 text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-hi">
-            {loop.title}
-          </h2>
         </div>
 
-        <HowItWorksSteps steps={getLoopSteps(locale)} />
+        <div className="grid gap-4">
+          {loop.map((step, index) => (
+            <article
+              key={step.title}
+              className="card-duolingo grid gap-4 p-5 sm:grid-cols-[4.5rem_1fr_auto] sm:items-center"
+            >
+              <div className="flex h-16 w-16 items-center justify-center rounded-[var(--radius-lg)] bg-[var(--bg-section-alt)]">
+                <Image src={step.icon} alt="" width={44} height={44} aria-hidden="true" />
+              </div>
+              <div>
+                <h3 className="font-display text-2xl font-bold">{step.title}</h3>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">
+                  {step.desc}
+                </p>
+              </div>
+              <span className="font-display text-4xl font-bold text-[var(--accent-primary)]">
+                {index + 1}
+              </span>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const { pricing: d } = getDictionary(locale).depth;
-  const title = `${d.h1} — ${SITE_NAME}`;
+  const title = `${d.h1}  -  ${SITE_NAME}`;
   const description = d.bullets[0];
   const path = "/pricing";
   return {
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 /**
- * `/pricing` — per the task brief, must not over-promise on a pricing model
+ * `/pricing`  -  per the task brief, must not over-promise on a pricing model
  * that hasn't been decided. As of TASK-0011, fully locale-aware: all copy
  * from the dictionary (h1, sectionTitle, bullets, closing).
  */

@@ -15,20 +15,20 @@ const END_FILL = 28;
 /**
  * The S2 leg of the XP-bar continuity hand-off (§7.0): starts where Hero's
  * static bar left off, scrubs upward as this section scrolls through view,
- * and "ignites" with a brief glow pulse partway through — cueing the viewer
+ * and "ignites" with a brief glow pulse partway through  -  cueing the viewer
  * before Reveal picks the fill back up. Independent `ScrollTrigger.create`
  * call, no shared state with `Hero.tsx` or `RevealScene.client.tsx` (per the
  * "no shared-state coupling" note left in `RevealScene.client.tsx`).
  *
  * The fill is a `scaleX` transform on a full-width track (`origin-left`), not
- * an animated `width` — `width` is a layout property and forces reflow on
+ * an animated `width`  -  `width` is a layout property and forces reflow on
  * every scrub tick, where `transform` is compositor-only (TASK-0008 perf
  * hardening). GSAP/ScrollTrigger load via a dynamic `import()` inside the
  * effect, the same code-splitting/Lenis-sync treatment `RevealScene.client.tsx`
  * uses, for the same reason: this is below the fold, so Hero's critical
  * bundle shouldn't pay for it.
  *
- * Reduced motion: no `ScrollTrigger.create` at all — the bar renders pinned
+ * Reduced motion: no `ScrollTrigger.create` at all  -  the bar renders pinned
  * at `END_FILL` outright (a static composition, not a freeze-frame mid-scrub).
  */
 export function HeroCharacterXpBar() {

@@ -1,92 +1,138 @@
-import { HeroLogoReveal } from "@/components/sections/HeroLogoReveal.client";
-import { HeroCanvasMount } from "@/components/sections/HeroCanvasMount.client";
-import { HeroCta } from "@/components/sections/HeroCta.client";
+import Image from "next/image";
+import { ThemeToggle } from "@/components/ui/ThemeToggle.client";
 import { SITE_DESCRIPTOR } from "@/lib/seo";
-import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 
 interface HeroProps {
   locale: Locale;
 }
 
-/**
- * S1 — Hero ("A new game has begun"). Server Component: the eyebrow, gradient
- * wordmark, headline, tagline, and CTA are all rendered as static HTML/CSS so
- * the LCP element is this text, never the WebGL canvas (R-2). The starfield
- * is a client island mounted behind the text (`HeroCanvasMount`), lazy and
- * paused off-screen; letter drop-in is a Framer Motion micro-layer
- * (`HeroLogoReveal`) that only animates the already-painted wordmark, so it
- * never delays first paint of the text itself.
- */
+const questTiles = [
+  { label: "Feed", icon: "/assets/icons/bottle.png", xp: "+40 XP" },
+  { label: "Sleep", icon: "/assets/icons/moon-star.png", xp: "+60 XP" },
+  { label: "Growth", icon: "/assets/icons/growth-chart.png", xp: "+90 XP" },
+];
+
 export function Hero({ locale }: HeroProps) {
-  const { hero } = getDictionary(locale).home;
+  void locale;
 
   return (
     <section
       id="hero"
-      aria-label="S1 · Hero"
-      className="relative isolate flex min-h-[calc(100vh-4.5rem)] items-center overflow-hidden border-b border-white/5 px-6"
+      aria-label="Hero"
+      className="relative isolate min-h-[calc(100dvh-4.5rem)] overflow-hidden px-4 py-8 sm:px-6 lg:px-8"
     >
-      {/* Decorative WebGL starfield + reduced-motion static fallback. Reserved
-          via absolute inset-0 on the section's own box, so it never shifts layout (CLS≈0). */}
-      <HeroCanvasMount />
+      <div className="mx-auto grid min-h-[calc(100dvh-8rem)] w-full max-w-7xl items-center gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="order-1 lg:order-1">
+          <div className="max-w-2xl">
+            <p
+              className="mb-4 inline-flex rounded-[var(--radius-md)] border px-3 py-1 text-sm font-bold"
+              style={{
+                color: "var(--accent-primary)",
+                borderColor: "var(--border-card)",
+                background: "rgba(255,255,255,0.76)",
+              }}
+            >
+              Baby care as tiny quests
+            </p>
+            <h1 className="text-display">
+              Raise your baby&apos;s{" "}
+              <span className="block text-[var(--accent-primary)]">
+                little hero.
+              </span>
+            </h1>
+            <h2 className="sr-only">{SITE_DESCRIPTOR}</h2>
+            <p className="mt-5 max-w-[34rem] text-lg leading-8 text-[var(--text-secondary)]">
+              Track feeds, sleep, diapers, growth, and milestones with XP,
+              quests, and a mascot parents actually love.
+            </p>
 
-      {/* Vignette over the void, per the storyboard ("distant nebula glow, vignette"). */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--bg-void)_75%)]"
-      />
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a href="#waitlist" className="btn-primary">
+                Join the Waitlist
+              </a>
+              <a href="#rpg-system" className="btn-secondary">
+                See the Loop
+              </a>
+            </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-8 py-24 text-center">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">
-          {hero.eyebrow}
-        </p>
+            <div className="mt-7 flex flex-wrap items-center gap-4">
+              <ThemeToggle />
+              <div className="rounded-[var(--radius-md)] bg-white px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] shadow-[0_3px_0_rgba(23,32,42,0.1)]">
+                iOS and watchOS planned
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <h1 className="font-display text-[clamp(3rem,9vw,9rem)] leading-[1.05] tracking-tight text-hi">
-          <HeroLogoReveal text={hero.headline} />
-          <span className="bg-grad-plasma block bg-clip-text text-transparent">
-            {hero.headlineEmphasis}
-          </span>
-        </h1>
+        <div className="order-2 lg:order-2">
+          <div className="relative mx-auto aspect-[1.02] w-full max-w-[38rem]">
+            <div
+              className="absolute inset-8 rounded-[2rem]"
+              style={{ background: "var(--bg-playfield)" }}
+            />
+            <div className="absolute left-2 top-4 h-28 w-28 rounded-full bg-[var(--accent-secondary)] opacity-20" />
+            <div className="absolute bottom-8 right-4 h-24 w-24 rounded-full bg-[var(--accent-pink)] opacity-20" />
 
-        <h2 className="text-lg text-lo sm:text-xl">{hero.tagline}</h2>
-        {/*
-          R-3: a second, `sr-only` h2 names the product category ("gamified
-          baby tracker app") within the first crawlable screen, satisfying
-          the SEO-bearing-h2 requirement without breaking the visual
-          "withhold the reveal" beat — the visible tagline above stays
-          poetic; this sibling heading carries the keyword instead.
-        */}
-        <h2 className="sr-only">{SITE_DESCRIPTOR}</h2>
+            <div className="card-duolingo absolute left-0 top-7 w-[15rem] rotate-[-5deg] p-4">
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/assets/icons/xp-badge.png"
+                  alt=""
+                  width={44}
+                  height={44}
+                  aria-hidden="true"
+                />
+                <div>
+                  <p className="font-display text-lg font-bold">Lv. 5</p>
+                  <p className="text-sm text-[var(--text-secondary)]">
+                    Explorer unlocked
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 h-3 overflow-hidden rounded-full bg-[#e9e7df]">
+                <div className="h-full w-[68%] rounded-full bg-grad-xp" />
+              </div>
+            </div>
 
-        <HeroCta
-          labelA={hero.ctaLabel}
-          labelB={getDictionary(locale).home.waitlist.ctaVariantB}
-          subLabel={hero.ctaSubLabel}
-        />
+            <div className="card-duolingo absolute bottom-7 right-0 w-[16rem] rotate-[4deg] p-4">
+              <p className="font-display text-base font-bold">
+                Today&apos;s quick log
+              </p>
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                {questTiles.map((tile) => (
+                  <div
+                    key={tile.label}
+                    className="rounded-[var(--radius-md)] bg-[var(--bg-section-alt)] p-2 text-center"
+                  >
+                    <Image
+                      src={tile.icon}
+                      alt=""
+                      width={30}
+                      height={30}
+                      className="mx-auto"
+                      aria-hidden="true"
+                    />
+                    <p className="mt-1 text-[0.7rem] font-bold">{tile.label}</p>
+                    <p className="text-[0.65rem] text-[var(--accent-primary)]">
+                      {tile.xp}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        <HeroXpBar />
+            <Image
+              src="/assets/characters/warrior-baby-shield.png"
+              alt="BabyLeveling baby hero mascot holding a star shield"
+              width={420}
+              height={420}
+              priority
+              className="absolute left-1/2 top-1/2 z-10 w-[72%] max-w-[26rem] -translate-x-1/2 -translate-y-1/2 motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]"
+            />
+          </div>
+        </div>
       </div>
     </section>
-  );
-}
-
-/**
- * The XP-bar accent named in the storyboard ("a faint XP bar at the base of
- * the viewport"). Static at a low fill here — S1 is "Level 1, just begun";
- * the bar visually continues into S3's reveal trigger. Pure CSS, no motion
- * dependency, so it renders identically under reduced motion.
- */
-function HeroXpBar() {
-  return (
-    <div
-      className="mt-4 w-full max-w-xs"
-      role="img"
-      aria-label="Experience bar, level 1, just started"
-    >
-      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-        <div className="bg-grad-plasma h-full w-[8%] rounded-full" />
-      </div>
-    </div>
   );
 }

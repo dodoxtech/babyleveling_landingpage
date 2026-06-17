@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getFeatures } from "@/lib/content/features";
-import { spritePath, type SpriteKey } from "@/lib/content/sprites";
+import { assetPath } from "@/lib/content/assets";
 import { DepthPageShell } from "@/components/seo/DepthPageShell";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const { features: d } = getDictionary(locale).depth;
-  const title = `${d.h1} — ${SITE_NAME}`;
+  const title = `${d.h1}  -  ${SITE_NAME}`;
   const description = d.intro;
   const path = "/features";
   return {
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 /**
- * `/features` — the SEO-depth counterpart to the home S5 Feature Showcase.
+ * `/features`  -  the SEO-depth counterpart to the home S5 Feature Showcase.
  * As of TASK-0011, the page is fully locale-aware: params carries the locale
  * segment, copy comes from the dictionary, and `generateStaticParams` emits
  * all three routes at build time.
@@ -80,7 +80,7 @@ export default async function FeaturesPage({ params }: PageProps) {
               <div className="flex items-center gap-4">
                 {/* eslint-disable-next-line @next/next/no-img-element -- small decorative icon */}
                 <img
-                  src={spritePath(feature.icon as SpriteKey)}
+                  src={assetPath(feature.icon)}
                   alt=""
                   width={40}
                   height={40}

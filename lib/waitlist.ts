@@ -9,7 +9,7 @@ import type { Locale } from "@/lib/i18n/config";
 /** A single waitlist signup. `createdAt` is always stamped server-side, never by the client. */
 export interface WaitlistEntry {
   email: string;
-  /** Optional UTM / referrer tag — unused today, reserved for later attribution. */
+  /** Optional UTM / referrer tag  -  unused today, reserved for later attribution. */
   source?: string;
   /** ISO timestamp, set by `app/api/waitlist/route.ts`. */
   createdAt: string;
@@ -21,7 +21,7 @@ export type WaitlistSubmitOutcome =
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** Client-side email shape check — mirrors the server's validation in the route handler. */
+/** Client-side email shape check  -  mirrors the server's validation in the route handler. */
 export function isValidEmail(email: string): boolean {
   return EMAIL_PATTERN.test(email.trim());
 }
@@ -31,7 +31,7 @@ export function isValidEmail(email: string): boolean {
  * network/parse failures are normalized into the same `{ ok: false }` shape as
  * a server-reported error, so `WaitlistSignup` only has to branch on the
  * return value. `locale` rides along so the route handler can return its
- * error strings (rate-limit, generic failure) in the visitor's language —
+ * error strings (rate-limit, generic failure) in the visitor's language  - 
  * see TASK-0011.
  */
 export async function submitToWaitlist(

@@ -21,7 +21,7 @@ through the app.
 |-------|--------|-----|
 | Framework | **Next.js 15.5 (App Router, Turbopack)** | SSG/SSR for SEO on a marketing page; file-based routing; first-class Vercel deploy. See [[decisions/ADR-0001-web-stack]]. |
 | Language | **TypeScript 5.9** | Typed content models (features, themes, FAQ) — see [[data-flow]]. |
-| Styling | **Tailwind CSS 4** | Utility-first; fast to match the app's dark, neon, glassmorphic aesthetic. |
+| Styling | **Tailwind CSS 4** | Utility-first; dual-theme (Cute/Warrior) design tokens in `globals.css` via `@theme inline`. |
 | UI | **React 19 (Server + Client Components)** | Default to Server Components; client only where interaction is needed (carousel, form, Lenis). |
 | Smooth scroll | **Lenis 1.3** (`lenis/react`, root client island) | Scroll-as-timeline for the S1→S3 narrative; disabled under `prefers-reduced-motion`. |
 | Scroll choreography | **GSAP 3.15 + ScrollTrigger** | Pinned scrub for the S3 Reveal peel/dissolve and the S2 XP-bar hand-off. Hero (S1) needs zero GSAP, so as of TASK-0008 both consumers (`RevealScene.client.tsx`, `HeroCharacterXpBar.client.tsx`) load it via a dynamic `import("gsap")`/`import("gsap/ScrollTrigger")` inside their effect, not a static top-level import — this keeps GSAP's bytes out of the above-the-fold bundle and only fetches them once the section actually mounts (measured: Route `/` First Load JS dropped ~44kB). Each also calls `useLenis()` to drive `ScrollTrigger.update()` from Lenis's own scroll tick, keeping the scrub in sync with Lenis's smoothed position instead of relying on ScrollTrigger's default native-`scroll`-event timing. Never imported in a Server Component. |

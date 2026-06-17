@@ -4,7 +4,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 /**
- * Generated OG image — see docs/planning/04-seo-aeo.md §9.5 ("dark card,
+ * Generated OG image  -  see docs/planning/04-seo-aeo.md §9.5 ("dark card,
  * gradient logo, tagline"). No designed OG art asset exists pre-launch
  * (same "no invented binary asset" reasoning as the screenshot/theme-art
  * stand-ins elsewhere); this renders the same dark-void + plasma-gradient

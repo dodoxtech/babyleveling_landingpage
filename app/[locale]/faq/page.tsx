@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const { faq: d } = getDictionary(locale).depth;
-  const title = `${d.h1} — ${SITE_NAME}`;
+  const title = `${d.h1}  -  ${SITE_NAME}`;
   const path = "/faq";
   return {
     title: { absolute: title },
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 /**
- * `/faq` — standalone, schema-rich mirror of the home FAQ block. Reuses
+ * `/faq`  -  standalone, schema-rich mirror of the home FAQ block. Reuses
  * `<Faq />` directly (same data, same JSON-LD). As of TASK-0011, locale-aware:
  * the `<h1>` and the `<Faq>` section both receive the current locale.
  */

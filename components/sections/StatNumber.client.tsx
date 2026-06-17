@@ -10,9 +10,9 @@ interface StatNumberProps {
 }
 
 /**
- * Tabular-figure count-up for S6's stat panels (per the storyboard — "numbers
+ * Tabular-figure count-up for S6's stat panels (per the storyboard  -  "numbers
  * count up (tabular figures)"). Reduced motion: the final number renders
- * directly, no count animation (per §7.3 — "numbers shown final").
+ * directly, no count animation (per §7.3  -  "numbers shown final").
  */
 export function StatNumber({
   value,

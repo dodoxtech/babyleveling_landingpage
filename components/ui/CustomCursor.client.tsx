@@ -5,7 +5,7 @@ import { useReducedMotion } from "@/lib/motion";
 
 /**
  * Desktop-only custom cursor: a small plasma-gradient orb with a trailing
- * "+XP" badge. Detects pointer: coarse (touch) and reduced-motion — both
+ * "+XP" badge. Detects pointer: coarse (touch) and reduced-motion  -  both
  * suppress the cursor and leave the native one in place.
  *
  * Per reconciliation R-8: cursor is desktop-only.

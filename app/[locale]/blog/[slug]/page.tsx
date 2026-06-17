@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!post) notFound();
   const locale = raw as Locale;
   const path = `/blog/${slug}`;
-  const title = `${post.title} — ${SITE_NAME}`;
+  const title = `${post.title}  -  ${SITE_NAME}`;
   return {
     title: { absolute: title },
     description: post.description,
@@ -94,7 +94,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <p className="text-xs text-lo">
               {d.published}{" "}
               <time dateTime={post.date}>{formattedDate}</time>
-              {" · "}
+              {" - "}
               {post.author}
             </p>
             <h1 className="mt-4 font-display text-[clamp(2rem,5vw,3.25rem)] leading-[1.1] tracking-tight text-hi">

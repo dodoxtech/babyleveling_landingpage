@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useId, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { isValidEmail, submitToWaitlist } from "@/lib/waitlist";
@@ -16,20 +17,6 @@ interface WaitlistSignupProps {
   locale: Locale;
 }
 
-/**
- * S11 — Final CTA / Waitlist (Act V, the call). Client Component: the form
- * holds local, ephemeral state only (`idle | submitting | success | error`,
- * per docs/architecture/data-flow.md — no global store). Submission goes
- * through `lib/waitlist.ts` -> `POST /api/waitlist`, which also localizes its
- * own error strings from `locale` — see TASK-0011.
- *
- * TASK-0013 additions:
- * - A/B CTA harness: variant "b" shows `ctaVariantB` label; variant is read
- *   from `lib/analytics` (localStorage-stable, SSR-safe default "a").
- * - Analytics: section_viewed (SectionObserver), cta_clicked (on submit),
- *   waitlist_success / waitlist_error (post-submit).
- * - Sound: `playLevelUp()` fires on success if the user opted in.
- */
 export function WaitlistSignup({ locale }: WaitlistSignupProps) {
   const { waitlist } = getDictionary(locale).home;
   const [state, setState] = useState<FormState>("idle");
@@ -40,7 +27,6 @@ export function WaitlistSignup({ locale }: WaitlistSignupProps) {
   const errorId = useId();
   const reducedMotion = useReducedMotion();
 
-  // Resolve A/B variant client-side so SSR and hydration both start on "a".
   useEffect(() => {
     setVariant(getCtaVariant());
   }, []);
@@ -49,8 +35,7 @@ export function WaitlistSignup({ locale }: WaitlistSignupProps) {
 
   const handleSubmit = async (event: { preventDefault(): void }) => {
     event.preventDefault();
-
-    trackEvent("cta_clicked", { location: "hero", ab_variant: variant });
+    trackEvent("cta_clicked", { location: "reveal", ab_variant: variant });
 
     if (!isValidEmail(email)) {
       setFieldError(waitlist.invalid);
@@ -73,141 +58,118 @@ export function WaitlistSignup({ locale }: WaitlistSignupProps) {
 
     trackEvent("waitlist_success", { status: result.status });
     playLevelUp();
-    // Both "created" and "duplicate" render the same success state — a
-    // returning visitor resubmitting their email never sees a confusing
-    // error (per docs/features/waitlist-signup.md user story).
     setState("success");
   };
-
-  if (state === "success") {
-    return (
-      <SectionObserver sectionId="waitlist">
-        <section
-          id="waitlist"
-          aria-label="S11 · Final CTA / Waitlist"
-          className="border-b border-white/5 px-6 py-24 sm:py-32"
-        >
-          <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-6 text-center">
-            <SuccessBadge reducedMotion={reducedMotion} />
-            <h2 className="font-display text-[clamp(2rem,5vw,3rem)] leading-[1.1] tracking-tight text-hi">
-              {waitlist.successHeadline}
-            </h2>
-            <p className="text-base text-lo">{waitlist.successBody}</p>
-          </div>
-        </section>
-      </SectionObserver>
-    );
-  }
 
   return (
     <SectionObserver sectionId="waitlist">
       <section
         id="waitlist"
-        aria-label="S11 · Final CTA / Waitlist"
-        className="border-b border-white/5 px-6 py-24 sm:py-32"
+        aria-label="Waitlist"
+        className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8"
       >
-        <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-6 text-center">
-          <h2 className="font-display text-[clamp(2rem,5vw,3rem)] leading-[1.1] tracking-tight text-hi">
-            {waitlist.headline}
-          </h2>
-          <p className="text-base text-lo">{waitlist.body}</p>
+        <div className="mx-auto grid max-w-6xl gap-8 rounded-[2.25rem] bg-[var(--bg-playfield)] p-6 shadow-[0_8px_0_rgba(23,32,42,0.12)] lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:p-10">
+          <div className="relative min-h-[18rem]">
+            <Image
+              src={state === "success" ? "/assets/icons/trophy.png" : "/assets/characters/warrior-baby-shield.png"}
+              alt={state === "success" ? "Reward trophy" : "Warrior baby with shield"}
+              width={280}
+              height={280}
+              className="mx-auto motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]"
+            />
+          </div>
 
-          <form
-            onSubmit={handleSubmit}
-            noValidate
-            className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-start"
-          >
-            <div className="flex-1 text-left">
-              <label htmlFor="waitlist-email" className="sr-only">
-                {waitlist.emailLabel}
-              </label>
-              <input
-                id="waitlist-email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                inputMode="email"
-                placeholder={waitlist.placeholder}
-                value={email}
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                  if (state === "error") {
-                    setState("idle");
-                    setFieldError(null);
-                    setFormError(null);
-                  }
-                }}
-                aria-invalid={state === "error"}
-                aria-describedby={fieldError || formError ? errorId : undefined}
-                disabled={state === "submitting"}
-                className="glass w-full rounded-full px-5 py-4 text-base text-hi placeholder:text-lo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--grad-plasma-to)] disabled:opacity-60"
-              />
-              {/* Honeypot: hidden from sighted + screen-reader users, real
-                  visitors never fill it. Any bot that fills every field trips
-                  the server-side check in app/api/waitlist/route.ts. */}
-              <input
-                type="text"
-                name="company"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                className="sr-only"
-              />
-            </div>
+          <div>
+            {state === "success" ? (
+              <SuccessMessage reducedMotion={reducedMotion} headline={waitlist.successHeadline} body={waitlist.successBody} />
+            ) : (
+              <>
+                <h2 className="text-h2">{waitlist.headline}</h2>
+                <p className="mt-4 max-w-[34rem] text-lg leading-8 text-[var(--text-secondary)]">
+                  {waitlist.body}
+                </p>
 
-            <button
-              type="submit"
-              disabled={state === "submitting"}
-              data-ab-variant={variant}
-              className="bg-grad-plasma shrink-0 rounded-full px-8 py-4 text-base font-semibold text-white shadow-lg shadow-[var(--grad-plasma-from)]/30 transition-transform hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--grad-plasma-to)] motion-safe:active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
-            >
-              {state === "submitting" ? waitlist.ctaSubmitting : ctaLabel}
-            </button>
-          </form>
-
-          {(fieldError || formError) && (
-            <p
-              id={errorId}
-              role="alert"
-              className="text-sm text-[var(--accent-feed)]"
-            >
-              {fieldError ?? formError}
-            </p>
-          )}
+                <form onSubmit={handleSubmit} noValidate className="mt-7 max-w-xl">
+                  <label htmlFor="waitlist-email" className="mb-2 block text-sm font-bold">
+                    {waitlist.emailLabel}
+                  </label>
+                  <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+                    <input
+                      id="waitlist-email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      placeholder={waitlist.placeholder}
+                      value={email}
+                      onChange={(event) => {
+                        setEmail(event.target.value);
+                        if (state === "error") {
+                          setState("idle");
+                          setFieldError(null);
+                          setFormError(null);
+                        }
+                      }}
+                      aria-invalid={state === "error"}
+                      aria-describedby={fieldError || formError ? errorId : undefined}
+                      disabled={state === "submitting"}
+                      className="rounded-[var(--radius-lg)] border-2 border-[var(--border-card)] bg-white px-5 py-4 text-base text-[var(--text-primary)] outline-none shadow-[0_4px_0_var(--border-card)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)] disabled:opacity-60"
+                    />
+                    <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="sr-only" />
+                    <button
+                      type="submit"
+                      disabled={state === "submitting"}
+                      data-ab-variant={variant}
+                      className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {state === "submitting" ? waitlist.ctaSubmitting : ctaLabel}
+                    </button>
+                  </div>
+                  {(fieldError || formError) && (
+                    <p id={errorId} role="alert" className="mt-3 text-sm font-semibold text-[#a3133d]">
+                      {fieldError ?? formError}
+                    </p>
+                  )}
+                </form>
+              </>
+            )}
+          </div>
         </div>
       </section>
     </SectionObserver>
   );
 }
 
-/**
- * Celebratory "+1 Party Member" reward badge. Under reduced motion (or a
- * low-power device, via `useReducedMotion`) this renders as a plain static
- * badge — no scale/opacity entrance, no burst — matching how `HeroLogoReveal`
- * gates its Framer Motion flourish on the same hook.
- */
-function SuccessBadge({ reducedMotion }: { reducedMotion: boolean }) {
-  const badge = (
-    <div
-      role="img"
-      aria-label="Reward unlocked: plus one party member"
-      className="bg-grad-plasma flex h-20 w-20 items-center justify-center rounded-full text-3xl shadow-lg shadow-[var(--grad-plasma-from)]/40"
-    >
-      <span aria-hidden="true">+1</span>
+function SuccessMessage({
+  reducedMotion,
+  headline,
+  body,
+}: {
+  reducedMotion: boolean;
+  headline: string;
+  body: string;
+}) {
+  const content = (
+    <div>
+      <p className="font-display text-xl font-bold text-[var(--accent-primary)]">
+        Reward unlocked
+      </p>
+      <h2 className="mt-3 text-h2">{headline}</h2>
+      <p className="mt-4 max-w-[34rem] text-lg leading-8 text-[var(--text-secondary)]">
+        {body}
+      </p>
     </div>
   );
 
-  if (reducedMotion) {
-    return badge;
-  }
+  if (reducedMotion) return content;
 
   return (
     <motion.div
-      initial={{ scale: 0.6, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ type: "spring", damping: 10, stiffness: 200 }}
+      initial={{ opacity: 0, y: 18, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ type: "spring", damping: 16, stiffness: 180 }}
     >
-      {badge}
+      {content}
     </motion.div>
   );
 }

@@ -16,7 +16,7 @@ interface ThemeBase {
 }
 
 /**
- * S8 Theme Gallery copy — see docs/planning/05-copy-multilingual.md ("S8 Themes") and
+ * S8 Theme Gallery copy  -  see docs/planning/05-copy-multilingual.md ("S8 Themes") and
  * docs/features/theme-gallery.md. `palette`/`art` are locale-independent design tokens
  * (see TASK-0007); `name` (Royal/Warrior/Zen) stays untranslated across locales per the
  * brand-terms rule (TASK-0011), only `tagline` is translated below.

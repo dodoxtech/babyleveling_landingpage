@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const d = getDictionary(locale).legal;
-  const title = `${d.termsH1} — ${SITE_NAME}`;
+  const title = `${d.termsH1}  -  ${SITE_NAME}`;
   const path = "/legal/terms";
   return {
     title: { absolute: title },

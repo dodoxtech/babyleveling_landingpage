@@ -18,14 +18,10 @@ interface ScreenshotText {
 }
 
 /**
- * S7 Screenshot Gallery manifest — see docs/planning/05-copy-multilingual.md ("S7
- * Screenshots") and docs/features/screenshot-gallery.md. `src` names where the real app
- * screenshot will live once the design track (G-05) delivers it; no file exists at that
- * path yet (verified: only `public/sprites/*` exists under `public/`), so
- * `components/sections/Screenshots.tsx` renders an honest stand-in mock per `id` for now —
- * the same "no invented asset" approach `RevealScene.client.tsx`'s `DashboardStillPlaceholder`
- * already uses — and will switch to `next/image` against `src` once the real PNGs land.
- * Translated `alt`/`caption` live in `SCREENSHOT_TEXT` below — see TASK-0011.
+ * S7 Screenshot Gallery manifest  -  see docs/planning/05-copy-multilingual.md ("S7
+ * Screenshots") and docs/features/screenshot-gallery.md. The redesigned carousel renders
+ * app-preview cards from `public/assets` until final app screenshots are exported.
+ * Translated `alt`/`caption` live in `SCREENSHOT_TEXT` below  -  see TASK-0011.
  */
 const SCREENSHOT_BASE: ScreenshotBase[] = [
   { id: "dashboard", src: "/screenshots/dashboard.png" },

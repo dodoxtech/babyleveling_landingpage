@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getLoopSteps } from "@/lib/content/loop";
-import { spritePath, type SpriteKey } from "@/lib/content/sprites";
+import { assetPath } from "@/lib/content/assets";
 import { DepthPageShell } from "@/components/seo/DepthPageShell";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const { rpgSystem: d } = getDictionary(locale).depth;
-  const title = `${d.h1} — ${SITE_NAME}`;
+  const title = `${d.h1}  -  ${SITE_NAME}`;
   const description = d.intro;
   const path = "/rpg-system";
   return {
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 /**
- * `/rpg-system` — the SEO-depth explainer for the S4 Care -> XP mechanic.
+ * `/rpg-system`  -  the SEO-depth explainer for the S4 Care -> XP mechanic.
  * As of TASK-0011, fully locale-aware: loop step labels, depth paragraphs,
  * and closing copy all come from the locale dictionary.
  */
@@ -79,7 +79,7 @@ export default async function RpgSystemPage({ params }: PageProps) {
               <div className="flex items-center gap-4">
                 {/* eslint-disable-next-line @next/next/no-img-element -- small decorative icon */}
                 <img
-                  src={spritePath(step.icon as SpriteKey)}
+                  src={assetPath(step.icon)}
                   alt=""
                   width={40}
                   height={40}

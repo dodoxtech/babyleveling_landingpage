@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "sprites": "python3 tools/sprites/export_sprites.py"
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

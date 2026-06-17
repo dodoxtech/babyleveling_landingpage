@@ -10,7 +10,7 @@ const STAR_COUNT = 2400;
 
 /**
  * The S1 starfield: a slow camera dolly through deep space behind the hero
- * text. This is a decorative WebGL layer only — the LCP element is the
+ * text. This is a decorative WebGL layer only  -  the LCP element is the
  * server-rendered text shell in `Hero.tsx`, never this canvas (R-2). It is
  * paused (no rAF, no render) whenever it scrolls off-screen and is never
  * mounted at all under reduced-motion/low-power (`Hero.tsx` guards that).
@@ -52,7 +52,7 @@ export default function HeroCanvas() {
 /**
  * Drifting starfield + a slow forward dolly (per the storyboard: "camera
  * pushes forward through starfield"). `useFrame` only mutates pre-allocated
- * objects (the camera's own position scalar, the group rotation) — no
+ * objects (the camera's own position scalar, the group rotation)  -  no
  * per-frame allocations, per the perf budget (§7.4).
  */
 function Starfield() {

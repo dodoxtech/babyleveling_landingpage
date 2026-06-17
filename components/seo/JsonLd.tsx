@@ -20,13 +20,13 @@ function JsonLd({ data }: JsonLdProps) {
  * (`MobileApplication`). See docs/planning/04-seo-aeo.md §9.6.
  *
  * Deliberately omits a few spec-suggested fields rather than fabricate them:
- * - `Organization.logo`/`sameAs` — no square brand-mark asset (the only
+ * - `Organization.logo`/`sameAs`  -  no square brand-mark asset (the only
  *   icon asset is a 16/32px favicon, too small for a "logo" `ImageObject`)
  *   or official social profiles exist pre-launch.
- * - `WebSite.potentialAction` (`SearchAction`) — this single-page site has
+ * - `WebSite.potentialAction` (`SearchAction`)  -  this single-page site has
  *   no search endpoint to point one at; a fabricated one would be
  *   non-functional. Revisit if a real search (e.g. on `/blog`) ships.
- * - `MobileApplication.offers`/`aggregateRating` — pricing isn't set yet
+ * - `MobileApplication.offers`/`aggregateRating`  -  pricing isn't set yet
  *   (docs/planning/reconciliation-log.md, "Outstanding decisions") and
  *   there are no real ratings pre-launch.
  * None of these are required for the corresponding schema to validate.

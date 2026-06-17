@@ -1,41 +1,51 @@
-import { getFamilyRoles } from "@/lib/content/family";
-import { FamilyShareParty } from "@/components/sections/FamilyShareParty.client";
-import { getDictionary } from "@/lib/i18n/dictionary";
+import Image from "next/image";
 import type { Locale } from "@/lib/i18n/config";
 
 interface FamilyShareProps {
   locale: Locale;
 }
 
-/**
- * S9 — Family Sharing: A Co-op Quest (Act IV). Server shell that owns the
- * section landmark, title, body, and the `familyRoles` data import; the
- * scroll-orchestrated gather lives in the client island since Framer
- * Motion's `whileInView` needs the DOM/viewport.
- */
-export function FamilyShare({ locale }: FamilyShareProps) {
-  const { family } = getDictionary(locale).home;
+const party = [
+  { role: "Parent", icon: "/assets/icons/shield.png", note: "Owns the daily rhythm" },
+  { role: "Partner", icon: "/assets/icons/heart-pulse.png", note: "Sees what changed" },
+  { role: "Grandparent", icon: "/assets/icons/book.png", note: "Keeps memories close" },
+  { role: "Caregiver", icon: "/assets/icons/calendar.png", note: "Logs the handoff" },
+] as const;
 
+export function FamilyShare({ locale: _locale }: FamilyShareProps) {
   return (
     <section
       id="family"
-      aria-label="S9 · Family Sharing"
-      className="border-b border-white/5 px-6 py-24 sm:py-32"
+      aria-label="Family sharing"
+      className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+      style={{ background: "var(--bg-section-alt)" }}
     >
-      <div className="mx-auto w-full max-w-4xl">
-        <div className="mb-16 text-center">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-lo">
-            {family.eyebrow}
-          </p>
-          <h2 className="font-display mt-3 text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-tight text-hi">
-            {family.title}
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-lo">
-            {family.body}
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div>
+          <h2 className="text-h2">A co-op party for baby care.</h2>
+          <p className="mt-4 max-w-[34rem] text-lg leading-8 text-[var(--text-secondary)]">
+            Shared logging gives everyone the same context without turning the
+            family chat into a status board.
           </p>
         </div>
 
-        <FamilyShareParty roles={getFamilyRoles(locale)} />
+        <div className="grid gap-4 sm:grid-cols-2">
+          {party.map((member) => (
+            <article key={member.role} className="card-duolingo p-5">
+              <div className="flex items-center gap-4">
+                <div className="rounded-[var(--radius-lg)] bg-[var(--bg-playfield)] p-3">
+                  <Image src={member.icon} alt="" width={48} height={48} aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl font-bold">{member.role}</h3>
+                  <p className="text-sm leading-6 text-[var(--text-secondary)]">
+                    {member.note}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -1,16 +1,17 @@
 import type { Locale } from "@/lib/i18n/config";
+import type { AssetKey } from "@/lib/content/assets";
 
 export interface Feature {
   id: string;
   title: string;
   blurb: string;
-  icon: string;
+  icon: AssetKey;
   accent: string;
 }
 
 interface FeatureBase {
   id: string;
-  icon: string;
+  icon: AssetKey;
   accent: string;
 }
 
@@ -20,17 +21,17 @@ interface FeatureText {
 }
 
 /**
- * S5 Feature Showcase copy — see docs/planning/05-copy-multilingual.md ("S5 Feature
+ * S5 Feature Showcase copy  -  see docs/planning/05-copy-multilingual.md ("S5 Feature
  * Showcase") and docs/features/feature-showcase.md. `accent` is a CSS color value (a
  * design-token var or hex) consumed directly as an inline style/glow color, so cards
  * stay data-driven with no per-card component change. Locale-independent fields
  * (icon/accent) live here; translated title/blurb live in `FEATURE_TEXT` below, keyed
- * by `Locale` then `Feature.id` — see TASK-0011.
+ * by `Locale` then `Feature.id`  -  see TASK-0011.
  */
 const FEATURE_BASE: FeatureBase[] = [
-  { id: "xp-levels", icon: "icon.star", accent: "var(--accent-growth)" },
+  { id: "xp-levels", icon: "icon.xp-badge", accent: "var(--accent-growth)" },
   { id: "daily-quests", icon: "icon.calendar", accent: "var(--accent-feed)" },
-  { id: "skill-tree", icon: "icon.skills", accent: "var(--accent-sleep)" },
+  { id: "skill-tree", icon: "icon.achievement", accent: "var(--accent-sleep)" },
   {
     id: "achievements",
     icon: "icon.trophy",
@@ -38,12 +39,12 @@ const FEATURE_BASE: FeatureBase[] = [
   },
   {
     id: "streaks-buffs",
-    icon: "icon.badge",
+    icon: "icon.achievement",
     accent: "var(--grad-plasma-to)",
   },
   {
     id: "apple-watch",
-    icon: "icon.reminder",
+    icon: "icon.calendar",
     accent: "var(--accent-growth)",
   },
 ];
@@ -57,12 +58,12 @@ const FEATURE_TEXT: Record<Locale, Record<string, FeatureText>> = {
     },
     "daily-quests": {
       title: "Daily Quests",
-      blurb: 'Tracking becomes daily missions — "3 feeds today = +320 XP."',
+      blurb: 'Tracking becomes daily missions  -  "3 feeds today = +320 XP."',
     },
     "skill-tree": {
       title: "Skill Tree",
       blurb:
-        "Smiles, rolls, first words — milestones as an unlockable skill tree.",
+        "Smiles, rolls, first words  -  milestones as an unlockable skill tree.",
     },
     achievements: {
       title: "Achievements",
@@ -88,7 +89,7 @@ const FEATURE_TEXT: Record<Locale, Record<string, FeatureText>> = {
     },
     "skill-tree": {
       title: "スキルツリー",
-      blurb: "笑顔、寝返り、はじめての言葉——成長をスキルツリーで解放。",
+      blurb: "笑顔、寝返り、はじめての言葉 -  - 成長をスキルツリーで解放。",
     },
     achievements: {
       title: "アチーブメント",
@@ -116,7 +117,7 @@ const FEATURE_TEXT: Record<Locale, Record<string, FeatureText>> = {
     "skill-tree": {
       title: "Cây kỹ năng",
       blurb:
-        "Nụ cười, lẫy, tiếng nói đầu tiên — cột mốc thành cây kỹ năng để mở khóa.",
+        "Nụ cười, lẫy, tiếng nói đầu tiên  -  cột mốc thành cây kỹ năng để mở khóa.",
     },
     achievements: {
       title: "Thành tựu",

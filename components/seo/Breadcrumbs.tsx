@@ -8,7 +8,7 @@ interface BreadcrumbsProps {
 /**
  * Visible breadcrumb nav + its matching `BreadcrumbList` schema for a depth
  * page (TASK-0010). The two stay in sync because they're built from the same
- * `items` array — the schema can't drift from what a visitor actually sees.
+ * `items` array  -  the schema can't drift from what a visitor actually sees.
  */
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (

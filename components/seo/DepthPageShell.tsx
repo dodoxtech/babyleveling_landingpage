@@ -13,7 +13,7 @@ interface DepthPageShellProps {
  * Shared chrome for the five TASK-0010 depth pages (`/features`,
  * `/rpg-system`, `/parents`, `/pricing`, `/faq`): clears the fixed header,
  * renders the breadcrumb, and closes with the same real, working waitlist
- * section every narrative page uses — satisfying "carry a waitlist CTA"
+ * section every narrative page uses  -  satisfying "carry a waitlist CTA"
  * with the actual form rather than a link back to home.
  *
  * As of TASK-0011: accepts `locale` and forwards it to `WaitlistSignup` so

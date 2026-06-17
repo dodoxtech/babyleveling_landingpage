@@ -1,6 +1,6 @@
 import type { Locale } from "@/lib/i18n/config";
 
-/** Parent Mode vs RPG Mode — two lenses on the same tracked data. */
+/** Parent Mode vs RPG Mode  -  two lenses on the same tracked data. */
 export interface AppMode {
   id: "parent" | "rpg";
   name: string;
@@ -9,9 +9,9 @@ export interface AppMode {
 }
 
 /**
- * S6 Parent Mode copy — see docs/planning/05-copy-multilingual.md ("S6 Parent Mode").
- * Bullets are representative, not exhaustive — they back the toggle's two stat panels
- * with the same data shown two ways. Translated per locale below — see TASK-0011.
+ * S6 Parent Mode copy  -  see docs/planning/05-copy-multilingual.md ("S6 Parent Mode").
+ * Bullets are representative, not exhaustive  -  they back the toggle's two stat panels
+ * with the same data shown two ways. Translated per locale below  -  see TASK-0011.
  */
 const APP_MODES: Record<Locale, AppMode[]> = {
   en: [
@@ -19,7 +19,7 @@ const APP_MODES: Record<Locale, AppMode[]> = {
       id: "rpg",
       name: "RPG Mode",
       promise:
-        "The same data, as an adventure — for the moments you need a little magic.",
+        "The same data, as an adventure  -  for the moments you need a little magic.",
       bullets: [
         "Every log becomes XP for your baby's hero",
         "Daily quests turn routines into missions",
@@ -66,7 +66,7 @@ const APP_MODES: Record<Locale, AppMode[]> = {
       id: "rpg",
       name: "Chế độ RPG",
       promise:
-        "Cũng dữ liệu đó, nhưng là một cuộc phiêu lưu — cho những ngày cần chút phép màu.",
+        "Cũng dữ liệu đó, nhưng là một cuộc phiêu lưu  -  cho những ngày cần chút phép màu.",
       bullets: [
         "Mỗi lần ghi nhận trở thành XP cho người hùng của bé",
         "Nhiệm vụ hằng ngày biến thói quen thành nhiệm vụ",

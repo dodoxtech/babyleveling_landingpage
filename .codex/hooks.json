@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "TodoWrite",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if jq -e '.tool_input.todos[]? | select(.status == \"completed\")' >/dev/null 2>&1; then pnpm build; fi",
+            "timeout": 120,
+            "statusMessage": "Running pnpm build (task marked completed)..."
+          }
+        ]
+      }
+    ]
+  }
+}

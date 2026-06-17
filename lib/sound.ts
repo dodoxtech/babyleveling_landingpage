@@ -1,7 +1,7 @@
 "use client";
 
 // ---------------------------------------------------------------------------
-// Sound — opt-in Web Audio API utilities. No audio-file asset required;
+// Sound  -  opt-in Web Audio API utilities. No audio-file asset required;
 // the level-up chime is synthesized entirely in the browser.
 //
 // Per reconciliation R-8: sound is muted by default; the user must
@@ -23,12 +23,12 @@ export function setSoundEnabled(enabled: boolean): void {
   try {
     localStorage.setItem(SOUND_KEY, enabled ? "true" : "false");
   } catch {
-    // storage unavailable — proceed silently
+    // storage unavailable  -  proceed silently
   }
 }
 
 /** Synthesized "level-up" fanfare via Web Audio API.
- *  Three ascending sine tones with exponential decay — totals ~0.6 s,
+ *  Three ascending sine tones with exponential decay  -  totals ~0.6 s,
  *  no audio file required. Silently no-ops if audio is unavailable. */
 export function playLevelUp(): void {
   if (typeof window === "undefined") return;
@@ -61,6 +61,6 @@ export function playLevelUp(): void {
       };
     });
   } catch {
-    // AudioContext unavailable or suspended — fail silently
+    // AudioContext unavailable or suspended  -  fail silently
   }
 }

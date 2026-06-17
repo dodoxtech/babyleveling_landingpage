@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const d = getDictionary(locale).legal;
-  const title = `${d.privacyH1} — ${SITE_NAME}`;
+  const title = `${d.privacyH1}  -  ${SITE_NAME}`;
   const path = "/legal/privacy";
   return {
     title: { absolute: title },
@@ -73,7 +73,7 @@ export default async function PrivacyPage({ params }: PageProps) {
                 All data you enter into BabyLeveling lives on your device.
                 We do not upload, sell, or share your baby&apos;s data without
                 your explicit consent. iCloud sync (if enabled) uses Apple&apos;s
-                end-to-end encrypted infrastructure — BabyLeveling servers never
+                end-to-end encrypted infrastructure  -  BabyLeveling servers never
                 see your data.
               </p>
             </LegalSection>
@@ -112,7 +112,7 @@ export default async function PrivacyPage({ params }: PageProps) {
 
             <LegalSection heading="3. What we do not collect">
               <ul className="list-disc pl-5">
-                <li>We do not sell your data — ever.</li>
+                <li>We do not sell your data  -  ever.</li>
                 <li>We do not share your baby&apos;s data with advertisers, data brokers, or any third party.</li>
                 <li>We do not track you across other apps or websites.</li>
                 <li>We do not require an account to use the app.</li>
@@ -135,7 +135,7 @@ export default async function PrivacyPage({ params }: PageProps) {
             <LegalSection heading="5. Children's privacy">
               <p>
                 BabyLeveling is designed for use by parents and caregivers.
-                The app does not collect data from children directly — all data
+                The app does not collect data from children directly  -  all data
                 is entered by the adult user. We comply with COPPA and GDPR-K
                 requirements applicable to apps that handle data about minors.
               </p>

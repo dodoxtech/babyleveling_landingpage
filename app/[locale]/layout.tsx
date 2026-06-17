@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Fraunces, Geist } from "next/font/google";
+import { Fredoka, Poppins } from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
-import { CustomCursor } from "@/components/ui/CustomCursor.client";
-import { SoundToggle } from "@/components/ui/SoundToggle.client";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/seo";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
 import { localeAlternates, localeHref } from "@/lib/i18n/paths";
 import "../globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
   subsets: ["latin"],
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -36,7 +36,7 @@ interface LocaleLayoutProps {
 }
 
 /**
- * Root metadata — see docs/planning/04-seo-aeo.md §9.5 (title/description),
+ * Root metadata  -  see docs/planning/04-seo-aeo.md §9.5 (title/description),
  * §9.4 (canonical + hreflang). As of TASK-0011, `/ja` and `/vi` are real,
  * content-complete routes, so `alternates.languages` points at each
  * locale's real URL via `localeAlternates` instead of the placeholder
@@ -53,7 +53,7 @@ export async function generateMetadata({
     metadataBase: new URL(SITE_URL),
     title: {
       default: SITE_TITLE,
-      template: `%s — ${SITE_NAME}`,
+      template: `%s  -  ${SITE_NAME}`,
     },
     description: SITE_DESCRIPTION,
     alternates: {
@@ -86,15 +86,13 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${fraunces.variable} font-sans antialiased`}
+        className={`${fredoka.variable} ${poppins.variable} font-sans antialiased`}
       >
         <SiteJsonLd />
-        <CustomCursor />
         <LenisProvider>
           <SiteHeader locale={locale} />
           {children}
         </LenisProvider>
-        <SoundToggle />
       </body>
     </html>
   );

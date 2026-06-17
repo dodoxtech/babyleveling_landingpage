@@ -27,7 +27,7 @@ interface ContactBody {
   email?: unknown;
   subject?: unknown;
   message?: unknown;
-  /** Honeypot — real visitors never fill this. */
+  /** Honeypot  -  real visitors never fill this. */
   website?: unknown;
 }
 

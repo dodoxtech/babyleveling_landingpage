@@ -8,7 +8,7 @@ import { localeHref } from "@/lib/i18n/paths";
 /**
  * Strips any non-default locale prefix from the visible pathname so we can
  * build the equivalent URL in another locale. The default locale (`en`) is
- * always unprefixed, so `/features` stays `/features` — only `/ja/features`
+ * always unprefixed, so `/features` stays `/features`  -  only `/ja/features`
  * and `/vi/features` need stripping. See docs/decisions/ADR-0003-i18n-approach.md.
  */
 function basePath(pathname: string): string {
@@ -26,10 +26,10 @@ interface LocaleSwitcherProps {
 }
 
 /**
- * S0 / S12 — real locale switcher. Renders the current locale as plain text
+ * S0 / S12  -  real locale switcher. Renders the current locale as plain text
  * (`aria-current="true"`) and sibling locales as `<Link>`s pointing at the
  * same page path in that locale. Desktop header and footer both mount this
- * component — see SiteHeader.tsx and SiteFooter.tsx.
+ * component  -  see SiteHeader.tsx and SiteFooter.tsx.
  */
 export function LocaleSwitcher({ current }: LocaleSwitcherProps) {
   const pathname = usePathname();
@@ -44,7 +44,7 @@ export function LocaleSwitcher({ current }: LocaleSwitcherProps) {
         const isCurrent = locale === current;
         return (
           <span key={locale} className="flex items-center gap-1">
-            {index > 0 && <span aria-hidden="true">·</span>}
+            {index > 0 && <span aria-hidden="true">-</span>}
             {isCurrent ? (
               <span className="text-hi" aria-current="true">
                 {localeNames[locale]}
