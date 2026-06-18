@@ -27,6 +27,18 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
     href: localeHref(locale, link.path),
     label: dict.nav[link.id],
   }));
+  const legalLinks = [
+    {
+      id: "privacy",
+      href: localeHref(locale, "/legal/privacy"),
+      label: dict.footer.privacy,
+    },
+    {
+      id: "terms",
+      href: localeHref(locale, "/legal/terms"),
+      label: dict.footer.terms,
+    },
+  ];
 
   return (
     <header
@@ -39,7 +51,10 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
     >
       <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href={wordmarkHref} className="shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent-primary)] rounded-md">
+        <Link
+          href={wordmarkHref}
+          className="shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent-primary)] rounded-md"
+        >
           <Image
             src="/assets/logo/babyleveling-logo.png"
             alt="BabyLeveling"
@@ -69,9 +84,22 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
 
         {/* Right group: theme toggle (desktop only) + scroll-aware CTA + hamburger */}
         <div className="flex items-center gap-3">
+          <nav aria-label="Legal" className="hidden items-center gap-3 xl:flex">
+            {legalLinks.map((link) => (
+              <Link
+                key={link.id}
+                href={link.href}
+                className="text-xs font-semibold transition-colors hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent-secondary)]"
+                style={{ color: "var(--text-caption)" }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
           <ThemeToggle className="hidden md:inline-flex" />
           <SiteHeaderClient
             navLinks={resolvedLinks}
+            legalLinks={legalLinks}
             ctaHref={ctaHref}
             ctaLabel={ctaLabel}
           />

@@ -18,6 +18,7 @@
  */
 
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { Hero } from "@/components/sections/Hero";
 import { HeroCharacter } from "@/components/sections/HeroCharacter";
 import { Reveal } from "@/components/sections/Reveal";
@@ -30,7 +31,9 @@ import { FamilyShare } from "@/components/sections/FamilyShare";
 import { Faq } from "@/components/sections/Faq";
 import { WaitlistSignup } from "@/components/sections/WaitlistSignup";
 import { SiteFooter } from "@/components/ui/SiteFooter";
-import { isLocale } from "@/lib/i18n/config";
+import { isLocale, type Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionary";
+import { localeHref } from "@/lib/i18n/paths";
 
 interface HomeProps {
   params: Promise<{ locale: string }>;
@@ -73,6 +76,8 @@ export default async function Home({ params }: HomeProps) {
         {/* S10  -  FAQ */}
         <Faq locale={locale} />
 
+        <LegalTrustLinks locale={locale} />
+
         {/* S11  -  Final CTA / Waitlist (header CTA scrolls here) */}
         <WaitlistSignup locale={locale} />
       </main>
@@ -81,5 +86,52 @@ export default async function Home({ params }: HomeProps) {
           renders its own <footer> landmark. */}
       <SiteFooter locale={locale} />
     </>
+  );
+}
+
+function LegalTrustLinks({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale);
+  const links = [
+    {
+      href: localeHref(locale, "/legal/privacy"),
+      label: dict.legal.privacyH1,
+      body: "How baby data, platform permissions, waitlist email, and deletion requests are handled.",
+    },
+    {
+      href: localeHref(locale, "/legal/terms"),
+      label: dict.legal.termsH1,
+      body: "The app license, Apple and Google store terms, medical disclaimer, and payment rules.",
+    },
+  ];
+
+  return (
+    <section
+      aria-label="Legal and privacy"
+      className="px-4 pb-4 sm:px-6 lg:px-8"
+    >
+      <div
+        className="mx-auto grid max-w-6xl gap-4 rounded-[var(--radius-xl)] border bg-white/60 p-4 sm:grid-cols-2 sm:p-5"
+        style={{ borderColor: "var(--border-subtle)" }}
+      >
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="group rounded-[var(--radius-lg)] p-4 transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)]"
+            style={{ borderColor: "var(--border-subtle)" }}
+          >
+            <span className="font-display text-xl font-bold text-hi">
+              {link.label}
+            </span>
+            <span className="mt-2 block text-sm leading-6 text-lo">
+              {link.body}
+            </span>
+            <span className="mt-3 inline-flex font-display text-sm font-bold text-accent">
+              Read page
+            </span>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }

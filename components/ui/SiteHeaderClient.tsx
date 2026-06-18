@@ -11,11 +11,17 @@ export interface ResolvedNavLink {
 
 interface SiteHeaderClientProps {
   navLinks: ResolvedNavLink[];
+  legalLinks: ResolvedNavLink[];
   ctaHref: string;
   ctaLabel: string;
 }
 
-export function SiteHeaderClient({ navLinks, ctaHref, ctaLabel }: SiteHeaderClientProps) {
+export function SiteHeaderClient({
+  navLinks,
+  legalLinks,
+  ctaHref,
+  ctaLabel,
+}: SiteHeaderClientProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [ctaVisible, setCtaVisible] = useState(false);
   const menuId = useId();
@@ -92,7 +98,10 @@ export function SiteHeaderClient({ navLinks, ctaHref, ctaLabel }: SiteHeaderClie
         aria-label="Site menu"
         hidden={!menuOpen}
         className="fixed inset-x-3 top-[4.75rem] z-40 rounded-[var(--radius-xl)] border p-2 shadow-lg md:hidden"
-        style={{ background: "var(--bg-raised)", borderColor: "var(--border-subtle)" }}
+        style={{
+          background: "var(--bg-raised)",
+          borderColor: "var(--border-subtle)",
+        }}
       >
         <nav aria-label="Mobile">
           <ul className="flex flex-col">
@@ -103,6 +112,22 @@ export function SiteHeaderClient({ navLinks, ctaHref, ctaLabel }: SiteHeaderClie
                   onClick={closeMenu}
                   className="block rounded-[var(--radius-md)] px-4 py-3 text-base font-semibold transition-colors hover:bg-[var(--bg-section-alt)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)]"
                   style={{ color: "var(--text-primary)" }}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+            <li
+              className="mx-4 my-2 border-t"
+              style={{ borderColor: "var(--border-subtle)" }}
+            />
+            {legalLinks.map((link) => (
+              <li key={link.id}>
+                <Link
+                  href={link.href}
+                  onClick={closeMenu}
+                  className="block rounded-[var(--radius-md)] px-4 py-3 text-sm font-semibold transition-colors hover:bg-[var(--bg-section-alt)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)]"
+                  style={{ color: "var(--text-secondary)" }}
                 >
                   {link.label}
                 </Link>

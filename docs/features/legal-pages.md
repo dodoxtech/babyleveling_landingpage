@@ -22,6 +22,8 @@ BabyLeveling ships two localized legal routes:
 - Both pages use the same visual system as the rest of the site: `DepthPageShell`,
   `card-duolingo`, `glass`, rounded token radii, display headings, and the shared footer
   legal links.
+- The privacy and terms routes are surfaced in the persistent header and in a compact
+  trust panel on the landing page before the final waitlist CTA.
 - The pages are content-first and server-rendered. No motion or new runtime dependency is
   introduced.
 - Each page includes a sticky desktop side panel that clarifies Apple, Android, and web

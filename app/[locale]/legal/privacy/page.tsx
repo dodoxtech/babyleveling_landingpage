@@ -76,7 +76,9 @@ interface PageProps {
   params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
@@ -174,7 +176,10 @@ function LegalPageFrame({
     <div className="px-4 pt-6 pb-24 sm:px-6 sm:pb-32">
       <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <article className="card-duolingo overflow-hidden">
-          <header className="border-b p-6 sm:p-8" style={{ borderColor: "var(--border-subtle)" }}>
+          <header
+            className="border-b p-6 sm:p-8"
+            style={{ borderColor: "var(--border-subtle)" }}
+          >
             <p className="font-display text-sm font-semibold text-accent">
               BabyLeveling legal
             </p>
@@ -202,9 +207,18 @@ function LegalPageFrame({
         <aside className="glass h-fit rounded-[var(--radius-xl)] p-6 lg:sticky lg:top-24">
           <h2 className="font-display text-xl text-hi">Platform coverage</h2>
           <div className="mt-5 grid gap-3">
-            <PlatformItem title="Apple" copy="iOS, watchOS, iCloud, App Store" />
-            <PlatformItem title="Android" copy="Android, Google Play, device backup" />
-            <PlatformItem title="Web" copy="Waitlist, contact, privacy-first analytics" />
+            <PlatformItem
+              title="Apple"
+              copy="iOS, watchOS, iCloud, App Store"
+            />
+            <PlatformItem
+              title="Android"
+              copy="Android, Google Play, device backup"
+            />
+            <PlatformItem
+              title="Web"
+              copy="Waitlist, contact, privacy-first analytics"
+            />
           </div>
           <Link
             href={related.href}
@@ -240,12 +254,17 @@ function LegalSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="grid gap-4 border-b pb-8 last:border-b-0 last:pb-0 sm:grid-cols-[3.5rem_1fr]" style={{ borderColor: "var(--border-subtle)" }}>
+    <section
+      className="grid gap-4 border-b pb-8 last:border-b-0 last:pb-0 sm:grid-cols-[3.5rem_1fr]"
+      style={{ borderColor: "var(--border-subtle)" }}
+    >
       <div className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-grad-xp font-display text-sm font-bold text-white shadow-[0_4px_0_rgba(23,32,42,0.16)]">
         {String(number).padStart(2, "0")}
       </div>
       <div>
-        <h2 className="font-display text-2xl leading-tight text-hi">{heading}</h2>
+        <h2 className="font-display text-2xl leading-tight text-hi">
+          {heading}
+        </h2>
         <div className="mt-3 flex flex-col gap-3 text-base leading-relaxed text-lo">
           {children}
         </div>
