@@ -37,11 +37,7 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
       }}
     >
       <div className="relative flex h-full items-center">
-        <SiteHeaderClient
-          navLinks={resolvedLinks}
-          ctaLabel={ctaLabel}
-          ctaHref={ctaHref}
-        />
+        <SiteHeaderClient navLinks={resolvedLinks} />
 
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           {/* Logo */}

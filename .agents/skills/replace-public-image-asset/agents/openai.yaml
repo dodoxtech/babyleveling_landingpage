@@ -1,0 +1,4 @@
+interface:
+  display_name: "Replace Public Image Asset"
+  short_description: "Generate PNG assets and replace public files"
+  default_prompt: "Use $replace-public-image-asset to generate or convert an image into a transparent PNG and replace a matching file under public/assets."

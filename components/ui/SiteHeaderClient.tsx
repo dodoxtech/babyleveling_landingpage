@@ -11,15 +11,9 @@ export interface ResolvedNavLink {
 
 interface SiteHeaderClientProps {
   navLinks: ResolvedNavLink[];
-  ctaLabel: string;
-  ctaHref: string;
 }
 
-export function SiteHeaderClient({
-  navLinks,
-  ctaLabel,
-  ctaHref,
-}: SiteHeaderClientProps) {
+export function SiteHeaderClient({ navLinks }: SiteHeaderClientProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuId = useId();
 
@@ -95,9 +89,6 @@ export function SiteHeaderClient({
               </li>
             ))}
           </ul>
-          <a href={ctaHref} onClick={closeMenu} className="btn-primary mt-2 w-full">
-            {ctaLabel}
-          </a>
         </nav>
       </div>
     </>

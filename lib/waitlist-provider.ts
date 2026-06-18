@@ -1,54 +1,82 @@
 /**
- * Waitlist storage/notification provider  -  server-side only.
+ * Waitlist storage provider — server-side only.
  *
- * The actual provider (Resend / Mailchimp / Supabase) is **not yet decided**
- * (see docs/features/waitlist-signup.md and the TODO in
- * docs/architecture/modules.md). `app/api/waitlist/route.ts` depends only on
- * this interface, never on a concrete vendor SDK, so swapping in a real
- * provider later is a one-file change behind `getWaitlistProvider()`. Capture
- * that decision in a new ADR when it's made  -  do not add a vendor SDK here
- * speculatively.
+ * Stores signups in a Google Sheet. Each row: [email, source, createdAt].
+ *
+ * Required env vars (set in Vercel dashboard + .env.local):
+ *   GOOGLE_SHEETS_SPREADSHEET_ID  — the ID from your sheet URL
+ *   GOOGLE_SHEETS_CLIENT_EMAIL    — service account email from credentials JSON
+ *   GOOGLE_SHEETS_PRIVATE_KEY     — service account private key (include \n characters)
+ *
+ * Setup:
+ *   1. Create a Google Sheet and note its ID (the long string in the URL).
+ *   2. In Google Cloud Console, enable the Sheets API and create a service account.
+ *   3. Download the JSON key, copy client_email and private_key into env vars.
+ *   4. Share the sheet with the service account email (Editor role).
  */
 
+import { google } from "googleapis";
 import type { WaitlistEntry } from "@/lib/waitlist";
 
 export type WaitlistSubmitResult =
   | { status: "created" }
-  /** Same email seen before  -  still a success from the caller's point of view. */
+  /** Same email seen before — still a success from the caller's point of view. */
   | { status: "duplicate" };
 
 export interface WaitlistProvider {
   submit(entry: WaitlistEntry): Promise<WaitlistSubmitResult>;
 }
 
-/**
- * In-memory stub provider. Good enough for local dev and for proving the
- * route handler's contract; data does not persist across server restarts or
- * across serverless function instances in production. Replace with a real
- * provider (e.g. Resend audience, Mailchimp list, Supabase table) behind this
- * same interface  -  see the TODO in docs/architecture/modules.md.
- */
-class InMemoryWaitlistProvider implements WaitlistProvider {
-  private readonly seen = new Set<string>();
+const SHEET_NAME = "Sheet1";
+const SHEET_RANGE_READ = `${SHEET_NAME}!A:A`;
+const SHEET_RANGE_APPEND = `${SHEET_NAME}!A:C`;
+
+class GoogleSheetsWaitlistProvider implements WaitlistProvider {
+  private getSheets() {
+    const auth = new google.auth.GoogleAuth({
+      credentials: {
+        client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
+        // Vercel stores multi-line secrets as literal \n — restore real newlines.
+        private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+      },
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
+    return google.sheets({ version: "v4", auth });
+  }
 
   async submit(entry: WaitlistEntry): Promise<WaitlistSubmitResult> {
-    const key = entry.email.toLowerCase();
-    if (this.seen.has(key)) {
+    const sheets = this.getSheets();
+    const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID!;
+
+    // Check for existing email to keep the sheet deduplicated.
+    const existing = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: SHEET_RANGE_READ,
+    });
+
+    const rows = existing.data.values ?? [];
+    const emailLower = entry.email.toLowerCase();
+    const isDuplicate = rows.some(
+      (row) => typeof row[0] === "string" && row[0].toLowerCase() === emailLower,
+    );
+
+    if (isDuplicate) {
       return { status: "duplicate" };
     }
-    this.seen.add(key);
+
+    await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range: SHEET_RANGE_APPEND,
+      valueInputOption: "RAW",
+      requestBody: {
+        values: [[entry.email, entry.source ?? "", entry.createdAt]],
+      },
+    });
+
     return { status: "created" };
   }
 }
 
-// Module-scoped singleton so repeated requests in the same server instance
-// share the same "seen" set (enough to make resubmission idempotent in dev /
-// a single long-lived server process; not durable across deploys/instances).
-let provider: WaitlistProvider | undefined;
-
 export function getWaitlistProvider(): WaitlistProvider {
-  if (!provider) {
-    provider = new InMemoryWaitlistProvider();
-  }
-  return provider;
+  return new GoogleSheetsWaitlistProvider();
 }
