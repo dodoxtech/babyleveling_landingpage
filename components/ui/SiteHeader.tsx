@@ -13,7 +13,8 @@ interface SiteHeaderProps {
 
 /**
  * S0 - Nav. Bright, compact bar with the wordmark, key routes, mode toggle,
- * and waitlist CTA. Client island owns only the mobile menu.
+ * and a scroll-aware waitlist CTA (hidden until user passes the hero so it
+ * never duplicates the hero's own CTA button).
  */
 export function SiteHeader({ locale }: SiteHeaderProps) {
   const dict = getDictionary(locale);
@@ -36,54 +37,44 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
         backdropFilter: "blur(16px)",
       }}
     >
-      <div className="relative flex h-full items-center">
-        <SiteHeaderClient navLinks={resolvedLinks} />
+      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        {/* Logo */}
+        <Link href={wordmarkHref} className="shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent-primary)] rounded-md">
+          <Image
+            src="/assets/logo/babyleveling-logo.png"
+            alt="BabyLeveling"
+            width={160}
+            height={48}
+            priority
+            className="h-10 w-auto object-contain"
+          />
+        </Link>
 
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          {/* Logo */}
-          <Link href={wordmarkHref} className="shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent-primary)] rounded-md">
-            <Image
-              src="/assets/logo/babyleveling-logo.png"
-              alt="BabyLeveling"
-              width={160}
-              height={48}
-              priority
-              className="h-10 w-auto object-contain"
-            />
-          </Link>
+        {/* Desktop nav */}
+        <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
+          <ul className="flex items-center gap-5">
+            {resolvedLinks.slice(0, 4).map((link) => (
+              <li key={link.id}>
+                <Link
+                  href={link.href}
+                  className="text-sm font-semibold transition-colors hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent-secondary)]"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          {/* Desktop nav */}
-          <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
-            <ul className="flex items-center gap-5">
-              {resolvedLinks.slice(0, 4).map((link) => (
-                <li key={link.id}>
-                  <Link
-                    href={link.href}
-                    className="text-sm font-semibold transition-colors hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent-secondary)]"
-                    style={{ color: "var(--text-secondary)" }}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Desktop right group */}
-          <div className="hidden items-center gap-3 md:flex">
-            <ThemeToggle />
-            <a
-              href={ctaHref}
-              className="btn-primary btn-sm"
-            >
-              {ctaLabel}
-            </a>
-          </div>
-
-          {/* Mobile: CTA always visible; hamburger in client island */}
-          <a href={ctaHref} className="btn-primary btn-sm md:hidden">
-            {ctaLabel}
-          </a>
+        {/* Right group: theme toggle (desktop only) + scroll-aware CTA + hamburger */}
+        <div className="flex items-center gap-3">
+          <ThemeToggle className="hidden md:inline-flex" />
+          <SiteHeaderClient
+            navLinks={resolvedLinks}
+            ctaHref={ctaHref}
+            ctaLabel={ctaLabel}
+          />
         </div>
       </div>
     </header>

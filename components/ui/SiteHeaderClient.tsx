@@ -11,10 +11,13 @@ export interface ResolvedNavLink {
 
 interface SiteHeaderClientProps {
   navLinks: ResolvedNavLink[];
+  ctaHref: string;
+  ctaLabel: string;
 }
 
-export function SiteHeaderClient({ navLinks }: SiteHeaderClientProps) {
+export function SiteHeaderClient({ navLinks, ctaHref, ctaLabel }: SiteHeaderClientProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [ctaVisible, setCtaVisible] = useState(false);
   const menuId = useId();
 
   useEffect(() => {
@@ -33,10 +36,27 @@ export function SiteHeaderClient({ navLinks }: SiteHeaderClientProps) {
     return () => query.removeEventListener("change", onChange);
   }, []);
 
+  // Show CTA only after scrolling past the hero (roughly 70% of viewport height).
+  useEffect(() => {
+    const threshold = () => window.innerHeight * 0.7;
+    const onScroll = () => setCtaVisible(window.scrollY > threshold());
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
+      {/* CTA — desktop: visible at md+; mobile: visible below md. Both hidden until scrolled. */}
+      {ctaVisible && (
+        <a href={ctaHref} className="btn-primary btn-sm">
+          {ctaLabel}
+        </a>
+      )}
+
+      {/* Hamburger: mobile only */}
       <button
         type="button"
         className="relative inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] transition-colors hover:bg-[var(--bg-section-alt)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)] md:hidden"

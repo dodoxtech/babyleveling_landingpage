@@ -33,6 +33,7 @@ the public landing / waitlist site that markets that app.**
 - [[features/family-sharing]] — co-op party / family sharing
 - [[features/waitlist-signup]] — email capture / waitlist
 - [[features/faq]] — frequently asked questions
+- [[features/legal-pages]] — privacy policy + terms of service pages
 - [[features/depth-pages]] — /features, /rpg-system, /parents, /pricing SEO depth pages
 
 ### Decisions
