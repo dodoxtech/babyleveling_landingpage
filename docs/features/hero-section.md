@@ -1,7 +1,7 @@
 ---
 tags: [feature]
 status: implemented
-updated: 2026-06-17
+updated: 2026-06-18
 ---
 
 # Hero Section
@@ -25,7 +25,8 @@ quest tiles, an XP card, mode toggle, and one primary waitlist CTA.
 
 ## UX notes
 
-- Light, cheerful game-world palette with chunky tactile controls.
+- Soft app-native palette with cobalt CTAs, frosted secondary controls, and tactile pill
+  button motion.
 - Primary visual is a centered baby hero mascot with supporting XP and quick-log cards.
 - The hero fits one viewport on desktop and stacks cleanly on mobile.
 - Respect `prefers-reduced-motion`: mascot bobbing and transitions collapse to static.

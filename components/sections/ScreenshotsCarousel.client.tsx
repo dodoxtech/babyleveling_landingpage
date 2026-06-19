@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { useLenis } from "lenis/react";
 import { useReducedMotion } from "@/lib/motion";
 import type { Screenshot } from "@/lib/content/screenshots";
 
@@ -50,18 +51,152 @@ const previewData: Record<string, PreviewData> = {
   },
 };
 
+/**
+ * S7 Screenshot Gallery  -  an Awwwards-style pinned horizontal scroll.
+ *
+ * On desktop (>=1024px, motion allowed) the section pins to the viewport and
+ * vertical scroll drives the phone track sideways; each device zooms to focus
+ * as it reaches centre, one by one. The maths is layout-measured
+ * (`offsetLeft`/`offsetWidth`), so it stays correct from a 360px phone up to a
+ * 4K monitor. GSAP + ScrollTrigger load via dynamic `import()` and stay synced
+ * to Lenis  -  the same code-splitting/sync treatment `HeroCharacterXpBar` uses.
+ *
+ * On touch / small screens / reduced motion it degrades to a native
+ * scroll-snap rail with dots + prev/next, which is the right ergonomic on a
+ * phone and needs no JS scroll hijacking.
+ */
 export function ScreenshotsCarousel({
   screenshots,
   prevLabel,
   nextLabel,
 }: ScreenshotsCarouselProps) {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const slideRefs = useRef<(HTMLElement | null)[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
   const reducedMotion = useReducedMotion();
+  const [pinned, setPinned] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
+  // --- shared refs ---
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const panelRefs = useRef<(HTMLElement | null)[]>([]);
+  const railRefs = useRef<(HTMLElement | null)[]>([]);
+  const railTrackRef = useRef<HTMLDivElement>(null);
+  const renderRef = useRef<(() => void) | null>(null);
+
+  // Decide which experience to mount. Native rail is the SSR-safe default; the
+  // pinned build only switches on after mount once we know the viewport.
   useEffect(() => {
+    if (reducedMotion) {
+      setPinned(false);
+      return;
+    }
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const apply = () => setPinned(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, [reducedMotion]);
+
+  // Keep the horizontal pass in step with Lenis' smoothed scroll position.
+  useLenis(() => {
+    renderRef.current?.();
+  });
+
+  // --- sticky horizontal scroll (desktop) ---
+  // A `position: sticky` stage driven by the section's own scroll progress.
+  // No ScrollTrigger pinning, so it never fights Lenis' smooth scroll  -  the
+  // browser keeps the stage put natively and we only read layout + write
+  // transforms each frame (compositor-only: `transform`/`opacity`/`filter`).
+  useEffect(() => {
+    if (!pinned) return;
+    const section = sectionRef.current;
+    const pin = pinRef.current;
     const track = trackRef.current;
+    const progress = progressRef.current;
+    if (!section || !pin || !track) return;
+
+    const panels = panelRefs.current.filter(Boolean) as HTMLElement[];
+    const count = panels.length;
+    if (!count) return;
+
+    let xStart = 0;
+    let xEnd = 0;
+    let frame = 0;
+    let queued = false;
+
+    const measure = () => {
+      const viewport = pin.clientWidth;
+      const first = panels[0];
+      const last = panels[count - 1];
+      xStart = viewport / 2 - (first.offsetLeft + first.offsetWidth / 2);
+      xEnd = viewport / 2 - (last.offsetLeft + last.offsetWidth / 2);
+    };
+
+    const render = () => {
+      queued = false;
+      const total = section.offsetHeight - window.innerHeight;
+      const scrolled = Math.min(
+        Math.max(-section.getBoundingClientRect().top, 0),
+        Math.max(total, 1),
+      );
+      const p = total > 0 ? scrolled / total : 0;
+
+      track.style.transform = `translate3d(${xStart + (xEnd - xStart) * p}px,0,0)`;
+      if (progress) progress.style.transform = `scaleX(${Math.max(p, 0.02)})`;
+
+      let nearest = 0;
+      let bestDistance = Infinity;
+      for (let i = 0; i < count; i += 1) {
+        const target = count > 1 ? i / (count - 1) : 0;
+        const distance = Math.abs(p - target);
+        const focus = Math.min(Math.max(1 - distance * (count - 1), 0), 1);
+        const el = panels[i];
+        el.style.transform = `scale(${0.76 + 0.24 * focus})`;
+        el.style.opacity = `${0.34 + 0.66 * focus}`;
+        el.style.filter = focus > 0.999 ? "none" : `blur(${(1 - focus) * 3}px)`;
+        el.style.zIndex = focus > 0.5 ? "3" : "1";
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          nearest = i;
+        }
+      }
+      setActiveIndex((prev) => (prev === nearest ? prev : nearest));
+    };
+
+    // Native scroll fires even in Lenis root mode; rAF-coalesce to one paint.
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      frame = requestAnimationFrame(render);
+    };
+    const onResize = () => {
+      measure();
+      render();
+    };
+
+    renderRef.current = render;
+    measure();
+    render();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    // Re-measure once async images have settled the track width.
+    const settle = window.setTimeout(onResize, 250);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      window.clearTimeout(settle);
+      cancelAnimationFrame(frame);
+      renderRef.current = null;
+    };
+  }, [pinned, screenshots.length]);
+
+  // --- native rail (mobile / reduced motion) ---
+  useEffect(() => {
+    if (pinned) return;
+    const track = railTrackRef.current;
     if (!track || typeof IntersectionObserver === "undefined") return;
 
     const observer = new IntersectionObserver(
@@ -70,57 +205,140 @@ export function ScreenshotsCarousel({
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (!visible) return;
-        const index = slideRefs.current.findIndex(
+        const index = railRefs.current.findIndex(
           (node) => node === visible.target,
         );
         if (index !== -1) setActiveIndex(index);
       },
-      { root: track, threshold: [0.42, 0.62, 0.82] },
+      { root: track, threshold: [0.4, 0.6, 0.8] },
     );
 
-    slideRefs.current.forEach((node) => node && observer.observe(node));
+    railRefs.current.forEach((node) => node && observer.observe(node));
     return () => observer.disconnect();
-  }, [screenshots.length]);
+  }, [pinned, screenshots.length]);
 
-  const scrollToIndex = (index: number) => {
-    const nextIndex = Math.min(Math.max(index, 0), screenshots.length - 1);
-    slideRefs.current[nextIndex]?.scrollIntoView({
+  const scrollRailTo = (index: number) => {
+    const next = Math.min(Math.max(index, 0), screenshots.length - 1);
+    railRefs.current[next]?.scrollIntoView({
       behavior: reducedMotion ? "auto" : "smooth",
       inline: "center",
       block: "nearest",
     });
-    setActiveIndex(nextIndex);
+    setActiveIndex(next);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      scrollToIndex(activeIndex + 1);
-    }
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      scrollToIndex(activeIndex - 1);
-    }
-  };
+  const stepLabel = `${String(activeIndex + 1).padStart(2, "0")} / ${String(
+    screenshots.length,
+  ).padStart(2, "0")}`;
 
+  // ===== PINNED (desktop) =====
+  if (pinned) {
+    return (
+      <div
+        ref={sectionRef}
+        className="relative"
+        style={{ height: `${screenshots.length * 100}svh` }}
+      >
+        <div
+          ref={pinRef}
+          className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-[var(--story-header,4.5rem)]"
+        >
+          <div className="mx-auto flex w-full max-w-[120rem] flex-1 flex-col px-6 lg:px-10 2xl:px-16">
+            <div className="flex shrink-0 items-end justify-between gap-6 pb-2 pt-[clamp(1rem,4vh,3rem)]">
+              <div className="max-w-[34rem]">
+                <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
+                  Inside the app
+                </p>
+                <h2 className="mt-2 text-h2">
+                  Swipe through the tiny command center.
+                </h2>
+              </div>
+              <p
+                className="hidden font-display text-5xl font-bold tabular-nums text-[var(--text-primary)]/85 md:block"
+                aria-hidden="true"
+              >
+                {stepLabel}
+              </p>
+            </div>
+
+            <div className="relative flex min-h-0 flex-1 items-center">
+              <div
+                ref={trackRef}
+                className="flex flex-nowrap items-center gap-[clamp(2.5rem,7vw,8rem)] will-change-transform"
+              >
+                {screenshots.map((screenshot, index) => (
+                  <figure
+                    key={screenshot.id}
+                    ref={(node) => {
+                      panelRefs.current[index] = node;
+                    }}
+                    aria-current={index === activeIndex}
+                    className="flex w-[clamp(17rem,24vw,27rem)] shrink-0 origin-center flex-col items-center"
+                  >
+                    <DevicePreview screenshot={screenshot} active />
+                    <figcaption className="mt-7 text-center">
+                      <span className="font-display text-2xl font-bold text-[var(--text-primary)]">
+                        {screenshot.caption}
+                      </span>
+                      <span className="mt-1 block text-sm leading-6 text-[var(--text-secondary)]">
+                        {getPreviewData(screenshot.id).subtitle}
+                      </span>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex shrink-0 items-center gap-4 pb-[clamp(1.5rem,5vh,3.5rem)] pt-2">
+              <span className="font-display text-sm font-bold tabular-nums text-[var(--text-secondary)] md:hidden">
+                {stepLabel}
+              </span>
+              <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-[var(--border-subtle)]">
+                <div
+                  ref={progressRef}
+                  className="h-full w-full origin-left rounded-full bg-[var(--accent-primary)]"
+                  style={{ transform: "scaleX(0.02)" }}
+                />
+              </div>
+              <span className="hidden text-sm font-semibold text-[var(--text-secondary)] lg:inline">
+                Scroll to explore
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ===== NATIVE RAIL (mobile / reduced motion) =====
   return (
     <div className="relative">
+      <div className="mb-8 sm:mb-10">
+        <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
+          Inside the app
+        </p>
+        <h2 className="mt-2 text-h2">Swipe through the tiny command center.</h2>
+        <p className="mt-3 max-w-[34rem] text-base leading-7 text-[var(--text-secondary)]">
+          Big tap targets, playful progress, and parent-ready logs sit inside a
+          phone frame large enough to inspect.
+        </p>
+      </div>
+
       <div
-        ref={trackRef}
+        ref={railTrackRef}
         tabIndex={0}
         role="group"
         aria-label="BabyLeveling app screen previews"
-        onKeyDown={handleKeyDown}
-        className="mx-[calc(50%-50vw)] flex snap-x snap-mandatory gap-5 overflow-x-auto px-[max(1rem,calc((100vw-80rem)/2))] pb-8 pt-2 outline-none [scrollbar-width:none] focus-visible:ring-4 focus-visible:ring-[var(--accent-secondary)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--bg-section-alt)] motion-reduce:scroll-auto sm:gap-7 lg:gap-9 [&::-webkit-scrollbar]:hidden"
+        className="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-8 pt-2 outline-none [scrollbar-width:none] focus-visible:ring-4 focus-visible:ring-[var(--accent-secondary)] sm:-mx-6 sm:px-6 [&::-webkit-scrollbar]:hidden"
       >
         {screenshots.map((screenshot, index) => (
           <figure
             key={screenshot.id}
             ref={(node) => {
-              slideRefs.current[index] = node;
+              railRefs.current[index] = node;
             }}
             aria-current={index === activeIndex}
-            className="w-[78vw] max-w-[23rem] shrink-0 snap-center sm:w-[23rem] lg:w-[26rem] lg:max-w-[26rem]"
+            className="w-[74vw] max-w-[20rem] shrink-0 snap-center sm:w-[20rem]"
           >
             <DevicePreview
               screenshot={screenshot}
@@ -138,13 +356,13 @@ export function ScreenshotsCarousel({
         ))}
       </div>
 
-      <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-4 rounded-[var(--radius-xl)] bg-white/70 p-3 shadow-[0_5px_0_rgba(23,32,42,0.08)] sm:flex-row">
+      <div className="mt-2 flex items-center justify-between gap-4">
         <button
           type="button"
           aria-label={prevLabel}
-          onClick={() => scrollToIndex(activeIndex - 1)}
+          onClick={() => scrollRailTo(activeIndex - 1)}
           disabled={activeIndex === 0}
-          className="btn-secondary btn-sm w-full disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-45 sm:w-auto"
+          className="btn-secondary btn-sm disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-45"
         >
           Previous
         </button>
@@ -156,7 +374,7 @@ export function ScreenshotsCarousel({
               type="button"
               aria-label={`Show ${screenshot.caption ?? "preview"}`}
               aria-current={index === activeIndex}
-              onClick={() => scrollToIndex(index)}
+              onClick={() => scrollRailTo(index)}
               className="h-3 rounded-full border transition-all motion-reduce:transition-none"
               style={{
                 width: index === activeIndex ? "2rem" : "0.75rem",
@@ -176,9 +394,9 @@ export function ScreenshotsCarousel({
         <button
           type="button"
           aria-label={nextLabel}
-          onClick={() => scrollToIndex(activeIndex + 1)}
+          onClick={() => scrollRailTo(activeIndex + 1)}
           disabled={activeIndex === screenshots.length - 1}
-          className="btn-secondary btn-sm w-full disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-45 sm:w-auto"
+          className="btn-secondary btn-sm disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-45"
         >
           Next
         </button>
@@ -204,10 +422,8 @@ function DevicePreview({
     <div
       role="img"
       aria-label={screenshot.alt}
-      className={`relative mx-auto aspect-[9/19.4] rounded-[3rem] bg-[#202832] p-[0.62rem] shadow-[0_2rem_4rem_rgba(23,32,42,0.18),inset_0_0_0_1px_rgba(255,255,255,0.16)] transition duration-500 motion-reduce:transition-none ${
-        active
-          ? "translate-y-0 scale-100 opacity-100"
-          : "translate-y-4 scale-[0.96] opacity-75"
+      className={`relative mx-auto aspect-[9/19.4] w-full rounded-[3rem] bg-[#202832] p-[0.62rem] shadow-[0_2rem_4rem_rgba(23,32,42,0.18),inset_0_0_0_1px_rgba(255,255,255,0.16)] transition duration-500 motion-reduce:transition-none ${
+        active ? "scale-100 opacity-100" : "scale-[0.97] opacity-80"
       }`}
     >
       <span className="absolute -left-1 top-28 h-14 w-1 rounded-l-full bg-[#2c3541]" />

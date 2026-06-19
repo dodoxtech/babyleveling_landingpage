@@ -22,9 +22,9 @@ export function Hero({ locale }: HeroProps) {
       aria-label="Hero"
       className="relative isolate min-h-[calc(100dvh-4.5rem)] overflow-hidden px-4 py-8 sm:px-6 lg:px-8"
     >
-      <div className="mx-auto grid min-h-[calc(100dvh-8rem)] w-full max-w-7xl items-center gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="order-1 lg:order-1">
-          <div className="max-w-2xl">
+      <div className="mx-auto grid min-h-[calc(100dvh-8rem)] w-full max-w-[calc(100vw-2rem)] items-center gap-8 sm:max-w-7xl lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="order-1 min-w-0 lg:order-1">
+          <div className="min-w-0 max-w-[calc(100vw-2rem)] sm:max-w-2xl">
             <p
               className="mb-4 inline-flex rounded-[var(--radius-md)] border px-3 py-1 text-sm font-bold"
               style={{
@@ -42,16 +42,16 @@ export function Hero({ locale }: HeroProps) {
               </span>
             </h1>
             <h2 className="sr-only">{SITE_DESCRIPTOR}</h2>
-            <p className="mt-5 max-w-[34rem] text-lg leading-8 text-[var(--text-secondary)]">
+            <p className="mt-5 max-w-full text-lg leading-8 text-[var(--text-secondary)] sm:max-w-[34rem]">
               Track feeds, sleep, diapers, growth, and milestones with XP,
               quests, and a mascot parents actually love.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a href="#waitlist" className="btn-primary">
+              <a href="#waitlist" className="btn-primary w-full sm:w-auto">
                 Join the Waitlist
               </a>
-              <a href="#rpg-system" className="btn-secondary">
+              <a href="#rpg-system" className="btn-secondary w-full sm:w-auto">
                 See the Loop
               </a>
             </div>
@@ -65,8 +65,8 @@ export function Hero({ locale }: HeroProps) {
           </div>
         </div>
 
-        <div className="order-2 lg:order-2">
-          <div className="relative mx-auto aspect-[1.02] w-full max-w-[38rem]">
+        <div className="order-2 min-w-0 lg:order-2">
+          <div className="relative mx-auto aspect-[1.02] w-full max-w-[calc(100vw-2rem)] sm:max-w-[38rem]">
             <div
               className="absolute inset-8 rounded-[2rem]"
               style={{ background: "var(--bg-playfield)" }}

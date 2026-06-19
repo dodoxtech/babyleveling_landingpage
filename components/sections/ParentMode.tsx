@@ -23,13 +23,21 @@ export function ParentMode({ locale: _locale }: ParentModeProps) {
     <section
       id="parents"
       aria-label="Parent reassurance"
-      className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+      className="relative isolate overflow-hidden px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
     >
-      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-        <div className="rounded-[2rem] bg-white p-5 shadow-[0_6px_0_rgba(23,32,42,0.1)]">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -right-24 top-8 h-80 w-80 rounded-full bg-[var(--accent-secondary)] opacity-[0.14] blur-3xl" />
+        <div className="absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-[var(--accent-pink)] opacity-[0.10] blur-3xl" />
+      </div>
+
+      <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-16">
+        <div className="rounded-[2rem] bg-white p-6 shadow-[0_6px_0_rgba(23,32,42,0.1)]">
           <div className="grid gap-4 sm:grid-cols-2">
             {quotes.map((item) => (
-              <blockquote key={item.author} className="rounded-[var(--radius-xl)] bg-[var(--bg-section-alt)] p-6">
+              <blockquote
+                key={item.author}
+                className="rounded-[var(--radius-xl)] bg-[var(--bg-section-alt)] p-6"
+              >
                 <p className="font-display text-2xl font-bold leading-tight">
                   &quot;{item.quote}&quot;
                 </p>
@@ -39,7 +47,9 @@ export function ParentMode({ locale: _locale }: ParentModeProps) {
                   </div>
                   <div>
                     <p className="font-semibold">{item.author}</p>
-                    <p className="text-sm text-[var(--text-secondary)]">{item.role}</p>
+                    <p className="text-sm text-[var(--text-secondary)]">
+                      {item.role}
+                    </p>
                   </div>
                 </footer>
               </blockquote>
@@ -48,18 +58,40 @@ export function ParentMode({ locale: _locale }: ParentModeProps) {
         </div>
 
         <div>
+          <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
+            Built for real days
+          </p>
           <Image
             src="/assets/icons/heart-pulse.png"
             alt=""
             width={72}
             height={72}
             aria-hidden="true"
+            className="mt-4"
           />
           <h2 className="mt-5 text-h2">For tired parents, not perfect ones.</h2>
           <p className="mt-4 text-lg leading-8 text-[var(--text-secondary)]">
             The tone is cheerful, but the product stays practical: fast entry,
             shared context, and a clear record when the day gets blurry.
           </p>
+          <dl className="mt-8 grid grid-cols-2 gap-4">
+            {[
+              ["3 s", "to log a care action"],
+              ["3 a.m.", "friendly, dark, one-handed"],
+            ].map(([value, label]) => (
+              <div
+                key={label}
+                className="rounded-[var(--radius-md)] bg-white/70 p-4 shadow-[0_4px_0_rgba(23,32,42,0.06)]"
+              >
+                <dt className="font-display text-2xl font-bold tabular-nums text-[var(--accent-primary)]">
+                  {value}
+                </dt>
+                <dd className="mt-1 text-xs font-semibold text-[var(--text-secondary)]">
+                  {label}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>

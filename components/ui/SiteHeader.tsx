@@ -45,11 +45,13 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
       className="fixed inset-x-0 top-0 z-50 h-[4.5rem] border-b"
       style={{
         borderColor: "var(--border-subtle)",
-        background: "rgba(255,250,240,0.92)",
-        backdropFilter: "blur(16px)",
+        background:
+          "linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.66))",
+        backdropFilter: "blur(22px) saturate(150%)",
+        boxShadow: "0 12px 30px rgba(22,32,47,0.06)",
       }}
     >
-      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link
           href={wordmarkHref}
@@ -83,7 +85,7 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
         </nav>
 
         {/* Right group: theme toggle (desktop only) + scroll-aware CTA + hamburger */}
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-3">
           <nav aria-label="Legal" className="hidden items-center gap-3 xl:flex">
             {legalLinks.map((link) => (
               <Link
@@ -96,7 +98,9 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
               </Link>
             ))}
           </nav>
-          <ThemeToggle className="hidden md:inline-flex" />
+          <div className="hidden md:block">
+            <ThemeToggle />
+          </div>
           <SiteHeaderClient
             navLinks={resolvedLinks}
             legalLinks={legalLinks}

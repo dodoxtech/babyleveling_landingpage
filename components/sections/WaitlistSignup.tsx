@@ -68,11 +68,19 @@ export function WaitlistSignup({ locale }: WaitlistSignupProps) {
         aria-label="Waitlist"
         className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8"
       >
-        <div className="mx-auto grid max-w-6xl gap-8 rounded-[2.25rem] bg-[var(--bg-playfield)] p-6 shadow-[0_8px_0_rgba(23,32,42,0.12)] lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:p-10">
+        <div className="mx-auto grid max-w-6xl gap-8 rounded-[var(--radius-xl)] border border-white/70 bg-[var(--bg-playfield)] p-6 shadow-[var(--shadow-colored)] lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:p-10">
           <div className="relative min-h-[18rem]">
             <Image
-              src={state === "success" ? "/assets/icons/trophy.png" : "/assets/characters/warrior-baby-shield.png"}
-              alt={state === "success" ? "Reward trophy" : "Warrior baby with shield"}
+              src={
+                state === "success"
+                  ? "/assets/icons/trophy.png"
+                  : "/assets/characters/warrior-baby-shield.png"
+              }
+              alt={
+                state === "success"
+                  ? "Reward trophy"
+                  : "Warrior baby with shield"
+              }
               width={280}
               height={280}
               className="mx-auto motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]"
@@ -81,7 +89,11 @@ export function WaitlistSignup({ locale }: WaitlistSignupProps) {
 
           <div>
             {state === "success" ? (
-              <SuccessMessage reducedMotion={reducedMotion} headline={waitlist.successHeadline} body={waitlist.successBody} />
+              <SuccessMessage
+                reducedMotion={reducedMotion}
+                headline={waitlist.successHeadline}
+                body={waitlist.successBody}
+              />
             ) : (
               <>
                 <h2 className="text-h2">{waitlist.headline}</h2>
@@ -89,8 +101,15 @@ export function WaitlistSignup({ locale }: WaitlistSignupProps) {
                   {waitlist.body}
                 </p>
 
-                <form onSubmit={handleSubmit} noValidate className="mt-7 max-w-xl">
-                  <label htmlFor="waitlist-email" className="mb-2 block text-sm font-bold">
+                <form
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="mt-7 max-w-xl"
+                >
+                  <label
+                    htmlFor="waitlist-email"
+                    className="mb-2 block text-sm font-bold"
+                  >
                     {waitlist.emailLabel}
                   </label>
                   <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
@@ -111,22 +130,37 @@ export function WaitlistSignup({ locale }: WaitlistSignupProps) {
                         }
                       }}
                       aria-invalid={state === "error"}
-                      aria-describedby={fieldError || formError ? errorId : undefined}
+                      aria-describedby={
+                        fieldError || formError ? errorId : undefined
+                      }
                       disabled={state === "submitting"}
-                      className="rounded-[var(--radius-lg)] border-2 border-[var(--border-card)] bg-white px-5 py-4 text-base text-[var(--text-primary)] outline-none shadow-[0_4px_0_var(--border-card)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)] disabled:opacity-60"
+                      className="min-h-[3.35rem] rounded-[var(--radius-lg)] border border-[var(--border-card)] bg-white/82 px-5 py-4 text-base text-[var(--text-primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.78),0_10px_22px_rgba(22,32,47,0.08)] outline-none transition-[border-color,box-shadow,background-color] duration-300 focus-visible:border-[var(--accent-primary)] focus-visible:bg-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)] disabled:opacity-60"
                     />
-                    <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="sr-only" />
+                    <input
+                      type="text"
+                      name="company"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      className="sr-only"
+                    />
                     <button
                       type="submit"
                       disabled={state === "submitting"}
                       data-ab-variant={variant}
                       className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      {state === "submitting" ? waitlist.ctaSubmitting : ctaLabel}
+                      {state === "submitting"
+                        ? waitlist.ctaSubmitting
+                        : ctaLabel}
                     </button>
                   </div>
                   {(fieldError || formError) && (
-                    <p id={errorId} role="alert" className="mt-3 text-sm font-semibold text-[#a3133d]">
+                    <p
+                      id={errorId}
+                      role="alert"
+                      className="mt-3 text-sm font-semibold text-[#a3133d]"
+                    >
                       {fieldError ?? formError}
                     </p>
                   )}

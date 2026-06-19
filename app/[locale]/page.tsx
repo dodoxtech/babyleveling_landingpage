@@ -30,6 +30,10 @@ import { ThemeGallery } from "@/components/sections/ThemeGallery";
 import { FamilyShare } from "@/components/sections/FamilyShare";
 import { Faq } from "@/components/sections/Faq";
 import { WaitlistSignup } from "@/components/sections/WaitlistSignup";
+import {
+  StoryProgress,
+  type StoryChapter,
+} from "@/components/sections/StoryProgress.client";
 import { SiteFooter } from "@/components/ui/SiteFooter";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
@@ -39,13 +43,30 @@ interface HomeProps {
   params: Promise<{ locale: string }>;
 }
 
+const storyChapters: StoryChapter[] = [
+  { id: "hero", label: "Start" },
+  { id: "hero-appears", label: "Character" },
+  { id: "reveal", label: "Care loop" },
+  { id: "how-it-works", label: "XP" },
+  { id: "features", label: "Tools" },
+  { id: "parent-mode", label: "Modes" },
+  { id: "screenshots", label: "Demo" },
+  { id: "themes", label: "Themes" },
+  { id: "family", label: "Family" },
+  { id: "faq", label: "FAQ" },
+  { id: "legal-trust", label: "Trust" },
+  { id: "waitlist", label: "Waitlist" },
+];
+
 export default async function Home({ params }: HomeProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
   return (
     <>
-      <main id="top" className="min-h-screen pt-[4.5rem]">
+      <main id="top" className="snap-story min-h-screen pt-[4.5rem]">
+        <StoryProgress chapters={storyChapters} />
+
         {/* S1  -  Hero */}
         <Hero locale={locale} />
 
@@ -106,6 +127,7 @@ function LegalTrustLinks({ locale }: { locale: Locale }) {
 
   return (
     <section
+      id="legal-trust"
       aria-label="Legal and privacy"
       className="px-4 pb-4 sm:px-6 lg:px-8"
     >

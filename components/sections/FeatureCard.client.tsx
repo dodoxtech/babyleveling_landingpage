@@ -19,15 +19,22 @@ export function FeatureCard({ feature, index, className }: FeatureCardProps) {
     <motion.article
       initial={reducedMotion ? false : { opacity: 0, y: 18 }}
       whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-      whileHover={reducedMotion ? undefined : { y: -4 }}
+      whileHover={reducedMotion ? undefined : { y: -6, scale: 1.012 }}
       viewport={{ once: true, margin: "-8% 0px" }}
-      transition={{ duration: 0.45, delay: reducedMotion ? 0 : index * 0.05 }}
+      transition={{
+        type: "spring",
+        stiffness: 190,
+        damping: 22,
+        delay: reducedMotion ? 0 : index * 0.05,
+      }}
       className={`card-duolingo min-h-[13rem] p-6 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent-secondary)] ${className ?? ""}`}
       tabIndex={0}
     >
       <div
         className="flex h-14 w-14 items-center justify-center rounded-[var(--radius-lg)]"
-        style={{ background: "color-mix(in srgb, var(--accent-primary) 12%, white)" }}
+        style={{
+          background: "color-mix(in srgb, var(--accent-primary) 12%, white)",
+        }}
       >
         <Image
           src={assetPath(feature.icon)}

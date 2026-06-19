@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-17
+updated: 2026-06-18
 ---
 
 # Architecture Overview
@@ -99,10 +99,11 @@ through the app.
 
 ## Design source of truth
 
-Visual language (colors, typography, glassmorphism, the three themes) mirrors the app's
-design system. The canonical reference is the app repo's `docs/Design.md` (sibling
-`BabyLeveling` project). The landing page should *echo* that aesthetic — dark-mode-first,
-neon accents, glass cards — without re-deriving tokens here.
+Visual language is owned by `app/globals.css` design tokens. The landing page uses a
+soft app-native light theme with cobalt as the locked CTA accent, warm playfield panels,
+frosted secondary controls, pill-shaped buttons, and transform/opacity-based motion.
+The Cute and Warrior modes adjust supporting surface tones while preserving the same core
+interaction language.
 
 ## Related
 - [[modules]]

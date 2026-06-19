@@ -10,7 +10,9 @@ function getInitialTheme(): Theme {
   if (typeof window === "undefined") return "cute";
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored === "cute" || stored === "warrior") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "warrior" : "cute";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "warrior"
+    : "cute";
 }
 
 function applyTheme(theme: Theme) {
@@ -60,7 +62,8 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       }
     };
     document.documentElement.addEventListener("theme-change", handler);
-    return () => document.documentElement.removeEventListener("theme-change", handler);
+    return () =>
+      document.documentElement.removeEventListener("theme-change", handler);
   }, [theme]);
 
   const toggle = () => {
@@ -76,7 +79,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       aria-checked={theme === "warrior"}
       aria-label={`Switch to ${theme === "cute" ? "Warrior" : "Cute"} Mode`}
       onClick={toggle}
-      className={`relative inline-flex h-9 w-[9.5rem] items-center rounded-full border transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+      className={`relative inline-flex h-10 w-[9.75rem] items-center rounded-full border shadow-[0_10px_22px_rgba(22,32,47,0.08),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-md transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[var(--ease-out-premium)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)] ${
         theme === "warrior"
           ? "border-[var(--accent-primary)] bg-[var(--bg-raised)]"
           : "border-[var(--accent-primary)] bg-[var(--bg-raised)]"
@@ -86,10 +89,13 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       {/* Sliding pill indicator */}
       <span
         aria-hidden="true"
-        className="absolute top-0.5 h-8 w-[4.5rem] rounded-full transition-all duration-300"
+        className="absolute top-1 h-8 w-[4.55rem] rounded-full transition-all duration-300 ease-[var(--ease-out-premium)]"
         style={{
-          background: "var(--accent-primary)",
-          left: theme === "cute" ? "2px" : "calc(100% - calc(4.5rem + 2px))",
+          background:
+            "linear-gradient(180deg, color-mix(in srgb, var(--accent-primary) 88%, #ffffff), var(--accent-primary))",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.38), 0 8px 18px color-mix(in srgb, var(--accent-primary) 28%, transparent)",
+          left: theme === "cute" ? "4px" : "calc(100% - calc(4.55rem + 4px))",
         }}
       />
 
@@ -105,7 +111,9 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       {/* Warrior label */}
       <span
         className="relative z-10 flex flex-1 items-center justify-center gap-1 text-xs font-semibold transition-colors"
-        style={{ color: theme === "warrior" ? "#fff" : "var(--text-secondary)" }}
+        style={{
+          color: theme === "warrior" ? "#fff" : "var(--text-secondary)",
+        }}
       >
         <span aria-hidden="true">◈</span>
         Warrior
