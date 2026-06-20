@@ -1,51 +1,41 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import {
+  applyTheme,
+  getStoredTheme,
+  THEMES,
+  type ThemeId,
+} from "@/lib/theme/registry";
 
-export type Theme = "cute" | "warrior";
-
-const STORAGE_KEY = "babyleveling-theme";
-
-function getInitialTheme(): Theme {
-  if (typeof window === "undefined") return "cute";
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === "cute" || stored === "warrior") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "warrior"
-    : "cute";
-}
-
-function applyTheme(theme: Theme) {
-  const html = document.documentElement;
-  html.setAttribute("data-theme", theme);
-  localStorage.setItem(STORAGE_KEY, theme);
-  html.dispatchEvent(new CustomEvent("theme-change", { detail: { theme } }));
-}
+// Re-export for backwards-compatible imports.
+export type Theme = ThemeId;
 
 interface ThemeToggleProps {
   className?: string;
 }
 
 /**
- * Pill-shaped Cute ↔ Warrior mode toggle.
- * Reads localStorage on mount, writes on change, and sets data-theme on <html>.
- * SSR-safe: renders in default (cute) state server-side; useEffect corrects on mount.
+ * Compact segmented control for the three visual themes (Bloom / Focus / Calm).
+ * Reads localStorage on mount, writes on change, and sets data-theme on <html>
+ * via the shared registry helpers. SSR-safe: renders the default theme
+ * server-side; useEffect corrects on mount.
  */
 export function ThemeToggle({ className = "" }: ThemeToggleProps) {
-  const [theme, setTheme] = useState<Theme>("cute");
+  const [theme, setTheme] = useState<ThemeId>("cute");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Suppress transition flash on first paint
+    // Suppress transition flash on first paint.
     const html = document.documentElement;
     html.classList.add("no-transition");
 
-    const initial = getInitialTheme();
+    const initial = getStoredTheme();
     setTheme(initial);
     applyTheme(initial);
     setMounted(true);
 
-    // Re-enable transitions after first paint
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         html.classList.remove("no-transition");
@@ -53,71 +43,75 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
     });
   }, []);
 
-  // Listen for external theme changes (e.g. from the Hero inline toggle)
+  // Stay in sync when another control (e.g. the in-page gallery) changes theme.
   useEffect(() => {
     const handler = (e: Event) => {
-      const detail = (e as CustomEvent<{ theme: Theme }>).detail;
-      if (detail?.theme && detail.theme !== theme) {
-        setTheme(detail.theme);
-      }
+      const detail = (e as CustomEvent<{ theme: ThemeId }>).detail;
+      if (detail?.theme && detail.theme !== theme) setTheme(detail.theme);
     };
     document.documentElement.addEventListener("theme-change", handler);
     return () =>
       document.documentElement.removeEventListener("theme-change", handler);
   }, [theme]);
 
-  const toggle = () => {
-    const next: Theme = theme === "cute" ? "warrior" : "cute";
+  const select = (next: ThemeId) => {
+    if (next === theme) return;
     setTheme(next);
     applyTheme(next);
   };
 
+  const activeIndex = THEMES.findIndex((t) => t.id === theme);
+  const segment = 100 / THEMES.length;
+
   return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={theme === "warrior"}
-      aria-label={`Switch to ${theme === "cute" ? "Warrior" : "Cute"} Mode`}
-      onClick={toggle}
-      className={`relative inline-flex h-10 w-[9.75rem] items-center rounded-full border shadow-[0_10px_22px_rgba(22,32,47,0.08),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-md transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[var(--ease-out-premium)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)] ${
-        theme === "warrior"
-          ? "border-[var(--accent-primary)] bg-[var(--bg-raised)]"
-          : "border-[var(--accent-primary)] bg-[var(--bg-raised)]"
-      } ${className}`}
+    <div
+      role="radiogroup"
+      aria-label="Visual theme"
+      className={`relative inline-flex h-10 items-center rounded-full border border-[var(--accent-primary)] bg-[var(--bg-raised)] p-1 shadow-[0_10px_22px_rgba(22,32,47,0.08),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-md transition-opacity ${className}`}
       style={{ opacity: mounted ? 1 : 0 }}
     >
-      {/* Sliding pill indicator */}
+      {/* Sliding active pill */}
       <span
         aria-hidden="true"
-        className="absolute top-1 h-8 w-[4.55rem] rounded-full transition-all duration-300 ease-[var(--ease-out-premium)]"
+        className="pointer-events-none absolute top-1 bottom-1 rounded-full transition-[left] duration-300 ease-[var(--ease-out-premium)]"
         style={{
+          width: `calc(${segment}% - 0.5rem)`,
+          left: `calc(${activeIndex * segment}% + 0.25rem)`,
           background:
             "linear-gradient(180deg, color-mix(in srgb, var(--accent-primary) 88%, #ffffff), var(--accent-primary))",
           boxShadow:
             "inset 0 1px 0 rgba(255,255,255,0.38), 0 8px 18px color-mix(in srgb, var(--accent-primary) 28%, transparent)",
-          left: theme === "cute" ? "4px" : "calc(100% - calc(4.55rem + 4px))",
         }}
       />
 
-      {/* Cute label */}
-      <span
-        className="relative z-10 flex flex-1 items-center justify-center gap-1 text-xs font-600 font-semibold transition-colors"
-        style={{ color: theme === "cute" ? "#fff" : "var(--text-secondary)" }}
-      >
-        <span aria-hidden="true">♥</span>
-        Cute
-      </span>
-
-      {/* Warrior label */}
-      <span
-        className="relative z-10 flex flex-1 items-center justify-center gap-1 text-xs font-semibold transition-colors"
-        style={{
-          color: theme === "warrior" ? "#fff" : "var(--text-secondary)",
-        }}
-      >
-        <span aria-hidden="true">◈</span>
-        Warrior
-      </span>
-    </button>
+      {THEMES.map((t) => {
+        const active = t.id === theme;
+        return (
+          <button
+            key={t.id}
+            type="button"
+            role="radio"
+            aria-checked={active}
+            aria-label={`${t.name} theme — ${t.persona}`}
+            title={`${t.name} · ${t.persona}`}
+            onClick={() => select(t.id)}
+            className="relative z-10 flex h-8 min-w-[3.25rem] flex-1 items-center justify-center gap-1.5 rounded-full px-1.5 text-xs font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)]"
+            style={{ color: active ? "#fff" : "var(--text-secondary)" }}
+          >
+            <span className="relative h-6 w-6 overflow-hidden rounded-full bg-white/80 ring-1 ring-black/5">
+              <Image
+                src={t.image.src}
+                alt=""
+                aria-hidden="true"
+                width={24}
+                height={24}
+                className="h-full w-full object-cover"
+              />
+            </span>
+            <span className="hidden sm:inline">{t.name}</span>
+          </button>
+        );
+      })}
+    </div>
   );
 }

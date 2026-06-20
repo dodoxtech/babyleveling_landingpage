@@ -26,15 +26,6 @@ export function FeatureShowcase({ locale }: FeatureShowcaseProps) {
               a warmer system parents can keep coming back to.
             </p>
           </div>
-          <div className="relative hidden min-h-[14rem] overflow-hidden rounded-[2rem] lg:block">
-            <Image
-              src="/assets/scenes/features-bg.png"
-              alt=""
-              fill
-              className="object-cover"
-              aria-hidden="true"
-            />
-          </div>
         </div>
 
         <div className="mt-8 grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-6">

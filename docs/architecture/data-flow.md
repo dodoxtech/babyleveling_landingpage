@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-17
+updated: 2026-06-20
 ---
 
 # Data Models & State Flow
@@ -48,6 +48,15 @@ interface Screenshot { id: string; src: string; alt: string; caption?: string; }
 // a /assets/... path under public/.
 type AssetKey = string;             // e.g. "character.warrior-shield", "icon.bottle"
 declare function assetPath(key: AssetKey): string;
+
+// lib/theme/registry.ts — website skin switcher
+interface ThemeDefinition {
+  id: 'cute' | 'focus' | 'zen';
+  name: string;                     // "Bloom", "Focus", "Calm"
+  persona: string;
+  image: { src: string; alt: string }; // /assets/themes/*.png
+  swatch: ThemeSwatch;
+}
 ```
 
 ### Narrative content models (landed in TASK-0001)

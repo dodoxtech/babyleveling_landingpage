@@ -1,50 +1,98 @@
 @import "tailwindcss";
 
+/* ============================================================
+   THEME TOKENS — one shared contract for the whole UI.
+
+   Every surface, text, accent, border, shadow AND shape value
+   below is referenced by name (var(--token)) in components, so
+   flipping `data-theme` on <html> instantly recolors + reshapes
+   the entire page. Keep the token NAMES identical across themes;
+   only the VALUES change. The human-readable mirror (ids, copy,
+   swatches) lives in lib/theme/registry.ts — edit both together.
+   ============================================================ */
+
+/* Cute · "Bloom" — for moms: warm, nurturing, candy-soft (default). */
 :root,
 [data-theme="cute"] {
-  --bg-base: #f9fbff;
+  --bg-base: #fff6f4;
   --bg-raised: #ffffff;
-  --bg-section-alt: #eef5ff;
-  --bg-playfield: #fff1bd;
-  --text-primary: #16202f;
-  --text-secondary: #526174;
-  --text-caption: #6d7a8d;
-  --accent-primary: #2f75ff;
-  --accent-secondary: #79c7ff;
-  --accent-tertiary: #ffc94d;
-  --accent-pink: #ff6f9f;
-  --border-subtle: rgba(22, 32, 47, 0.11);
-  --border-card: rgba(47, 117, 255, 0.18);
-  --shadow-card: 0 20px 48px rgba(47, 117, 255, 0.1);
-  --shadow-colored: 0 22px 54px rgba(47, 117, 255, 0.18);
-  color-scheme: light;
-}
-
-[data-theme="warrior"] {
-  --bg-base: #f7fbff;
-  --bg-raised: #ffffff;
-  --bg-section-alt: #eaf2ff;
-  --bg-playfield: #dceaff;
-  --text-primary: #121d2d;
-  --text-secondary: #4c5b70;
-  --text-caption: #687689;
-  --accent-primary: #2d63f0;
-  --accent-secondary: #8bd6ff;
-  --accent-tertiary: #ffca55;
-  --accent-pink: #ff77a8;
-  --border-subtle: rgba(18, 29, 45, 0.12);
-  --border-card: rgba(45, 99, 240, 0.2);
-  --shadow-card: 0 22px 52px rgba(45, 99, 240, 0.12);
-  --shadow-colored: 0 24px 58px rgba(45, 99, 240, 0.2);
-  color-scheme: light;
-}
-
-:root {
+  --bg-section-alt: #fce9ef;
+  --bg-playfield: #ffe7c4;
+  --text-primary: #34232c;
+  --text-secondary: #7c6671;
+  --text-caption: #9c8893;
+  --accent-primary: #ff5d8f;
+  --accent-secondary: #c4a7ff;
+  --accent-tertiary: #ffc24b;
+  --accent-pink: #ff8fb1;
+  --border-subtle: rgba(52, 35, 44, 0.1);
+  --border-card: rgba(255, 93, 143, 0.18);
+  --grid-line: rgba(255, 93, 143, 0.07);
+  --shadow-card: 0 20px 48px rgba(255, 93, 143, 0.12);
+  --shadow-colored: 0 22px 54px rgba(255, 93, 143, 0.2);
   --radius-sm: 12px;
   --radius-md: 18px;
   --radius-lg: 9999px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+  color-scheme: light;
+}
+
+/* Focus — for dads: restrained, premium, one confident accent, crisp edges. */
+[data-theme="focus"] {
+  --bg-base: #f3f5f8;
+  --bg-raised: #ffffff;
+  --bg-section-alt: #e9eef4;
+  --bg-playfield: #e2e9f2;
+  --text-primary: #0e1726;
+  --text-secondary: #45556b;
+  --text-caption: #6a7a90;
+  --accent-primary: #3b4be8;
+  --accent-secondary: #7e8cff;
+  --accent-tertiary: #18b7a6;
+  --accent-pink: #6366f1;
+  --border-subtle: rgba(14, 23, 38, 0.12);
+  --border-card: rgba(59, 75, 232, 0.16);
+  --grid-line: rgba(59, 75, 232, 0.06);
+  --shadow-card: 0 18px 44px rgba(14, 23, 38, 0.1);
+  --shadow-colored: 0 22px 50px rgba(59, 75, 232, 0.18);
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 18px;
+  --radius-pill: 9999px;
+  color-scheme: light;
+}
+
+/* Zen · "Calm" — relaxing: quiet luxury, sage + sand, low saturation. */
+[data-theme="zen"] {
+  --bg-base: #f2f0e8;
+  --bg-raised: #fbfaf4;
+  --bg-section-alt: #e8e5d9;
+  --bg-playfield: #e2ebe1;
+  --text-primary: #2a322b;
+  --text-secondary: #5c685d;
+  --text-caption: #7d8a7c;
+  --accent-primary: #5e9270;
+  --accent-secondary: #a7c7b2;
+  --accent-tertiary: #dca679;
+  --accent-pink: #d58a80;
+  --border-subtle: rgba(42, 50, 43, 0.1);
+  --border-card: rgba(94, 146, 112, 0.18);
+  --grid-line: rgba(94, 146, 112, 0.06);
+  --shadow-card: 0 20px 46px rgba(94, 146, 112, 0.12);
+  --shadow-colored: 0 22px 52px rgba(94, 146, 112, 0.18);
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 9999px;
   --radius-xl: 26px;
   --radius-pill: 9999px;
+  color-scheme: light;
+}
+
+/* Theme-agnostic structural tokens — these derive from the per-theme accents
+   above (via var()), so they recolor automatically with every theme. */
+:root {
   --grad-xp: linear-gradient(
     135deg,
     color-mix(in srgb, var(--accent-primary) 88%, #ffffff),
@@ -146,8 +194,8 @@ body::before {
   pointer-events: none;
   opacity: 0.12;
   background-image:
-    linear-gradient(90deg, rgba(47, 117, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(rgba(47, 117, 255, 0.06) 1px, transparent 1px);
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(var(--grid-line) 1px, transparent 1px);
   background-size: 34px 34px;
   mask-image: linear-gradient(to bottom, black, transparent 75%);
 }
