@@ -8,8 +8,6 @@ import type { Screenshot } from "@/lib/content/screenshots";
 
 interface ScreenshotsCarouselProps {
   screenshots: Screenshot[];
-  prevLabel: string;
-  nextLabel: string;
 }
 
 interface PreviewData {
@@ -19,6 +17,14 @@ interface PreviewData {
   hero: string;
   icon: string;
 }
+
+interface TourCopy {
+  eyebrow: string;
+  title: string;
+  body: string;
+}
+
+const BASE_LEVEL = 12;
 
 const previewData: Record<string, PreviewData> = {
   dashboard: {
@@ -51,41 +57,58 @@ const previewData: Record<string, PreviewData> = {
   },
 };
 
+const tourCopy: Record<string, TourCopy> = {
+  dashboard: {
+    eyebrow: "Your character sheet",
+    title: "The whole day at a glance",
+    body: "Level, XP, streaks, and the next reminder  -  the home base you open a dozen times a day.",
+  },
+  "quest-log": {
+    eyebrow: "The battle log",
+    title: "Every care moment is a quest",
+    body: "Feeds, naps, growth, and photos  -  each tap logs the moment and hands back XP.",
+  },
+  "skill-tree": {
+    eyebrow: "Milestones",
+    title: "Watch the skill tree branch out",
+    body: "First smile, first roll, first steps  -  milestones unlock as nodes you can revisit.",
+  },
+  "trophy-room": {
+    eyebrow: "Achievements",
+    title: "Tiny victories you get to keep",
+    body: "Streaks and firsts become badges the whole family gets to celebrate.",
+  },
+};
+
 /**
- * S7 Screenshot Gallery  -  an Awwwards-style pinned horizontal scroll.
+ * S7 Screenshot Gallery  -  a guided "tour inside one device".
  *
- * On desktop (>=1024px, motion allowed) the section pins to the viewport and
- * vertical scroll drives the phone track sideways; each device zooms to focus
- * as it reaches centre, one by one. The maths is layout-measured
- * (`offsetLeft`/`offsetWidth`), so it stays correct from a 360px phone up to a
- * 4K monitor. GSAP + ScrollTrigger load via dynamic `import()` and stay synced
- * to Lenis  -  the same code-splitting/sync treatment `HeroCharacterXpBar` uses.
+ * On desktop (>=1024px, motion allowed) a single phone stays pinned, centred,
+ * and large via `position: sticky`; vertical scroll progress swaps the *screen
+ * inside it* between the four app views, one deliberate beat at a time, while
+ * the narrative copy, the level counter, and a brand XP bar advance in sync.
+ * Pinning is native sticky (no scroll hijack), so it never fights Lenis. The
+ * screen swap itself is a spring CSS transition keyed off the active index.
  *
- * On touch / small screens / reduced motion it degrades to a native
- * scroll-snap rail with dots + prev/next, which is the right ergonomic on a
- * phone and needs no JS scroll hijacking.
+ * On touch / small screens / reduced motion it becomes a vertical
+ * feature/phone/feature rhythm: the actual UI stays still and legible, which
+ * is the honest ergonomic on a phone.
  */
-export function ScreenshotsCarousel({
-  screenshots,
-  prevLabel,
-  nextLabel,
-}: ScreenshotsCarouselProps) {
+export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
   const reducedMotion = useReducedMotion();
   const [pinned, setPinned] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // --- shared refs ---
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
-  const panelRefs = useRef<(HTMLElement | null)[]>([]);
-  const railRefs = useRef<(HTMLElement | null)[]>([]);
-  const railTrackRef = useRef<HTMLDivElement>(null);
+  const xpFillRef = useRef<HTMLDivElement>(null);
   const renderRef = useRef<(() => void) | null>(null);
 
-  // Decide which experience to mount. Native rail is the SSR-safe default; the
-  // pinned build only switches on after mount once we know the viewport.
+  const lenis = useLenis(() => renderRef.current?.());
+  const count = screenshots.length;
+
+  // Native rail is the SSR-safe default; the pinned tour switches on after
+  // mount once we know the viewport supports it.
   useEffect(() => {
     if (reducedMotion) {
       setPinned(false);
@@ -98,40 +121,14 @@ export function ScreenshotsCarousel({
     return () => mq.removeEventListener("change", apply);
   }, [reducedMotion]);
 
-  // Keep the horizontal pass in step with Lenis' smoothed scroll position.
-  useLenis(() => {
-    renderRef.current?.();
-  });
-
-  // --- sticky horizontal scroll (desktop) ---
-  // A `position: sticky` stage driven by the section's own scroll progress.
-  // No ScrollTrigger pinning, so it never fights Lenis' smooth scroll  -  the
-  // browser keeps the stage put natively and we only read layout + write
-  // transforms each frame (compositor-only: `transform`/`opacity`/`filter`).
+  // --- sticky tour (desktop) ---
   useEffect(() => {
     if (!pinned) return;
     const section = sectionRef.current;
-    const pin = pinRef.current;
-    const track = trackRef.current;
-    const progress = progressRef.current;
-    if (!section || !pin || !track) return;
+    if (!section || count === 0) return;
 
-    const panels = panelRefs.current.filter(Boolean) as HTMLElement[];
-    const count = panels.length;
-    if (!count) return;
-
-    let xStart = 0;
-    let xEnd = 0;
     let frame = 0;
     let queued = false;
-
-    const measure = () => {
-      const viewport = pin.clientWidth;
-      const first = panels[0];
-      const last = panels[count - 1];
-      xStart = viewport / 2 - (first.offsetLeft + first.offsetWidth / 2);
-      xEnd = viewport / 2 - (last.offsetLeft + last.offsetWidth / 2);
-    };
 
     const render = () => {
       queued = false;
@@ -142,167 +139,146 @@ export function ScreenshotsCarousel({
       );
       const p = total > 0 ? scrolled / total : 0;
 
-      track.style.transform = `translate3d(${xStart + (xEnd - xStart) * p}px,0,0)`;
-      if (progress) progress.style.transform = `scaleX(${Math.max(p, 0.02)})`;
-
-      let nearest = 0;
-      let bestDistance = Infinity;
-      for (let i = 0; i < count; i += 1) {
-        const target = count > 1 ? i / (count - 1) : 0;
-        const distance = Math.abs(p - target);
-        const focus = Math.min(Math.max(1 - distance * (count - 1), 0), 1);
-        const el = panels[i];
-        el.style.transform = `scale(${0.76 + 0.24 * focus})`;
-        el.style.opacity = `${0.34 + 0.66 * focus}`;
-        el.style.filter = focus > 0.999 ? "none" : `blur(${(1 - focus) * 3}px)`;
-        el.style.zIndex = focus > 0.5 ? "3" : "1";
-        if (distance < bestDistance) {
-          bestDistance = distance;
-          nearest = i;
-        }
+      if (xpFillRef.current) {
+        xpFillRef.current.style.transform = `scaleX(${Math.max(p, 0.02)})`;
       }
-      setActiveIndex((prev) => (prev === nearest ? prev : nearest));
+
+      const next = Math.min(Math.max(Math.round(p * (count - 1)), 0), count - 1);
+      setActiveIndex((prev) => (prev === next ? prev : next));
     };
 
-    // Native scroll fires even in Lenis root mode; rAF-coalesce to one paint.
     const onScroll = () => {
       if (queued) return;
       queued = true;
       frame = requestAnimationFrame(render);
     };
-    const onResize = () => {
-      measure();
-      render();
-    };
 
     renderRef.current = render;
-    measure();
     render();
-
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
-    // Re-measure once async images have settled the track width.
-    const settle = window.setTimeout(onResize, 250);
+    window.addEventListener("resize", render);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-      window.clearTimeout(settle);
+      window.removeEventListener("resize", render);
       cancelAnimationFrame(frame);
       renderRef.current = null;
     };
-  }, [pinned, screenshots.length]);
+  }, [pinned, count]);
 
-  // --- native rail (mobile / reduced motion) ---
-  useEffect(() => {
-    if (pinned) return;
-    const track = railTrackRef.current;
-    if (!track || typeof IntersectionObserver === "undefined") return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!visible) return;
-        const index = railRefs.current.findIndex(
-          (node) => node === visible.target,
-        );
-        if (index !== -1) setActiveIndex(index);
-      },
-      { root: track, threshold: [0.4, 0.6, 0.8] },
-    );
-
-    railRefs.current.forEach((node) => node && observer.observe(node));
-    return () => observer.disconnect();
-  }, [pinned, screenshots.length]);
-
-  const scrollRailTo = (index: number) => {
-    const next = Math.min(Math.max(index, 0), screenshots.length - 1);
-    railRefs.current[next]?.scrollIntoView({
-      behavior: reducedMotion ? "auto" : "smooth",
-      inline: "center",
-      block: "nearest",
-    });
-    setActiveIndex(next);
+  const jumpTo = (index: number) => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    const total = section.offsetHeight - window.innerHeight;
+    const target = count > 1 ? index / (count - 1) : 0;
+    const y = sectionTop + target * total;
+    if (lenis) lenis.scrollTo(y);
+    else window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-  const stepLabel = `${String(activeIndex + 1).padStart(2, "0")} / ${String(
-    screenshots.length,
-  ).padStart(2, "0")}`;
+  const activeAccent = getPreviewData(screenshots[activeIndex]?.id).accent;
 
-  // ===== PINNED (desktop) =====
+  // ===== PINNED TOUR (desktop) =====
   if (pinned) {
+    const copy = getTourCopy(screenshots[activeIndex]?.id);
+
     return (
       <div
         ref={sectionRef}
         className="relative"
-        style={{ height: `${screenshots.length * 100}svh` }}
+        style={{ height: `${count * 100}svh` }}
       >
         <div
           ref={pinRef}
           className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-[var(--story-header,4.5rem)]"
         >
-          <div className="mx-auto flex w-full max-w-[120rem] flex-1 flex-col px-6 lg:px-10 2xl:px-16">
-            <div className="flex shrink-0 items-end justify-between gap-6 pb-2 pt-[clamp(1rem,4vh,3rem)]">
-              <div className="max-w-[34rem]">
-                <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
-                  Inside the app
-                </p>
-                <h2 className="mt-2 text-h2">
-                  Swipe through the tiny command center.
-                </h2>
-              </div>
-              <p
-                className="hidden font-display text-5xl font-bold tabular-nums text-[var(--text-primary)]/85 md:block"
-                aria-hidden="true"
+          <div className="mx-auto grid h-full w-full max-w-[100rem] grid-cols-1 items-center gap-[clamp(2rem,5vw,5rem)] px-6 lg:grid-cols-[1fr_minmax(17rem,22rem)] lg:px-10 2xl:px-16">
+            <div className="max-w-xl">
+              <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
+                Inside the app
+              </p>
+              <h2 className="mt-2 text-h2">Tour the tiny command center.</h2>
+
+              <div
+                key={activeIndex}
+                className="mt-8 motion-safe:animate-[float-in_0.5s_var(--ease-out-premium)]"
               >
-                {stepLabel}
+                <p
+                  className="font-display text-sm font-bold uppercase tracking-[0.16em]"
+                  style={{ color: activeAccent }}
+                >
+                  {copy.eyebrow}
+                </p>
+                <h3 className="mt-2 font-display text-3xl font-bold leading-tight text-[var(--text-primary)]">
+                  {copy.title}
+                </h3>
+                <p className="mt-3 max-w-md text-lg leading-8 text-[var(--text-secondary)]">
+                  {copy.body}
+                </p>
+              </div>
+
+              <div className="mt-9 max-w-sm">
+                <div className="flex items-baseline justify-between">
+                  <span
+                    className="font-display text-lg font-bold tabular-nums"
+                    style={{ color: activeAccent }}
+                  >
+                    Level {BASE_LEVEL + activeIndex}
+                  </span>
+                  <span className="text-sm font-semibold tabular-nums text-[var(--text-secondary)]">
+                    {activeIndex + 1} / {count}
+                  </span>
+                </div>
+                <div className="mt-2 h-3 overflow-hidden rounded-full bg-[var(--border-subtle)]">
+                  <div
+                    ref={xpFillRef}
+                    className="h-full w-full origin-left rounded-full bg-grad-xp"
+                    style={{ transform: "scaleX(0.02)" }}
+                  />
+                </div>
+              </div>
+
+              <ol className="mt-6 flex flex-wrap gap-2">
+                {screenshots.map((screenshot, index) => {
+                  const data = getPreviewData(screenshot.id);
+                  const isActive = index === activeIndex;
+                  return (
+                    <li key={screenshot.id}>
+                      <button
+                        type="button"
+                        onClick={() => jumpTo(index)}
+                        aria-current={isActive}
+                        className={`rounded-full px-3.5 py-1.5 font-display text-xs font-bold transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-secondary)] ${
+                          isActive
+                            ? "text-white"
+                            : "bg-white/60 text-[var(--text-secondary)] hover:bg-white"
+                        }`}
+                        style={isActive ? { background: data.accent } : undefined}
+                      >
+                        {data.title}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
+
+              <p className="mt-8 hidden items-center gap-2 text-sm font-semibold text-[var(--text-caption)] lg:flex">
+                <span aria-hidden="true">↓</span> Scroll to level up the tour
               </p>
             </div>
 
-            <div className="relative flex min-h-0 flex-1 items-center">
-              <div
-                ref={trackRef}
-                className="flex flex-nowrap items-center gap-[clamp(2.5rem,7vw,8rem)] will-change-transform"
-              >
+            <div className="justify-self-center lg:justify-self-end">
+              <PhoneFrame sizeClassName="h-[clamp(26rem,68svh,42rem)] aspect-[9/19.4]">
                 {screenshots.map((screenshot, index) => (
-                  <figure
+                  <PhoneScreen
                     key={screenshot.id}
-                    ref={(node) => {
-                      panelRefs.current[index] = node;
-                    }}
-                    aria-current={index === activeIndex}
-                    className="flex w-[clamp(17rem,24vw,27rem)] shrink-0 origin-center flex-col items-center"
-                  >
-                    <DevicePreview screenshot={screenshot} active />
-                    <figcaption className="mt-7 text-center">
-                      <span className="font-display text-2xl font-bold text-[var(--text-primary)]">
-                        {screenshot.caption}
-                      </span>
-                      <span className="mt-1 block text-sm leading-6 text-[var(--text-secondary)]">
-                        {getPreviewData(screenshot.id).subtitle}
-                      </span>
-                    </figcaption>
-                  </figure>
+                    screenshot={screenshot}
+                    level={BASE_LEVEL + index}
+                    active={index === activeIndex}
+                  />
                 ))}
-              </div>
-            </div>
-
-            <div className="flex shrink-0 items-center gap-4 pb-[clamp(1.5rem,5vh,3.5rem)] pt-2">
-              <span className="font-display text-sm font-bold tabular-nums text-[var(--text-secondary)] md:hidden">
-                {stepLabel}
-              </span>
-              <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-[var(--border-subtle)]">
-                <div
-                  ref={progressRef}
-                  className="h-full w-full origin-left rounded-full bg-[var(--accent-primary)]"
-                  style={{ transform: "scaleX(0.02)" }}
-                />
-              </div>
-              <span className="hidden text-sm font-semibold text-[var(--text-secondary)] lg:inline">
-                Scroll to explore
-              </span>
+              </PhoneFrame>
             </div>
           </div>
         </div>
@@ -310,110 +286,116 @@ export function ScreenshotsCarousel({
     );
   }
 
-  // ===== NATIVE RAIL (mobile / reduced motion) =====
+  // ===== VERTICAL RHYTHM (mobile / reduced motion) =====
   return (
-    <div className="relative">
-      <div className="mb-8 sm:mb-10">
+    <div>
+      <header className="mb-10 sm:mb-12">
         <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
           Inside the app
         </p>
-        <h2 className="mt-2 text-h2">Swipe through the tiny command center.</h2>
+        <h2 className="mt-2 text-h2">Tour the tiny command center.</h2>
         <p className="mt-3 max-w-[34rem] text-base leading-7 text-[var(--text-secondary)]">
           Big tap targets, playful progress, and parent-ready logs sit inside a
           phone frame large enough to inspect.
         </p>
-      </div>
+      </header>
 
-      <div
-        ref={railTrackRef}
-        tabIndex={0}
-        role="group"
-        aria-label="BabyLeveling app screen previews"
-        className="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-8 pt-2 outline-none [scrollbar-width:none] focus-visible:ring-4 focus-visible:ring-[var(--accent-secondary)] sm:-mx-6 sm:px-6 [&::-webkit-scrollbar]:hidden"
-      >
-        {screenshots.map((screenshot, index) => (
-          <figure
-            key={screenshot.id}
-            ref={(node) => {
-              railRefs.current[index] = node;
-            }}
-            aria-current={index === activeIndex}
-            className="w-[74vw] max-w-[20rem] shrink-0 snap-center sm:w-[20rem]"
-          >
-            <DevicePreview
-              screenshot={screenshot}
-              active={index === activeIndex}
-            />
-            <figcaption className="mt-5 text-center">
-              <span className="font-display text-xl font-bold text-[var(--text-primary)]">
-                {screenshot.caption}
-              </span>
-              <span className="mt-1 block text-sm leading-6 text-[var(--text-secondary)]">
-                {getPreviewData(screenshot.id).subtitle}
-              </span>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-
-      <div className="mt-2 flex items-center justify-between gap-4">
-        <button
-          type="button"
-          aria-label={prevLabel}
-          onClick={() => scrollRailTo(activeIndex - 1)}
-          disabled={activeIndex === 0}
-          className="btn-secondary btn-sm disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-45"
-        >
-          Previous
-        </button>
-
-        <div className="flex items-center gap-2" aria-label="Preview progress">
-          {screenshots.map((screenshot, index) => (
-            <button
+      <div className="grid gap-14 sm:gap-20">
+        {screenshots.map((screenshot, index) => {
+          const copy = getTourCopy(screenshot.id);
+          const accent = getPreviewData(screenshot.id).accent;
+          const flip = index % 2 === 1;
+          return (
+            <article
               key={screenshot.id}
-              type="button"
-              aria-label={`Show ${screenshot.caption ?? "preview"}`}
-              aria-current={index === activeIndex}
-              onClick={() => scrollRailTo(index)}
-              className="h-3 rounded-full border transition-all motion-reduce:transition-none"
-              style={{
-                width: index === activeIndex ? "2rem" : "0.75rem",
-                background:
-                  index === activeIndex
-                    ? getPreviewData(screenshot.id).accent
-                    : "#ffffff",
-                borderColor:
-                  index === activeIndex
-                    ? getPreviewData(screenshot.id).accent
-                    : "var(--border-card)",
-              }}
-            />
-          ))}
-        </div>
-
-        <button
-          type="button"
-          aria-label={nextLabel}
-          onClick={() => scrollRailTo(activeIndex + 1)}
-          disabled={activeIndex === screenshots.length - 1}
-          className="btn-secondary btn-sm disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-45"
-        >
-          Next
-        </button>
+              className="grid items-center gap-8 sm:grid-cols-2 sm:gap-12"
+            >
+              <figure
+                className={`flex justify-center ${flip ? "sm:order-2" : ""}`}
+              >
+                <PhoneFrame sizeClassName="w-[clamp(13rem,62vw,17rem)] aspect-[9/19.4]">
+                  <PhoneScreen
+                    screenshot={screenshot}
+                    level={BASE_LEVEL + index}
+                    active
+                  />
+                </PhoneFrame>
+              </figure>
+              <div className={flip ? "sm:order-1" : ""}>
+                <p
+                  className="font-display text-sm font-bold uppercase tracking-[0.16em]"
+                  style={{ color: accent }}
+                >
+                  {copy.eyebrow}
+                </p>
+                <h3 className="mt-2 font-display text-2xl font-bold leading-tight">
+                  {copy.title}
+                </h3>
+                <p className="mt-3 text-base leading-7 text-[var(--text-secondary)]">
+                  {copy.body}
+                </p>
+                <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-[var(--text-secondary)]">
+                  <span
+                    className="font-display tabular-nums"
+                    style={{ color: accent }}
+                  >
+                    Level {BASE_LEVEL + index}
+                  </span>
+                  · {getPreviewData(screenshot.id).title}
+                </p>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </div>
   );
 }
 
-function getPreviewData(id: string): PreviewData {
-  return previewData[id] ?? previewData.dashboard;
+function getPreviewData(id: string | undefined): PreviewData {
+  return (id && previewData[id]) || previewData.dashboard;
 }
 
-function DevicePreview({
+function getTourCopy(id: string | undefined): TourCopy {
+  return (id && tourCopy[id]) || tourCopy.dashboard;
+}
+
+/** Constant CSS-built phone hardware. The screen content swaps inside it. */
+function PhoneFrame({
+  sizeClassName,
+  children,
+}: {
+  sizeClassName: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className={`relative mx-auto rounded-[3rem] bg-[#202832] p-[0.62rem] shadow-[0_2rem_4rem_rgba(23,32,42,0.18),inset_0_0_0_1px_rgba(255,255,255,0.16)] ${sizeClassName}`}
+    >
+      <span className="absolute -left-1 top-28 h-14 w-1 rounded-l-full bg-[#2c3541]" />
+      <span className="absolute -right-1 top-36 h-20 w-1 rounded-r-full bg-[#2c3541]" />
+      <span className="absolute left-12 right-12 top-1 h-px bg-white/30" />
+      <div className="absolute inset-[0.62rem] rounded-[2.4rem] bg-[#0f1720]" />
+
+      <div className="relative h-full overflow-hidden rounded-[2.15rem] bg-[var(--bg-base)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]">
+        {children}
+
+        {/* Constant overlays sit above whichever screen is active. */}
+        <div className="pointer-events-none absolute left-1/2 top-3 z-20 h-7 w-28 -translate-x-1/2 rounded-full bg-[#111821] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]" />
+        <div className="pointer-events-none absolute inset-x-5 top-0 z-20 h-24 rounded-b-[2rem] bg-white/18 blur-xl" />
+        <div className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(120deg,rgba(255,255,255,0.46),transparent_22%,transparent_62%,rgba(255,255,255,0.18))]" />
+      </div>
+    </div>
+  );
+}
+
+function PhoneScreen({
   screenshot,
+  level,
   active,
 }: {
   screenshot: Screenshot;
+  level: number;
   active: boolean;
 }) {
   const data = getPreviewData(screenshot.id);
@@ -422,60 +404,52 @@ function DevicePreview({
     <div
       role="img"
       aria-label={screenshot.alt}
-      className={`relative mx-auto aspect-[9/19.4] w-full rounded-[3rem] bg-[#202832] p-[0.62rem] shadow-[0_2rem_4rem_rgba(23,32,42,0.18),inset_0_0_0_1px_rgba(255,255,255,0.16)] transition duration-500 motion-reduce:transition-none ${
-        active ? "scale-100 opacity-100" : "scale-[0.97] opacity-80"
+      aria-hidden={!active}
+      className={`absolute inset-0 transition duration-500 [transition-timing-function:var(--ease-press)] motion-reduce:transition-none ${
+        active
+          ? "z-10 opacity-100 [transform:scale(1)]"
+          : "pointer-events-none opacity-0 [transform:scale(0.94)_translateY(14px)]"
       }`}
     >
-      <span className="absolute -left-1 top-28 h-14 w-1 rounded-l-full bg-[#2c3541]" />
-      <span className="absolute -right-1 top-36 h-20 w-1 rounded-r-full bg-[#2c3541]" />
-      <span className="absolute left-12 right-12 top-1 h-px bg-white/30" />
-      <div className="absolute inset-[0.62rem] rounded-[2.4rem] bg-[#0f1720]" />
-
-      <div className="relative h-full overflow-hidden rounded-[2.15rem] bg-[var(--bg-base)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]">
-        <div
-          className="absolute inset-0 opacity-80"
-          style={{
-            background: `radial-gradient(circle at 50% 8%, color-mix(in srgb, ${data.accent} 28%, transparent), transparent 32%), linear-gradient(180deg, #fffdf7, var(--bg-base) 42%, color-mix(in srgb, ${data.accent} 10%, #ffffff))`,
-          }}
-        />
-        <div className="absolute left-1/2 top-3 z-20 h-7 w-28 -translate-x-1/2 rounded-full bg-[#111821] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]" />
-        <div className="absolute inset-x-5 top-0 z-10 h-24 rounded-b-[2rem] bg-white/18 blur-xl" />
-        <div className="pointer-events-none absolute inset-0 z-30 bg-[linear-gradient(120deg,rgba(255,255,255,0.46),transparent_22%,transparent_62%,rgba(255,255,255,0.18))]" />
-
-        <div className="relative z-10 flex h-full flex-col p-5 pt-14">
-          <PhoneStatus accent={data.accent} />
-          <div className="mt-4 flex items-start justify-between gap-3">
-            <div>
-              <p className="font-display text-3xl font-bold leading-none text-[var(--text-primary)]">
-                {data.title}
-              </p>
-              <p className="mt-1 text-xs font-semibold text-[var(--text-secondary)]">
-                {data.subtitle}
-              </p>
-            </div>
-            <div
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-white shadow-[0_4px_0_rgba(23,32,42,0.1)]"
-              style={{ border: `2px solid ${data.accent}` }}
-            >
-              <Image
-                src={data.icon}
-                alt=""
-                width={34}
-                height={34}
-                aria-hidden="true"
-                className="h-8 w-8 object-contain"
-              />
-            </div>
+      <div
+        className="absolute inset-0 opacity-80"
+        style={{
+          background: `radial-gradient(circle at 50% 8%, color-mix(in srgb, ${data.accent} 28%, transparent), transparent 32%), linear-gradient(180deg, #fffdf7, var(--bg-base) 42%, color-mix(in srgb, ${data.accent} 10%, #ffffff))`,
+        }}
+      />
+      <div className="relative z-10 flex h-full flex-col p-5 pt-14">
+        <PhoneStatus accent={data.accent} level={level} />
+        <div className="mt-4 flex items-start justify-between gap-3">
+          <div>
+            <p className="font-display text-3xl font-bold leading-none text-[var(--text-primary)]">
+              {data.title}
+            </p>
+            <p className="mt-1 text-xs font-semibold text-[var(--text-secondary)]">
+              {data.subtitle}
+            </p>
           </div>
-
-          <AppScreen id={screenshot.id} data={data} />
+          <div
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-white shadow-[0_4px_0_rgba(23,32,42,0.1)]"
+            style={{ border: `2px solid ${data.accent}` }}
+          >
+            <Image
+              src={data.icon}
+              alt=""
+              width={34}
+              height={34}
+              aria-hidden="true"
+              className="h-8 w-8 object-contain"
+            />
+          </div>
         </div>
+
+        <AppScreen id={screenshot.id} data={data} />
       </div>
     </div>
   );
 }
 
-function PhoneStatus({ accent }: { accent: string }) {
+function PhoneStatus({ accent, level }: { accent: string; level: number }) {
   return (
     <div className="flex items-center justify-between text-[0.68rem] font-bold text-[var(--text-primary)]">
       <span>9:41</span>
@@ -483,7 +457,7 @@ function PhoneStatus({ accent }: { accent: string }) {
         className="rounded-full px-2 py-1 text-white"
         style={{ background: accent }}
       >
-        Level 12
+        Level {level}
       </span>
     </div>
   );

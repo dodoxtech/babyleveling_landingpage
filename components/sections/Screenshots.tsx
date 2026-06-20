@@ -18,11 +18,7 @@ export function Screenshots({ locale }: ScreenshotsProps) {
       }}
     >
       <div className="mx-auto max-w-6xl lg:max-w-none">
-        <ScreenshotsCarousel
-          screenshots={getScreenshots(locale)}
-          prevLabel="Previous preview"
-          nextLabel="Next preview"
-        />
+        <ScreenshotsCarousel screenshots={getScreenshots(locale)} />
       </div>
     </section>
   );

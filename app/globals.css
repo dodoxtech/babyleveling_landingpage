@@ -421,8 +421,8 @@ body::before {
     padding-bottom: 1.5rem;
   }
 
-  /* S7 pins itself via ScrollTrigger (horizontal zoom scroll), so it opts out
-     of the story's flex-centred full-height frame and y-snap. */
+  /* S7 pins one device via `position: sticky` (the guided tour), so it opts
+     out of the story's flex-centred full-height frame and y-snap. */
   .snap-story :where(#screenshots) {
     display: block;
     min-height: 0;

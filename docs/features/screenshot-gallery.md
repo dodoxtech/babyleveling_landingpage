@@ -1,51 +1,62 @@
 ---
 tags: [feature]
 status: implemented
-updated: 2026-06-19
+updated: 2026-06-20
 ---
 
 # Screenshot Gallery
 
-> Shows the app UI demo screens inside a scroll-driven phone gallery that zooms each device
-> into focus, one by one.
+> A guided "tour inside one device": a single pinned phone whose screen swaps as you scroll,
+> with the narrative copy and a brand XP bar advancing in sync.
 
 ## Overview
 
 The proof-of-product section: visitors see the character-sheet dashboard, the quest log
-"battle log", the skill tree, and the trophy room in large, inspectable phone frames.
+"battle log", the skill tree, and the trophy room in one large, legible phone frame.
 
-Two ergonomically distinct experiences share the same phone-UI components:
+The choreography deliberately keeps the **device still and centred** (comprehension over
+spectacle) and animates the *content*, not the hardware. Two experiences share the same
+phone-UI components:
 
-- **Desktop (≥1024px, motion allowed):** a GSAP `ScrollTrigger`-pinned section. The page
-  pins to the viewport and vertical scroll drives the phone track horizontally; each device
-  scales up, sharpens, and gains opacity as it reaches centre, then recedes — an
-  Awwwards-style "zoom into one screen at a time" pass. A heading, an `NN / NN` step counter,
-  and a scrub progress bar frame the pinned stage. The travel maths is layout-measured
-  (`offsetLeft`/`offsetWidth`), so centring stays correct from a 360px phone to a 4K monitor.
-- **Touch / small screens / reduced motion:** a native horizontal scroll-snap rail with dots
-  and prev/next controls — no scroll hijacking, which is the right ergonomic on a phone.
+- **Desktop (≥1024px, motion allowed):** a single phone is pinned centre-stage via
+  `position: sticky`. Vertical scroll progress (read from the section's own
+  `getBoundingClientRect`) maps to an active screen index; the screen inside the phone swaps
+  one beat at a time with a spring CSS transition, while the left-hand narrative copy, the
+  climbing `Level NN` counter, the level pill inside the phone, and a continuously filling XP
+  bar all advance in sync. A chapter stepper lets visitors jump straight to any screen.
+- **Touch / small screens / reduced motion:** a vertical feature/phone/feature rhythm —
+  alternating phone + copy rows — so the actual UI stays still and readable with no scroll
+  hijacking.
 
 ## User Stories
 
-- [x] As a visitor on desktop, scrolling zooms me through each app screen one at a time.
+- [x] As a desktop visitor, scrolling walks me through each app screen one beat at a time
+      while the phone stays centred and readable.
+- [x] As a visitor, the level counter and XP bar climb as I progress (the leveling mechanic).
+- [x] As a visitor, I can jump to any screen via the chapter stepper.
 - [x] As a visitor, I see screenshots in a realistic phone frame so the scale reads correctly.
-- [x] As a visitor on mobile, I can swipe through screenshots with snap behavior.
-- [x] As a visitor, each screenshot has a short caption naming the screen.
-- [x] As a screen-reader user, every preview has a meaningful accessible label.
-- [x] As a keyboard user / reduced-motion user, I get the native rail with explicit controls.
+- [x] As a mobile / reduced-motion visitor, I get a clear vertical feature-by-feature layout.
+- [x] As a screen-reader user, only the active screen is exposed; inactive ones are hidden.
 
 ## UX notes
 
-- The desktop pin opts out of the vertical story snap (`scroll-snap-align: none`,
-  `min-height: 0` on `#screenshots` in `globals.css`) so the horizontal pass owns its own
+- Why pinned-single-device over a horizontal phone sweep: the UI we're selling stays still
+  and centred (better comprehension), the scroll is not hijacked sideways (less
+  disorientation, important for tired one-handed parents), and each screen gets a deliberate
+  storytelling beat. The motion lives in the *screen swap + XP bar*, tying it to the app's
+  own leveling theme rather than generic horizontal motion.
+- Native `position: sticky` does the pinning — no GSAP/ScrollTrigger — so it never fights the
+  Lenis smooth scroll. Each frame only reads layout and the active index updates React state;
+  the swap and copy transitions are CSS.
+- The section opts out of the vertical story snap (`scroll-snap-align: none`,
+  `min-height: 0` on `#screenshots` in `globals.css`) so the tall sticky region owns its own
   scroll budget without fighting [[features/full-screen-scroll-snap-story]].
-- GSAP + ScrollTrigger load via dynamic `import()` and stay synced to Lenis, mirroring
-  `HeroCharacterXpBar.client.tsx`; the trigger is killed and styles unmount on cleanup/resize.
 - Phone hardware is CSS-built: metal bezel, side buttons, Dynamic Island, screen glass,
-  depth shadow, and subtle reflection.
+  depth shadow, and subtle reflection — built once in `PhoneFrame`; `PhoneScreen` renders the
+  swapping content.
 - Demo screens are rendered as high-fidelity app previews from existing public assets until
   final exported app screenshots are available.
-- Reduced motion / low-power devices fall back to the native rail with instant navigation.
+- Pacing is tuned by the section height (`screenshots.length * 100svh`).
 
 ## Data
 
