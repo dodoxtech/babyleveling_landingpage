@@ -5,7 +5,7 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import { localeHref } from "@/lib/i18n/paths";
 import type { Locale } from "@/lib/i18n/config";
 import { SiteHeaderClient } from "@/components/ui/SiteHeaderClient";
-import { ThemeToggle } from "@/components/ui/ThemeToggle.client";
+import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 
 interface SiteHeaderProps {
   locale: Locale;
@@ -85,7 +85,7 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
           </ul>
         </nav>
 
-        {/* Right group: theme toggle (desktop only) + scroll-aware CTA + hamburger */}
+        {/* Right group: language switch (desktop only) + scroll-aware CTA + hamburger */}
         <div className="flex shrink-0 items-center gap-3">
           <nav aria-label="Legal" className="hidden items-center gap-3 xl:flex">
             {legalLinks.map((link) => (
@@ -100,7 +100,7 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
             ))}
           </nav>
           <div className="hidden md:block">
-            <ThemeToggle />
+            <LocaleSwitcher current={locale} />
           </div>
           <SiteHeaderClient
             navLinks={resolvedLinks}

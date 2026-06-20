@@ -79,16 +79,34 @@ export interface Dictionary {
   home: {
     hero: {
       eyebrow: string;
-      headline: string;
+      headlineLead: string;
       headlineEmphasis: string;
       tagline: string;
-      ctaLabel: string;
-      ctaSubLabel: string;
+      ctaPrimary: string;
+      platformNote: string;
+      cardLevelStatus: string;
+      cardQuickLog: string;
+      questFeed: string;
+      questSleep: string;
+      questGrowth: string;
     };
-    heroChar: { line: string; alt: string };
+    /** S2 "Why parents love BabyLeveling" section. */
+    heroChar: {
+      title: string;
+      body: string;
+      mascotAlt: string;
+      reasons: { title: string; desc: string }[];
+    };
     reveal: { headline: string; body: string; cta: string };
-    loop: { eyebrow: string; title: string };
-    features: { eyebrow: string; title: string };
+    /** S4 RPG care-loop section. `stats[].value` stays as a literal (numbers/∞). */
+    loop: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      stats: { value: string; label: string }[];
+      steps: { title: string; desc: string }[];
+    };
+    features: { title: string; body: string };
     modes: {
       eyebrow: string;
       title: string;
@@ -101,20 +119,75 @@ export interface Dictionary {
       statWeight: string;
       chartAlt: string;
     };
+    /** S7 "Tour the tiny command center" screenshot tour. `screens`/`mock` are
+     * keyed by Screenshot.id; XP/HP/level numbers stay as literals in the UI. */
     shots: {
       eyebrow: string;
       title: string;
-      prevLabel: string;
-      nextLabel: string;
+      /** Mobile/reduced-motion intro paragraph. */
+      body: string;
+      /** Desktop sticky-tour scroll affordance. */
+      scrollHint: string;
+      /** Word prefixed to a numeric level, e.g. `Level 12`. */
+      levelWord: string;
+      /** Narrative copy per screen, keyed by Screenshot.id. */
+      screens: Record<
+        string,
+        {
+          tabTitle: string;
+          subtitle: string;
+          eyebrow: string;
+          heading: string;
+          body: string;
+        }
+      >;
+      /** Copy rendered inside the simulated phone screens, keyed by screen. */
+      mock: {
+        dashboard: {
+          nextLevel: string;
+          feed: string;
+          sleep: string;
+          nextReminder: string;
+          reminderValue: string;
+        };
+        questLog: {
+          title: string;
+          subtitle: string;
+          quests: { title: string; note: string; reward: string }[];
+        };
+        skillTree: {
+          title: string;
+          milestones: string[];
+          unlocked: string;
+          unlockedNote: string;
+        };
+        trophyRoom: { title: string; trophies: string[] };
+      };
+    };
+    /** S6 Parent Mode reassurance section. */
+    parents: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      quotes: { quote: string; author: string; role: string }[];
+      stats: { value: string; label: string }[];
     };
     themes: {
       eyebrow: string;
       title: string;
-      tablistLabel: string;
+      body: string;
       /** Contains the literal token `{name}`, substituted with the (untranslated) theme name. */
-      previewLabel: string;
+      tryLabel: string;
+      /** Localized card copy keyed by ThemeId (`cute`/`focus`/`zen`); `name` stays untranslated. */
+      cards: Record<string, { persona: string; blurb: string; tags: string[] }>;
     };
-    family: { eyebrow: string; title: string; body: string };
+    family: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      badgeSuffix: string;
+      roles: { role: string; note: string }[];
+    };
     faq: { eyebrow: string; title: string };
     waitlist: {
       headline: string;

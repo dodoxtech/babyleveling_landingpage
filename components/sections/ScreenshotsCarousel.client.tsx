@@ -5,78 +5,45 @@ import { useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
 import { useReducedMotion } from "@/lib/motion";
 import type { Screenshot } from "@/lib/content/screenshots";
+import type { Dictionary } from "@/lib/i18n/dictionary";
+
+/** Localized copy for the whole tour — see `home.shots` in the dictionary. */
+type ShotsCopy = Dictionary["home"]["shots"];
 
 interface ScreenshotsCarouselProps {
   screenshots: Screenshot[];
+  copy: ShotsCopy;
 }
 
+/** Per-screen visual styling (accent + imagery). Text lives in `copy`. */
 interface PreviewData {
-  title: string;
-  subtitle: string;
   accent: string;
   hero: string;
   icon: string;
-}
-
-interface TourCopy {
-  eyebrow: string;
-  title: string;
-  body: string;
 }
 
 const BASE_LEVEL = 12;
 
 const previewData: Record<string, PreviewData> = {
   dashboard: {
-    title: "Hero Sheet",
-    subtitle: "Today feels under control",
     accent: "var(--accent-primary)",
     hero: "/assets/characters/cute-baby-girl-sitting.png",
     icon: "/assets/icons/bottle.png",
   },
   "quest-log": {
-    title: "Quest Log",
-    subtitle: "Care actions become wins",
     accent: "var(--accent-secondary)",
     hero: "/assets/icons/calendar.png",
     icon: "/assets/icons/moon-star.png",
   },
   "skill-tree": {
-    title: "Skill Tree",
-    subtitle: "Milestones stay visible",
     accent: "var(--accent-tertiary)",
     hero: "/assets/timeline/lv10-little-star.png",
     icon: "/assets/icons/achievement.png",
   },
   "trophy-room": {
-    title: "Trophy Room",
-    subtitle: "Tiny victories stack up",
     accent: "var(--accent-pink)",
     hero: "/assets/icons/trophy.png",
     icon: "/assets/icons/xp-badge.png",
-  },
-};
-
-const tourCopy: Record<string, TourCopy> = {
-  dashboard: {
-    eyebrow: "Your character sheet",
-    title: "The whole day at a glance",
-    body: "Level, XP, streaks, and the next reminder  -  the home base you open a dozen times a day.",
-  },
-  "quest-log": {
-    eyebrow: "The battle log",
-    title: "Every care moment is a quest",
-    body: "Feeds, naps, growth, and photos  -  each tap logs the moment and hands back XP.",
-  },
-  "skill-tree": {
-    eyebrow: "Milestones",
-    title: "Watch the skill tree branch out",
-    body: "First smile, first roll, first steps  -  milestones unlock as nodes you can revisit.",
-  },
-  "trophy-room": {
-    eyebrow: "Achievements",
-    title: "Tiny victories you get to keep",
-    body: "Streaks and firsts become badges the whole family gets to celebrate.",
   },
 };
 
@@ -94,7 +61,10 @@ const tourCopy: Record<string, TourCopy> = {
  * feature/phone/feature rhythm: the actual UI stays still and legible, which
  * is the honest ergonomic on a phone.
  */
-export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
+export function ScreenshotsCarousel({
+  screenshots,
+  copy,
+}: ScreenshotsCarouselProps) {
   const reducedMotion = useReducedMotion();
   const [pinned, setPinned] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -181,7 +151,7 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
 
   // ===== PINNED TOUR (desktop) =====
   if (pinned) {
-    const copy = getTourCopy(screenshots[activeIndex]?.id);
+    const screen = getScreen(copy, screenshots[activeIndex]?.id);
 
     return (
       <div
@@ -196,9 +166,9 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
           <div className="mx-auto grid h-full w-full max-w-[100rem] grid-cols-1 items-center gap-[clamp(2rem,5vw,5rem)] px-6 lg:grid-cols-[1fr_minmax(17rem,22rem)] lg:px-10 2xl:px-16">
             <div className="max-w-xl">
               <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
-                Inside the app
+                {copy.eyebrow}
               </p>
-              <h2 className="mt-2 text-h2">Tour the tiny command center.</h2>
+              <h2 className="mt-2 text-h2">{copy.title}</h2>
 
               <div
                 key={activeIndex}
@@ -208,13 +178,13 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
                   className="font-display text-sm font-bold uppercase tracking-[0.16em]"
                   style={{ color: activeAccent }}
                 >
-                  {copy.eyebrow}
+                  {screen.eyebrow}
                 </p>
                 <h3 className="mt-2 font-display text-3xl font-bold leading-tight text-[var(--text-primary)]">
-                  {copy.title}
+                  {screen.heading}
                 </h3>
                 <p className="mt-3 max-w-md text-lg leading-8 text-[var(--text-secondary)]">
-                  {copy.body}
+                  {screen.body}
                 </p>
               </div>
 
@@ -224,7 +194,7 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
                     className="font-display text-lg font-bold tabular-nums"
                     style={{ color: activeAccent }}
                   >
-                    Level {BASE_LEVEL + activeIndex}
+                    {copy.levelWord} {BASE_LEVEL + activeIndex}
                   </span>
                   <span className="text-sm font-semibold tabular-nums text-[var(--text-secondary)]">
                     {activeIndex + 1} / {count}
@@ -256,7 +226,7 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
                         }`}
                         style={isActive ? { background: data.accent } : undefined}
                       >
-                        {data.title}
+                        {getScreen(copy, screenshot.id).tabTitle}
                       </button>
                     </li>
                   );
@@ -264,7 +234,7 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
               </ol>
 
               <p className="mt-8 hidden items-center gap-2 text-sm font-semibold text-[var(--text-caption)] lg:flex">
-                <span aria-hidden="true">↓</span> Scroll to level up the tour
+                <span aria-hidden="true">↓</span> {copy.scrollHint}
               </p>
             </div>
 
@@ -276,6 +246,7 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
                     screenshot={screenshot}
                     level={BASE_LEVEL + index}
                     active={index === activeIndex}
+                    copy={copy}
                   />
                 ))}
               </PhoneFrame>
@@ -291,18 +262,17 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
     <div>
       <header className="mb-10 sm:mb-12">
         <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
-          Inside the app
+          {copy.eyebrow}
         </p>
-        <h2 className="mt-2 text-h2">Tour the tiny command center.</h2>
+        <h2 className="mt-2 text-h2">{copy.title}</h2>
         <p className="mt-3 max-w-[34rem] text-base leading-7 text-[var(--text-secondary)]">
-          Big tap targets, playful progress, and parent-ready logs sit inside a
-          phone frame large enough to inspect.
+          {copy.body}
         </p>
       </header>
 
       <div className="grid gap-14 sm:gap-20">
         {screenshots.map((screenshot, index) => {
-          const copy = getTourCopy(screenshot.id);
+          const screen = getScreen(copy, screenshot.id);
           const accent = getPreviewData(screenshot.id).accent;
           const flip = index % 2 === 1;
           return (
@@ -318,6 +288,7 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
                     screenshot={screenshot}
                     level={BASE_LEVEL + index}
                     active
+                    copy={copy}
                   />
                 </PhoneFrame>
               </figure>
@@ -326,22 +297,22 @@ export function ScreenshotsCarousel({ screenshots }: ScreenshotsCarouselProps) {
                   className="font-display text-sm font-bold uppercase tracking-[0.16em]"
                   style={{ color: accent }}
                 >
-                  {copy.eyebrow}
+                  {screen.eyebrow}
                 </p>
                 <h3 className="mt-2 font-display text-2xl font-bold leading-tight">
-                  {copy.title}
+                  {screen.heading}
                 </h3>
                 <p className="mt-3 text-base leading-7 text-[var(--text-secondary)]">
-                  {copy.body}
+                  {screen.body}
                 </p>
                 <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-[var(--text-secondary)]">
                   <span
                     className="font-display tabular-nums"
                     style={{ color: accent }}
                   >
-                    Level {BASE_LEVEL + index}
+                    {copy.levelWord} {BASE_LEVEL + index}
                   </span>
-                  · {getPreviewData(screenshot.id).title}
+                  · {screen.tabTitle}
                 </p>
               </div>
             </article>
@@ -356,8 +327,8 @@ function getPreviewData(id: string | undefined): PreviewData {
   return (id && previewData[id]) || previewData.dashboard;
 }
 
-function getTourCopy(id: string | undefined): TourCopy {
-  return (id && tourCopy[id]) || tourCopy.dashboard;
+function getScreen(copy: ShotsCopy, id: string | undefined) {
+  return (id && copy.screens[id]) || copy.screens.dashboard;
 }
 
 /** Constant CSS-built phone hardware. The screen content swaps inside it. */
@@ -393,12 +364,15 @@ function PhoneScreen({
   screenshot,
   level,
   active,
+  copy,
 }: {
   screenshot: Screenshot;
   level: number;
   active: boolean;
+  copy: ShotsCopy;
 }) {
   const data = getPreviewData(screenshot.id);
+  const screen = getScreen(copy, screenshot.id);
 
   return (
     <div
@@ -418,14 +392,14 @@ function PhoneScreen({
         }}
       />
       <div className="relative z-10 flex h-full flex-col p-5 pt-14">
-        <PhoneStatus accent={data.accent} level={level} />
+        <PhoneStatus accent={data.accent} level={level} levelWord={copy.levelWord} />
         <div className="mt-4 flex items-start justify-between gap-3">
           <div>
             <p className="font-display text-3xl font-bold leading-none text-[var(--text-primary)]">
-              {data.title}
+              {screen.tabTitle}
             </p>
             <p className="mt-1 text-xs font-semibold text-[var(--text-secondary)]">
-              {data.subtitle}
+              {screen.subtitle}
             </p>
           </div>
           <div
@@ -443,13 +417,21 @@ function PhoneScreen({
           </div>
         </div>
 
-        <AppScreen id={screenshot.id} data={data} />
+        <AppScreen id={screenshot.id} data={data} copy={copy} />
       </div>
     </div>
   );
 }
 
-function PhoneStatus({ accent, level }: { accent: string; level: number }) {
+function PhoneStatus({
+  accent,
+  level,
+  levelWord,
+}: {
+  accent: string;
+  level: number;
+  levelWord: string;
+}) {
   return (
     <div className="flex items-center justify-between text-[0.68rem] font-bold text-[var(--text-primary)]">
       <span>9:41</span>
@@ -457,20 +439,37 @@ function PhoneStatus({ accent, level }: { accent: string; level: number }) {
         className="rounded-full px-2 py-1 text-white"
         style={{ background: accent }}
       >
-        Level {level}
+        {levelWord} {level}
       </span>
     </div>
   );
 }
 
-function AppScreen({ id, data }: { id: string; data: PreviewData }) {
-  if (id === "quest-log") return <QuestLogScreen data={data} />;
-  if (id === "skill-tree") return <SkillTreeScreen data={data} />;
-  if (id === "trophy-room") return <TrophyRoomScreen data={data} />;
-  return <DashboardScreen data={data} />;
+function AppScreen({
+  id,
+  data,
+  copy,
+}: {
+  id: string;
+  data: PreviewData;
+  copy: ShotsCopy;
+}) {
+  if (id === "quest-log")
+    return <QuestLogScreen data={data} mock={copy.mock.questLog} />;
+  if (id === "skill-tree")
+    return <SkillTreeScreen data={data} mock={copy.mock.skillTree} />;
+  if (id === "trophy-room")
+    return <TrophyRoomScreen data={data} mock={copy.mock.trophyRoom} />;
+  return <DashboardScreen data={data} mock={copy.mock.dashboard} />;
 }
 
-function DashboardScreen({ data }: { data: PreviewData }) {
+function DashboardScreen({
+  data,
+  mock,
+}: {
+  data: PreviewData;
+  mock: ShotsCopy["mock"]["dashboard"];
+}) {
   return (
     <div className="mt-5 flex min-h-0 flex-1 flex-col gap-4">
       <div className="rounded-[1.6rem] bg-white/82 p-4 text-center shadow-[0_5px_0_rgba(23,32,42,0.08)]">
@@ -486,34 +485,40 @@ function DashboardScreen({ data }: { data: PreviewData }) {
           1,840 XP
         </p>
         <p className="text-xs font-semibold text-[var(--text-secondary)]">
-          Next level after two more care logs
+          {mock.nextLevel}
         </p>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <MetricTile label="Feed" value="+40 XP" tone="var(--accent-pink)" />
+        <MetricTile label={mock.feed} value="+40 XP" tone="var(--accent-pink)" />
         <MetricTile
-          label="Sleep"
+          label={mock.sleep}
           value="+60 HP"
           tone="var(--accent-secondary)"
         />
       </div>
       <div className="rounded-[1.25rem] bg-white/78 p-4 shadow-[0_4px_0_rgba(23,32,42,0.07)]">
         <p className="text-xs font-bold text-[var(--text-secondary)]">
-          Next reminder
+          {mock.nextReminder}
         </p>
-        <p className="mt-1 font-display text-xl font-bold">Bottle in 24 min</p>
+        <p className="mt-1 font-display text-xl font-bold">{mock.reminderValue}</p>
       </div>
     </div>
   );
 }
 
-function QuestLogScreen({ data }: { data: PreviewData }) {
-  const quests = [
-    ["Bottle", "Logged at 7:20", "+40 XP", "/assets/icons/bottle.png"],
-    ["Nap", "Recovered HP", "+60 HP", "/assets/icons/moon-star.png"],
-    ["Growth", "Weight note saved", "+25 XP", "/assets/icons/growth-chart.png"],
-    ["Photo", "Memory added", "Badge", "/assets/icons/camera.png"],
-  ] as const;
+function QuestLogScreen({
+  data,
+  mock,
+}: {
+  data: PreviewData;
+  mock: ShotsCopy["mock"]["questLog"];
+}) {
+  const icons = [
+    "/assets/icons/bottle.png",
+    "/assets/icons/moon-star.png",
+    "/assets/icons/growth-chart.png",
+    "/assets/icons/camera.png",
+  ];
 
   return (
     <div className="mt-5 flex min-h-0 flex-1 flex-col gap-3">
@@ -521,20 +526,18 @@ function QuestLogScreen({ data }: { data: PreviewData }) {
         className="rounded-[1.5rem] p-4 text-white shadow-[0_5px_0_rgba(23,32,42,0.12)]"
         style={{ background: data.accent }}
       >
-        <p className="font-display text-2xl font-bold">Daily quests</p>
-        <p className="mt-1 text-xs font-semibold opacity-90">
-          Four care moments already counted
-        </p>
+        <p className="font-display text-2xl font-bold">{mock.title}</p>
+        <p className="mt-1 text-xs font-semibold opacity-90">{mock.subtitle}</p>
       </div>
       <div className="grid gap-3">
-        {quests.map(([title, note, reward, icon]) => (
+        {mock.quests.map(({ title, note, reward }, index) => (
           <div
             key={title}
             className="grid grid-cols-[2.6rem_1fr_auto] items-center gap-3 rounded-[1.15rem] bg-white/82 p-3 shadow-[0_3px_0_rgba(23,32,42,0.07)]"
           >
             <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--bg-section-alt)]">
               <Image
-                src={icon}
+                src={icons[index]}
                 alt=""
                 width={28}
                 height={28}
@@ -557,19 +560,25 @@ function QuestLogScreen({ data }: { data: PreviewData }) {
   );
 }
 
-function SkillTreeScreen({ data }: { data: PreviewData }) {
-  const milestones = [
-    ["Smile", "/assets/timeline/lv05-explorer.png"],
-    ["Roll", "/assets/timeline/lv10-little-star.png"],
-    ["Reach", "/assets/timeline/lv20-adventurer.png"],
-    ["Legend", "/assets/timeline/lv50-legend.png"],
-  ] as const;
+function SkillTreeScreen({
+  data,
+  mock,
+}: {
+  data: PreviewData;
+  mock: ShotsCopy["mock"]["skillTree"];
+}) {
+  const images = [
+    "/assets/timeline/lv05-explorer.png",
+    "/assets/timeline/lv10-little-star.png",
+    "/assets/timeline/lv20-adventurer.png",
+    "/assets/timeline/lv50-legend.png",
+  ];
 
   return (
     <div className="mt-5 flex min-h-0 flex-1 flex-col">
       <div className="rounded-[1.6rem] bg-white/80 p-4 shadow-[0_5px_0_rgba(23,32,42,0.08)]">
         <div className="flex items-center justify-between">
-          <p className="font-display text-2xl font-bold">Milestone path</p>
+          <p className="font-display text-2xl font-bold">{mock.title}</p>
           <Image
             src={data.icon}
             alt=""
@@ -579,7 +588,7 @@ function SkillTreeScreen({ data }: { data: PreviewData }) {
           />
         </div>
         <div className="mt-5 grid grid-cols-2 gap-4">
-          {milestones.map(([label, image], index) => (
+          {mock.milestones.map((label, index) => (
             <div
               key={label}
               className={`rounded-[1.2rem] p-3 text-center shadow-[0_3px_0_rgba(23,32,42,0.07)] ${
@@ -587,7 +596,7 @@ function SkillTreeScreen({ data }: { data: PreviewData }) {
               }`}
             >
               <Image
-                src={image}
+                src={images[index]}
                 alt=""
                 width={74}
                 height={74}
@@ -600,24 +609,30 @@ function SkillTreeScreen({ data }: { data: PreviewData }) {
         </div>
       </div>
       <div className="mt-4 rounded-[1.25rem] bg-white/76 p-4 text-center shadow-[0_4px_0_rgba(23,32,42,0.07)]">
-        <p className="font-display text-xl font-bold">First smile unlocked</p>
+        <p className="font-display text-xl font-bold">{mock.unlocked}</p>
         <p className="mt-1 text-xs font-semibold text-[var(--text-secondary)]">
-          Saved to the family timeline
+          {mock.unlockedNote}
         </p>
       </div>
     </div>
   );
 }
 
-function TrophyRoomScreen({ data }: { data: PreviewData }) {
-  const trophies = [
-    ["/assets/icons/trophy.png", "Streak"],
-    ["/assets/icons/shield.png", "Guard"],
-    ["/assets/icons/book.png", "Story"],
-    ["/assets/icons/family.png", "Party"],
-    ["/assets/icons/achievement.png", "Firsts"],
-    ["/assets/icons/xp-badge.png", "Rare"],
-  ] as const;
+function TrophyRoomScreen({
+  data,
+  mock,
+}: {
+  data: PreviewData;
+  mock: ShotsCopy["mock"]["trophyRoom"];
+}) {
+  const icons = [
+    "/assets/icons/trophy.png",
+    "/assets/icons/shield.png",
+    "/assets/icons/book.png",
+    "/assets/icons/family.png",
+    "/assets/icons/achievement.png",
+    "/assets/icons/xp-badge.png",
+  ];
 
   return (
     <div className="mt-5 flex min-h-0 flex-1 flex-col gap-4">
@@ -630,16 +645,16 @@ function TrophyRoomScreen({ data }: { data: PreviewData }) {
           aria-hidden="true"
           className="mx-auto h-24 w-24 object-contain"
         />
-        <p className="mt-2 font-display text-2xl font-bold">Trophy room</p>
+        <p className="mt-2 font-display text-2xl font-bold">{mock.title}</p>
       </div>
       <div className="grid grid-cols-3 gap-3">
-        {trophies.map(([icon, label]) => (
+        {mock.trophies.map((label, index) => (
           <div
             key={label}
             className="rounded-[1rem] bg-white/82 p-3 text-center shadow-[0_3px_0_rgba(23,32,42,0.07)]"
           >
             <Image
-              src={icon}
+              src={icons[index]}
               alt=""
               width={42}
               height={42}

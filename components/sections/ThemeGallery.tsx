@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 import {
   applyTheme,
@@ -48,7 +49,9 @@ function PalettePreview({ theme }: { theme: ThemeDefinition }) {
   );
 }
 
-export function ThemeGallery({ locale: _locale }: ThemeGalleryProps) {
+export function ThemeGallery({ locale }: ThemeGalleryProps) {
+  const t = getDictionary(locale).home.themes;
+
   return (
     <section
       id="themes"
@@ -66,20 +69,24 @@ export function ThemeGallery({ locale: _locale }: ThemeGalleryProps) {
       <div className="mx-auto w-full max-w-7xl">
         <div className="max-w-3xl">
           <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
-            Three ways to play
+            {t.eyebrow}
           </p>
-          <h2 className="mt-3 text-h2">
-            One app, three moods. Pick the world your family lives in.
-          </h2>
+          <h2 className="mt-3 text-h2">{t.title}</h2>
           <p className="mt-5 max-w-[40rem] text-lg leading-8 text-[var(--text-secondary)]">
-            Same logs, same data — a different coat of paint. Tap a theme and the
-            whole page repaints instantly, so you can feel each one before you
-            commit.
+            {t.body}
           </p>
         </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {THEMES.map((theme) => (
+          {THEMES.map((theme) => {
+            // Names stay untranslated (brand); persona/blurb/tags come from the
+            // dictionary keyed by theme id, with a registry fallback.
+            const card = t.cards[theme.id] ?? {
+              persona: theme.persona,
+              blurb: theme.blurb,
+              tags: theme.tags,
+            };
+            return (
             <article
               key={theme.id}
               className="card-duolingo flex flex-col gap-5 p-6"
@@ -89,16 +96,16 @@ export function ThemeGallery({ locale: _locale }: ThemeGalleryProps) {
               <div className="flex items-center gap-2">
                 <h3 className="font-display text-2xl font-bold">{theme.name}</h3>
                 <span className="rounded-full bg-[var(--bg-section-alt)] px-2.5 py-0.5 text-xs font-bold text-[var(--accent-primary)]">
-                  {theme.persona}
+                  {card.persona}
                 </span>
               </div>
 
               <p className="-mt-2 leading-7 text-[var(--text-secondary)]">
-                {theme.blurb}
+                {card.blurb}
               </p>
 
               <ul className="flex flex-wrap gap-2">
-                {theme.tags.map((tag) => (
+                {card.tags.map((tag) => (
                   <li
                     key={tag}
                     className="rounded-[var(--radius-sm)] bg-white/70 px-3 py-1 text-xs font-bold text-[var(--text-secondary)]"
@@ -121,10 +128,11 @@ export function ThemeGallery({ locale: _locale }: ThemeGalleryProps) {
                   height={24}
                   className="h-6 w-6 rounded-full object-cover"
                 />
-                Try {theme.name}
+                {t.tryLabel.replace("{name}", theme.name)}
               </button>
             </article>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

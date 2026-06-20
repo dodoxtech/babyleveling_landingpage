@@ -1,5 +1,6 @@
 import { getScreenshots } from "@/lib/content/screenshots";
 import { ScreenshotsCarousel } from "@/components/sections/ScreenshotsCarousel.client";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 
 interface ScreenshotsProps {
@@ -7,6 +8,7 @@ interface ScreenshotsProps {
 }
 
 export function Screenshots({ locale }: ScreenshotsProps) {
+  const copy = getDictionary(locale).home.shots;
   return (
     <section
       id="screenshots"
@@ -18,7 +20,7 @@ export function Screenshots({ locale }: ScreenshotsProps) {
       }}
     >
       <div className="mx-auto max-w-6xl lg:max-w-none">
-        <ScreenshotsCarousel screenshots={getScreenshots(locale)} />
+        <ScreenshotsCarousel screenshots={getScreenshots(locale)} copy={copy} />
       </div>
     </section>
   );

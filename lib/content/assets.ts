@@ -35,6 +35,14 @@ export const assets = {
   "icon.heart-pulse": "/assets/icons/heart-pulse.png",
   "icon.calendar": "/assets/icons/calendar.png",
 
+  /* Feature card images */
+  "feature.xp-levels": "/assets/features/xp-levels.png",
+  "feature.daily-quests": "/assets/features/daily-quests.png",
+  "feature.skill-tree": "/assets/features/skill-tree.png",
+  "feature.achievements": "/assets/features/achievements.png",
+  "feature.streaks-buffs": "/assets/features/streaks-buffs.png",
+  "feature.apple-watch": "/assets/features/apple-watch.png",
+
   /* Logo */
   "logo.light": "/assets/logo/babyleveling-logo.png",
   "logo.dark": "/assets/logo/babyleveling-logo-dark.png",

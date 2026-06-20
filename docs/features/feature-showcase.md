@@ -1,7 +1,7 @@
 ---
 tags: [feature]
 status: implemented
-updated: 2026-06-17
+updated: 2026-06-20
 ---
 
 # Feature Showcase
@@ -34,7 +34,8 @@ consistent with the landing page's bright game-world theme:
 
 - Tactile white cards with chunky borders and the global BabyLeveling shadow system.
 - Cards reveal on scroll and lift on hover; disabled under reduced motion.
-- The section includes a real generated scene asset instead of a fake product mock.
+- Each card uses its own generated PNG image from `public/assets/features/`, so the
+  visual matches the mechanic instead of reusing generic icons.
 - Keep copy short — one title + one blurb per card.
 
 ## Data

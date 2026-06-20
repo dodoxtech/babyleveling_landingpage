@@ -29,22 +29,22 @@ interface FeatureText {
  * by `Locale` then `Feature.id`  -  see TASK-0011.
  */
 const FEATURE_BASE: FeatureBase[] = [
-  { id: "xp-levels", icon: "icon.xp-badge", accent: "var(--accent-growth)" },
-  { id: "daily-quests", icon: "icon.calendar", accent: "var(--accent-feed)" },
-  { id: "skill-tree", icon: "icon.achievement", accent: "var(--accent-sleep)" },
+  { id: "xp-levels", icon: "feature.xp-levels", accent: "var(--accent-growth)" },
+  { id: "daily-quests", icon: "feature.daily-quests", accent: "var(--accent-feed)" },
+  { id: "skill-tree", icon: "feature.skill-tree", accent: "var(--accent-sleep)" },
   {
     id: "achievements",
-    icon: "icon.trophy",
+    icon: "feature.achievements",
     accent: "var(--grad-plasma-from)",
   },
   {
     id: "streaks-buffs",
-    icon: "icon.achievement",
+    icon: "feature.streaks-buffs",
     accent: "var(--grad-plasma-to)",
   },
   {
     id: "apple-watch",
-    icon: "icon.calendar",
+    icon: "feature.apple-watch",
     accent: "var(--accent-growth)",
   },
 ];

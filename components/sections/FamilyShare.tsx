@@ -1,18 +1,23 @@
 import Image from "next/image";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 
 interface FamilyShareProps {
   locale: Locale;
 }
 
-const party = [
-  { role: "Parent", icon: "/assets/icons/shield.png", note: "Owns the daily rhythm" },
-  { role: "Partner", icon: "/assets/icons/heart-pulse.png", note: "Sees what changed" },
-  { role: "Grandparent", icon: "/assets/icons/book.png", note: "Keeps memories close" },
-  { role: "Caregiver", icon: "/assets/icons/calendar.png", note: "Logs the handoff" },
+/** Icons stay locale-independent; copy is zipped in by index from the dictionary. */
+const roleIcons = [
+  "/assets/icons/shield.png",
+  "/assets/icons/heart-pulse.png",
+  "/assets/icons/book.png",
+  "/assets/icons/calendar.png",
 ] as const;
 
-export function FamilyShare({ locale: _locale }: FamilyShareProps) {
+export function FamilyShare({ locale }: FamilyShareProps) {
+  const t = getDictionary(locale).home.family;
+  const party = t.roles.map((member, i) => ({ ...member, icon: roleIcons[i] }));
+
   return (
     <section
       id="family"
@@ -28,18 +33,17 @@ export function FamilyShare({ locale: _locale }: FamilyShareProps) {
       <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
         <div>
           <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
-            Shared care
+            {t.eyebrow}
           </p>
-          <h2 className="mt-3 text-h2">A co-op party for baby care.</h2>
+          <h2 className="mt-3 text-h2">{t.title}</h2>
           <p className="mt-5 max-w-[34rem] text-lg leading-8 text-[var(--text-secondary)]">
-            Shared logging gives everyone the same context without turning the
-            family chat into a status board.
+            {t.body}
           </p>
           <p className="mt-8 inline-flex items-center gap-3 rounded-[var(--radius-md)] bg-white/70 px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] shadow-[0_4px_0_rgba(23,32,42,0.06)]">
             <span className="font-display text-2xl font-bold tabular-nums text-[var(--accent-primary)]">
-              4
+              {t.roles.length}
             </span>
-            roles, one synced timeline
+            {t.badgeSuffix}
           </p>
         </div>
 

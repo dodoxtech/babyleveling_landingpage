@@ -46,7 +46,7 @@ interface Screenshot { id: string; src: string; alt: string; caption?: string; }
 // lib/content/assets.ts
 // `AssetKey` is a union of every public asset key; assetPath() resolves it to
 // a /assets/... path under public/.
-type AssetKey = string;             // e.g. "character.warrior-shield", "icon.bottle"
+type AssetKey = string;             // e.g. "character.warrior-shield", "feature.xp-levels", "icon.bottle"
 declare function assetPath(key: AssetKey): string;
 
 // lib/theme/registry.ts — website skin switcher

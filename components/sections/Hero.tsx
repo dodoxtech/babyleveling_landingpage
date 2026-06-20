@@ -1,20 +1,22 @@
 import Image from "next/image";
+import { HeroMascot } from "@/components/sections/HeroMascot.client";
 import { ThemeToggle } from "@/components/ui/ThemeToggle.client";
 import { SITE_DESCRIPTOR } from "@/lib/seo";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 
 interface HeroProps {
   locale: Locale;
 }
 
-const questTiles = [
-  { label: "Feed", icon: "/assets/icons/bottle.png", xp: "+40 XP" },
-  { label: "Sleep", icon: "/assets/icons/moon-star.png", xp: "+60 XP" },
-  { label: "Growth", icon: "/assets/icons/growth-chart.png", xp: "+90 XP" },
-];
-
 export function Hero({ locale }: HeroProps) {
-  void locale;
+  const t = getDictionary(locale).home.hero;
+
+  const questTiles = [
+    { label: t.questFeed, icon: "/assets/icons/bottle.png", xp: "+40 XP" },
+    { label: t.questSleep, icon: "/assets/icons/moon-star.png", xp: "+60 XP" },
+    { label: t.questGrowth, icon: "/assets/icons/growth-chart.png", xp: "+90 XP" },
+  ];
 
   return (
     <section
@@ -33,33 +35,29 @@ export function Hero({ locale }: HeroProps) {
                 background: "rgba(255,255,255,0.76)",
               }}
             >
-              Baby care as tiny quests
+              {t.eyebrow}
             </p>
             <h1 className="text-display">
-              Raise your baby&apos;s{" "}
+              {t.headlineLead}{" "}
               <span className="block text-[var(--accent-primary)]">
-                little hero.
+                {t.headlineEmphasis}
               </span>
             </h1>
             <h2 className="sr-only">{SITE_DESCRIPTOR}</h2>
             <p className="mt-5 max-w-full text-lg leading-8 text-[var(--text-secondary)] sm:max-w-[34rem]">
-              Track feeds, sleep, diapers, growth, and milestones with XP,
-              quests, and a mascot parents actually love.
+              {t.tagline}
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a href="#waitlist" className="btn-primary w-full sm:w-auto">
-                Join the Waitlist
-              </a>
-              <a href="#rpg-system" className="btn-secondary w-full sm:w-auto">
-                See the Loop
+                {t.ctaPrimary}
               </a>
             </div>
 
             <div className="mt-7 flex flex-wrap items-center gap-4">
               <ThemeToggle />
               <div className="rounded-[var(--radius-md)] bg-white px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] shadow-[0_3px_0_rgba(23,32,42,0.1)]">
-                iOS and watchOS planned
+                {t.platformNote}
               </div>
             </div>
           </div>
@@ -86,7 +84,7 @@ export function Hero({ locale }: HeroProps) {
                 <div>
                   <p className="font-display text-lg font-bold">Lv. 5</p>
                   <p className="text-sm text-[var(--text-secondary)]">
-                    Explorer unlocked
+                    {t.cardLevelStatus}
                   </p>
                 </div>
               </div>
@@ -97,7 +95,7 @@ export function Hero({ locale }: HeroProps) {
 
             <div className="card-duolingo absolute bottom-7 right-0 w-[16rem] rotate-[4deg] p-4">
               <p className="font-display text-base font-bold">
-                Today&apos;s quick log
+                {t.cardQuickLog}
               </p>
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {questTiles.map((tile) => (
@@ -122,14 +120,7 @@ export function Hero({ locale }: HeroProps) {
               </div>
             </div>
 
-            <Image
-              src="/assets/characters/warrior-baby-shield.png"
-              alt="BabyLeveling baby hero mascot holding a star shield"
-              width={420}
-              height={420}
-              priority
-              className="absolute left-1/2 top-1/2 z-10 w-[72%] max-w-[26rem] -translate-x-1/2 -translate-y-1/2 motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]"
-            />
+            <HeroMascot />
           </div>
         </div>
       </div>

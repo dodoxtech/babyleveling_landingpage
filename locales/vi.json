@@ -24,26 +24,73 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Một trò chơi mới vừa bắt đầu",
-      "headline": "Bạn vừa có em bé.",
-      "headlineEmphasis": "Bạn cũng vừa bắt đầu một trò chơi mới.",
-      "tagline": "Mỗi ngày là một nhiệm vụ mới.",
-      "ctaLabel": "Tham gia danh sách chờ",
-      "ctaSubLabel": "Là người đầu tiên khi ra mắt."
+      "eyebrow": "Chăm bé như những nhiệm vụ nhỏ",
+      "headlineLead": "Nuôi dưỡng",
+      "headlineEmphasis": "người hùng nhỏ của bạn.",
+      "tagline": "Theo dõi cữ bú, giấc ngủ, tã, tăng trưởng và các cột mốc — với XP, nhiệm vụ và một linh vật mà ba mẹ thật sự yêu thích.",
+      "ctaPrimary": "Tham gia danh sách chờ",
+      "platformNote": "Dự kiến cho iOS và watchOS",
+      "cardLevelStatus": "Mở khóa Nhà thám hiểm",
+      "cardQuickLog": "Ghi nhanh hôm nay",
+      "questFeed": "Bú",
+      "questSleep": "Ngủ",
+      "questGrowth": "Tăng trưởng"
     },
     "heroChar": {
-      "line": "Mọi người hùng đều bắt đầu từ Cấp 1.",
-      "alt": "Một người hùng nhỏ, vừa bắt đầu cuộc phiêu lưu"
+      "title": "Một ứng dụng theo dõi có gương mặt mà cả nhà đều nhớ.",
+      "body": "BabyLeveling biến việc chăm sóc hằng ngày thành một câu chuyện chung, để việc ghi nhận trở nên ấm áp chứ không phải thủ tục.",
+      "mascotAlt": "Linh vật BabyLeveling đang mỉm cười vẫy tay",
+      "reasons": [
+        {
+          "title": "Chăm con nhẹ nhàng hơn",
+          "desc": "Việc ghi nhận thường ngày trở thành một vòng phần thưởng nhỏ ấm áp."
+        },
+        {
+          "title": "Tiến trình hiện rõ",
+          "desc": "Ba mẹ thấy được xu hướng mà không phải nhìn chằm chằm vào biểu đồ khô khan."
+        },
+        {
+          "title": "Cả nhà cùng tham gia",
+          "desc": "Bạn đời và người chăm bé có thể cùng chung một cuộc phiêu lưu."
+        },
+        {
+          "title": "Kỷ niệm luôn ở gần",
+          "desc": "Cột mốc trở thành kỷ vật, không chỉ là dòng dữ liệu."
+        }
+      ]
     },
     "reveal": {
       "headline": "Người hùng chính là bé. EXP chính là cuộc sống thật.",
       "body": "Mỗi cữ bú, mỗi giấc ngủ, mỗi cột mốc nhỏ xíu — tất cả đều có ý nghĩa. BabyLeveling biến tình yêu thương bạn đang trao thành một hành trình lớn lên cùng nhau.",
       "cta": "Xem cách hoạt động →"
     },
-    "loop": { "eyebrow": "Cơ chế", "title": "Ăn. Ngủ. Lớn. Lên cấp." },
+    "loop": {
+      "eyebrow": "Vòng lặp cốt lõi",
+      "title": "Vòng lặp RPG chính là vòng lặp chăm con.",
+      "body": "BabyLeveling không biến áp lực thành trò chơi. Nó giúp những việc chăm con nhỏ bé dễ nhận ra, dễ lặp lại và dễ ăn mừng hơn.",
+      "stats": [
+        { "value": "6", "label": "loại chăm sóc" },
+        { "value": "1", "label": "chạm ngón tay" },
+        { "value": "∞", "label": "kỷ niệm lưu giữ" }
+      ],
+      "steps": [
+        {
+          "title": "Chạm một thao tác chăm sóc",
+          "desc": "Bú, ngủ, tã, thuốc, chơi và tăng trưởng — luôn chỉ cách một ngón tay."
+        },
+        {
+          "title": "Nhận XP cho bé",
+          "desc": "Mỗi lần ghi đều cộng XP, giữ chuỗi ngày và khiến sự đều đặn trở nên đáng giá."
+        },
+        {
+          "title": "Mở khóa một kỷ niệm",
+          "desc": "Cột mốc trở thành thành tựu mà cả nhà có thể xem lại sau này."
+        }
+      ]
+    },
     "features": {
-      "eyebrow": "Lối chơi",
-      "title": "Một game RPG đúng nghĩa, dựng trên việc chăm con thật."
+      "title": "Dựng như một bảng nhân vật cho đời thật.",
+      "body": "Mọi nhật ký chăm bé nghiêm túc vẫn còn đó. Chúng được gói trong một hệ thống ấm áp hơn để ba mẹ muốn quay lại mỗi ngày."
     },
     "modes": {
       "eyebrow": "Hai góc nhìn, một sự thật",
@@ -58,21 +105,126 @@
       "chartAlt": "Biểu đồ tăng trưởng minh họa, có xu hướng tăng đều"
     },
     "shots": {
-      "eyebrow": "Minh chứng",
-      "title": "Hành trình của bạn trông như thế này.",
-      "prevLabel": "Ảnh trước",
-      "nextLabel": "Ảnh tiếp theo"
+      "eyebrow": "Bên trong ứng dụng",
+      "title": "Khám phá trung tâm chỉ huy tí hon.",
+      "body": "Nút bấm lớn, tiến trình vui nhộn và nhật ký dành cho cha mẹ, tất cả gói gọn trong khung điện thoại đủ lớn để xem rõ.",
+      "scrollHint": "Cuộn để nâng cấp chuyến tham quan",
+      "levelWord": "Cấp",
+      "screens": {
+        "dashboard": {
+          "tabTitle": "Bảng nhân vật",
+          "subtitle": "Hôm nay mọi thứ trong tầm tay",
+          "eyebrow": "Bảng nhân vật của bạn",
+          "heading": "Cả ngày chỉ trong một cái nhìn",
+          "body": "Cấp độ, XP, chuỗi ngày và lời nhắc tiếp theo  -  căn cứ bạn mở hàng chục lần mỗi ngày."
+        },
+        "quest-log": {
+          "tabTitle": "Nhật ký nhiệm vụ",
+          "subtitle": "Mỗi lần chăm sóc là một chiến thắng",
+          "eyebrow": "Nhật ký chiến đấu",
+          "heading": "Mỗi khoảnh khắc chăm sóc là một nhiệm vụ",
+          "body": "Cho bú, ngủ, tăng trưởng và ảnh  -  mỗi lần chạm đều ghi lại khoảnh khắc và trả về XP."
+        },
+        "skill-tree": {
+          "tabTitle": "Cây kỹ năng",
+          "subtitle": "Các cột mốc luôn hiển thị",
+          "eyebrow": "Cột mốc",
+          "heading": "Ngắm cây kỹ năng vươn nhánh",
+          "body": "Nụ cười đầu tiên, lần lẫy đầu tiên, bước đi đầu tiên  -  các cột mốc mở khóa thành những node bạn có thể xem lại."
+        },
+        "trophy-room": {
+          "tabTitle": "Phòng cúp",
+          "subtitle": "Những chiến thắng nhỏ dồn lại",
+          "eyebrow": "Thành tựu",
+          "heading": "Những chiến thắng nhỏ bạn được giữ lại",
+          "body": "Chuỗi ngày và những lần đầu tiên trở thành huy hiệu cả nhà cùng ăn mừng."
+        }
+      },
+      "mock": {
+        "dashboard": {
+          "nextLevel": "Lên cấp sau hai lần ghi chăm sóc nữa",
+          "feed": "Cho bú",
+          "sleep": "Giấc ngủ",
+          "nextReminder": "Lời nhắc tiếp theo",
+          "reminderValue": "Bú bình sau 24 phút"
+        },
+        "questLog": {
+          "title": "Nhiệm vụ hằng ngày",
+          "subtitle": "Đã tính bốn khoảnh khắc chăm sóc",
+          "quests": [
+            { "title": "Bú bình", "note": "Ghi lúc 7:20", "reward": "+40 XP" },
+            { "title": "Ngủ trưa", "note": "Hồi HP", "reward": "+60 HP" },
+            { "title": "Tăng trưởng", "note": "Đã lưu ghi chú cân nặng", "reward": "+25 XP" },
+            { "title": "Ảnh", "note": "Đã thêm kỷ niệm", "reward": "Huy hiệu" }
+          ]
+        },
+        "skillTree": {
+          "title": "Lộ trình cột mốc",
+          "milestones": ["Cười", "Lẫy", "Với", "Huyền thoại"],
+          "unlocked": "Mở khóa nụ cười đầu tiên",
+          "unlockedNote": "Đã lưu vào dòng thời gian gia đình"
+        },
+        "trophyRoom": {
+          "title": "Phòng cúp",
+          "trophies": ["Chuỗi", "Khiên", "Truyện", "Tiệc", "Lần đầu", "Hiếm"]
+        }
+      }
+    },
+    "parents": {
+      "eyebrow": "Dành cho những ngày thật",
+      "title": "Cho ba mẹ mệt nhoài, không phải ba mẹ hoàn hảo.",
+      "body": "Giọng điệu vui tươi, nhưng sản phẩm vẫn thực dụng: nhập nhanh, chia sẻ bối cảnh và một bản ghi rõ ràng khi cả ngày trở nên mờ mịt.",
+      "quotes": [
+        {
+          "quote": "Nó khiến những lần ghi lúc 3 giờ sáng bớt cô đơn.",
+          "author": "Mina R.",
+          "role": "Mẹ của bé 5 tháng"
+        },
+        {
+          "quote": "Bạn đời tôi xem nhật ký nhiệm vụ trước khi hỏi chuyện gì đã xảy ra.",
+          "author": "Caleb N.",
+          "role": "Bố của cặp song sinh"
+        }
+      ],
+      "stats": [
+        { "value": "3 giây", "label": "để ghi một thao tác chăm sóc" },
+        { "value": "3 giờ sáng", "label": "thân thiện, tối, một tay" }
+      ]
     },
     "themes": {
-      "eyebrow": "Bản sắc",
-      "title": "Chọn thế giới nơi người hùng của bạn lớn lên.",
-      "tablistLabel": "Giao diện",
-      "previewLabel": "Xem trước giao diện {name}"
+      "eyebrow": "Ba cách để chơi",
+      "title": "Một ứng dụng, ba tâm trạng. Chọn thế giới gia đình bạn sống trong đó.",
+      "body": "Cùng nhật ký, cùng dữ liệu — chỉ khác lớp áo. Chạm một giao diện và cả trang đổi màu tức thì, để bạn cảm nhận từng cái trước khi quyết định.",
+      "tryLabel": "Thử {name}",
+      "cards": {
+        "cute": {
+          "persona": "Ấm áp & dịu dàng",
+          "blurb": "Những thẻ bồng bềnh, phần thưởng màu san hô kẹo ngọt và ánh hồng nuôi dưỡng — thế giới tươi sáng, đáng ôm cho ai yêu màu sắc ấm áp, vui tươi.",
+          "tags": ["San hô + oải hương", "Góc mềm như gối", "Nền hồng ấm"]
+        },
+        "focus": {
+          "persona": "Mát & sắc nét",
+          "blurb": "Mực tiết chế, một điểm nhấn điện sắc tự tin và các cạnh sắc nét. Cảm giác cao cấp, kín đáo khiến việc nâng cấp trở nên hiển nhiên.",
+          "tags": ["Chàm điện", "Cạnh sắc nét", "Mực tương phản cao"]
+        },
+        "zen": {
+          "persona": "Thiền",
+          "blurb": "Xanh xô thơm, cát và đất nung trên giấy ấm. Sự tĩnh lặng ít bão hòa cho ba mẹ muốn việc theo dõi như một hơi thở sâu.",
+          "tags": ["Xô thơm + cát", "Sang trọng tĩnh lặng", "Độ bão hòa thấp"]
+        }
+      }
     },
     "family": {
-      "eyebrow": "Gắn kết",
-      "title": "Cùng nuôi con. Cùng lên cấp như một đội.",
-      "body": "Mời bạn đời và ông bà. Mọi người chăm bé đều tham gia cùng một nhiệm vụ — và chung một dòng thời gian."
+      "eyebrow": "Cùng nhau chăm sóc",
+      "title": "Một đội co-op cho việc chăm bé.",
+      "body": "Ghi nhận chung giúp mọi người có cùng bối cảnh mà không biến nhóm chat gia đình thành bảng báo cáo trạng thái.",
+      "badgeSuffix": "vai trò, một dòng thời gian chung",
+      "roles": [
+        { "role": "Ba mẹ", "note": "Giữ nhịp mỗi ngày" },
+        { "role": "Bạn đời", "note": "Thấy điều gì đã thay đổi" },
+        { "role": "Ông bà", "note": "Giữ kỷ niệm ở gần" },
+        { "role": "Người chăm bé", "note": "Ghi lại lúc bàn giao" }
+      ]
     },
     "faq": {
       "eyebrow": "Tin tưởng",

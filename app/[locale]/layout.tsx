@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Fredoka, Poppins } from "next/font/google";
+import { Fredoka, Poppins, Baloo_2, Be_Vietnam_Pro } from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
@@ -21,6 +21,32 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   display: "swap",
+});
+
+/**
+ * Vietnamese-capable substitutes. Fredoka and Poppins ship no `vietnamese`
+ * subset, so tone-marked glyphs (ữ, ậ, ề…) fall back to a mismatched system
+ * font on the `/vi` route. Baloo 2 (rounded, like Fredoka) and Be Vietnam Pro
+ * (geometric, like Poppins) cover Vietnamese and are bound to the same CSS
+ * variables, so `globals.css` keeps reading `--font-fredoka` / `--font-poppins`
+ * unchanged — only the `<body>` className swaps per locale.
+ */
+const balooVi = Baloo_2({
+  variable: "--font-fredoka",
+  subsets: ["vietnamese", "latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+  // Only the /vi <body> references these vars, so skip the preload <link> that
+  // would otherwise force every locale to download the Vietnamese families.
+  preload: false,
+});
+
+const beVietnam = Be_Vietnam_Pro({
+  variable: "--font-poppins",
+  subsets: ["vietnamese", "latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  preload: false,
 });
 
 export function generateStaticParams() {
@@ -83,11 +109,14 @@ export default async function LocaleLayout({
   if (!isLocale(rawLocale)) notFound();
   const locale: Locale = rawLocale;
 
+  const fontVars =
+    locale === "vi"
+      ? `${balooVi.variable} ${beVietnam.variable}`
+      : `${fredoka.variable} ${poppins.variable}`;
+
   return (
     <html lang={locale}>
-      <body
-        className={`${fredoka.variable} ${poppins.variable} font-sans antialiased`}
-      >
+      <body className={`${fontVars} font-sans antialiased`}>
         <SiteJsonLd />
         <LenisProvider>
           <SiteHeader locale={locale} />

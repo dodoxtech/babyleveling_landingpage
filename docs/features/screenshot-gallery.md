@@ -61,6 +61,11 @@ phone-UI components:
 ## Data
 
 - Driven by the `Screenshot[]` manifest in `lib/content/screenshots.ts`; see [[architecture/data-flow]].
+- All visible copy (section heading, per-screen narrative, chapter labels, scroll hint, and the
+  text inside the simulated phone screens) is localized via `home.shots` in the dictionary —
+  `screens`/`mock` are keyed by `Screenshot.id`. The server `Screenshots.tsx` reads the active
+  locale's `shots` block and passes it to `ScreenshotsCarousel.client.tsx` as `copy`. Only
+  numeric game stats (XP/HP totals, `Level NN`, `9:41`) stay as literals.
 - Real screenshot files will live in `public/screenshots/` once the design track delivers
   them; until then, `ScreenshotsCarousel.client.tsx` renders a polished app-preview screen
   per `Screenshot.id`.

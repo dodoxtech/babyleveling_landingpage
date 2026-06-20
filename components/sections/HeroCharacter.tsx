@@ -1,34 +1,26 @@
 import Image from "next/image";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 
 interface HeroCharacterProps {
   locale: Locale;
 }
 
-const reasons = [
-  {
-    icon: "/assets/icons/heart-pulse.png",
-    title: "Care feels lighter",
-    desc: "Routine tracking becomes a warm little reward loop.",
-  },
-  {
-    icon: "/assets/icons/xp-badge.png",
-    title: "Progress is visible",
-    desc: "Parents see patterns without staring at a clinical chart.",
-  },
-  {
-    icon: "/assets/icons/family.png",
-    title: "Everyone joins in",
-    desc: "Partners and caregivers can share the same adventure.",
-  },
-  {
-    icon: "/assets/icons/camera.png",
-    title: "Memories stay close",
-    desc: "Milestones become keepsakes, not just database entries.",
-  },
+/** Icons stay locale-independent; copy is zipped in by index from the dictionary. */
+const reasonIcons = [
+  "/assets/icons/heart-pulse.png",
+  "/assets/icons/xp-badge.png",
+  "/assets/icons/family.png",
+  "/assets/icons/camera.png",
 ] as const;
 
-export function HeroCharacter({ locale: _locale }: HeroCharacterProps) {
+export function HeroCharacter({ locale }: HeroCharacterProps) {
+  const t = getDictionary(locale).home.heroChar;
+  const reasons = t.reasons.map((reason, i) => ({
+    ...reason,
+    icon: reasonIcons[i],
+  }));
+
   return (
     <section
       id="hero-appears"
@@ -46,7 +38,7 @@ export function HeroCharacter({ locale: _locale }: HeroCharacterProps) {
           />
           <Image
             src="/assets/characters/cute-baby-girl-waving.png"
-            alt="Smiling BabyLeveling mascot waving"
+            alt={t.mascotAlt}
             width={300}
             height={300}
             className="absolute bottom-0 left-1/2 z-10 w-[68%] max-w-[20rem] -translate-x-1/2 motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]"
@@ -54,12 +46,9 @@ export function HeroCharacter({ locale: _locale }: HeroCharacterProps) {
         </div>
 
         <div>
-          <h2 className="text-h2">
-            A tracker with a face your family remembers.
-          </h2>
+          <h2 className="text-h2">{t.title}</h2>
           <p className="mt-4 max-w-[36rem] text-lg leading-8 text-[var(--text-secondary)]">
-            BabyLeveling turns everyday care into a shared story, so logging
-            feels encouraging instead of administrative.
+            {t.body}
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">

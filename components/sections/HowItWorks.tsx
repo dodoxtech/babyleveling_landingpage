@@ -1,29 +1,22 @@
 import Image from "next/image";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 
 interface HowItWorksProps {
   locale: Locale;
 }
 
-const loop = [
-  {
-    title: "Tap a care action",
-    desc: "Feed, nap, diaper, medicine, play, and growth logs stay one thumb away.",
-    icon: "/assets/icons/bottle.png",
-  },
-  {
-    title: "Earn baby XP",
-    desc: "Each log adds XP, protects streaks, and makes consistency feel rewarding.",
-    icon: "/assets/icons/xp-badge.png",
-  },
-  {
-    title: "Unlock a memory",
-    desc: "Milestones turn into achievements your family can revisit later.",
-    icon: "/assets/icons/achievement.png",
-  },
+/** Icons stay locale-independent; copy is zipped in by index from the dictionary. */
+const stepIcons = [
+  "/assets/icons/bottle.png",
+  "/assets/icons/xp-badge.png",
+  "/assets/icons/achievement.png",
 ] as const;
 
-export function HowItWorks({ locale: _locale }: HowItWorksProps) {
+export function HowItWorks({ locale }: HowItWorksProps) {
+  const t = getDictionary(locale).home.loop;
+  const loop = t.steps.map((step, i) => ({ ...step, icon: stepIcons[i] }));
+
   return (
     <section
       id="rpg-system"
@@ -35,20 +28,15 @@ export function HowItWorks({ locale: _locale }: HowItWorksProps) {
       <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-16">
         <div>
           <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
-            The core loop
+            {t.eyebrow}
           </p>
-          <h2 className="mt-3 text-h2">The RPG loop is the care loop.</h2>
+          <h2 className="mt-3 text-h2">{t.title}</h2>
           <p className="mt-5 max-w-[35rem] text-lg leading-8 text-[var(--text-secondary)]">
-            BabyLeveling does not gamify pressure. It makes the tiny care
-            actions easier to notice, repeat, and celebrate.
+            {t.body}
           </p>
 
           <dl className="mt-9 grid max-w-md grid-cols-3 gap-4">
-            {[
-              ["6", "care types"],
-              ["1", "thumb tap"],
-              ["∞", "memories kept"],
-            ].map(([value, label]) => (
+            {t.stats.map(({ value, label }) => (
               <div
                 key={label}
                 className="rounded-[var(--radius-md)] bg-white/70 p-4 text-center shadow-[0_4px_0_rgba(23,32,42,0.06)]"

@@ -1,24 +1,15 @@
 import Image from "next/image";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 
 interface ParentModeProps {
   locale: Locale;
 }
 
-const quotes = [
-  {
-    quote: "It made the 3 a.m. logs feel less lonely.",
-    author: "Mina R.",
-    role: "Parent of a 5 month old",
-  },
-  {
-    quote: "My partner checks the quest log before asking what happened.",
-    author: "Caleb N.",
-    role: "Dad of twins",
-  },
-] as const;
+export function ParentMode({ locale }: ParentModeProps) {
+  const t = getDictionary(locale).home.parents;
+  const quotes = t.quotes;
 
-export function ParentMode({ locale: _locale }: ParentModeProps) {
   return (
     <section
       id="parents"
@@ -59,7 +50,7 @@ export function ParentMode({ locale: _locale }: ParentModeProps) {
 
         <div>
           <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
-            Built for real days
+            {t.eyebrow}
           </p>
           <Image
             src="/assets/icons/heart-pulse.png"
@@ -69,16 +60,12 @@ export function ParentMode({ locale: _locale }: ParentModeProps) {
             aria-hidden="true"
             className="mt-4"
           />
-          <h2 className="mt-5 text-h2">For tired parents, not perfect ones.</h2>
+          <h2 className="mt-5 text-h2">{t.title}</h2>
           <p className="mt-4 text-lg leading-8 text-[var(--text-secondary)]">
-            The tone is cheerful, but the product stays practical: fast entry,
-            shared context, and a clear record when the day gets blurry.
+            {t.body}
           </p>
           <dl className="mt-8 grid grid-cols-2 gap-4">
-            {[
-              ["3 s", "to log a care action"],
-              ["3 a.m.", "friendly, dark, one-handed"],
-            ].map(([value, label]) => (
+            {t.stats.map(({ value, label }) => (
               <div
                 key={label}
                 className="rounded-[var(--radius-md)] bg-white/70 p-4 shadow-[0_4px_0_rgba(23,32,42,0.06)]"

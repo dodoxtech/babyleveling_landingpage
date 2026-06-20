@@ -2,7 +2,7 @@
 title: "ADR-0003 — i18n approach: native Next.js sub-path routing + static JSON dictionaries"
 status: accepted
 created: 2026-06-17
-updated: 2026-06-17
+updated: 2026-06-20
 ---
 
 # ADR-0003 — i18n: native Next.js sub-path routing + static JSON dictionaries
@@ -44,6 +44,27 @@ duplicate, separately-indexable `/en` copy of every page.
 - Content modules (`lib/content/faq.ts`, `loop.ts`, `features.ts`, `modes.ts`) —
   locale-keyed data structures with `getXxx(locale)` accessors; locale-independent
   fields (icons, accents) separated from translated text
+
+### Home sections read all copy from the dictionary
+
+Every `app/[locale]/page.tsx` section (`Hero`, `HeroCharacter`, `HowItWorks`,
+`FeatureShowcase`, `ParentMode`, `ThemeGallery`, `FamilyShare`, …) takes `locale`
+and pulls its eyebrow/title/body and any card/step/quote arrays from
+`getDictionary(locale).home.*`. Locale-independent fields (icons, XP values, theme
+swatches/images) stay in the component or `lib/theme/registry.ts` and are zipped to
+the translated text by index, or looked up by id (`home.themes.cards[themeId]`).
+No section hardcodes display copy — a missed string is a TypeScript error against
+the `Dictionary` type, not a silently-English section.
+
+### Per-locale display fonts (Vietnamese coverage)
+
+`Fredoka` and `Poppins` ship no `vietnamese` Google Fonts subset, so tone-marked
+glyphs (ữ, ậ, ề…) fell back to a mismatched system font on `/vi`. `app/[locale]/layout.tsx`
+loads two Vietnamese-capable substitutes — **Baloo 2** (rounded, like Fredoka) and
+**Be Vietnam Pro** (geometric, like Poppins) — bound to the *same* CSS variables
+(`--font-fredoka` / `--font-poppins`), and swaps the `<body>` className when
+`locale === "vi"`. `globals.css` is unchanged. The Vietnamese pair is `preload: false`
+so only `/vi` fetches them; `/en` and `/ja` keep Fredoka/Poppins with no extra download.
 
 ### What is NOT translated (brand terms)
 

@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { getFeatures } from "@/lib/content/features";
 import { FeatureCard } from "@/components/sections/FeatureCard.client";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 
 interface FeatureShowcaseProps {
@@ -9,6 +9,7 @@ interface FeatureShowcaseProps {
 
 export function FeatureShowcase({ locale }: FeatureShowcaseProps) {
   const features = getFeatures(locale);
+  const t = getDictionary(locale).home.features;
 
   return (
     <section
@@ -20,10 +21,9 @@ export function FeatureShowcase({ locale }: FeatureShowcaseProps) {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-end">
           <div>
-            <h2 className="text-h2">Built like a character sheet for real life.</h2>
+            <h2 className="text-h2">{t.title}</h2>
             <p className="mt-4 max-w-[34rem] text-lg leading-8 text-[var(--text-secondary)]">
-              All the serious baby logs are still there. They are wrapped in
-              a warmer system parents can keep coming back to.
+              {t.body}
             </p>
           </div>
         </div>

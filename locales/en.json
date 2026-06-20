@@ -24,26 +24,73 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "A new game has begun",
-      "headline": "You just had a baby.",
-      "headlineEmphasis": "You also just started a new game.",
-      "tagline": "Every day is a new quest.",
-      "ctaLabel": "Join the waitlist",
-      "ctaSubLabel": "Be first in line at launch."
+      "eyebrow": "Baby care as tiny quests",
+      "headlineLead": "Raise your baby's",
+      "headlineEmphasis": "little hero.",
+      "tagline": "Track feeds, sleep, diapers, growth, and milestones with XP, quests, and a mascot parents actually love.",
+      "ctaPrimary": "Join the Waitlist",
+      "platformNote": "iOS and watchOS planned",
+      "cardLevelStatus": "Explorer unlocked",
+      "cardQuickLog": "Today's quick log",
+      "questFeed": "Feed",
+      "questSleep": "Sleep",
+      "questGrowth": "Growth"
     },
     "heroChar": {
-      "line": "Every hero starts at Level 1.",
-      "alt": "A small hero, just beginning its adventure"
+      "title": "A tracker with a face your family remembers.",
+      "body": "BabyLeveling turns everyday care into a shared story, so logging feels encouraging instead of administrative.",
+      "mascotAlt": "Smiling BabyLeveling mascot waving",
+      "reasons": [
+        {
+          "title": "Care feels lighter",
+          "desc": "Routine tracking becomes a warm little reward loop."
+        },
+        {
+          "title": "Progress is visible",
+          "desc": "Parents see patterns without staring at a clinical chart."
+        },
+        {
+          "title": "Everyone joins in",
+          "desc": "Partners and caregivers can share the same adventure."
+        },
+        {
+          "title": "Memories stay close",
+          "desc": "Milestones become keepsakes, not just database entries."
+        }
+      ]
     },
     "reveal": {
       "headline": "The hero is your baby. The XP is real life.",
       "body": "Every feed, every nap, every tiny milestone — it all counts. BabyLeveling turns the care you already give into a story you grow together.",
       "cta": "See how it works →"
     },
-    "loop": { "eyebrow": "The mechanic", "title": "Feed. Sleep. Grow. Level up." },
+    "loop": {
+      "eyebrow": "The core loop",
+      "title": "The RPG loop is the care loop.",
+      "body": "BabyLeveling does not gamify pressure. It makes the tiny care actions easier to notice, repeat, and celebrate.",
+      "stats": [
+        { "value": "6", "label": "care types" },
+        { "value": "1", "label": "thumb tap" },
+        { "value": "∞", "label": "memories kept" }
+      ],
+      "steps": [
+        {
+          "title": "Tap a care action",
+          "desc": "Feed, nap, diaper, medicine, play, and growth logs stay one thumb away."
+        },
+        {
+          "title": "Earn baby XP",
+          "desc": "Each log adds XP, protects streaks, and makes consistency feel rewarding."
+        },
+        {
+          "title": "Unlock a memory",
+          "desc": "Milestones turn into achievements your family can revisit later."
+        }
+      ]
+    },
     "features": {
-      "eyebrow": "The gameplay",
-      "title": "A full RPG, built on real baby care."
+      "title": "Built like a character sheet for real life.",
+      "body": "All the serious baby logs are still there. They are wrapped in a warmer system parents can keep coming back to."
     },
     "modes": {
       "eyebrow": "Two lenses, one truth",
@@ -58,21 +105,126 @@
       "chartAlt": "Representative growth chart, trending steadily upward"
     },
     "shots": {
-      "eyebrow": "Proof",
-      "title": "This is what your adventure looks like.",
-      "prevLabel": "Previous screenshot",
-      "nextLabel": "Next screenshot"
+      "eyebrow": "Inside the app",
+      "title": "Tour the tiny command center.",
+      "body": "Big tap targets, playful progress, and parent-ready logs sit inside a phone frame large enough to inspect.",
+      "scrollHint": "Scroll to level up the tour",
+      "levelWord": "Level",
+      "screens": {
+        "dashboard": {
+          "tabTitle": "Hero Sheet",
+          "subtitle": "Today feels under control",
+          "eyebrow": "Your character sheet",
+          "heading": "The whole day at a glance",
+          "body": "Level, XP, streaks, and the next reminder  -  the home base you open a dozen times a day."
+        },
+        "quest-log": {
+          "tabTitle": "Quest Log",
+          "subtitle": "Care actions become wins",
+          "eyebrow": "The battle log",
+          "heading": "Every care moment is a quest",
+          "body": "Feeds, naps, growth, and photos  -  each tap logs the moment and hands back XP."
+        },
+        "skill-tree": {
+          "tabTitle": "Skill Tree",
+          "subtitle": "Milestones stay visible",
+          "eyebrow": "Milestones",
+          "heading": "Watch the skill tree branch out",
+          "body": "First smile, first roll, first steps  -  milestones unlock as nodes you can revisit."
+        },
+        "trophy-room": {
+          "tabTitle": "Trophy Room",
+          "subtitle": "Tiny victories stack up",
+          "eyebrow": "Achievements",
+          "heading": "Tiny victories you get to keep",
+          "body": "Streaks and firsts become badges the whole family gets to celebrate."
+        }
+      },
+      "mock": {
+        "dashboard": {
+          "nextLevel": "Next level after two more care logs",
+          "feed": "Feed",
+          "sleep": "Sleep",
+          "nextReminder": "Next reminder",
+          "reminderValue": "Bottle in 24 min"
+        },
+        "questLog": {
+          "title": "Daily quests",
+          "subtitle": "Four care moments already counted",
+          "quests": [
+            { "title": "Bottle", "note": "Logged at 7:20", "reward": "+40 XP" },
+            { "title": "Nap", "note": "Recovered HP", "reward": "+60 HP" },
+            { "title": "Growth", "note": "Weight note saved", "reward": "+25 XP" },
+            { "title": "Photo", "note": "Memory added", "reward": "Badge" }
+          ]
+        },
+        "skillTree": {
+          "title": "Milestone path",
+          "milestones": ["Smile", "Roll", "Reach", "Legend"],
+          "unlocked": "First smile unlocked",
+          "unlockedNote": "Saved to the family timeline"
+        },
+        "trophyRoom": {
+          "title": "Trophy room",
+          "trophies": ["Streak", "Guard", "Story", "Party", "Firsts", "Rare"]
+        }
+      }
+    },
+    "parents": {
+      "eyebrow": "Built for real days",
+      "title": "For tired parents, not perfect ones.",
+      "body": "The tone is cheerful, but the product stays practical: fast entry, shared context, and a clear record when the day gets blurry.",
+      "quotes": [
+        {
+          "quote": "It made the 3 a.m. logs feel less lonely.",
+          "author": "Mina R.",
+          "role": "Parent of a 5 month old"
+        },
+        {
+          "quote": "My partner checks the quest log before asking what happened.",
+          "author": "Caleb N.",
+          "role": "Dad of twins"
+        }
+      ],
+      "stats": [
+        { "value": "3 s", "label": "to log a care action" },
+        { "value": "3 a.m.", "label": "friendly, dark, one-handed" }
+      ]
     },
     "themes": {
-      "eyebrow": "Identity",
-      "title": "Choose the world your hero grows up in.",
-      "tablistLabel": "Theme",
-      "previewLabel": "Preview {name} theme"
+      "eyebrow": "Three ways to play",
+      "title": "One app, three moods. Pick the world your family lives in.",
+      "body": "Same logs, same data — a different coat of paint. Tap a theme and the whole page repaints instantly, so you can feel each one before you commit.",
+      "tryLabel": "Try {name}",
+      "cards": {
+        "cute": {
+          "persona": "Warm & soft",
+          "blurb": "Pillowy cards, candy-coral rewards and a nurturing blush glow — the bright, cuddly world for anyone who loves warm, playful color.",
+          "tags": ["Coral + lavender", "Pillow-soft corners", "Warm blush base"]
+        },
+        "focus": {
+          "persona": "Cool & crisp",
+          "blurb": "Restrained ink, one confident electric accent and crisp edges. The understated, premium feel that makes upgrading a no-brainer.",
+          "tags": ["Electric indigo", "Crisp edges", "High-contrast ink"]
+        },
+        "zen": {
+          "persona": "Zen",
+          "blurb": "Sage, sand and terracotta on warm paper. Low-saturation calm for parents who want tracking to feel like a deep breath.",
+          "tags": ["Sage + sand", "Quiet luxury", "Low saturation"]
+        }
+      }
     },
     "family": {
-      "eyebrow": "Belonging",
-      "title": "Raise them together. Level up as a party.",
-      "body": "Invite a partner and grandparents. Everyone caring for your baby joins the same quest — and shares the same timeline."
+      "eyebrow": "Shared care",
+      "title": "A co-op party for baby care.",
+      "body": "Shared logging gives everyone the same context without turning the family chat into a status board.",
+      "badgeSuffix": "roles, one synced timeline",
+      "roles": [
+        { "role": "Parent", "note": "Owns the daily rhythm" },
+        { "role": "Partner", "note": "Sees what changed" },
+        { "role": "Grandparent", "note": "Keeps memories close" },
+        { "role": "Caregiver", "note": "Logs the handoff" }
+      ]
     },
     "faq": {
       "eyebrow": "Trust",
