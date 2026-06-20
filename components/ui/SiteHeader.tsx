@@ -46,8 +46,9 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
       style={{
         borderColor: "var(--border-subtle)",
         background:
-          "linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.66))",
-        backdropFilter: "blur(22px) saturate(150%)",
+          "linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.88))",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
         boxShadow: "0 12px 30px rgba(22,32,47,0.06)",
       }}
     >
