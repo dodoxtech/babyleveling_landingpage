@@ -16,11 +16,6 @@ export const assets = {
   "timeline.lv20": "/assets/timeline/lv20-adventurer.png",
   "timeline.lv50": "/assets/timeline/lv50-legend.png",
 
-  /* Scene backgrounds */
-  "scene.hero-cute": "/assets/scenes/hero-cute-bg.png",
-  "scene.hero-warrior": "/assets/scenes/hero-warrior-bg.png",
-  "scene.features": "/assets/scenes/features-bg.png",
-
   /* Icons */
   "icon.xp-badge": "/assets/icons/xp-badge.png",
   "icon.trophy": "/assets/icons/trophy.png",
