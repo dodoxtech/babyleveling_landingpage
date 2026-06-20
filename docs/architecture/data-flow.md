@@ -217,13 +217,29 @@ lib/waitlist.ts  → fetch POST /api/waitlist
       │
       ▼
 app/api/waitlist/route.ts  (server)
-      │  validate email, stamp createdAt
+      │  honeypot + rate-limit, then lib/waitlist-validation.ts:
+      │  normalizeEmail → isValidEmail (shape/length/control-char),
+      │  sanitizeSource (strip control chars, cap length), stamp createdAt
       ▼
-External provider (Resend / Mailchimp / Supabase)
-      │
+getWaitlistProvider() → GoogleSheetsWaitlistProvider
+      │  dedupe by email, append [email, source, createdAt] row —
+      │  each cell run through sanitizeCellValue (formula-injection guard)
+      ▼
+Google Sheet (via googleapis, service-account auth)
+      │  → { status: "created" | "duplicate" }
       ▼
 Response → WaitlistSignup shows success / error state
 ```
+
+**Input safety.** All untrusted-input rules live in one pure module,
+`lib/waitlist-validation.ts`, shared by the client helper, the route handler,
+and the provider so the three never drift. It rejects malformed/oversized
+emails and embedded control characters, bounds and de-controls the optional
+`source` tag, and neutralizes spreadsheet **formula injection** — values
+written to the sheet with `valueInputOption: "RAW"` are inert in-sheet but a
+cell beginning with `= + - @` (or tab/CR) would execute on CSV export, so any
+such value is prefixed with `'`. Rules are unit-tested in
+`tests/waitlist-validation.test.ts` (run `pnpm test`).
 
 State here is local and ephemeral: the form holds `idle | submitting | success | error` in
 component state. There is no global client store — the site has no cross-section shared
@@ -233,3 +249,4 @@ runtime state.
 - [[modules]]
 - [[overview]]
 - [[features/waitlist-signup]]
+- [[decisions/ADR-0002-waitlist-provider]]

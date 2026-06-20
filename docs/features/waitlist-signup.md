@@ -1,7 +1,7 @@
 ---
 tags: [feature]
 status: implemented
-updated: 2026-06-16
+updated: 2026-06-20
 ---
 
 # Waitlist Signup
@@ -36,8 +36,9 @@ through a Next.js route handler to an email/storage provider — see [[architect
 
 - `WaitlistEntry` model (`email`, optional `source`, server-stamped `createdAt`) — see [[architecture/data-flow]].
 - Client helper: `lib/waitlist.ts`. Server endpoint: `app/api/waitlist/route.ts`.
-- Provider (Resend / Mailchimp / Supabase) is pluggable behind the route handler; the
-  choice is **not yet made** — capture it in a future ADR when decided. See [[decisions/README]].
+- Provider is pluggable behind the route handler. The chosen backend is **Google Sheets**
+  (`GoogleSheetsWaitlistProvider`): each signup is appended as a row, deduped by email. See
+  [[decisions/ADR-0002-waitlist-provider]].
 
 ## Implementation (TASK-0004)
 
@@ -55,10 +56,12 @@ through a Next.js route handler to an email/storage provider — see [[architect
   honeypot-filled submissions, applies a fixed-window in-memory rate limit (5
   requests/IP/60s), stamps `createdAt`, then delegates storage to `getWaitlistProvider()`.
   Resubmitting the same email returns `200 { status: "duplicate" }`, never an error.
-- `lib/waitlist-provider.ts` — the `WaitlistProvider` interface + an in-memory stub
-  implementation. **The real provider (Resend / Mailchimp / Supabase) is still not
-  chosen** — see the TODO in [[architecture/modules]]; that decision gets its own ADR
-  when made.
+- `lib/waitlist-provider.ts` — the `WaitlistProvider` interface + the
+  `GoogleSheetsWaitlistProvider` implementation (TASK-0019). Appends `[email, source,
+  createdAt]` to a Google Sheet via the `googleapis` SDK with service-account auth, deduping
+  on column A (case-insensitive). Env vars (`GOOGLE_SHEETS_SPREADSHEET_ID`,
+  `GOOGLE_SHEETS_CLIENT_EMAIL`, `GOOGLE_SHEETS_PRIVATE_KEY`) are documented in
+  `.env.local.example`. See [[decisions/ADR-0002-waitlist-provider]].
 - Verified manually via `curl POST /api/waitlist`: valid email → `200 created`; same
   email resubmitted → `200 duplicate`; invalid/missing email → `400` with a helpful
   message; honeypot filled → `400`; 6th rapid request from the same IP → `429`.
@@ -66,4 +69,5 @@ through a Next.js route handler to an email/storage provider — see [[architect
 ## Related
 - [[features/hero-section]]
 - [[architecture/data-flow]]
+- [[decisions/ADR-0002-waitlist-provider]]
 - [[decisions/README]]

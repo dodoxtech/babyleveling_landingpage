@@ -5,6 +5,10 @@
 
 import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
+import {
+  isValidEmail as isValidEmailShape,
+  normalizeEmail,
+} from "@/lib/waitlist-validation";
 
 /** A single waitlist signup. `createdAt` is always stamped server-side, never by the client. */
 export interface WaitlistEntry {
@@ -19,11 +23,13 @@ export type WaitlistSubmitOutcome =
   | { ok: true; status: "created" | "duplicate" }
   | { ok: false; error: string };
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-/** Client-side email shape check  -  mirrors the server's validation in the route handler. */
+/**
+ * Client-side email shape check  -  mirrors the server's validation by reusing
+ * the exact same rules (see `lib/waitlist-validation.ts`), so the UI never
+ * accepts an email the route would reject (or vice versa).
+ */
 export function isValidEmail(email: string): boolean {
-  return EMAIL_PATTERN.test(email.trim());
+  return isValidEmailShape(normalizeEmail(email));
 }
 
 /**
@@ -31,7 +37,7 @@ export function isValidEmail(email: string): boolean {
  * network/parse failures are normalized into the same `{ ok: false }` shape as
  * a server-reported error, so `WaitlistSignup` only has to branch on the
  * return value. `locale` rides along so the route handler can return its
- * error strings (rate-limit, generic failure) in the visitor's language  - 
+ * error strings (rate-limit, generic failure) in the visitor's language  -
  * see TASK-0011.
  */
 export async function submitToWaitlist(

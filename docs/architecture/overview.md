@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-18
+updated: 2026-06-20
 ---
 
 # Architecture Overview
@@ -28,9 +28,11 @@ through the app.
 | Component motion | **Framer Motion 12** | Micro-interactions and entrance choreography (e.g. the Hero's per-character letter drop-in) that animate already-painted, server-rendered text — never used for content that must appear at first paint, since Framer Motion resolves `initial` state to inline styles during SSR. Used in the Hero (above the fold), so unlike GSAP it isn't worth deferring — it's already a required part of the critical bundle. |
 | 3D / WebGL | **React Three Fiber 9 + Drei 10** (+ `three`) | The two WebGL scenes allowed under R-1: Hero's starfield (`HeroCanvas.client.tsx`, S1) and the island-continuation scene (`HeroCharacterScene.client.tsx`, S2, landed TASK-0005). Both are lazy-loaded (`lazy()` + `Suspense`) client islands, paused off-screen via `IntersectionObserver` (`frameloop="never"` when not intersecting), DPR capped at 2, never the LCP element (R-2), never rendered at all under reduced motion/low-power. `@types/three` is a dev dependency since `three` ships no bundled types. |
 | i18n | **Native Next.js App Router sub-path routing** + static JSON dictionaries | No library; `app/[locale]/` + `middleware.ts` + `lib/i18n/`. See [[decisions/ADR-0003-i18n-approach]]. EN is default (unprefixed), `/ja` + `/vi` are sub-path prefixed. |
-| Forms | **Next.js Route Handler** (`app/api/waitlist`) | Server-side email capture; pluggable into a provider (Resend / Mailchimp / Supabase). |
+| Forms | **Next.js Route Handler** (`app/api/waitlist`) | Server-side email capture; pluggable `WaitlistProvider` behind the handler. |
+| Waitlist storage | **Google Sheets** via `googleapis` (service account) | Confirmed signups appended as rows to a sheet; near-zero ops/cost, human-readable + exportable. See [[decisions/ADR-0002-waitlist-provider]]. |
 | Deploy | **Vercel** | Zero-config Next.js hosting, preview deploys per PR. |
 | Tooling | ESLint 9 + Prettier 3 | Lint/format consistency. |
+| Testing | **Vitest 4** | Fast unit tests for pure logic (e.g. waitlist input validation/sanitization). `pnpm test` (CI), `pnpm test:watch` (local). `vitest.config.ts` mirrors the `@/*` tsconfig path alias. |
 
 > [!note] Tailwind 4 is CSS-first
 > Tailwind 4 has no `tailwind.config.ts` — theme tokens (colors, fonts) are declared directly in
@@ -84,13 +86,16 @@ through the app.
 │   ├── motion.ts             → prefers-reduced-motion / low-power detection
 │   ├── seo.ts                → SITE_URL/SITE_TITLE/SITE_DESCRIPTION/SITE_DESCRIPTOR (TASK-0009)
 │   ├── waitlist.ts           → WaitlistEntry type + client → /api/waitlist submission helper
-│   └── waitlist-provider.ts  → server-only WaitlistProvider interface + in-memory stub
-│                                (TODO: swap in a real provider — see [[modules]])
+│   ├── waitlist-validation.ts → pure input validation/sanitization (shared by client, route, provider)
+│   └── waitlist-provider.ts  → server-only WaitlistProvider interface + GoogleSheetsWaitlistProvider
+│                                (appends signups to a Google Sheet — see [[decisions/ADR-0002-waitlist-provider]])
+├── tests/                    → Vitest unit tests (e.g. waitlist-validation.test.ts), run via `pnpm test`
 ├── public/                   → static assets (sprites, llms.txt, screenshots, theme art, favicon)
 ├── docs/                     → this Obsidian vault
 ├── next.config.ts
 ├── postcss.config.mjs        → Tailwind v4 PostCSS plugin
 ├── eslint.config.mjs
+├── vitest.config.ts          → Vitest config (mirrors the @/* tsconfig path alias)
 └── package.json
 ```
 

@@ -30,13 +30,6 @@ export function HeroCharacter({ locale }: HeroCharacterProps) {
       <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div className="relative min-h-[24rem] overflow-hidden rounded-[2rem] bg-[var(--bg-playfield)] p-8">
           <Image
-            src="/assets/scenes/hero-cute-bg.png"
-            alt=""
-            fill
-            className="object-cover opacity-55"
-            aria-hidden="true"
-          />
-          <Image
             src="/assets/characters/cute-baby-girl-waving.png"
             alt={t.mascotAlt}
             width={300}

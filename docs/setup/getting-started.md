@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-17
+updated: 2026-06-20
 ---
 
 # Getting Started
@@ -53,6 +53,7 @@ mkdir -p components/sections components/ui components/providers lib/content app/
 pnpm install       # install dependencies
 pnpm dev           # start dev server at http://localhost:3000
 pnpm lint          # ESLint
+pnpm test          # Vitest unit tests (pnpm test:watch for local watch mode)
 pnpm format        # Prettier --write (pnpm format:check for CI)
 pnpm build         # production build (verifies SSG/SSR)
 pnpm start         # serve the production build locally
@@ -62,6 +63,10 @@ pnpm start         # serve the production build locally
 
 See [[architecture/overview]] for the full tree and [[architecture/modules]] for module
 boundaries and dependency rules.
+
+Unit tests live in the top-level `tests/` folder (`tests/**/*.test.ts`), separate from the
+source they cover; they import modules via the `@/*` alias. Run them with `pnpm test`. The
+runner is configured in `vitest.config.ts`.
 
 ## Environment variables
 

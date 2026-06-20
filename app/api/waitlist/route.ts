@@ -3,6 +3,11 @@ import { getWaitlistProvider } from "@/lib/waitlist-provider";
 import type { WaitlistEntry } from "@/lib/waitlist";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { defaultLocale, isLocale } from "@/lib/i18n/config";
+import {
+  isValidEmail,
+  normalizeEmail,
+  sanitizeSource,
+} from "@/lib/waitlist-validation";
 
 /**
  * POST /api/waitlist  -  the site's one dynamic surface (see
@@ -17,9 +22,6 @@ import { defaultLocale, isLocale } from "@/lib/i18n/config";
  * absent/invalid, since the client-side validation message is always shown
  * first for the common "invalid email" case regardless.
  */
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const MAX_EMAIL_LENGTH = 254;
 
 // Basic fixed-window, in-memory rate limit. Good enough to deter naive bot
 // hammering for now; not durable across serverless instances/restarts  -  a
@@ -83,23 +85,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: messages.invalid }, { status: 400 });
   }
 
-  const email = typeof body.email === "string" ? body.email.trim() : "";
+  const email = normalizeEmail(body.email);
 
-  if (!email || email.length > MAX_EMAIL_LENGTH || !EMAIL_PATTERN.test(email)) {
+  if (!isValidEmail(email)) {
     return NextResponse.json({ error: messages.invalid }, { status: 400 });
   }
 
-  const source = typeof body.source === "string" ? body.source : undefined;
-
   const entry: WaitlistEntry = {
     email,
-    source,
+    source: sanitizeSource(body.source),
     createdAt: new Date().toISOString(),
   };
 
   try {
     const result = await getWaitlistProvider().submit(entry);
-    // Resubmitting the same email is still a 200 with status "duplicate"  - 
+    // Resubmitting the same email is still a 200 with status "duplicate"  -
     // never a confusing error  -  so the UI can show the same success state
     // either way (per docs/features/waitlist-signup.md user story).
     return NextResponse.json({ status: result.status }, { status: 200 });
