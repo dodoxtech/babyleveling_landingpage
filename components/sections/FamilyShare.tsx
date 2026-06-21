@@ -32,8 +32,13 @@ export function FamilyShare({ locale }: FamilyShareProps) {
 
       <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
         <div>
-          <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
-            {t.eyebrow}
+          <p className="inline-flex items-center gap-2">
+            <span className="rounded-full bg-[var(--accent-tertiary)] px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-[var(--text-on-accent,#1a1040)]">
+              {t.badge}
+            </span>
+            <span className="font-display text-sm font-bold uppercase tracking-[0.18em] text-[var(--accent-primary)]">
+              {t.eyebrow}
+            </span>
           </p>
           <h2 className="mt-3 text-h2">{t.title}</h2>
           <p className="mt-5 max-w-[34rem] text-lg leading-8 text-[var(--text-secondary)]">

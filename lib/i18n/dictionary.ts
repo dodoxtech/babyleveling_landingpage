@@ -97,7 +97,21 @@ export interface Dictionary {
       mascotAlt: string;
       reasons: { title: string; desc: string }[];
     };
-    reveal: { headline: string; body: string; cta: string };
+    /** S3 leveling-journey reveal. `stages[]` are zipped by index with local
+     * art/level/position meta in Reveal.tsx; `note` is journey-time, not baby age. */
+    reveal: {
+      eyebrow: string;
+      headline: string;
+      body: string;
+      /** HUD label above the rail (game chrome). */
+      railLabel: string;
+      stages: { title: string; note: string }[];
+      /** "Achievement unlocked" micro-label on the payoff banner. */
+      achievement: string;
+      payoffLead: string;
+      payoffBody: string;
+      cta: string;
+    };
     /** S4 RPG care-loop section. `stats[].value` stays as a literal (numbers/∞). */
     loop: {
       eyebrow: string;
@@ -147,8 +161,8 @@ export interface Dictionary {
           nextLevel: string;
           feed: string;
           sleep: string;
-          nextReminder: string;
-          reminderValue: string;
+          lastActivity: string;
+          lastActivityValue: string;
         };
         questLog: {
           title: string;
@@ -164,15 +178,18 @@ export interface Dictionary {
         trophyRoom: { title: string; trophies: string[] };
       };
     };
-    /** S6 Parent Mode reassurance section. */
+    /** S6 Parent Mode reassurance section. Pre-launch we have no real users to
+     * quote, so `trust` carries founder/privacy/waitlist points, not testimonials. */
     parents: {
       eyebrow: string;
       title: string;
       body: string;
-      quotes: { quote: string; author: string; role: string }[];
+      trust: { title: string; body: string }[];
       stats: { value: string; label: string }[];
     };
     themes: {
+      /** "Coming after launch" pill  -  the app ships one theme; the rest are roadmap. */
+      badge: string;
       eyebrow: string;
       title: string;
       body: string;
@@ -182,6 +199,8 @@ export interface Dictionary {
       cards: Record<string, { persona: string; blurb: string; tags: string[] }>;
     };
     family: {
+      /** "Coming after launch" pill  -  shared care is post-launch and needs an account. */
+      badge: string;
       eyebrow: string;
       title: string;
       body: string;

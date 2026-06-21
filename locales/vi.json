@@ -60,8 +60,20 @@
       ]
     },
     "reveal": {
+      "eyebrow": "Hành trình lên cấp",
       "headline": "Người hùng chính là bé. EXP chính là cuộc sống thật.",
       "body": "Mỗi cữ bú, mỗi giấc ngủ, mỗi cột mốc nhỏ xíu — tất cả đều có ý nghĩa. BabyLeveling biến tình yêu thương bạn đang trao thành một hành trình lớn lên cùng nhau.",
+      "railLabel": "Thanh XP",
+      "stages": [
+        { "title": "Sơ sinh", "note": "Ngày đầu tiên" },
+        { "title": "Nhà thám hiểm", "note": "Những ngày đầu" },
+        { "title": "Ngôi sao nhỏ", "note": "Tuần đầu tiên" },
+        { "title": "Nhà phiêu lưu", "note": "Những tuần đầu" },
+        { "title": "Huyền thoại", "note": "Hành trình dài" }
+      ],
+      "achievement": "Mở khóa thành tựu",
+      "payoffLead": "Nụ cười đầu tiên trở thành một chiếc cúp.",
+      "payoffBody": "Mỗi cấp độ đều đáng ăn mừng, và toàn bộ nhật ký bú, ngủ, tăng trưởng vẫn nằm ngay bên dưới.",
       "cta": "Xem cách hoạt động →"
     },
     "loop": {
@@ -76,11 +88,11 @@
       "steps": [
         {
           "title": "Chạm một thao tác chăm sóc",
-          "desc": "Bú, ngủ, tã, thuốc, chơi và tăng trưởng — luôn chỉ cách một ngón tay."
+          "desc": "Bú, ngủ, tã, thuốc, tiêm chủng và tăng trưởng — mọi ghi nhận đều chỉ cách một ngón tay."
         },
         {
           "title": "Nhận XP cho bé",
-          "desc": "Mỗi lần ghi đều cộng XP, giữ chuỗi ngày và khiến sự đều đặn trở nên đáng giá."
+          "desc": "Mỗi lần ghi cộng thêm một chút XP. Sự đều đặn được ghi nhận nhẹ nhàng — và một đêm vất vả không bao giờ lấy đi tiến trình đã có."
         },
         {
           "title": "Mở khóa một kỷ niệm",
@@ -93,8 +105,8 @@
       "body": "Mọi nhật ký chăm bé nghiêm túc vẫn còn đó. Chúng được gói trong một hệ thống ấm áp hơn để ba mẹ muốn quay lại mỗi ngày."
     },
     "modes": {
-      "eyebrow": "Hai góc nhìn, một sự thật",
-      "title": "Hai chế độ. Một nguồn dữ liệu.",
+      "eyebrow": "Niềm vui bên ngoài, sự thật bên trong",
+      "title": "Niềm vui chỉ là lớp vỏ. Bản ghi luôn nghiêm túc.",
       "tablistLabel": "Chế độ ứng dụng",
       "statLevel": "Cấp độ",
       "statTotalXp": "Tổng XP",
@@ -126,10 +138,10 @@
           "body": "Cho bú, ngủ, tăng trưởng và ảnh  -  mỗi lần chạm đều ghi lại khoảnh khắc và trả về XP."
         },
         "skill-tree": {
-          "tabTitle": "Cây kỹ năng",
+          "tabTitle": "Bản đồ cột mốc",
           "subtitle": "Các cột mốc luôn hiển thị",
           "eyebrow": "Cột mốc",
-          "heading": "Ngắm cây kỹ năng vươn nhánh",
+          "heading": "Ngắm bản đồ cột mốc vươn nhánh",
           "body": "Nụ cười đầu tiên, lần lẫy đầu tiên, bước đi đầu tiên  -  các cột mốc mở khóa thành những node bạn có thể xem lại."
         },
         "trophy-room": {
@@ -145,16 +157,16 @@
           "nextLevel": "Lên cấp sau hai lần ghi chăm sóc nữa",
           "feed": "Cho bú",
           "sleep": "Giấc ngủ",
-          "nextReminder": "Lời nhắc tiếp theo",
-          "reminderValue": "Bú bình sau 24 phút"
+          "lastActivity": "Cữ bú gần nhất",
+          "lastActivityValue": "47 phút trước"
         },
         "questLog": {
           "title": "Nhiệm vụ hằng ngày",
           "subtitle": "Đã tính bốn khoảnh khắc chăm sóc",
           "quests": [
-            { "title": "Bú bình", "note": "Ghi lúc 7:20", "reward": "+40 XP" },
-            { "title": "Ngủ trưa", "note": "Hồi HP", "reward": "+60 HP" },
-            { "title": "Tăng trưởng", "note": "Đã lưu ghi chú cân nặng", "reward": "+25 XP" },
+            { "title": "Bú bình", "note": "Ghi lúc 7:20", "reward": "+8 XP" },
+            { "title": "Ngủ trưa", "note": "Nghỉ ngơi đầy đủ", "reward": "+10 XP" },
+            { "title": "Tăng trưởng", "note": "Đã lưu cân nặng", "reward": "+30 XP" },
             { "title": "Ảnh", "note": "Đã thêm kỷ niệm", "reward": "Huy hiệu" }
           ]
         },
@@ -174,16 +186,18 @@
       "eyebrow": "Dành cho những ngày thật",
       "title": "Cho ba mẹ mệt nhoài, không phải ba mẹ hoàn hảo.",
       "body": "Giọng điệu vui tươi, nhưng sản phẩm vẫn thực dụng: nhập nhanh, chia sẻ bối cảnh và một bản ghi rõ ràng khi cả ngày trở nên mờ mịt.",
-      "quotes": [
+      "trust": [
         {
-          "quote": "Nó khiến những lần ghi lúc 3 giờ sáng bớt cô đơn.",
-          "author": "Mina R.",
-          "role": "Mẹ của bé 5 tháng"
+          "title": "Một phụ huynh làm cho phụ huynh",
+          "body": "Tôi làm BabyLeveling giữa những lần cho bú lúc 3 giờ sáng, cho chính phiên bản tôi đã từng cần nó."
         },
         {
-          "quote": "Bạn đời tôi xem nhật ký nhiệm vụ trước khi hỏi chuyện gì đã xảy ra.",
-          "author": "Caleb N.",
-          "role": "Bố của cặp song sinh"
+          "title": "Dữ liệu của bé là của bạn",
+          "body": "Mọi thứ nằm trên thiết bị của bạn. Không cần tài khoản để bắt đầu, và không gì được tải lên nếu bạn chưa đồng ý."
+        },
+        {
+          "title": "Cùng những ba mẹ đang chờ",
+          "body": "Con số duy nhất chúng tôi đếm là bao nhiêu người đang chờ ngày ra mắt."
         }
       ],
       "stats": [
@@ -192,10 +206,11 @@
       ]
     },
     "themes": {
-      "eyebrow": "Ba cách để chơi",
-      "title": "Một ứng dụng, ba tâm trạng. Chọn thế giới gia đình bạn sống trong đó.",
-      "body": "Cùng nhật ký, cùng dữ liệu — chỉ khác lớp áo. Chạm một giao diện và cả trang đổi màu tức thì, để bạn cảm nhận từng cái trước khi quyết định.",
-      "tryLabel": "Thử {name}",
+      "badge": "Sẽ có sau khi ra mắt",
+      "eyebrow": "Những tâm trạng sắp tới",
+      "title": "Ra mắt với một thế giới ấm áp — thêm nhiều tâm trạng đang đến.",
+      "body": "BabyLeveling ra mắt với một giao diện ấm cúng. Đây là những tâm trạng chúng tôi đang làm tiếp — chạm thử bất kỳ cái nào để xem trước cảm giác của cả trang.",
+      "tryLabel": "Xem trước {name}",
       "cards": {
         "cute": {
           "persona": "Ấm áp & dịu dàng",
@@ -215,9 +230,10 @@
       }
     },
     "family": {
-      "eyebrow": "Cùng nhau chăm sóc",
-      "title": "Một đội co-op cho việc chăm bé.",
-      "body": "Ghi nhận chung giúp mọi người có cùng bối cảnh mà không biến nhóm chat gia đình thành bảng báo cáo trạng thái.",
+      "badge": "Sẽ có sau khi ra mắt",
+      "eyebrow": "Trong lộ trình",
+      "title": "Cùng nhau chăm sóc — sẽ đến sau khi ra mắt.",
+      "body": "Ứng dụng ra mắt miễn phí và chạy hoàn toàn trên thiết bị của bạn, không cần tài khoản. Tính năng ghi nhận chung cho bạn đời và người chăm sóc là điều lớn chúng tôi đang xây tiếp theo.",
       "badgeSuffix": "vai trò, một dòng thời gian chung",
       "roles": [
         { "role": "Ba mẹ", "note": "Giữ nhịp mỗi ngày" },
@@ -259,7 +275,7 @@
     "whyHeading": "Tại sao chúng tôi xây dựng điều này",
     "whyBody": "Những người mới làm cha mẹ mà chúng tôi biết đều bắt đầu ghi chép cữ bú và giấc ngủ của con vì lo lắng, không phải tò mò. Một cuốn sổ tay bên giường. Ứng dụng ghi chú. Bảng tính. Không cái nào kéo dài quá tuần đầu. Dữ liệu có đó, nhưng thói quen thì không — vì không có phần thưởng cho việc xây dựng nó. Chúng tôi xây dựng BabyLeveling để giải quyết điều đó. XP, cấp độ, thành tựu — không phải trang trí. Chúng là lý do bạn mở ứng dụng lúc 3 giờ sáng thay vì bỏ qua.",
     "whatHeading": "BabyLeveling là gì",
-    "whatBody": "BabyLeveling là ứng dụng theo dõi hoạt động em bé dạng game hóa cho iOS và Apple Watch. Theo dõi cữ bú, giấc ngủ, tăng trưởng và các cột mốc — biến mỗi lần ghi nhận thành XP cho một anh hùng kỳ ảo. Có hai chế độ: Chế độ RPG (trò chơi) và Chế độ Phụ huynh (theo dõi lâm sàng). Cùng dữ liệu, hai giao diện, một chạm để chuyển đổi.",
+    "whatBody": "BabyLeveling là ứng dụng theo dõi hoạt động em bé dạng game hóa cho iOS và Apple Watch. Theo dõi cữ bú, giấc ngủ, tăng trưởng và các cột mốc — biến mỗi lần ghi nhận thành XP cho một anh hùng kỳ ảo. Trò chơi nằm ở lớp trên; bên dưới là một bản ghi nghiêm túc về cùng những cữ bú, giấc ngủ và tăng trưởng, hiển thị rõ ràng mỗi khi bạn cần sự thật.",
     "privacyHeading": "Dữ liệu con bạn thuộc về bạn",
     "privacyBody": "Tất cả dữ liệu được lưu trên thiết bị của bạn. Không có gì được tải lên máy chủ của chúng tôi nếu không có sự đồng ý rõ ràng của bạn. Đọc chính sách quyền riêng tư đầy đủ để xem cách chúng tôi xử lý dữ liệu em bé."
   },
@@ -300,7 +316,7 @@
       "featureDepth": {
         "xp-levels": "Mỗi lần ghi nhận — một cữ bú, một giấc ngủ, một lần thay tã — đều cộng XP hướng tới cấp độ tiếp theo của bé, giúp tiến trình hiện rõ mỗi ngày, không chỉ ở các cột mốc.",
         "daily-quests": "Nhiệm vụ đặt lại mỗi ngày, biến cùng một thói quen thành mục tiêu mới có thể hoàn thành mỗi buổi sáng, thay vì danh sách việc cần làm không hồi kết.",
-        "skill-tree": "Mỗi nhánh ánh xạ với một danh mục phát triển, giúp bạn nhìn một cái biết ngay bé đang lên cấp nhanh nhất ở đâu.",
+        "skill-tree": "Mỗi cột mốc bạn mở khóa được ghim vào một bản đồ \"lần đầu\" ngày càng rộng, để bạn thấy ngay bé đã đi được bao xa.",
         "achievements": "Huy hiệu ở lại vĩnh viễn trong tủ cúp, vì vậy những thành tựu từ tuần đầu tiên vẫn còn đó để nhìn lại vào tháng thứ mười hai.",
         "streaks-buffs": "Chuỗi theo dõi những ngày ghi nhận liên tục, với XP thưởng là phần thưởng cho việc đơn giản là có mặt mỗi ngày.",
         "apple-watch": "Được xây dựng để dùng một tay, lúc nửa đêm, để bạn không bao giờ phải thức hẳn dậy — hay mở khóa điện thoại — chỉ để ghi một cữ bú."
@@ -317,18 +333,18 @@
         { "text": " — không có gì ở đây thay thế một bộ theo dõi nghiêm túc, nó chỉ bổ sung thêm cho nó." }
       ],
       "loopDepth": {
-        "feeding": "Mỗi bình sữa, mỗi cữ bú mẹ, hay mỗi lần ăn dặm đều hồi phục thanh năng lượng của người hùng — cũng như việc cho bú hồi phục năng lượng cho bé.",
-        "sleep": "Giấc ngủ ngắn và giấc ngủ đêm hồi phục HP, vì nghỉ ngơi là hồi phục, trong game và trong cuộc sống thật.",
-        "habits": "Tập lẫy, tắm, đọc sách — những thói quen nhỏ hàng ngày tích lũy thành EXP theo cách chúng tích lũy thành sự phát triển.",
-        "milestone": "Nụ cười đầu tiên, lần lẫy đầu tiên, từ đầu tiên — mỗi cái đều bật lên một thành tựu, được ghi lại vĩnh viễn trong phòng cúp."
+        "feeding": "Mỗi bình sữa, mỗi cữ bú mẹ, hay mỗi lần ăn dặm đều nhận XP — phần thưởng đều đặn cho những cữ bú bạn vốn đã trao cho con.",
+        "sleep": "Giấc ngủ ngắn và giấc ngủ đêm cũng nhận XP, vì có mặt qua những đêm vất vả chính là điều mà hệ thống tôn vinh.",
+        "habits": "Tập lẫy, tắm, đọc sách — mỗi thói quen nhỏ hàng ngày đều cộng thêm XP, theo đúng cách chúng tích lũy thành sự phát triển.",
+        "milestone": "Nụ cười đầu tiên, lần lẫy đầu tiên, từ đầu tiên — mỗi cái đều bật lên một thành tựu kèm một đợt XP lớn, được ghi lại mãi mãi trong phòng cúp."
       }
     },
     "parents": {
       "h1": "Thực tế khi bạn cần. Kỳ diệu khi bạn muốn.",
       "whatItTracksHeading": "Chế độ Ba Mẹ theo dõi những gì",
       "dataIsYoursHeading": "Dữ liệu của bé là của bạn",
-      "twoModesHeading": "Hai chế độ, một nguồn dữ liệu duy nhất",
-      "twoModesBody": "Chế độ Ba Mẹ và Chế độ RPG đọc đúng một nhật ký hoạt động — chuyển đổi giữa hai chế độ không bao giờ làm mất độ chính xác hay đổi sang dữ liệu khác. Chế độ Ba Mẹ chỉ trình bày nó theo cách mà một buổi khám bác sĩ, hay một lần kiểm tra lúc 3 giờ sáng, thật sự cần.",
+      "twoModesHeading": "Cùng một dữ liệu, hiển thị rõ ràng",
+      "twoModesBody": "Giao diện trò chơi và giao diện thuần dữ liệu đọc đúng một nhật ký hoạt động — chuyển qua lại không bao giờ làm mất độ chính xác hay đổi sang dữ liệu khác. Khi bạn cần sự thật, bản ghi hiện ra theo đúng cách mà một buổi khám bác sĩ, hay một lần kiểm tra lúc 3 giờ sáng, thật sự cần.",
       "closing": [
         { "text": "Muốn xem cùng dữ liệu đó dưới dạng một cuộc phiêu lưu? " },
         { "text": "Đọc về hệ thống RPG", "href": "/rpg-system" },

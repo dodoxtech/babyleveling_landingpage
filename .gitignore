@@ -42,3 +42,5 @@ next-env.d.ts
 
 # sprite QA contact sheets (regenerate via `pnpm sprites`)
 /tools/sprites/preview/
+
+/docs

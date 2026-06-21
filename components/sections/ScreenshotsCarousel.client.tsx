@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useLenis } from "lenis/react";
 import { useReducedMotion } from "@/lib/motion";
 import type { Screenshot } from "@/lib/content/screenshots";
@@ -73,6 +73,9 @@ export function ScreenshotsCarousel({
   const pinRef = useRef<HTMLDivElement>(null);
   const xpFillRef = useRef<HTMLDivElement>(null);
   const renderRef = useRef<(() => void) | null>(null);
+  // Phone-screen layers, kept in scroll order so the render loop can crossfade
+  // them continuously instead of snapping one on at each threshold.
+  const screenRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   const lenis = useLenis(() => renderRef.current?.());
   const count = screenshots.length;
@@ -111,6 +114,22 @@ export function ScreenshotsCarousel({
 
       if (xpFillRef.current) {
         xpFillRef.current.style.transform = `scaleX(${Math.max(p, 0.02)})`;
+      }
+
+      // Continuous position along the tour (0 .. count-1). Each phone screen
+      // fades + drifts in proportion to its distance from this point, so the
+      // swap is a smooth scroll-linked crossfade rather than a threshold pop.
+      const cont = count > 1 ? p * (count - 1) : 0;
+      const layers = screenRefs.current;
+      for (let i = 0; i < layers.length; i++) {
+        const el = layers[i];
+        if (!el) continue;
+        const d = cont - i; // signed distance from this screen
+        const ad = Math.min(Math.abs(d), 1);
+        el.style.opacity = String(Math.max(1 - ad, 0));
+        el.style.transform = `translateY(${(-d * 4).toFixed(2)}%) scale(${(1 - ad * 0.05).toFixed(3)})`;
+        el.style.zIndex = String(10 - Math.round(ad * 10));
+        el.style.pointerEvents = ad < 0.5 ? "auto" : "none";
       }
 
       const next = Math.min(Math.max(Math.round(p * (count - 1)), 0), count - 1);
@@ -247,6 +266,16 @@ export function ScreenshotsCarousel({
                     level={BASE_LEVEL + index}
                     active={index === activeIndex}
                     copy={copy}
+                    tour
+                    assignRef={(el) => {
+                      screenRefs.current[index] = el;
+                    }}
+                    initialStyle={{
+                      opacity: index === 0 ? 1 : 0,
+                      transform:
+                        index === 0 ? "none" : "translateY(4%) scale(0.95)",
+                      zIndex: index === 0 ? 10 : 0,
+                    }}
                   />
                 ))}
               </PhoneFrame>
@@ -365,25 +394,39 @@ function PhoneScreen({
   level,
   active,
   copy,
+  tour = false,
+  assignRef,
+  initialStyle,
 }: {
   screenshot: Screenshot;
   level: number;
   active: boolean;
   copy: ShotsCopy;
+  /** Pinned desktop tour: opacity/transform are driven per-frame by the scroll
+   * loop, so no CSS transition (it would lag the continuous crossfade). */
+  tour?: boolean;
+  assignRef?: (el: HTMLDivElement | null) => void;
+  initialStyle?: CSSProperties;
 }) {
   const data = getPreviewData(screenshot.id);
   const screen = getScreen(copy, screenshot.id);
 
   return (
     <div
+      ref={assignRef}
       role="img"
       aria-label={screenshot.alt}
       aria-hidden={!active}
-      className={`absolute inset-0 transition duration-500 [transition-timing-function:var(--ease-press)] motion-reduce:transition-none ${
-        active
-          ? "z-10 opacity-100 [transform:scale(1)]"
-          : "pointer-events-none opacity-0 [transform:scale(0.94)_translateY(14px)]"
-      }`}
+      className={
+        tour
+          ? "absolute inset-0 will-change-transform motion-reduce:transition-none"
+          : `absolute inset-0 transition duration-500 [transition-timing-function:var(--ease-press)] motion-reduce:transition-none ${
+              active
+                ? "z-10 opacity-100 [transform:scale(1)]"
+                : "pointer-events-none opacity-0 [transform:scale(0.94)_translateY(14px)]"
+            }`
+      }
+      style={tour ? initialStyle : undefined}
     >
       <div
         className="absolute inset-0 opacity-80"
@@ -489,18 +532,18 @@ function DashboardScreen({
         </p>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <MetricTile label={mock.feed} value="+40 XP" tone="var(--accent-pink)" />
+        <MetricTile label={mock.feed} value="+8 XP" tone="var(--accent-pink)" />
         <MetricTile
           label={mock.sleep}
-          value="+60 HP"
+          value="+10 XP"
           tone="var(--accent-secondary)"
         />
       </div>
       <div className="rounded-[1.25rem] bg-white/78 p-4 shadow-[0_4px_0_rgba(23,32,42,0.07)]">
         <p className="text-xs font-bold text-[var(--text-secondary)]">
-          {mock.nextReminder}
+          {mock.lastActivity}
         </p>
-        <p className="mt-1 font-display text-xl font-bold">{mock.reminderValue}</p>
+        <p className="mt-1 font-display text-xl font-bold">{mock.lastActivityValue}</p>
       </div>
     </div>
   );

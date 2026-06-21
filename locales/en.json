@@ -60,8 +60,20 @@
       ]
     },
     "reveal": {
+      "eyebrow": "The leveling journey",
       "headline": "The hero is your baby. The XP is real life.",
       "body": "Every feed, every nap, every tiny milestone — it all counts. BabyLeveling turns the care you already give into a story you grow together.",
+      "railLabel": "XP rail",
+      "stages": [
+        { "title": "Newborn", "note": "Day one" },
+        { "title": "Explorer", "note": "Your first days" },
+        { "title": "Little Star", "note": "Week one" },
+        { "title": "Adventurer", "note": "The early weeks" },
+        { "title": "Legend", "note": "The long adventure" }
+      ],
+      "achievement": "Achievement unlocked",
+      "payoffLead": "First smile becomes a trophy.",
+      "payoffBody": "Every level is something to celebrate, and the full feed, sleep, and growth log stays right underneath.",
       "cta": "See how it works →"
     },
     "loop": {
@@ -76,11 +88,11 @@
       "steps": [
         {
           "title": "Tap a care action",
-          "desc": "Feed, nap, diaper, medicine, play, and growth logs stay one thumb away."
+          "desc": "Feed, nap, diaper, medicine, vaccines, and growth — every log stays one thumb away."
         },
         {
           "title": "Earn baby XP",
-          "desc": "Each log adds XP, protects streaks, and makes consistency feel rewarding."
+          "desc": "Each log adds a little XP. Consistency is gently rewarded — and a rough night never takes progress away."
         },
         {
           "title": "Unlock a memory",
@@ -93,8 +105,8 @@
       "body": "All the serious baby logs are still there. They are wrapped in a warmer system parents can keep coming back to."
     },
     "modes": {
-      "eyebrow": "Two lenses, one truth",
-      "title": "Two modes. One source of truth.",
+      "eyebrow": "Play on top, facts underneath",
+      "title": "The joy is the wrapper. The record stays serious.",
       "tablistLabel": "App mode",
       "statLevel": "Level",
       "statTotalXp": "Total XP",
@@ -126,10 +138,10 @@
           "body": "Feeds, naps, growth, and photos  -  each tap logs the moment and hands back XP."
         },
         "skill-tree": {
-          "tabTitle": "Skill Tree",
+          "tabTitle": "Milestone Map",
           "subtitle": "Milestones stay visible",
           "eyebrow": "Milestones",
-          "heading": "Watch the skill tree branch out",
+          "heading": "Watch the milestone map branch out",
           "body": "First smile, first roll, first steps  -  milestones unlock as nodes you can revisit."
         },
         "trophy-room": {
@@ -145,16 +157,16 @@
           "nextLevel": "Next level after two more care logs",
           "feed": "Feed",
           "sleep": "Sleep",
-          "nextReminder": "Next reminder",
-          "reminderValue": "Bottle in 24 min"
+          "lastActivity": "Last feed",
+          "lastActivityValue": "47 min ago"
         },
         "questLog": {
           "title": "Daily quests",
           "subtitle": "Four care moments already counted",
           "quests": [
-            { "title": "Bottle", "note": "Logged at 7:20", "reward": "+40 XP" },
-            { "title": "Nap", "note": "Recovered HP", "reward": "+60 HP" },
-            { "title": "Growth", "note": "Weight note saved", "reward": "+25 XP" },
+            { "title": "Bottle", "note": "Logged at 7:20", "reward": "+8 XP" },
+            { "title": "Nap", "note": "Well rested", "reward": "+10 XP" },
+            { "title": "Growth", "note": "Weight saved", "reward": "+30 XP" },
             { "title": "Photo", "note": "Memory added", "reward": "Badge" }
           ]
         },
@@ -174,16 +186,18 @@
       "eyebrow": "Built for real days",
       "title": "For tired parents, not perfect ones.",
       "body": "The tone is cheerful, but the product stays practical: fast entry, shared context, and a clear record when the day gets blurry.",
-      "quotes": [
+      "trust": [
         {
-          "quote": "It made the 3 a.m. logs feel less lonely.",
-          "author": "Mina R.",
-          "role": "Parent of a 5 month old"
+          "title": "Built by a parent, for parents",
+          "body": "I'm building BabyLeveling at 3 a.m. between feeds, for the version of me who needed it."
         },
         {
-          "quote": "My partner checks the quest log before asking what happened.",
-          "author": "Caleb N.",
-          "role": "Dad of twins"
+          "title": "Your baby's data stays yours",
+          "body": "Everything lives on your device. No account to start, and nothing is uploaded without your say-so."
+        },
+        {
+          "title": "Join the parents already waiting",
+          "body": "The only number we count is how many of us are waiting for launch day."
         }
       ],
       "stats": [
@@ -192,10 +206,11 @@
       ]
     },
     "themes": {
-      "eyebrow": "Three ways to play",
-      "title": "One app, three moods. Pick the world your family lives in.",
-      "body": "Same logs, same data — a different coat of paint. Tap a theme and the whole page repaints instantly, so you can feel each one before you commit.",
-      "tryLabel": "Try {name}",
+      "badge": "Coming after launch",
+      "eyebrow": "Moods on the roadmap",
+      "title": "One warm world at launch — more moods on the way.",
+      "body": "BabyLeveling launches with one cozy theme. These are the moods we're crafting next — tap any one to preview how the whole page would feel.",
+      "tryLabel": "Preview {name}",
       "cards": {
         "cute": {
           "persona": "Warm & soft",
@@ -215,9 +230,10 @@
       }
     },
     "family": {
-      "eyebrow": "Shared care",
-      "title": "A co-op party for baby care.",
-      "body": "Shared logging gives everyone the same context without turning the family chat into a status board.",
+      "badge": "Coming after launch",
+      "eyebrow": "On the roadmap",
+      "title": "Shared care is coming — after launch.",
+      "body": "The app launches free and fully on your device, no account needed. Shared logging for partners and caregivers is the big feature we're building next.",
       "badgeSuffix": "roles, one synced timeline",
       "roles": [
         { "role": "Parent", "note": "Owns the daily rhythm" },
@@ -259,7 +275,7 @@
     "whyHeading": "Why we built this",
     "whyBody": "Every new parent we know started tracking their baby's feeding and sleep out of anxiety, not curiosity. A notebook on the nightstand. A notes app. A spreadsheet. None of it lasted past the first week. The data was there, but the habit wasn't — because there was no reward for building it. We built BabyLeveling to fix that. The XP, the levels, the achievements — they're not decoration. They're the reason you open the app at 3 a.m. instead of skipping it.",
     "whatHeading": "What BabyLeveling is",
-    "whatBody": "BabyLeveling is a gamified baby activity tracker for iOS and Apple Watch. It tracks feeding, sleep, growth, and milestones — and turns every log into XP for a fantasy hero. It ships with two modes: RPG Mode (the game) and Parent Mode (the clinical tracker). Same data, two presentations, one tap to switch.",
+    "whatBody": "BabyLeveling is a gamified baby activity tracker for iOS and Apple Watch. It tracks feeding, sleep, growth, and milestones — and turns every log into XP for a fantasy hero. The game sits on top; underneath is a serious record of the same feeds, naps, and growth, shown plainly whenever you need the facts.",
     "privacyHeading": "Your baby's data is yours",
     "privacyBody": "All data lives on your device. Nothing is uploaded to our servers without your explicit consent. Read our full privacy policy to see exactly how we handle baby data."
   },
@@ -300,7 +316,7 @@
       "featureDepth": {
         "xp-levels": "Every log — a feed, a nap, a diaper change — adds XP toward your baby's next level, so progress is visible every single day, not just at milestones.",
         "daily-quests": "Quests reset every day, turning the same routine into a fresh, completable goal each morning instead of an open-ended chore list.",
-        "skill-tree": "Each branch maps to a category of growth, so you can see at a glance where your baby is leveling up fastest.",
+        "skill-tree": "Every milestone you unlock pins to a growing map of firsts, so you can see at a glance how far your baby has come.",
         "achievements": "Badges stay in a permanent trophy case, so the wins from week one are still there to look back on at month twelve.",
         "streaks-buffs": "Streaks track consecutive days of consistent logging, with bonus XP as the reward for simply showing up.",
         "apple-watch": "Built for one-handed, middle-of-the-night use, so you never have to fully wake up — or unlock your phone — just to log a feed."
@@ -317,18 +333,18 @@
         { "text": " — nothing here replaces a rigorous tracker, it adds to one." }
       ],
       "loopDepth": {
-        "feeding": "Every bottle, breastfeeding session, or solid-food log restores your hero's energy meter — the same way feeding restores your baby's.",
-        "sleep": "Naps and night sleep recover HP, because rest is recovery, in the game and in real life.",
-        "habits": "Tummy time, bath time, reading — the small daily habits compound into EXP the same way they compound into development.",
-        "milestone": "A first smile, a first roll, a first word — each one pops an achievement, permanently recorded in the trophy room."
+        "feeding": "Every bottle, breastfeed, or solid-food log earns XP — the steady reward for the feeds you're already giving.",
+        "sleep": "Naps and night sleep earn XP too, because showing up for the hard nights is exactly what the system rewards.",
+        "habits": "Tummy time, bath time, reading — the small daily habits each add XP, the same way they add up in real development.",
+        "milestone": "A first smile, a first roll, a first word — each pops an achievement worth a big XP burst, recorded forever in the trophy room."
       }
     },
     "parents": {
       "h1": "Practical when you need it. Magical when you want it.",
       "whatItTracksHeading": "What Parent Mode tracks",
       "dataIsYoursHeading": "Your baby's data is yours",
-      "twoModesHeading": "Two modes, one source of truth",
-      "twoModesBody": "Parent Mode and RPG Mode read the exact same activity log — toggling between them never loses rigor or swaps in different data. Parent Mode just presents it the way a pediatrician visit, or a 3 a.m. gut-check, actually needs.",
+      "twoModesHeading": "The same data, shown plainly",
+      "twoModesBody": "The game and the plain view read the exact same activity log — nothing is lost or swapped between them. When you need the facts, the record reads the way a pediatrician visit, or a 3 a.m. gut-check, actually needs.",
       "closing": [
         { "text": "Want to see the same data as an adventure? " },
         { "text": "Read about the RPG system", "href": "/rpg-system" },

@@ -1,6 +1,6 @@
 ---
 tags: [index, planning]
-updated: 2026-06-16
+updated: 2026-06-21
 ---
 
 # BabyLeveling Landing Page — Planning Package
@@ -47,6 +47,10 @@ The experience targets an **Awwwards Site of the Day** standard, benchmarked to:
 
 ## Files
 
+- [[00-idea]] — Phase 1 core-idea clarity: one-line summary · primary persona · positioning choice (upstream of strategy)
+- [[00b-mvp-blueprint]] — Phase 2–5: MVP scope · first-time UX · landing validation copy · risks & open questions
+- [[00c-xp-economy]] — XP & leveling economy: sources, anti-farm caps, level curve, ethical guardrails, Phase 1 cut
+- [[00d-mvp-landing-alignment]] — section-by-section verdict reconciling the live landing with the MVP scope + XP economy (drives TASK-0020 / TASK-0021)
 - [[01-strategy]] — Executive Summary · Positioning · Story Framework
 - [[02-architecture]] — Sitemap · Section Breakdown
 - [[03-storyboard-motion-visual]] — Storyboard · Motion Plan · Visual Plan

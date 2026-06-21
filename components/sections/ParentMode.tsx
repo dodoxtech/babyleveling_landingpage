@@ -8,7 +8,7 @@ interface ParentModeProps {
 
 export function ParentMode({ locale }: ParentModeProps) {
   const t = getDictionary(locale).home.parents;
-  const quotes = t.quotes;
+  const trust = t.trust;
 
   return (
     <section
@@ -23,27 +23,19 @@ export function ParentMode({ locale }: ParentModeProps) {
 
       <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-16">
         <div className="rounded-[2rem] bg-white p-6 shadow-[0_6px_0_rgba(23,32,42,0.1)]">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {quotes.map((item) => (
-              <blockquote
-                key={item.author}
+          <div className="grid gap-4">
+            {trust.map((item) => (
+              <div
+                key={item.title}
                 className="rounded-[var(--radius-xl)] bg-[var(--bg-section-alt)] p-6"
               >
-                <p className="font-display text-2xl font-bold leading-tight">
-                  &quot;{item.quote}&quot;
+                <h3 className="font-display text-xl font-bold leading-tight">
+                  {item.title}
+                </h3>
+                <p className="mt-3 leading-7 text-[var(--text-secondary)]">
+                  {item.body}
                 </p>
-                <footer className="mt-5 flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] bg-[var(--accent-primary)] font-display font-bold text-white">
-                    {item.author.slice(0, 1)}
-                  </div>
-                  <div>
-                    <p className="font-semibold">{item.author}</p>
-                    <p className="text-sm text-[var(--text-secondary)]">
-                      {item.role}
-                    </p>
-                  </div>
-                </footer>
-              </blockquote>
+              </div>
             ))}
           </div>
         </div>
