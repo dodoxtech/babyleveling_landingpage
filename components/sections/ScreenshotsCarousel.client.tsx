@@ -24,6 +24,13 @@ interface PreviewData {
 
 const BASE_LEVEL = 12;
 
+/** Smooth 0→1 ramp between two edges (Hermite), used to keep the phone-screen
+ * cross-fade tight and gentle instead of a long linear double-exposure. */
+function smoothstep(edge0: number, edge1: number, x: number): number {
+  const t = Math.min(Math.max((x - edge0) / (edge1 - edge0), 0), 1);
+  return t * t * (3 - 2 * t);
+}
+
 const previewData: Record<string, PreviewData> = {
   dashboard: {
     accent: "var(--accent-primary)",
@@ -117,18 +124,26 @@ export function ScreenshotsCarousel({
       }
 
       // Continuous position along the tour (0 .. count-1). Each phone screen
-      // fades + drifts in proportion to its distance from this point, so the
-      // swap is a smooth scroll-linked crossfade rather than a threshold pop.
+      // holds fully opaque across its own segment and only cross-fades inside a
+      // narrow band (BAND) on either side of the midpoint between two screens.
+      // A plain `1 - distance` ramp kept BOTH neighbouring screens ~50% visible
+      // for the whole gap, which read as a ghosted double-exposure; this keeps a
+      // single clean screen on-screen except for a short, complementary blend.
       const cont = count > 1 ? p * (count - 1) : 0;
+      const BAND = 0.16; // half-width of the cross-fade zone around a midpoint
       const layers = screenRefs.current;
       for (let i = 0; i < layers.length; i++) {
         const el = layers[i];
         if (!el) continue;
         const d = cont - i; // signed distance from this screen
-        const ad = Math.min(Math.abs(d), 1);
-        el.style.opacity = String(Math.max(1 - ad, 0));
-        el.style.transform = `translateY(${(-d * 4).toFixed(2)}%) scale(${(1 - ad * 0.05).toFixed(3)})`;
-        el.style.zIndex = String(10 - Math.round(ad * 10));
+        const ad = Math.abs(d);
+        // 1 while this screen owns the view, ramping to 0 only as the 0.5
+        // boundary is crossed. smoothstep keeps the blend gentle and, because
+        // neighbours are symmetric, their opacities sum to ~1 (no flash/blank).
+        const opacity = 1 - smoothstep(0.5 - BAND, 0.5 + BAND, ad);
+        el.style.opacity = opacity.toFixed(3);
+        el.style.transform = `translateY(${(-d * 2).toFixed(2)}%) scale(${(1 - Math.min(ad, 1) * 0.04).toFixed(3)})`;
+        el.style.zIndex = String(opacity > 0.5 ? 10 : 1);
         el.style.pointerEvents = ad < 0.5 ? "auto" : "none";
       }
 

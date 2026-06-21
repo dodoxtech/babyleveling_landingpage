@@ -19,11 +19,13 @@ function PalettePreview({ theme }: { theme: ThemeDefinition }) {
   return (
     <div
       aria-hidden="true"
-      className="relative overflow-hidden rounded-[var(--radius-xl)] p-5"
+      className="relative shrink-0 overflow-hidden rounded-[var(--radius-xl)] p-3 md:p-5
+                 w-24 h-24 md:w-auto md:h-auto"
       style={{ background: swatch.bg }}
     >
       <div
-        className="grid aspect-square place-items-center rounded-[var(--radius-md)] p-5 shadow-[0_12px_28px_rgba(20,24,40,0.1)]"
+        className="grid h-full place-items-center rounded-[var(--radius-md)] p-2 shadow-[0_12px_28px_rgba(20,24,40,0.1)]
+                   md:aspect-square md:h-auto md:p-5"
         style={{ background: swatch.surface }}
       >
         <Image
@@ -31,12 +33,12 @@ function PalettePreview({ theme }: { theme: ThemeDefinition }) {
           alt=""
           width={144}
           height={144}
-          className="h-full max-h-36 w-full max-w-36 object-contain"
+          className="h-full w-full max-h-12 max-w-12 object-contain md:max-h-36 md:max-w-36"
         />
       </div>
 
-      {/* Accent dots */}
-      <div className="mt-4 flex items-center gap-2">
+      {/* Accent dots — desktop only */}
+      <div className="mt-4 hidden items-center gap-2 md:flex">
         {[swatch.button, swatch.accent, swatch.pop].map((c, i) => (
           <span
             key={i}
@@ -94,47 +96,49 @@ export function ThemeGallery({ locale }: ThemeGalleryProps) {
             return (
             <article
               key={theme.id}
-              className="card-duolingo flex flex-col gap-5 p-6"
+              className="card-duolingo flex flex-row gap-4 p-4 md:flex-col md:gap-5 md:p-6"
             >
               <PalettePreview theme={theme} />
 
-              <div className="flex items-center gap-2">
-                <h3 className="font-display text-2xl font-bold">{theme.name}</h3>
-                <span className="rounded-full bg-[var(--bg-section-alt)] px-2.5 py-0.5 text-xs font-bold text-[var(--accent-primary)]">
-                  {card.persona}
-                </span>
+              <div className="flex min-w-0 flex-1 flex-col gap-2 md:gap-5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-display text-lg font-bold md:text-2xl">{theme.name}</h3>
+                  <span className="rounded-full bg-[var(--bg-section-alt)] px-2.5 py-0.5 text-xs font-bold text-[var(--accent-primary)]">
+                    {card.persona}
+                  </span>
+                </div>
+
+                <p className="line-clamp-2 text-sm leading-6 text-[var(--text-secondary)] md:line-clamp-none md:-mt-2 md:text-base md:leading-7">
+                  {card.blurb}
+                </p>
+
+                <ul className="flex flex-wrap gap-1.5 md:gap-2">
+                  {card.tags.map((tag) => (
+                    <li
+                      key={tag}
+                      className="rounded-[var(--radius-sm)] bg-white/70 px-2 py-0.5 text-xs font-bold text-[var(--text-secondary)] md:px-3 md:py-1"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  type="button"
+                  onClick={() => applyTheme(theme.id)}
+                  className="btn-secondary mt-auto inline-flex items-center justify-center gap-2 text-sm"
+                >
+                  <Image
+                    src={theme.image.src}
+                    alt=""
+                    aria-hidden="true"
+                    width={24}
+                    height={24}
+                    className="h-6 w-6 rounded-full object-cover"
+                  />
+                  {t.tryLabel.replace("{name}", theme.name)}
+                </button>
               </div>
-
-              <p className="-mt-2 leading-7 text-[var(--text-secondary)]">
-                {card.blurb}
-              </p>
-
-              <ul className="flex flex-wrap gap-2">
-                {card.tags.map((tag) => (
-                  <li
-                    key={tag}
-                    className="rounded-[var(--radius-sm)] bg-white/70 px-3 py-1 text-xs font-bold text-[var(--text-secondary)]"
-                  >
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                type="button"
-                onClick={() => applyTheme(theme.id)}
-                className="btn-secondary mt-auto inline-flex items-center justify-center gap-2"
-              >
-                <Image
-                  src={theme.image.src}
-                  alt=""
-                  aria-hidden="true"
-                  width={24}
-                  height={24}
-                  className="h-6 w-6 rounded-full object-cover"
-                />
-                {t.tryLabel.replace("{name}", theme.name)}
-              </button>
             </article>
             );
           })}

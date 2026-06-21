@@ -21,7 +21,15 @@ const BLOOM = {
   alt: "BabyLeveling baby girl mascot",
 } as const;
 
-export function HeroMascot() {
+interface HeroMascotProps {
+  /** Positioning/sizing classes. Defaults to the centered floating-collage
+   * placement used by the desktop hero; the mobile hero passes its own. */
+  className?: string;
+}
+
+export function HeroMascot({
+  className = "absolute left-1/2 top-1/2 z-10 w-[72%] max-w-[26rem] -translate-x-1/2 -translate-y-1/2 motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]",
+}: HeroMascotProps = {}) {
   const [theme, setTheme] = useState<ThemeId>("cute");
 
   useEffect(() => {
@@ -45,7 +53,7 @@ export function HeroMascot() {
       width={420}
       height={420}
       priority
-      className="absolute left-1/2 top-1/2 z-10 w-[72%] max-w-[26rem] -translate-x-1/2 -translate-y-1/2 motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]"
+      className={className}
     />
   );
 }

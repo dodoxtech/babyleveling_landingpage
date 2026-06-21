@@ -44,12 +44,21 @@ export function HeroCharacter({ locale }: HeroCharacterProps) {
             {t.body}
           </p>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:gap-4">
             {reasons.map((item) => (
-              <article key={item.title} className="card-duolingo p-5">
-                <Image src={item.icon} alt="" width={48} height={48} aria-hidden="true" />
-                <h3 className="mt-4 font-display text-xl font-bold">{item.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
+              <article key={item.title} className="card-duolingo p-3 sm:p-5">
+                <Image
+                  src={item.icon}
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="h-8 w-8 object-contain sm:h-12 sm:w-12"
+                  aria-hidden="true"
+                />
+                <h3 className="mt-2 font-display text-sm font-bold leading-tight sm:mt-4 sm:text-xl">
+                  {item.title}
+                </h3>
+                <p className="mt-1 text-xs leading-5 text-[var(--text-secondary)] sm:mt-2 sm:text-sm sm:leading-6">
                   {item.desc}
                 </p>
               </article>

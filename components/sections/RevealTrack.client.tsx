@@ -146,7 +146,7 @@ export function RevealTrack({ stages }: RevealTrackProps) {
 
       {/* Mobile: equal snap-scroll cards (labels carry the pacing story there).
           Desktop: nodes are absolutely placed at their non-uniform `pos` %. */}
-      <ol className="relative flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 [scrollbar-width:none] lg:block lg:h-64 lg:gap-0 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
+      <ol className="relative flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 pt-4 [scrollbar-width:none] lg:block lg:h-64 lg:gap-0 lg:overflow-visible lg:pb-0 lg:pt-0 [&::-webkit-scrollbar]:hidden">
         {stages.map((stage, index) => (
           <StageNode
             key={stage.level}
@@ -178,19 +178,14 @@ function StageNode({ stage, isFinal, fill, threshold, still }: StageNodeProps) {
     clamp: true,
   });
   const platformScale = useTransform(a, [0, 1], [0.9, 1]);
-  const charOpacity = useTransform(a, [0, 1], [0.42, 1]);
-  const charFilter = useTransform(
-    a,
-    (v) =>
-      `grayscale(${((1 - v) * 0.9).toFixed(2)}) saturate(${(0.55 + v * 0.65).toFixed(2)})`,
-  );
-  const platformShadow = useTransform(
-    a,
-    (v) =>
-      `0 0 0 ${(v * 4).toFixed(1)}px color-mix(in srgb, ${accent} ${(v * 28).toFixed(0)}%, transparent), ${
-        isFinal ? "var(--shadow-colored)" : "var(--shadow-card)"
-      }`,
-  );
+  // "Power on" used to animate `filter: grayscale()/saturate()` and an
+  // expanding `box-shadow` per scroll frame, on every node - both force
+  // main-thread paint and were the cause of the janky scroll. They are
+  // replaced by compositor-only opacity crossfades: a static grayscale layer
+  // fades out under a full-colour layer that fades in, and a static glow ring
+  // fades in via opacity instead of an animated shadow spread.
+  const colorOpacity = useTransform(a, [0, 1], [0, 1]);
+  const grayOpacity = useTransform(a, [0, 1], [0.5, 0]);
   const badgeScale = useTransform(a, [0.4, 1], [0.5, 1]);
   const badgeOpacity = useTransform(a, [0.3, 0.65], [0, 1]);
   const labelOpacity = useTransform(a, [0.55, 1], [0, 1]);
@@ -203,21 +198,36 @@ function StageNode({ stage, isFinal, fill, threshold, still }: StageNodeProps) {
     >
       {/* Character platform - sits on the rail, glows + scales as it powers on. */}
       <motion.div
-        className="relative grid h-[7.5rem] w-[7.5rem] place-items-center rounded-full bg-white"
+        className={`relative grid h-[7.5rem] w-[7.5rem] place-items-center rounded-full bg-white ${
+          isFinal ? "shadow-[var(--shadow-colored)]" : "shadow-[var(--shadow-card)]"
+        }`}
         style={{
           scale: platformScale,
-          boxShadow: platformShadow,
           border: isFinal
             ? "2px solid color-mix(in srgb, var(--accent-tertiary) 70%, #ffffff)"
             : "2px solid var(--border-card)",
         }}
       >
-        {/* Legend radiant aura. */}
+        {/* Activation glow ring - static shadow, only its opacity animates. */}
+        <motion.span
+          aria-hidden="true"
+          style={{
+            opacity: a,
+            boxShadow: `0 0 0 4px color-mix(in srgb, ${accent} 30%, transparent)`,
+          }}
+          className="pointer-events-none absolute -inset-1 rounded-full"
+        />
+        {/* Legend radiant aura - fades in only once the charging rail actually
+            reaches this final node (gated by activation `a`), so the last hero
+            no longer pre-glows while the earlier nodes are still powering on. */}
         {isFinal && !still && (
-          <span
+          <motion.span
             aria-hidden="true"
-            className="absolute -inset-3 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--accent-tertiary)_50%,transparent),transparent_70%)] motion-safe:animate-[aura-pulse_2.8s_ease-in-out_infinite]"
-          />
+            style={{ opacity: a }}
+            className="absolute -inset-3 rounded-full"
+          >
+            <span className="block h-full w-full rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--accent-tertiary)_50%,transparent),transparent_70%)] motion-safe:animate-[aura-pulse_2.8s_ease-in-out_infinite]" />
+          </motion.span>
         )}
 
         {/* Hover ring (desktop) - no transform on the platform, so it never
@@ -227,18 +237,29 @@ function StageNode({ stage, isFinal, fill, threshold, still }: StageNodeProps) {
           className="absolute inset-0 rounded-full ring-0 ring-[color-mix(in_srgb,var(--accent-primary)_40%,transparent)] transition-all duration-300 ease-[var(--ease-out-premium)] lg:group-hover:ring-[6px]"
         />
 
-        <motion.div
-          className="relative motion-safe:lg:group-hover:animate-[idle-bob_2.6s_ease-in-out_infinite]"
-          style={{ opacity: charOpacity, filter: charFilter }}
-        >
-          <Image
-            src={stage.src}
-            alt={`${stage.title} - the baby hero at ${stage.level}`}
-            width={132}
-            height={132}
-            className="h-[5.75rem] w-[5.75rem] object-contain"
-          />
-        </motion.div>
+        <div className="relative motion-safe:lg:group-hover:animate-[idle-bob_2.6s_ease-in-out_infinite]">
+          {/* Desaturated base - static CSS filter (painted once), opacity only. */}
+          <motion.div style={{ opacity: grayOpacity }}>
+            <Image
+              src={stage.src}
+              alt=""
+              aria-hidden="true"
+              width={132}
+              height={132}
+              className="h-[5.75rem] w-[5.75rem] object-contain [filter:grayscale(1)_saturate(0.6)]"
+            />
+          </motion.div>
+          {/* Full-colour layer fades in as the node powers on. */}
+          <motion.div className="absolute inset-0" style={{ opacity: colorOpacity }}>
+            <Image
+              src={stage.src}
+              alt={`${stage.title} - the baby hero at ${stage.level}`}
+              width={132}
+              height={132}
+              className="h-[5.75rem] w-[5.75rem] object-contain"
+            />
+          </motion.div>
+        </div>
 
         {isFinal && (
           <Image

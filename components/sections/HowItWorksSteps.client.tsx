@@ -30,16 +30,21 @@ export function HowItWorksSteps({ steps }: HowItWorksStepsProps) {
         <motion.div
           key={step.id}
           initial={reducedMotion ? false : { opacity: 0, scale: 0.85, y: 16 }}
+          animate={reducedMotion ? { opacity: 1, scale: 1, y: 0 } : undefined}
           whileInView={
             reducedMotion ? undefined : { opacity: 1, scale: 1, y: 0 }
           }
           viewport={{ once: true, margin: "-10% 0px" }}
-          transition={{
-            type: "spring",
-            damping: 14,
-            stiffness: 180,
-            delay: reducedMotion ? 0 : index * 0.08,
-          }}
+          transition={
+            reducedMotion
+              ? { duration: 0 }
+              : {
+                  type: "spring",
+                  damping: 14,
+                  stiffness: 180,
+                  delay: index * 0.08,
+                }
+          }
           className="glass flex flex-1 basis-56 items-center gap-4 rounded-2xl px-5 py-4"
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- small decorative icon, not the LCP element */}

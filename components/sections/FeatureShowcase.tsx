@@ -15,7 +15,7 @@ export function FeatureShowcase({ locale }: FeatureShowcaseProps) {
     <section
       id="features"
       aria-label="Feature showcase"
-      className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+      className="px-4 py-12 sm:px-6 sm:py-20 lg:px-8"
       style={{ background: "var(--bg-section-alt)" }}
     >
       <div className="mx-auto max-w-7xl">
@@ -28,16 +28,14 @@ export function FeatureShowcase({ locale }: FeatureShowcaseProps) {
           </div>
         </div>
 
-        <div className="mt-8 grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-6">
+        <div className="mt-7 grid auto-rows-fr grid-cols-1 gap-3 sm:mt-8 sm:gap-4 md:grid-cols-6">
           {features.map((feature, index) => (
             <FeatureCard
               key={feature.id}
               feature={feature}
               index={index}
               className={
-                index === 0 || index === 3
-                  ? "md:col-span-3"
-                  : "md:col-span-2"
+                index === 0 || index === 3 ? "md:col-span-3" : "md:col-span-2"
               }
             />
           ))}

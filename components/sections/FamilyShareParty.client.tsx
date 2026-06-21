@@ -47,11 +47,12 @@ export function FamilyShareParty({ roles }: FamilySharePartyProps) {
           strokeWidth="1"
           vectorEffect="non-scaling-stroke"
           initial={reducedMotion ? false : { pathLength: 0, opacity: 0 }}
+          animate={reducedMotion ? { pathLength: 1, opacity: 0.4 } : undefined}
           whileInView={
             reducedMotion ? undefined : { pathLength: 1, opacity: 0.4 }
           }
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={reducedMotion ? { duration: 0 } : { duration: 1, ease: "easeOut" }}
         />
       </svg>
 
@@ -71,18 +72,25 @@ export function FamilyShareParty({ roles }: FamilySharePartyProps) {
                       rotate: offset.rotate,
                     }
               }
+              animate={
+                reducedMotion ? { opacity: 1, x: 0, y: 0, rotate: 0 } : undefined
+              }
               whileInView={
                 reducedMotion
                   ? undefined
                   : { opacity: 1, x: 0, y: 0, rotate: 0 }
               }
               viewport={{ once: true, margin: "-10% 0px" }}
-              transition={{
-                type: "spring",
-                damping: 14,
-                stiffness: 140,
-                delay: reducedMotion ? 0 : index * 0.1,
-              }}
+              transition={
+                reducedMotion
+                  ? { duration: 0 }
+                  : {
+                      type: "spring",
+                      damping: 14,
+                      stiffness: 140,
+                      delay: index * 0.1,
+                    }
+              }
               className="glass flex flex-col items-center gap-2 rounded-2xl p-5 text-center"
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- small decorative party-member icon */}
