@@ -10,6 +10,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { trackEvent, getCtaVariant, type CtaVariant } from "@/lib/analytics";
 import { playLevelUp } from "@/lib/sound";
 import { SectionObserver } from "@/components/sections/SectionObserver.client";
+import { WaitlistConfetti } from "@/components/sections/WaitlistConfetti.client";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -183,8 +184,22 @@ function SuccessMessage({
   headline: string;
   body: string;
 }) {
-  const content = (
-    <div>
+  const badge = (
+    <span className="inline-flex items-center gap-2 rounded-full bg-[var(--accent-primary)] px-4 py-1.5 text-sm font-bold text-white">
+      <Image
+        src="/assets/icons/trophy.png"
+        alt=""
+        width={18}
+        height={18}
+        aria-hidden="true"
+        className="inline-block"
+      />
+      +1 Party Member
+    </span>
+  );
+
+  const text = (
+    <>
       <p className="font-display text-xl font-bold text-[var(--accent-primary)]">
         Reward unlocked
       </p>
@@ -192,18 +207,41 @@ function SuccessMessage({
       <p className="mt-4 max-w-[34rem] text-lg leading-8 text-[var(--text-secondary)]">
         {body}
       </p>
-    </div>
+    </>
   );
 
-  if (reducedMotion) return content;
+  if (reducedMotion) {
+    return (
+      <div>
+        {badge}
+        <div className="mt-4">{text}</div>
+      </div>
+    );
+  }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 18, scale: 0.98 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ type: "spring", damping: 16, stiffness: 180 }}
-    >
-      {content}
-    </motion.div>
+    <div className="relative">
+      {/* Confetti burst fires on mount (success state) */}
+      <WaitlistConfetti />
+
+      {/* Badge springs in first */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.6 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", damping: 12, stiffness: 220 }}
+      >
+        {badge}
+      </motion.div>
+
+      {/* Copy fades up just after */}
+      <motion.div
+        className="mt-4"
+        initial={{ opacity: 0, y: 14, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ type: "spring", damping: 18, stiffness: 180, delay: 0.18 }}
+      >
+        {text}
+      </motion.div>
+    </div>
   );
 }

@@ -370,6 +370,45 @@ body::before {
     0 1px 0 rgba(22, 32, 47, 0.08);
 }
 
+/* One-shot shimmer sweep on hover — separate from ::before reveal so they
+   don't fight each other. Clips inside the button via overflow:hidden. */
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.32) 50%,
+    transparent 65%
+  );
+  transform: translateX(-120%) skewX(-10deg);
+  opacity: 0;
+}
+
+.btn-primary:hover::after {
+  animation: btn-shimmer 0.52s var(--ease-out-premium) forwards;
+}
+
+@keyframes btn-shimmer {
+  0% {
+    opacity: 1;
+    transform: translateX(-120%) skewX(-10deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(260%) skewX(-10deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary::after {
+    display: none;
+  }
+}
+
 .btn-primary:focus-visible,
 .btn-secondary:focus-visible {
   outline: 3px solid var(--accent-secondary);

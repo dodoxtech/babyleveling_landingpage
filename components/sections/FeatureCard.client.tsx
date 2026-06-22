@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import { assetPath } from "@/lib/content/assets";
 import type { Feature } from "@/lib/content/features";
@@ -14,6 +15,7 @@ interface FeatureCardProps {
 
 export function FeatureCard({ feature, index, className }: FeatureCardProps) {
   const reducedMotion = useReducedMotion();
+  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.article
@@ -32,25 +34,52 @@ export function FeatureCard({ feature, index, className }: FeatureCardProps) {
               delay: index * 0.05,
             }
       }
-      className={`card-duolingo min-h-0 p-4 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent-secondary)] sm:min-h-[13rem] sm:p-6 ${className ?? ""}`}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      className={`card-duolingo relative min-h-0 p-4 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent-secondary)] sm:min-h-[13rem] sm:p-6 ${className ?? ""}`}
       tabIndex={0}
     >
       <div className="flex gap-4 sm:block">
-        <div
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)] sm:h-14 sm:w-14"
-          style={{
-            background: `color-mix(in srgb, ${feature.accent} 14%, white)`,
-            boxShadow: `inset 0 1px 0 rgba(255,255,255,0.68), 0 8px 18px color-mix(in srgb, ${feature.accent} 16%, transparent)`,
-          }}
-        >
-          <Image
-            src={assetPath(feature.icon)}
-            alt=""
-            width={40}
-            height={40}
-            className="h-8 w-8 object-contain sm:h-10 sm:w-10"
-            aria-hidden="true"
-          />
+        <div className="relative">
+          <div
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)] sm:h-14 sm:w-14"
+            style={{
+              background: `color-mix(in srgb, ${feature.accent} 14%, white)`,
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.68), 0 8px 18px color-mix(in srgb, ${feature.accent} 16%, transparent)`,
+            }}
+          >
+            <Image
+              src={assetPath(feature.icon)}
+              alt=""
+              width={40}
+              height={40}
+              className="h-8 w-8 object-contain sm:h-10 sm:w-10"
+              aria-hidden="true"
+            />
+          </div>
+
+          {/* XP tick chip — appears on hover for cards with a real economy value */}
+          {feature.xpTick && !reducedMotion && (
+            <AnimatePresence>
+              {hovered && (
+                <motion.span
+                  key="xp-tick"
+                  initial={{ opacity: 0, y: 6, scale: 0.7 }}
+                  animate={{ opacity: 1, y: -4, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.8 }}
+                  transition={{ type: "spring", damping: 14, stiffness: 320 }}
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-2 -top-3 z-10 whitespace-nowrap rounded-full px-2 py-0.5 text-[0.65rem] font-bold text-white"
+                  style={{
+                    background: feature.accent,
+                    boxShadow: `0 2px 8px color-mix(in srgb, ${feature.accent} 40%, transparent)`,
+                  }}
+                >
+                  +{feature.xpTick} XP
+                </motion.span>
+              )}
+            </AnimatePresence>
+          )}
         </div>
 
         <div className="min-w-0 flex-1">

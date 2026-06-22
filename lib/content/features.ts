@@ -7,12 +7,17 @@ export interface Feature {
   blurb: string;
   icon: AssetKey;
   accent: string;
+  /** Real XP economy value shown as a hover tick. Only present where a specific
+   *  MVP value exists (feed +8, sleep +10, growth +30, daily bonus +50,
+   *  milestone +250, weekly bonus +100). Never invented. */
+  xpTick?: number;
 }
 
 interface FeatureBase {
   id: string;
   icon: AssetKey;
   accent: string;
+  xpTick?: number;
 }
 
 interface FeatureText {
@@ -29,9 +34,9 @@ interface FeatureText {
  * by `Locale` then `Feature.id`  -  see TASK-0011.
  */
 const FEATURE_BASE: FeatureBase[] = [
-  { id: "xp-levels", icon: "feature.xp-levels", accent: "var(--accent-growth)" },
-  { id: "daily-quests", icon: "feature.daily-quests", accent: "var(--accent-feed)" },
-  { id: "skill-tree", icon: "feature.skill-tree", accent: "var(--accent-sleep)" },
+  { id: "xp-levels", icon: "feature.xp-levels", accent: "var(--accent-growth)", xpTick: 8 },
+  { id: "daily-quests", icon: "feature.daily-quests", accent: "var(--accent-feed)", xpTick: 50 },
+  { id: "skill-tree", icon: "feature.skill-tree", accent: "var(--accent-sleep)", xpTick: 250 },
   {
     id: "achievements",
     icon: "feature.achievements",
@@ -41,11 +46,13 @@ const FEATURE_BASE: FeatureBase[] = [
     id: "streaks-buffs",
     icon: "feature.streaks-buffs",
     accent: "var(--grad-plasma-to)",
+    xpTick: 100,
   },
   {
     id: "apple-watch",
     icon: "feature.apple-watch",
     accent: "var(--accent-growth)",
+    xpTick: 10,
   },
 ];
 

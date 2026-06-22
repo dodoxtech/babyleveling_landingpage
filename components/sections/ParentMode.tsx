@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
+import { ParentModeLockReveal } from "@/components/sections/ParentModeLockReveal.client";
 
 interface ParentModeProps {
   locale: Locale;
@@ -82,19 +83,31 @@ export function ParentMode({ locale }: ParentModeProps) {
                       ].join(" "),
                 ].join(" ")}
               >
-                <Image
-                  src={trustIcons[i]}
-                  alt=""
-                  width={48}
-                  height={48}
-                  aria-hidden="true"
-                  className={[
-                    "shrink-0",
-                    featured
-                      ? "mt-0.5 h-10 w-10 lg:mt-0 lg:h-14 lg:w-14 lg:shrink-0"
-                      : "mt-0.5 h-9 w-9 lg:mt-0 lg:h-10 lg:w-10",
-                  ].join(" ")}
-                />
+                {/* Shield (i===1) gets a lock-settle animation to reinforce the
+                    privacy/local-data trust signal. Other icons are static. */}
+                {i === 1 ? (
+                  <ParentModeLockReveal
+                    src={trustIcons[i]}
+                    size={48}
+                    className={[
+                      "mt-0.5 h-9 w-9 lg:mt-0 lg:h-10 lg:w-10",
+                    ].join(" ")}
+                  />
+                ) : (
+                  <Image
+                    src={trustIcons[i]}
+                    alt=""
+                    width={48}
+                    height={48}
+                    aria-hidden="true"
+                    className={[
+                      "shrink-0",
+                      featured
+                        ? "mt-0.5 h-10 w-10 lg:mt-0 lg:h-14 lg:w-14 lg:shrink-0"
+                        : "mt-0.5 h-9 w-9 lg:mt-0 lg:h-10 lg:w-10",
+                    ].join(" ")}
+                  />
+                )}
 
                 <div className="min-w-0">
                   <h3
