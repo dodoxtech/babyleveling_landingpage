@@ -324,7 +324,7 @@
     },
     "rpgSystem": {
       "h1": "Real care. Real XP. No skin-deep gamification.",
-      "intro": "BabyLeveling is a parenting RPG app: every real act of care — feeding, sleep, healthy habits, milestones — maps directly to a game reward. Here's exactly how the loop works.",
+      "intro": "BabyLeveling is a parenting RPG: every real act of care — feeding, sleep, diaper changes, medicine, vaccines, growth logs, and milestones — earns XP. Here's exactly how the loop works.",
       "closing": [
         { "text": "Want the full RPG, not just the loop? " },
         { "text": "See every feature this powers", "href": "/features" },
@@ -335,16 +335,16 @@
       "loopDepth": {
         "feeding": "Every bottle, breastfeed, or solid-food log earns XP — the steady reward for the feeds you're already giving.",
         "sleep": "Naps and night sleep earn XP too, because showing up for the hard nights is exactly what the system rewards.",
-        "habits": "Tummy time, bath time, reading — the small daily habits each add XP, the same way they add up in real development.",
+        "habits": "Diaper changes, medicine, vaccines, tummy time, bath — every daily care log earns XP, the same way these small acts add up in real development.",
         "milestone": "A first smile, a first roll, a first word — each pops an achievement worth a big XP burst, recorded forever in the trophy room."
       }
     },
     "parents": {
-      "h1": "Practical when you need it. Magical when you want it.",
+      "h1": "For tired parents, not perfect ones.",
       "whatItTracksHeading": "What Parent Mode tracks",
       "dataIsYoursHeading": "Your baby's data is yours",
       "twoModesHeading": "The same data, shown plainly",
-      "twoModesBody": "The game and the plain view read the exact same activity log — nothing is lost or swapped between them. When you need the facts, the record reads the way a pediatrician visit, or a 3 a.m. gut-check, actually needs.",
+      "twoModesBody": "The joy is the wrapper. The record stays serious. RPG Mode and Parent Mode read the exact same activity log — switch between them without losing a single entry. When you need the facts, the record reads the way a pediatrician visit, or a 3 a.m. gut-check, actually needs.",
       "closing": [
         { "text": "Want to see the same data as an adventure? " },
         { "text": "Read about the RPG system", "href": "/rpg-system" },

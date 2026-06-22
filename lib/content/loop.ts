@@ -34,25 +34,22 @@ const LOOP_STEP_BASE: LoopStepBase[] = [
 
 const LOOP_STEP_TEXT: Record<Locale, Record<string, LoopStepText>> = {
   en: {
-    feeding: { realAction: "Feeding", gameReward: "+Energy" },
-    sleep: { realAction: "Sleep", gameReward: "+HP" },
-    habits: { realAction: "Healthy habits", gameReward: "+EXP" },
-    milestone: {
-      realAction: "Milestone",
-      gameReward: "Achievement unlocked",
-    },
+    feeding: { realAction: "Feeding", gameReward: "+8 XP" },
+    sleep: { realAction: "Sleep", gameReward: "+10 XP" },
+    habits: { realAction: "Daily care", gameReward: "+XP" },
+    milestone: { realAction: "Milestone", gameReward: "+250 XP" },
   },
   ja: {
-    feeding: { realAction: "授乳", gameReward: "+エナジー" },
-    sleep: { realAction: "睡眠", gameReward: "+HP回復" },
-    habits: { realAction: "よい習慣", gameReward: "+EXP" },
-    milestone: { realAction: "マイルストーン", gameReward: "実績解除" },
+    feeding: { realAction: "授乳", gameReward: "+8 XP" },
+    sleep: { realAction: "睡眠", gameReward: "+10 XP" },
+    habits: { realAction: "日々のケア", gameReward: "+XP" },
+    milestone: { realAction: "マイルストーン", gameReward: "+250 XP" },
   },
   vi: {
-    feeding: { realAction: "Cho bú", gameReward: "+Năng lượng" },
-    sleep: { realAction: "Giấc ngủ", gameReward: "+HP" },
-    habits: { realAction: "Thói quen tốt", gameReward: "+EXP" },
-    milestone: { realAction: "Cột mốc", gameReward: "Mở khóa thành tựu" },
+    feeding: { realAction: "Cho bú", gameReward: "+8 XP" },
+    sleep: { realAction: "Giấc ngủ", gameReward: "+10 XP" },
+    habits: { realAction: "Chăm sóc hàng ngày", gameReward: "+XP" },
+    milestone: { realAction: "Cột mốc", gameReward: "+250 XP" },
   },
 };
 

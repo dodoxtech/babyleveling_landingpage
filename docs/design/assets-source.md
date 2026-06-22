@@ -1,6 +1,6 @@
 ---
 title: Asset Source Files
-updated: 2026-06-20
+updated: 2026-06-22
 ---
 
 # Asset Source Files
@@ -35,6 +35,11 @@ rounded game UI, and emotional parent-friendly illustration.
 | `public/assets/characters/*.png` | `800x800` | Cropped mascot poses from the reference sheet |
 | `public/assets/timeline/*.png` | `400x400` | Cropped level progression cards from the reference sheet |
 | `public/assets/icons/*.png` | `256x256` | Cropped RPG/care icons from the reference sheet |
+| `public/assets/motion/mascot-*.png` | `800x800` | Motion-state mascot assets generated on chroma-key green, then converted to alpha |
+| `public/assets/motion/care-*.png` | `256x256` | Motion care-action icons generated on chroma-key green, then converted to alpha |
+| `public/assets/motion/xp-*.png` | `128x128` / `256x256` | Motion XP tokens/sparks generated on chroma-key green, then converted to alpha |
+| `public/assets/motion/privacy-*.png` | `256x256` / `800x800` | Local-first privacy motion assets generated on chroma-key green, then converted to alpha |
+| `public/assets/motion/journey-*.png` | `256x256` | Scroll journey motion assets generated on chroma-key green, then converted to alpha |
 | `public/assets/scenes/hero-cute-bg.png` | `960x720` | Pastel castle landscape crop |
 | `public/assets/scenes/hero-warrior-bg.png` | `960x720` | Dark fantasy landscape crop |
 | `public/assets/scenes/features-bg.png` | `1920x600` | Multi-biome landscape strip crop |
@@ -48,3 +53,22 @@ rounded game UI, and emotional parent-friendly illustration.
 The uploaded source image has a baked checkerboard background, not true alpha.
 Cutout exports remove edge-connected checkerboard pixels locally and preserve the
 same public asset paths.
+
+## Motion Asset Set
+
+The initial motion asset set follows [[motion-asset-generation-brief]] and uses a flat
+green chroma-key generation workflow followed by local alpha extraction.
+
+Generated minimum set:
+- `public/assets/motion/mascot-idle.png`
+- `public/assets/motion/mascot-happy.png`
+- `public/assets/motion/mascot-level-up.png`
+- `public/assets/motion/mascot-sleep-calm.png`
+- `public/assets/motion/mascot-shield-privacy.png`
+- `public/assets/motion/care-feed.png`
+- `public/assets/motion/care-sleep.png`
+- `public/assets/motion/xp-orb.png`
+- `public/assets/motion/xp-spark-small.png`
+- `public/assets/motion/privacy-phone.png`
+- `public/assets/motion/privacy-lock.png`
+- `public/assets/motion/journey-node-active.png`

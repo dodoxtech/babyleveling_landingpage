@@ -1,4 +1,10 @@
-import { SITE_DESCRIPTOR, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import {
+  buildMobileApplicationSchema,
+  buildOrganizationSchema,
+  buildWebSiteSchema,
+  buildHowToSchema,
+} from "@/lib/seo-schemas";
 
 interface JsonLdProps {
   data: Record<string, unknown>;
@@ -29,38 +35,20 @@ function JsonLd({ data }: JsonLdProps) {
  * - `MobileApplication.offers`/`aggregateRating`  -  pricing isn't set yet
  *   (docs/planning/reconciliation-log.md, "Outstanding decisions") and
  *   there are no real ratings pre-launch.
+ * - `MobileApplication.screenshot`  -  depends on real App Store screenshots;
+ *   add once the app store listing is live.
  * None of these are required for the corresponding schema to validate.
+ *
+ * Enriched in TASK-0029 (GEO): Organization gains `knowsAbout` + `contactPoint`;
+ * MobileApplication gains `featureList`, `applicationSubCategory`,
+ * `availableOnDevice`, `countriesSupported`, and `speakable` spec.
  */
 export function SiteJsonLd() {
   return (
     <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: SITE_NAME,
-          url: SITE_URL,
-        }}
-      />
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: SITE_NAME,
-          url: SITE_URL,
-        }}
-      />
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "MobileApplication",
-          name: SITE_NAME,
-          description: SITE_DESCRIPTOR,
-          operatingSystem: "iOS 17+, watchOS",
-          applicationCategory: "LifestyleApplication",
-          url: SITE_URL,
-        }}
-      />
+      <JsonLd data={buildOrganizationSchema()} />
+      <JsonLd data={buildWebSiteSchema()} />
+      <JsonLd data={buildMobileApplicationSchema()} />
     </>
   );
 }
@@ -154,4 +142,10 @@ export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
       }}
     />
   );
+}
+
+/** `HowTo` schema for the RPG System page — describes the 4-step care-to-XP loop.
+ *  English-only: schema content targets AI answer engines that index English. TASK-0029. */
+export function HowToJsonLd() {
+  return <JsonLd data={buildHowToSchema()} />;
 }

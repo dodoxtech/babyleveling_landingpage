@@ -324,7 +324,7 @@
     },
     "rpgSystem": {
       "h1": "Chăm sóc thật. XP thật. Không phải game hóa hời hợt.",
-      "intro": "BabyLeveling là một ứng dụng RPG dành cho ba mẹ: mỗi hành động chăm sóc thật — cho bú, giấc ngủ, thói quen tốt, các cột mốc — đều ánh xạ trực tiếp thành một phần thưởng trong game. Đây là cách vòng lặp đó hoạt động.",
+      "intro": "BabyLeveling là một ứng dụng RPG dành cho ba mẹ: mỗi hành động chăm sóc thật — cho bú, giấc ngủ, thay tã, thuốc, tiêm chủng, ghi nhận tăng trưởng và cột mốc — đều nhận XP. Đây là cách vòng lặp đó hoạt động.",
       "closing": [
         { "text": "Muốn biết cả bộ RPG đầy đủ, không chỉ vòng lặp này? " },
         { "text": "Xem mọi tính năng được vận hành bởi nó", "href": "/features" },
@@ -335,16 +335,16 @@
       "loopDepth": {
         "feeding": "Mỗi bình sữa, mỗi cữ bú mẹ, hay mỗi lần ăn dặm đều nhận XP — phần thưởng đều đặn cho những cữ bú bạn vốn đã trao cho con.",
         "sleep": "Giấc ngủ ngắn và giấc ngủ đêm cũng nhận XP, vì có mặt qua những đêm vất vả chính là điều mà hệ thống tôn vinh.",
-        "habits": "Tập lẫy, tắm, đọc sách — mỗi thói quen nhỏ hàng ngày đều cộng thêm XP, theo đúng cách chúng tích lũy thành sự phát triển.",
+        "habits": "Thay tã, cho uống thuốc, tiêm chủng, tập lẫy, tắm — mỗi lần ghi nhận chăm sóc hàng ngày đều cộng XP, theo đúng cách những việc nhỏ này tích lũy thành sự phát triển.",
         "milestone": "Nụ cười đầu tiên, lần lẫy đầu tiên, từ đầu tiên — mỗi cái đều bật lên một thành tựu kèm một đợt XP lớn, được ghi lại mãi mãi trong phòng cúp."
       }
     },
     "parents": {
-      "h1": "Thực tế khi bạn cần. Kỳ diệu khi bạn muốn.",
+      "h1": "Cho ba mẹ mệt nhoài, không phải ba mẹ hoàn hảo.",
       "whatItTracksHeading": "Chế độ Ba Mẹ theo dõi những gì",
       "dataIsYoursHeading": "Dữ liệu của bé là của bạn",
       "twoModesHeading": "Cùng một dữ liệu, hiển thị rõ ràng",
-      "twoModesBody": "Giao diện trò chơi và giao diện thuần dữ liệu đọc đúng một nhật ký hoạt động — chuyển qua lại không bao giờ làm mất độ chính xác hay đổi sang dữ liệu khác. Khi bạn cần sự thật, bản ghi hiện ra theo đúng cách mà một buổi khám bác sĩ, hay một lần kiểm tra lúc 3 giờ sáng, thật sự cần.",
+      "twoModesBody": "Niềm vui chỉ là lớp vỏ. Bản ghi luôn nghiêm túc. Chế độ RPG và Chế độ Ba Mẹ đọc đúng một nhật ký hoạt động — chuyển qua lại không bao giờ làm mất một ghi nhận nào. Khi bạn cần sự thật, bản ghi hiện ra theo đúng cách mà một buổi khám bác sĩ, hay một lần kiểm tra lúc 3 giờ sáng, thật sự cần.",
       "closing": [
         { "text": "Muốn xem cùng dữ liệu đó dưới dạng một cuộc phiêu lưu? " },
         { "text": "Đọc về hệ thống RPG", "href": "/rpg-system" },

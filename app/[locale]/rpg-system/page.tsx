@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getLoopSteps } from "@/lib/content/loop";
 import { assetPath } from "@/lib/content/assets";
 import { DepthPageShell } from "@/components/seo/DepthPageShell";
+import { HowToJsonLd } from "@/components/seo/JsonLd";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
 import { localeAlternates, localeHref } from "@/lib/i18n/paths";
@@ -52,7 +53,9 @@ export default async function RpgSystemPage({ params }: PageProps) {
   const loopSteps = getLoopSteps(locale);
 
   return (
-    <DepthPageShell
+    <>
+      <HowToJsonLd />
+      <DepthPageShell
       locale={locale}
       breadcrumb={[
         { label: dict.common.home, href: localeHref(locale, "/") },
@@ -114,6 +117,7 @@ export default async function RpgSystemPage({ params }: PageProps) {
           </p>
         </div>
       </div>
-    </DepthPageShell>
+      </DepthPageShell>
+    </>
   );
 }
