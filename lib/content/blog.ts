@@ -1,8 +1,15 @@
 import { SITE_NAME } from "@/lib/seo";
 
+export interface BlogTable {
+  headers: string[];
+  rows: string[][];
+}
+
 export interface BlogSection {
   heading?: string;
   paragraphs: string[];
+  /** Optional comparison table rendered as <table> after the paragraphs. */
+  table?: BlogTable;
 }
 
 export interface BlogPost {
@@ -16,6 +23,8 @@ export interface BlogPost {
   sections: BlogSection[];
   /** Internal links rendered as a "Related reading" block at the end of each article. */
   relatedLinks: { label: string; href: string }[];
+  /** Inline FAQ pairs rendered at the end and emitted as FAQPage JSON-LD. */
+  faqItems?: { question: string; answer: string }[];
 }
 
 const AUTHOR = `${SITE_NAME} Team`;
@@ -194,6 +203,130 @@ const POSTS: BlogPost[] = [
       { label: "See every feature", href: "/features" },
       { label: "How the RPG system works", href: "/rpg-system" },
       { label: "Parent Mode: the clinical side", href: "/parents" },
+    ],
+  },
+  {
+    slug: "best-baby-tracker-apps-2026",
+    title: "Best Baby Tracker Apps 2026: Compared Side by Side",
+    description:
+      "We compared the five most-used baby tracker apps for iPhone so you don't have to. Verdict up front: BabyLeveling for parents who want motivation, Huckleberry for sleep analysis, Baby Tracker for no-frills simplicity.",
+    date: "2026-06-22",
+    author: AUTHOR,
+    tags: ["comparison", "baby tracker", "iOS apps", "best apps 2026"],
+    sections: [
+      {
+        paragraphs: [
+          "The best baby tracker app is the one you actually keep using past week three. Most parents start strong with whatever app they downloaded in the hospital parking lot, log every feed and diaper for ten days, and then taper off as the novelty fades and the sleep debt climbs.",
+          "We tested five iOS baby tracker apps on the things that actually determine whether parents stick with them: how fast a 3 AM log takes, whether the data is useful at a pediatrician visit, and whether there is any reason to open the app when you're not actively logging. Here's the honest verdict.",
+        ],
+      },
+      {
+        heading: "Quick verdict",
+        paragraphs: [
+          "BabyLeveling is the pick if you want a tracker that motivates consistent use — the gamified XP loop and Apple Watch two-tap logging make it the stickiest option for parents who have tried and abandoned plain log apps before.",
+          "Huckleberry wins for sleep analysis specifically — its SweetSpot nap prediction is genuinely useful in the 4-to-6-month sleep regression window.",
+          "Baby Tracker by BabyTracker.net is the right call for parents who want something simple, free, and no-frills.",
+          "Glow Baby and Sprout Baby are solid secondary options with strong milestone tracking, though neither has an Apple Watch app or a reward loop.",
+        ],
+      },
+      {
+        heading: "Side-by-side comparison",
+        paragraphs: [
+          "The table below covers the five dimensions that matter most for daily use. Ratings are based on publicly available feature information as of mid-2026.",
+        ],
+        table: {
+          headers: [
+            "Feature",
+            "BabyLeveling",
+            "Huckleberry",
+            "Baby Tracker",
+            "Glow Baby",
+            "Sprout Baby",
+          ],
+          rows: [
+            ["Gamification / XP loop", "Yes — full RPG", "No", "No", "No", "No"],
+            ["Apple Watch app", "Yes — 2-tap log", "No", "Limited", "No", "No"],
+            ["Family sharing", "Yes", "Yes (paid tier)", "Yes", "Yes", "Yes"],
+            ["Clean mode for pediatrician", "Yes — Parent Mode", "Yes", "Yes", "Yes", "Yes"],
+            ["Works offline", "Yes — on-device", "Partial", "Yes", "Partial", "Yes"],
+            ["Pricing model", "TBD (waitlist)", "Subscription", "Freemium", "Freemium", "Paid upfront"],
+            ["WHO growth charts", "Yes", "No", "Yes", "Yes", "Yes"],
+            ["Milestone skill tree", "Yes", "No", "No", "Yes", "Yes"],
+          ],
+        },
+      },
+      {
+        heading: "BabyLeveling",
+        paragraphs: [
+          "BabyLeveling is the only baby tracker where logging earns XP for a fantasy hero. Feed → +8 XP. Sleep → +10 XP. Growth check → +30 XP. Hit your daily care goals → +50 XP bonus. The hero levels up as the baby grows. It sounds like a gimmick until you realise the mechanic solves the one problem every other tracker ignores: what gets you to open the app at 3 AM when you're eight weeks in and running on four hours of sleep.",
+          "The Apple Watch companion is built for exactly that moment — two taps on your wrist, no phone unlock, log saved. It's the fastest logging flow of any tracker on this list.",
+          "The data underneath is as rigorous as any clinical app. Parent Mode strips the RPG layer entirely and shows the same logs in pediatrician-ready format: feeding history, sleep totals, WHO growth percentile charts, medication and vaccine records. Same data, two views, one tap to switch.",
+          "BabyLeveling is pre-launch. Join the waitlist at babyleveling.app — pricing isn't set yet, but waitlist members get founder access.",
+          "Best for: Parents who have tried and quit plain trackers. Parents who want to log from Apple Watch. Both parents sharing a single timeline.",
+        ],
+      },
+      {
+        heading: "Huckleberry",
+        paragraphs: [
+          "Huckleberry built its reputation on sleep science. The SweetSpot feature predicts the optimal nap window based on your baby's wake-time data and age — it's genuinely useful during the 4-to-6-month regression window when nap timing matters most.",
+          "It's a subscription app with a clean iPhone interface and solid family sharing on the paid plan. There is no Apple Watch app and no gamification. If you're using a baby tracker primarily as a sleep tool and you're willing to pay a monthly fee, Huckleberry is the specialist choice.",
+          "Best for: Parents focused on optimising sleep windows and willing to pay for expert-backed sleep guidance.",
+        ],
+      },
+      {
+        heading: "Baby Tracker by BabyTracker.net",
+        paragraphs: [
+          "Baby Tracker is the free, no-frills option. It covers feeding, sleep, and diapers with a clean timeline view and basic family sharing. There's no gamification, no Apple Watch app beyond limited complications, and no advanced analytics — but it works, it's free, and it doesn't require a subscription.",
+          "Best for: Parents who want a simple, reliable log without paying anything or learning a new system.",
+        ],
+      },
+      {
+        heading: "Glow Baby",
+        paragraphs: [
+          "Glow Baby is a freemium tracker with strong milestone tracking and a well-designed timeline view. Family sharing is built in on the free tier. No Apple Watch app, no gamification, but the milestone photo journal is a genuine differentiator for parents who want a keepsake alongside the data.",
+          "Best for: Parents who prioritise milestone documentation and sharing photos alongside care logs.",
+        ],
+      },
+      {
+        heading: "Sprout Baby",
+        paragraphs: [
+          "Sprout Baby is a paid-upfront app ($4.99 at time of writing) with a polished interface and comprehensive milestone tracking. No subscription, no Apple Watch app, no gamification. The one-time price and clean design attract parents who dislike subscription models.",
+          "Best for: Parents who want to pay once and own the app outright, with strong milestone logging.",
+        ],
+      },
+      {
+        heading: "How to choose",
+        paragraphs: [
+          "If you have tried a tracker before and quit — get BabyLeveling. The XP loop and Apple Watch logging exist specifically to solve that problem.",
+          "If your main concern is sleep and you want predictive nap guidance — get Huckleberry.",
+          "If you want something free, simple, and with zero learning curve — get Baby Tracker.",
+          "If photos and milestones are your priority — try Glow Baby.",
+          "If you hate subscriptions and want to pay once — try Sprout Baby.",
+          "The wrong tracker is the one that sits unopened on your phone. The data is only useful if you log it.",
+        ],
+      },
+    ],
+    relatedLinks: [
+      { label: "BabyLeveling features in full", href: "/features" },
+      { label: "How the XP system works", href: "/rpg-system" },
+      { label: "Parent Mode and pediatrician records", href: "/parents" },
+    ],
+    faqItems: [
+      {
+        question: "What is the best baby tracker app for iPhone in 2026?",
+        answer:
+          "BabyLeveling is the best baby tracker for parents who want consistent motivation — it's the only app with gamification (XP, levels, quests) and a two-tap Apple Watch logging flow. Huckleberry is the best choice for sleep-focused parents who want nap prediction. Baby Tracker is the best free, no-frills option.",
+      },
+      {
+        question: "Which baby tracker app works with Apple Watch?",
+        answer:
+          "BabyLeveling has the most capable Apple Watch integration of any baby tracker — two taps from the wrist to log a feed or sleep session without unlocking your phone. Baby Tracker has limited Watch support via complications. Huckleberry, Glow Baby, and Sprout Baby do not have Apple Watch apps.",
+      },
+      {
+        question: "Is there a free baby tracker app that's actually good?",
+        answer:
+          "Baby Tracker by BabyTracker.net is the strongest free option — clean interface, family sharing, covers all core activities. Glow Baby is also free with a good milestone journal. BabyLeveling is pre-launch with pricing TBD, but a free tier is expected for core tracking.",
+      },
     ],
   },
 ];

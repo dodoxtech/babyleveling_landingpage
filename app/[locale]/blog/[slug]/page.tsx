@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllPosts, getPostBySlug } from "@/lib/content/blog";
-import { ArticleJsonLd } from "@/components/seo/JsonLd";
+import { ArticleJsonLd, FaqPageJsonLd } from "@/components/seo/JsonLd";
 import { DepthPageShell } from "@/components/seo/DepthPageShell";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
@@ -80,6 +80,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         author={post.author}
         url={articleUrl}
       />
+      {post.faqItems && <FaqPageJsonLd items={post.faqItems} />}
 
       <article className="px-6 pt-6 pb-24 sm:pb-32">
         <div className="mx-auto w-full max-w-3xl">
@@ -118,9 +119,59 @@ export default async function BlogPostPage({ params }: PageProps) {
                     </p>
                   ))}
                 </div>
+                {section.table && (
+                  <div className="mt-4 overflow-x-auto">
+                    <table className="w-full border-collapse text-sm">
+                      <thead>
+                        <tr>
+                          {section.table.headers.map((h) => (
+                            <th
+                              key={h}
+                              className="border border-white/10 bg-white/5 px-3 py-2 text-left font-medium text-hi"
+                            >
+                              {h}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {section.table.rows.map((row, ri) => (
+                          <tr key={ri} className="even:bg-white/[0.02]">
+                            {row.map((cell, ci) => (
+                              <td
+                                key={ci}
+                                className="border border-white/10 px-3 py-2 text-lo"
+                              >
+                                {cell}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </section>
             ))}
           </div>
+
+          {post.faqItems && post.faqItems.length > 0 && (
+            <section className="mt-12">
+              <h2 className="font-display text-2xl text-hi">
+                {"Frequently asked questions"}
+              </h2>
+              <dl className="mt-6 flex flex-col gap-6">
+                {post.faqItems.map((item, i) => (
+                  <div key={i}>
+                    <dt className="font-medium text-hi">{item.question}</dt>
+                    <dd className="mt-2 text-base leading-relaxed text-lo">
+                      {item.answer}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          )}
 
           {post.relatedLinks.length > 0 && (
             <aside className="glass mt-12 rounded-2xl p-8">
