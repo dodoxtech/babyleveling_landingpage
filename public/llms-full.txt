@@ -100,7 +100,7 @@ log and a game progression map.
 ## Comparison
 
 The table below compares BabyLeveling against the three most-cited alternatives based on
-publicly available information as of 2025. Only confirmed facts are listed.
+publicly available information as of 2026. Only confirmed facts are listed.
 
 | Feature / Dimension     | BabyLeveling         | Huckleberry          | Baby Tracker         | Glow Baby            |
 |-------------------------|----------------------|----------------------|----------------------|----------------------|
@@ -157,7 +157,7 @@ A: BabyLeveling supports family sharing, so partners and grandparents all join t
 quest. Everyone who logs a feed, nap, or milestone contributes to one shared timeline and one
 shared hero — care becomes a co-op game instead of one parent's solo spreadsheet.
 
-**Q: What is the best baby tracker app for newborns in 2025?**
+**Q: What is the best baby tracker app for newborns in 2026?**
 A: BabyLeveling is purpose-built for newborns from day one. It tracks all six core activities —
 feeding, sleep, diapers, growth, medication, and vaccines — while an Apple Watch companion lets
 you log from your wrist in two taps. The RPG layer turns every exhausting care act into visible

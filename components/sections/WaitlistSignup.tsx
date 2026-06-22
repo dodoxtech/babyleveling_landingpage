@@ -11,6 +11,7 @@ import { trackEvent, getCtaVariant, type CtaVariant } from "@/lib/analytics";
 import { playLevelUp } from "@/lib/sound";
 import { SectionObserver } from "@/components/sections/SectionObserver.client";
 import { WaitlistConfetti } from "@/components/sections/WaitlistConfetti.client";
+import { ThemedBabyMascot } from "@/components/sections/ThemedBabyMascot.client";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -71,21 +72,23 @@ export function WaitlistSignup({ locale }: WaitlistSignupProps) {
       >
         <div className="mx-auto grid max-w-6xl gap-8 rounded-[var(--radius-xl)] border border-white/70 bg-[var(--bg-playfield)] p-6 shadow-[var(--shadow-colored)] lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:p-10">
           <div className="relative min-h-[18rem]">
-            <Image
-              src={
-                state === "success"
-                  ? "/assets/icons/trophy.png"
-                  : "/assets/characters/warrior-baby-shield.png"
-              }
-              alt={
-                state === "success"
-                  ? "Reward trophy"
-                  : "Warrior baby with shield"
-              }
-              width={280}
-              height={280}
-              className="mx-auto motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]"
-            />
+            {state === "success" ? (
+              <Image
+                src="/assets/icons/trophy.png"
+                alt="Reward trophy"
+                width={280}
+                height={280}
+                className="mx-auto motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]"
+              />
+            ) : (
+              <ThemedBabyMascot
+                pose="waving"
+                alt="Waving baby mascot"
+                width={280}
+                height={280}
+                className="mx-auto motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]"
+              />
+            )}
           </div>
 
           <div>

@@ -6,19 +6,25 @@ import { getStoredTheme, type ThemeId } from "@/lib/theme/registry";
 
 /**
  * The centerpiece hero mascot. Swaps per active visual theme: the warm "Bloom"
- * (cute) skin shows a baby girl, while the other themes keep the warrior-baby
- * hero. Reads the persisted theme on mount and stays in sync with the shared
- * `theme-change` event, mirroring ThemeToggle.client.
+ * skin shows the seated baby girl mascot, Focus uses the seated baby boy
+ * mascot, and Calm uses the waving baby mascot. Reads the persisted theme on
+ * mount and stays in sync with the shared `theme-change` event, mirroring
+ * ThemeToggle.client.
  */
 
-const WARRIOR = {
-  src: "/assets/characters/warrior-baby-shield.png",
-  alt: "BabyLeveling baby hero mascot holding a star shield",
-} as const;
-
-const BLOOM = {
-  src: "/assets/characters/cute-baby-girl-sitting.png",
-  alt: "BabyLeveling baby girl mascot",
+const MASCOTS: Record<ThemeId, { src: string; alt: string }> = {
+  cute: {
+    src: "/assets/characters/cute-baby-girl-sitting.png",
+    alt: "BabyLeveling seated baby girl mascot",
+  },
+  focus: {
+    src: "/assets/characters/cute-baby-boy-sitting.png",
+    alt: "BabyLeveling seated baby boy mascot",
+  },
+  zen: {
+    src: "/assets/characters/cute-baby-girl-waving.png",
+    alt: "BabyLeveling waving baby mascot",
+  },
 } as const;
 
 interface HeroMascotProps {
@@ -44,7 +50,7 @@ export function HeroMascot({
       document.documentElement.removeEventListener("theme-change", handler);
   }, []);
 
-  const mascot = theme === "cute" ? BLOOM : WARRIOR;
+  const mascot = MASCOTS[theme];
 
   return (
     <Image

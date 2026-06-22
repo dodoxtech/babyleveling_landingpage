@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
+import { ThemedBabyMascot } from "@/components/sections/ThemedBabyMascot.client";
 
 interface HeroCharacterProps {
   locale: Locale;
@@ -29,8 +30,8 @@ export function HeroCharacter({ locale }: HeroCharacterProps) {
     >
       <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div className="relative min-h-[24rem] overflow-hidden rounded-[2rem] bg-[var(--bg-playfield)] p-8">
-          <Image
-            src="/assets/characters/cute-baby-girl-waving.png"
+          <ThemedBabyMascot
+            pose="waving"
             alt={t.mascotAlt}
             width={300}
             height={300}

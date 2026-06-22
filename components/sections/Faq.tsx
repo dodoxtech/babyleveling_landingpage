@@ -6,11 +6,13 @@ import { FaqAccordion } from "./FaqAccordion.client";
 
 interface FaqProps {
   locale: Locale;
+  limit?: number;
 }
 
-export function Faq({ locale }: FaqProps) {
+export function Faq({ locale, limit = 6 }: FaqProps) {
   const { faq } = getDictionary(locale).home;
-  const items = getFaqItems(locale).slice(0, 6);
+  const allItems = getFaqItems(locale);
+  const items = limit === 0 ? allItems : allItems.slice(0, limit);
 
   return (
     <section id="faq" aria-label="FAQ" className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">

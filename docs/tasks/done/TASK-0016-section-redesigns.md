@@ -85,7 +85,7 @@ Layout:
 - `min-height: 100dvh`, CSS Grid `grid-cols-[1fr_auto_1fr]` on desktop.
 - Left column: `hero-cute-bg.png` as `object-fit: cover` background, `cute-baby-girl-sitting.png`
   centred in foreground.
-- Right column: `hero-warrior-bg.png` background, `warrior-baby-standing.png`
+- Right column: `hero-warrior-bg.png` background, `cute-baby-boy-sitting.png`
   centred in foreground.
 - Centre column: text block, mode toggle, CTA buttons. Max-width ~480 px.
 - Headline: `.text-display` (Fredoka Bold). "Turn Your Baby's Growth Into an" in
@@ -337,7 +337,7 @@ Does it track health data?     How do I cancel?
 **Target:** "Start Your Baby's Adventure Today!" CTA section.
 
 ```
-[warrior-baby-shield.png]
+[cute-baby-girl-waving.png]
 
 Start Your Baby's Adventure Today!
 Every moment counts. Let's level up together.

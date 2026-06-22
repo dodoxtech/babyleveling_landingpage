@@ -32,7 +32,8 @@ rounded game UI, and emotional parent-friendly illustration.
 
 | Output | Size | Source |
 |--------|------|--------|
-| `public/assets/characters/*.png` | `800x800` | Cropped mascot poses from the reference sheet |
+| `public/assets/characters/cute-baby-girl-*.png` | `1254x1254` | Cropped mascot poses from the reference sheet |
+| `public/assets/characters/cute-baby-boy-*.png` | `1254x1254` | ChatGPT-generated baby boy variants on chroma-key green, then converted to alpha |
 | `public/assets/timeline/*.png` | `400x400` | Cropped level progression cards from the reference sheet |
 | `public/assets/icons/*.png` | `256x256` | Cropped RPG/care icons from the reference sheet |
 | `public/assets/motion/mascot-*.png` | `800x800` | Motion-state mascot assets generated on chroma-key green, then converted to alpha |

@@ -59,8 +59,8 @@ deleted after the new ones pass review.
 |------|------|-------------|
 | `public/assets/characters/cute-baby-girl-sitting.png` | 800 × 800 | Baby girl in pink ruffled outfit, seated, holding teddy bear, big smile. Cute Mode. |
 | `public/assets/characters/cute-baby-girl-waving.png` | 800 × 800 | Same character, standing pose, one arm raised in a wave. |
-| `public/assets/characters/warrior-baby-standing.png` | 800 × 800 | Baby in fantasy plate armour (gold trim), standing heroically, holding sword upright. Warrior Mode. |
-| `public/assets/characters/warrior-baby-shield.png` | 800 × 800 | Same character, slightly different angle, shield raised to camera. |
+| `public/assets/characters/cute-baby-boy-sitting.png` | 1254 × 1254 | Baby boy in soft blue outfit, seated, chroma-key generated then exported with alpha. |
+| `public/assets/characters/cute-baby-boy-waving.png` | 1254 × 1254 | Same baby boy style, standing and waving, chroma-key generated then exported with alpha. |
 
 **Style notes:**
 - Proportions: large head (~50 % of body height), round chubby cheeks, big bright eyes —
@@ -155,8 +155,8 @@ public/
 │   ├── characters/
 │   │   ├── cute-baby-girl-sitting.png
 │   │   ├── cute-baby-girl-waving.png
-│   │   ├── warrior-baby-standing.png
-│   │   └── warrior-baby-shield.png
+│   │   ├── cute-baby-boy-sitting.png
+│   │   └── cute-baby-boy-waving.png
 │   ├── timeline/
 │   │   ├── lv01-newborn.png
 │   │   ├── lv05-explorer.png

@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-20
+updated: 2026-06-22
 ---
 
 # Data Models & State Flow
@@ -58,6 +58,12 @@ interface ThemeDefinition {
   swatch: ThemeSwatch;
 }
 ```
+
+Theme-aware mascot images are runtime UI state, not content data. `HeroMascot.client.tsx`
+and `ThemedBabyMascot.client.tsx` read `getStoredTheme()` and listen for the shared
+`theme-change` event. The `focus` website skin swaps mascot poses to
+`cute-baby-boy-*.png`; `cute`/`zen` keep the girl mascot variants unless a section is in a
+non-mascot success state such as the waitlist trophy.
 
 ### Narrative content models (landed in TASK-0001)
 

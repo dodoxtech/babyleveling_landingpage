@@ -6,8 +6,10 @@ export const assets = {
   /* Characters */
   "character.cute-girl-sitting": "/assets/characters/cute-baby-girl-sitting.png",
   "character.cute-girl-waving": "/assets/characters/cute-baby-girl-waving.png",
-  "character.warrior-standing": "/assets/characters/warrior-baby-standing.png",
-  "character.warrior-shield": "/assets/characters/warrior-baby-shield.png",
+  "character.cute-boy-sitting": "/assets/characters/cute-baby-boy-sitting.png",
+  "character.cute-boy-waving": "/assets/characters/cute-baby-boy-waving.png",
+  "character.warrior-standing": "/assets/characters/cute-baby-boy-sitting.png",
+  "character.warrior-shield": "/assets/characters/cute-baby-girl-waving.png",
 
   /* Timeline stages */
   "timeline.lv01": "/assets/timeline/lv01-newborn.png",

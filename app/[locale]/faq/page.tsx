@@ -58,7 +58,7 @@ export default async function FaqPage({ params }: PageProps) {
           {dict.depth.faq.h1}
         </h1>
       </div>
-      <Faq locale={locale} />
+      <Faq locale={locale} limit={0} />
     </DepthPageShell>
   );
 }

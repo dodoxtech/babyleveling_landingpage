@@ -233,8 +233,8 @@ New behaviour — map the keys used in existing components to the new asset path
 |---------|----------|
 | `babyGirl.waving` | `/assets/characters/cute-baby-girl-waving.png` |
 | `babyGirl.sitting` | `/assets/characters/cute-baby-girl-sitting.png` |
-| `babyBoy.standing` | `/assets/characters/warrior-baby-standing.png` |
-| `babyBoy.shield` | `/assets/characters/warrior-baby-shield.png` |
+| `babyBoy.sitting` | `/assets/characters/cute-baby-boy-sitting.png` |
+| `babyBoy.waving` | `/assets/characters/cute-baby-boy-waving.png` |
 | `icon.trophy` | `/assets/icons/trophy.png` |
 | `icon.star` | `/assets/icons/xp-badge.png` |
 | (…add remaining icon mappings) | |

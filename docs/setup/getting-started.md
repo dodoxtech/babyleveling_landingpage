@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-20
+updated: 2026-06-22
 ---
 
 # Getting Started
@@ -94,7 +94,55 @@ build config or tooling must be reflected in this file**, with the `updated:` da
 > URL. A personal access token was previously embedded in the remote and removed; revoke that
 > old token at github.com/settings/tokens if not already done.
 
+## Google Search Console
+
+Once the site is deployed to its production domain, verify ownership and submit the sitemap
+so Google indexes the site actively rather than waiting to discover it through backlinks.
+
+> [!note] Pre-requisites already done
+> `robots.ts` (permissive, AI crawlers allowed) and `public/llms.txt` (AEO fact sheet) are
+> already configured — no action needed for those. See [[04-seo-aeo]] for the strategy.
+
+**Step 1 — Add the property**
+
+Go to https://search.google.com/search-console → **Add property** → choose **Domain**
+(not "URL prefix") and enter the bare domain (e.g. `babyleveling.app`). Domain property
+covers all subdomains and both `http`/`https` in one go.
+
+**Step 2 — Verify via DNS TXT record (recommended for Vercel)**
+
+Search Console will give you a TXT record value like:
+```
+google-site-verification=XXXXXXXXXXXXXXXXXXXX
+```
+Add it as a TXT record on your domain registrar (or in Vercel's DNS settings if Vercel
+manages DNS). Propagation takes a few minutes to a few hours. Once verified, the property
+becomes active.
+
+**Step 3 — Submit the sitemap**
+
+In Search Console → **Sitemaps** → enter `sitemap.xml` → **Submit**. Google will confirm
+it found the sitemap and show a page count within 24–48 hours.
+
+**Step 4 — Request indexing for priority pages**
+
+In Search Console → **URL Inspection** → paste each URL → **Request Indexing**. Prioritize
+in this order:
+1. `https://babyleveling.app/` (home)
+2. `/features`, `/rpg-system`, `/parents`, `/pricing`, `/faq`
+
+Google typically processes these within 1–7 days.
+
+**Step 5 — Monitor coverage**
+
+Check back in 3–5 days under **Indexing → Pages**. Watch for:
+- **Crawled — currently not indexed**: usually resolves on its own; if persistent, check for
+  thin content or canonicalization issues.
+- **Excluded by noindex**: should not appear (no `noindex` is set).
+- **Redirect errors**: fix any broken redirect chains.
+
 ## Related
 - [[architecture/overview]]
 - [[architecture/modules]]
 - [[decisions/ADR-0001-web-stack]]
+- [[04-seo-aeo]]

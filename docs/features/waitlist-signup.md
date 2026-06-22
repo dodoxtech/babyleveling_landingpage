@@ -1,7 +1,7 @@
 ---
 tags: [feature]
 status: implemented
-updated: 2026-06-20
+updated: 2026-06-22
 ---
 
 # Waitlist Signup
@@ -29,6 +29,8 @@ through a Next.js route handler to an email/storage provider — see [[architect
 - Form state machine: `idle | submitting | success | error` held in local component state.
 - Validate email client-side before POST; always re-validate server-side.
 - On success, replace the form with a celebratory confirmation (light "reward" moment).
+- In the idle form state, the mascot image follows the active website theme via
+  `ThemedBabyMascot.client.tsx`; the `focus` skin uses `cute-baby-boy-waving.png`.
 - Honeypot or basic rate-limit on the route handler to deter spam.
 - Reduced motion: skip the celebratory animation, keep the success text.
 
