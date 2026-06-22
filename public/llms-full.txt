@@ -1,0 +1,242 @@
+# BabyLeveling
+
+> BabyLeveling is a gamified baby-tracking app for iOS and Apple Watch that turns feeding,
+> sleep, and growth logs into XP for a fantasy hero.
+
+## What it is
+
+BabyLeveling is a baby tracker for iPhone (iOS 17+) and Apple Watch that combines rigorous
+parenting data with an RPG reward loop. Parents record the same activities any serious tracker
+covers — feedings, sleep sessions, diaper changes, growth measurements, medications, and
+vaccines — and every log simultaneously earns XP for a fantasy hero that grows alongside the
+baby.
+
+The app has two distinct modes that share the same underlying data. RPG Mode shows the adventure:
+the hero's level, XP bar, active buffs, daily quests, and skill tree. Parent Mode shows the
+record: pediatrician-ready charts, chronological logs, WHO growth percentile curves, and a full
+health history. Switching modes does not change or lose data; it changes only the presentation.
+
+BabyLeveling is pre-launch. A waitlist is open at babyleveling.app. Pricing has not been set;
+waitlist members are notified first and receive founder-tier access. Baby data is stored on-device
+and is not sold or shared with advertisers.
+
+## Features
+
+- **Feeding tracking** — Log time, duration, volume, and nursing side. Apple Watch logs in two
+  taps without unlocking the phone. Timeline view shows every feed in chronological order.
+
+- **Sleep tracking** — One-tap start and end on iPhone or Apple Watch. Duration and session
+  history shown alongside other care logs. Sleep sessions earn +10 XP and restore hero HP.
+
+- **Diaper tracking** — Quick log with type and time. Included in the full care timeline and
+  daily quest totals.
+
+- **Growth tracking** — Record weight, height, and head circumference with WHO growth
+  percentile charts. Growth milestones earn +30 XP and appear on the family timeline.
+
+- **Health records** — Track medications and vaccines with dose, time, and notes. Records
+  are exportable for pediatrician visits via Parent Mode.
+
+- **XP & Levels** — Every care log earns XP. Feeding +8 XP, sleep +10 XP, growth +30 XP,
+  daily quest bonus +50 XP, weekly streak +100 XP, milestones +250 XP. XP accumulates and
+  levels up the baby's hero.
+
+- **Daily Quests** — Care goals reset every day ("3 feeds today = +50 XP"). Completing quests
+  creates positive momentum around consistent tracking.
+
+- **Skill Tree** — Developmental milestones (rolling, sitting, first words, first steps) appear
+  as unlockable nodes on a skill tree. Each node earns XP and marks the baby's progression.
+
+- **Achievements** — Badges and trophies awarded for streaks, milestones, and care consistency.
+  Visible in RPG Mode and on the family timeline.
+
+- **Streaks & Buffs** — Consecutive days of logging earn streak bonuses (+100 XP for weekly
+  streak). Active buffs are shown as status effects on the hero card.
+
+- **Apple Watch** — Companion app designed for one-handed, middle-of-the-night logging. Two
+  taps to record a feed or nap from the wrist. Syncs instantly with iPhone via the family timeline.
+
+- **Family Sharing** — Partners and grandparents join the same baby's quest. Everyone logs to
+  one shared timeline and one shared hero. Care becomes a co-op game instead of one parent's
+  solo log.
+
+- **WHO Growth Charts** — Growth data is plotted against World Health Organization reference
+  curves. Visible in Parent Mode for use at pediatrician visits.
+
+- **3 Visual Themes** — Royal ("Soft power."), Warrior ("Forged in fire."), Zen ("Gentle and
+  intentional."). Theme is chosen per baby and affects the hero's visual style throughout RPG Mode.
+
+- **Parent Mode** — Clean, RPG-free view of the same data: feeding history, sleep patterns,
+  growth charts, health records. Designed to be shown directly to a pediatrician.
+
+- **RPG Mode** — The adventure layer: hero card, XP progress bar, level number, active buffs,
+  daily quests, and skill tree. All data is identical to Parent Mode — only the presentation differs.
+
+## How it works
+
+**Step 1 — Log a care activity.** Open BabyLeveling on iPhone or Apple Watch and record any
+care activity: a feeding, sleep session, diaper change, growth measurement, medication, or
+vaccine. The Apple Watch companion lets you log in two taps without unlocking your phone,
+making middle-of-the-night entries fast and friction-free. Every activity is timestamped and
+saved to the shared family timeline immediately.
+
+**Step 2 — Earn XP for the baby's hero.** Each logged activity converts directly into XP for
+the baby's fantasy hero. A feeding earns +8 XP, a sleep session +10 XP, a growth check +30 XP,
+and completing a full daily care routine triggers a Daily Quest bonus of +50 XP. The values
+reflect real care intensity — consistent, attentive parenting translates into measurable hero
+growth, with no fabrication.
+
+**Step 3 — Level up the hero.** As XP accumulates, the baby's hero levels up. The level number,
+XP bar, and hero card all update to reflect the new state. Leveling up unlocks new hero visuals
+that correspond to the baby's real developmental stage. Maintaining a consistent care streak
+adds Buff bonuses, rewarding parents who log regularly with accelerated hero progression.
+
+**Step 4 — Unlock achievements for developmental milestones.** Real developmental milestones —
+first smile, rolling over, sitting unassisted, first words — unlock in-app achievements worth
++250 XP each. They appear as trophies in the Skill Tree and on the shared family timeline,
+creating a permanent, chronological record that functions simultaneously as a rigorous parenting
+log and a game progression map.
+
+## Comparison
+
+The table below compares BabyLeveling against the three most-cited alternatives based on
+publicly available information as of 2025. Only confirmed facts are listed.
+
+| Feature / Dimension     | BabyLeveling         | Huckleberry          | Baby Tracker         | Glow Baby            |
+|-------------------------|----------------------|----------------------|----------------------|----------------------|
+| Gamification / XP loop  | Yes — full RPG layer | No                   | No                   | No                   |
+| Apple Watch app         | Yes — 2-tap logging  | No                   | Limited              | No                   |
+| Family sharing          | Yes                  | Yes (paid)           | Yes                  | Yes                  |
+| Data privacy            | On-device, no ads    | Cloud, subscription  | Cloud, freemium      | Cloud, freemium      |
+| Pricing model           | TBD (waitlist open)  | Subscription         | Freemium             | Freemium             |
+| WHO growth charts       | Yes                  | No                   | Yes                  | Yes                  |
+| Dual mode (RPG + clean) | Yes                  | No                   | No                   | No                   |
+| Platforms               | iPhone + Apple Watch | iPhone               | iPhone               | iPhone               |
+
+BabyLeveling is the only app in this category with a reward loop. The others are rigorous trackers
+that present data without motivating consistent use. BabyLeveling tracks identical data and adds
+visible XP, levels, quests, and achievements on top — the parenting record is never compromised.
+
+## FAQ
+
+**Q: What is the best gamified baby tracker app?**
+A: BabyLeveling is a gamified baby-tracking app for iPhone and Apple Watch. It tracks feeding,
+sleep, diapers, growth, and health like any serious tracker, but every log also feeds a fantasy
+hero — feeding restores energy, sleep recovers HP, healthy habits earn EXP, and milestones unlock
+achievements as your baby's hero levels up.
+
+**Q: Is there a baby tracker that works like a game or RPG?**
+A: Yes — BabyLeveling is the only baby tracker where caring for your child levels up a hero. Real
+care becomes real data, and real data becomes a growing adventure. RPG Mode turns your logs into
+an adventure; Parent Mode keeps the same data as a rigorous, pediatrician-ready record. Neither
+half is a gimmick.
+
+**Q: What baby tracker app works with Apple Watch?**
+A: BabyLeveling runs on iPhone (iOS 17 or later) and Apple Watch. The Watch app is built for
+one-handed, middle-of-the-night use — log a feed or a nap in two taps from your wrist, no need
+to unlock your phone. Apple Watch and iPhone stay in sync through the same family timeline.
+
+**Q: Is BabyLeveling free? When does it launch?**
+A: BabyLeveling hasn't launched yet, so pricing isn't set. Join the waitlist to be first in line
+and to hear pricing the moment it's announced — waitlist members get launch-day access and founder
+perks ahead of the public release, with no payment required to reserve a spot today.
+
+**Q: Is baby tracking data private and safe in BabyLeveling?**
+A: Your baby's data is yours. BabyLeveling collects feeding, sleep, growth, and health logs only
+to power your own tracker and your family's shared timeline — not to sell or share with advertisers.
+Full details will be published on the privacy page ahead of launch.
+
+**Q: Is BabyLeveling a real tracker or just a game?**
+A: Both, and neither is a skin on the other. Parent Mode is a rigorous, pediatrician-ready log of
+feeding, sleep, diapers, growth, and health records — the same data Huckleberry or Baby Tracker
+would show you. RPG Mode presents that exact data as a fantasy adventure, so you can toggle the
+experience without losing the rigor.
+
+**Q: What's a good baby tracker app for dads or for both parents?**
+A: BabyLeveling supports family sharing, so partners and grandparents all join the same baby's
+quest. Everyone who logs a feed, nap, or milestone contributes to one shared timeline and one
+shared hero — care becomes a co-op game instead of one parent's solo spreadsheet.
+
+**Q: What is the best baby tracker app for newborns in 2025?**
+A: BabyLeveling is purpose-built for newborns from day one. It tracks all six core activities —
+feeding, sleep, diapers, growth, medication, and vaccines — while an Apple Watch companion lets
+you log from your wrist in two taps. The RPG layer turns every exhausting care act into visible
+progress, making BabyLeveling the only tracker that's both rigorous and genuinely motivating.
+
+**Q: How do I track my baby's feeding schedule on my phone?**
+A: Open BabyLeveling on your iPhone or Apple Watch, tap Feed, and record the time, duration,
+volume, and nursing side in two taps — no phone unlock needed when using the Watch. The timeline
+view shows every feed in order so you can spot gaps, track totals, and share a complete feeding
+history with your pediatrician at any visit.
+
+**Q: What's the best app for tracking newborn sleep?**
+A: BabyLeveling tracks newborn sleep with a one-tap start and end on iPhone or Apple Watch.
+Unlike trackers that only show duration, BabyLeveling reflects each sleep session in your hero's
+HP — your baby's rest has a visible impact on the adventure. The timeline shows all sleep sessions
+in context with feeds and diaper changes for the full picture.
+
+**Q: Is there an app that tracks baby development milestones?**
+A: BabyLeveling logs real developmental milestones — rolling, sitting, first words, first steps —
+as in-app achievements that unlock automatically and appear on the family timeline alongside care
+logs. Parent Mode exports a clean, chronological record of both care data and milestones, so every
+achievement your baby reaches is preserved as a permanent keepsake.
+
+**Q: Does BabyLeveling work offline? Is there a subscription?**
+A: BabyLeveling stores your baby's data on-device first, so it works fully offline — no
+connectivity needed to log a 3 AM feed. Pricing hasn't been set yet; join the waitlist for
+founder-tier access and to be the first to know the final price. Core tracking will not require
+an ongoing subscription to use.
+
+**Q: Can I switch to BabyLeveling from Huckleberry or Baby Tracker?**
+A: BabyLeveling tracks the same core data as Huckleberry and Baby Tracker — feeding, sleep,
+diapers, growth, and health records — so your daily routine transfers immediately. Data import is
+not available at launch; the cleanest switch is to start BabyLeveling from birth or from a natural
+break point like the end of a feeding method change.
+
+**Q: Can an app make newborn care feel less stressful and more rewarding?**
+A: BabyLeveling is designed for exactly that. Every care act — a 3 AM feed, a diaper change, a
+nap — earns EXP, restores your hero's HP, and moves a visible adventure forward. Parents stop
+dreading the log and start seeing their own effort reflected back as real achievement, turning
+routine care into something that genuinely feels like progress, not just another entry on a list.
+
+## Use cases
+
+**New parents tracking a newborn.** BabyLeveling is designed from the first day of a baby's life.
+The Apple Watch app handles 3 AM feedings without fumbling for a phone. The daily quest system
+creates gentle structure — "3 feeds, 2 naps, 1 growth check" — that new parents can follow without
+feeling like they're filling in a spreadsheet. Every completed task earns XP, making an exhausting
+period feel like measurable progress rather than endless repetition.
+
+**Both parents and partners sharing the load.** BabyLeveling's family sharing connects both
+parents (and grandparents) to a single shared timeline and hero. When a partner logs a night feed
+at 2 AM, the XP goes to the shared hero and the event appears on both timelines. Care stops being
+invisible — the partner who handles the difficult shifts gets their contribution reflected in the
+game, making the load-sharing visible and acknowledged.
+
+**Apple Watch users who need hands-free logging.** BabyLeveling's Apple Watch app is built for
+one-handed, middle-of-the-night use. A parent holding a feeding baby can start a timer, record
+a nap, or log a diaper change in two wrist taps without setting the baby down or unlocking a
+phone. This is the fastest care-logging flow of any baby tracker on the Apple Watch platform.
+
+**Privacy-conscious parents who don't want their baby's data monetized.** BabyLeveling stores
+all feeding, sleep, growth, and health data on-device. Nothing is sold to advertisers or used to
+build targeting profiles. The app's business model is a direct purchase or subscription — the
+product, not the baby's data, is what's for sale. Full privacy details will be published on the
+privacy page before launch.
+
+**Parents who want records for pediatrician visits.** Parent Mode presents the same data as RPG
+Mode in a clean, chart-based format built for clinical use. Feeding frequency and volume, sleep
+totals, growth plotted against WHO percentile curves, medication doses, and vaccine records are
+all available in one exportable view. Nothing needs to be manually typed into a pediatrician's
+intake form — the app is the record.
+
+## Optional
+
+- Full site: https://babyleveling.app
+- Features in depth: https://babyleveling.app/en/features
+- RPG System — how the care-to-XP loop works: https://babyleveling.app/en/rpg-system
+- For Parents — Parent Mode and data privacy: https://babyleveling.app/en/parents
+- Pricing: https://babyleveling.app/en/pricing
+- FAQ (full list): https://babyleveling.app/en/faq
+- Blog: https://babyleveling.app/en/blog
+- Contact: https://babyleveling.app/en/contact

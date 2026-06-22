@@ -4,7 +4,7 @@ import { Fredoka, Poppins, Baloo_2, Be_Vietnam_Pro } from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/seo";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL, getLlmsTxtAlternate } from "@/lib/seo";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
 import { localeAlternates, localeHref } from "@/lib/i18n/paths";
 import "../globals.css";
@@ -85,6 +85,7 @@ export async function generateMetadata({
     alternates: {
       canonical: localeHref(locale, "/"),
       languages: localeAlternates("/"),
+      types: getLlmsTxtAlternate(),
     },
     openGraph: {
       type: "website",

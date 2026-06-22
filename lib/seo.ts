@@ -33,3 +33,12 @@ export const SITE_DESCRIPTION =
  */
 export const SITE_DESCRIPTOR =
   "BabyLeveling is a gamified baby-tracking app for iOS and Apple Watch that turns feeding, sleep, and growth logs into XP for a fantasy hero.";
+
+/**
+ * Returns the `alternates.types` entry for the `<link rel="alternate" type="text/plain">`
+ * discovery tag injected into every page's `<head>`. AI crawlers use this to locate
+ * `llms.txt` without relying on a separate robots.txt directive. TASK-0030.
+ */
+export function getLlmsTxtAlternate(): Record<string, string> {
+  return { "text/plain": "/llms.txt" };
+}

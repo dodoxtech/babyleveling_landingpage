@@ -33,3 +33,7 @@ EXP, and milestones unlock achievements.
 - For Parents — Parent Mode, rigor, and data privacy: /parents
 - Pricing — not yet set; waitlist members hear first: /pricing
 - FAQ — standalone, full question list: /faq
+
+## Optional
+
+- Full detail (features, comparison table, all FAQ answers, use cases): /llms-full.txt
