@@ -1,7 +1,7 @@
 ---
 tags: [feature, legal]
 status: implemented
-updated: 2026-06-18
+updated: 2026-06-22
 ---
 
 # Legal Pages
@@ -14,8 +14,8 @@ BabyLeveling ships two localized legal routes:
 
 | Page | Purpose |
 |------|---------|
-| `/legal/privacy` | Explains baby-data handling, device storage, optional cloud sync, waitlist email, family sharing, deletion, and children's privacy. |
-| `/legal/terms` | Defines website/app terms, license scope, Apple App Store and Google Play considerations, acceptable use, medical disclaimer, payments, IP, and liability limits. |
+| `/legal/privacy` | Explains launch-stage local baby-data handling, waitlist email, contact form data, first-party analytics, future optional server backup/sharing, deletion, and children's privacy. |
+| `/legal/terms` | Defines website/app terms, iOS/watchOS launch license scope, platform store considerations, local-data responsibilities, acceptable use, medical disclaimer, future payments/ads, IP, and liability limits. |
 
 ## UX Notes
 
@@ -26,19 +26,21 @@ BabyLeveling ships two localized legal routes:
   trust panel on the landing page before the final waitlist CTA.
 - The pages are content-first and server-rendered. No motion or new runtime dependency is
   introduced.
-- Each page includes a sticky desktop side panel that clarifies Apple, Android, and web
-  coverage, plus a cross-link to the sibling legal page.
-- Legal body copy is currently English-first while the page title, breadcrumb, last-updated
-  label, nav, and footer continue to use the locale dictionary.
+- Each page includes a sticky desktop side panel that clarifies launch scope, future
+  platform expansion, and web coverage, plus a cross-link to the sibling legal page.
+- Legal body copy is localized in English, Vietnamese, and Japanese with locale-native
+  phrasing rather than literal translation.
 
 ## Platform Notes
 
-- Apple references cover iOS, watchOS, iCloud, App Store purchases, subscriptions, refunds,
-  and device permissions.
-- Android references cover Android permissions, Google Play, Google Play Billing, refunds,
-  subscriptions, and device backup or sync where available.
-- The Terms page states that Apple and Google platform terms may also apply, but that
-  BabyLeveling remains responsible for its own website, waitlist, and app support.
+- Launch references cover iOS, watchOS, local device storage, Apple App Store rules,
+  and device permissions. The app does not use Apple HealthKit.
+- Android, cross-device sharing, family access, and server backup are described only as
+  future optional features that may be added later and would require clear user action
+  before baby logs leave the device.
+- The free launch version has no ads. Future paid features or ads are described as
+  possible later changes, not launch behavior.
+- The official contact email for legal/privacy requests is `contact@babyleveling.com`.
 
 ## Related
 

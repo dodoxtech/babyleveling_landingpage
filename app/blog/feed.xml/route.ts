@@ -32,7 +32,7 @@ export function GET() {
       <guid isPermaLink="true">${url}</guid>
       <description>${description}</description>
       <pubDate>${pubDate}</pubDate>
-      <author>hello@babyleveling.app (${escapeXml(post.author)})</author>
+      <author>contact@babyleveling.com (${escapeXml(post.author)})</author>
     </item>`;
     })
     .join("\n");
