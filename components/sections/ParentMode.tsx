@@ -1,7 +1,6 @@
-import Image from "next/image";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
-import { ParentModeLockReveal } from "@/components/sections/ParentModeLockReveal.client";
+import { ParentModeTrustBento } from "@/components/sections/ParentModeTrustBento.client";
 
 interface ParentModeProps {
   locale: Locale;
@@ -9,7 +8,7 @@ interface ParentModeProps {
 
 const trustIcons = [
   "/assets/icons/heart-pulse.png",
-  "/assets/icons/shield.png",
+  "/assets/motion/privacy-lock.png", // richer branded illustration for privacy trust card
   "/assets/icons/family.png",
 ] as const;
 
@@ -52,87 +51,17 @@ export function ParentMode({ locale }: ParentModeProps) {
           </dl>
         </div>
 
-        {/* Trust bento — divider list on mobile, 2-col bento on desktop.
-            Card 0 spans full width (featured); cards 1+2 are side-by-side. */}
-        <ul className="divide-y divide-[var(--border-card)] lg:order-first lg:grid lg:grid-cols-2 lg:gap-3 lg:divide-y-0">
-          {trust.map((item, i) => {
-            const featured = i === 0;
-            const last = i === trust.length - 1;
-
-            return (
-              <li
-                key={item.title}
-                className={[
-                  /* Mobile: compact row */
-                  "flex items-start gap-4",
-                  i === 0 ? "pb-4" : last ? "pt-4" : "py-4",
-                  /* Desktop: bento card */
-                  featured ? "lg:col-span-2" : "lg:col-span-1",
-                  "lg:flex lg:rounded-[var(--radius-xl)] lg:border lg:border-[var(--border-card)] lg:[box-shadow:var(--shadow-card)]",
-                  featured
-                    ? [
-                        "lg:items-center lg:gap-6 lg:p-6",
-                        "lg:bg-[var(--bg-section-alt)]",
-                        /* accent left-border to lift the featured card */
-                        "lg:[border-left:3px_solid_var(--accent-primary)]",
-                      ].join(" ")
-                    : [
-                        "lg:flex-col lg:gap-3 lg:p-5",
-                        "lg:[background:linear-gradient(160deg,rgba(255,255,255,0.92),rgba(255,255,255,0.74))]",
-                        "lg:backdrop-blur-[16px]",
-                      ].join(" "),
-                ].join(" ")}
-              >
-                {/* Shield (i===1) gets a lock-settle animation to reinforce the
-                    privacy/local-data trust signal. Other icons are static. */}
-                {i === 1 ? (
-                  <ParentModeLockReveal
-                    src={trustIcons[i]}
-                    size={48}
-                    className={[
-                      "mt-0.5 h-9 w-9 lg:mt-0 lg:h-10 lg:w-10",
-                    ].join(" ")}
-                  />
-                ) : (
-                  <Image
-                    src={trustIcons[i]}
-                    alt=""
-                    width={48}
-                    height={48}
-                    aria-hidden="true"
-                    className={[
-                      "shrink-0",
-                      featured
-                        ? "mt-0.5 h-10 w-10 lg:mt-0 lg:h-14 lg:w-14 lg:shrink-0"
-                        : "mt-0.5 h-9 w-9 lg:mt-0 lg:h-10 lg:w-10",
-                    ].join(" ")}
-                  />
-                )}
-
-                <div className="min-w-0">
-                  <h3
-                    className={[
-                      "font-display font-bold leading-tight",
-                      featured ? "text-base lg:text-[1.15rem]" : "text-base lg:text-sm",
-                    ].join(" ")}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className={[
-                      "text-sm leading-6 text-[var(--text-secondary)]",
-                      featured
-                        ? "mt-1 lg:mt-2 lg:text-[0.9375rem] lg:leading-7"
-                        : "mt-1 lg:mt-1.5 lg:text-xs lg:leading-[1.5]",
-                    ].join(" ")}
-                  >
-                    {item.body}
-                  </p>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        {/* Trust bento — calm scroll-reveal with locale-aware timing.
+            Card 0 spans full width (featured); cards 1+2 are side-by-side.
+            Motion is slower than reward sections: settled, not bouncing. */}
+        <ParentModeTrustBento
+          locale={locale}
+          items={trust.map((item, i) => ({
+            ...item,
+            icon: trustIcons[i],
+            isPrivacy: i === 1,
+          }))}
+        />
       </div>
     </section>
   );

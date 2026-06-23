@@ -43,7 +43,7 @@ export function ParentModeLockReveal({ src, className, size }: ParentModeLockRev
         initial={{ scale: 0.85 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true, margin: "-8% 0px" }}
-        transition={{ delay: 0.38, type: "spring", damping: 8, stiffness: 260 }}
+        transition={{ delay: 0.38, type: "spring", damping: 20, stiffness: 200 }}
       >
         <Image
           src={src}

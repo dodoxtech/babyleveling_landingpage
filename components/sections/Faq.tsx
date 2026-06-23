@@ -25,7 +25,7 @@ export function Faq({ locale, limit = 6 }: FaqProps) {
             and a tracker they will keep using.
           </p>
         </div>
-        <FaqAccordion items={items} />
+        <FaqAccordion items={items} locale={locale} />
       </div>
     </section>
   );

@@ -4,6 +4,8 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle.client";
 import { SITE_DESCRIPTOR } from "@/lib/seo";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
+import { CareXpSimulator, type SimTile } from "@/components/sections/CareXpSimulator.client";
+import { MascotXpGlow } from "@/components/sections/MascotXpGlow.client";
 
 interface HeroProps {
   locale: Locale;
@@ -12,14 +14,12 @@ interface HeroProps {
 export function Hero({ locale }: HeroProps) {
   const t = getDictionary(locale).home.hero;
 
-  const questTiles = [
-    { label: t.questFeed, icon: "/assets/icons/bottle.png", xp: "+40 XP" },
-    { label: t.questSleep, icon: "/assets/icons/moon-star.png", xp: "+60 XP" },
-    {
-      label: t.questGrowth,
-      icon: "/assets/icons/growth-chart.png",
-      xp: "+90 XP",
-    },
+  // Numeric xpNum for the simulator (universal — "XP" is locale-independent).
+  // The label is locale-aware; the XP value is raw so the bar math stays clean.
+  const questTiles: SimTile[] = [
+    { label: t.questFeed, icon: "/assets/icons/bottle.png", xpNum: 40 },
+    { label: t.questSleep, icon: "/assets/icons/moon-star.png", xpNum: 60 },
+    { label: t.questGrowth, icon: "/assets/icons/growth-chart.png", xpNum: 90 },
   ];
 
   return (
@@ -68,6 +68,7 @@ export function Hero({ locale }: HeroProps) {
         </div>
 
         <div className="order-2 min-w-0 lg:order-2">
+          {/* Mobile: stacked character sheet */}
           <div className="w-full sm:hidden">
             <MobileCharacterSheet
               platformNote={t.platformNote}
@@ -77,7 +78,7 @@ export function Hero({ locale }: HeroProps) {
             />
           </div>
 
-          {/* Desktop (sm+): the original floating collage. */}
+          {/* Desktop (sm+): floating collage with live care → XP simulation */}
           <div className="relative mx-auto hidden aspect-[1.02] w-full max-w-[calc(100vw-2rem)] sm:block sm:max-w-[38rem]">
             <div
               className="absolute inset-8 rounded-[2rem]"
@@ -86,14 +87,18 @@ export function Hero({ locale }: HeroProps) {
             <div className="absolute left-2 top-4 h-28 w-28 rounded-full bg-[var(--accent-secondary)] opacity-20" />
             <div className="absolute bottom-8 right-4 h-24 w-24 rounded-full bg-[var(--accent-pink)] opacity-20" />
 
+            {/* Level card — static level context */}
             <div className="card-duolingo absolute left-0 top-7 w-[15rem] rotate-[-5deg] p-4">
               <LevelCardBody status={t.cardLevelStatus} />
             </div>
 
+            {/* Quick Log card — live care → XP simulation */}
             <div className="card-duolingo absolute bottom-7 right-0 w-[16rem] rotate-[4deg] p-4">
-              <QuickLogCardBody title={t.cardQuickLog} tiles={questTiles} />
+              <CareXpSimulator tiles={questTiles} title={t.cardQuickLog} />
             </div>
 
+            {/* Mascot at centre; glow sibling reacts to XP events */}
+            <MascotXpGlow />
             <HeroMascot />
           </div>
         </div>
@@ -111,7 +116,7 @@ function MobileCharacterSheet({
   platformNote: string;
   status: string;
   title: string;
-  tiles: { label: string; icon: string; xp: string }[];
+  tiles: SimTile[];
 }) {
   return (
     <div className="card-duolingo w-full max-w-full overflow-hidden p-3">
@@ -131,13 +136,14 @@ function MobileCharacterSheet({
           </div>
         </div>
 
+        {/* Mobile mascot — reactions handled inside HeroMascot itself */}
         <div className="relative z-10 flex min-w-0 items-end justify-center">
           <HeroMascot className="w-[115%] max-w-[14.5rem] translate-y-2 motion-safe:animate-[idle-bob_4s_ease-in-out_infinite]" />
         </div>
       </div>
 
       <div className="mt-3">
-        <QuickLogCardBody title={title} tiles={tiles} compact />
+        <CareXpSimulator tiles={tiles} title={title} compact />
       </div>
 
       <div className="mt-3 flex justify-center">
@@ -147,8 +153,8 @@ function MobileCharacterSheet({
   );
 }
 
-/** Inner content of the "Lv. 5" progress card, shared by the mobile stack and
- * the desktop collage so only the wrapper (position/rotation) differs. */
+/** Static level context card — shows "Lv. 5, 34% through" so users understand
+ *  what the animated Quick Log bar is filling toward. */
 function LevelCardBody({
   status,
   compact = false,
@@ -182,49 +188,7 @@ function LevelCardBody({
       <div
         className={`${compact ? "mt-2 h-2.5" : "mt-3 h-3"} overflow-hidden rounded-full bg-[#e9e7df]`}
       >
-        <div className="h-full w-[68%] rounded-full bg-grad-xp" />
-      </div>
-    </>
-  );
-}
-
-/** Inner content of the "Quick Log" quest-tile card, shared across layouts. */
-function QuickLogCardBody({
-  title,
-  tiles,
-  compact = false,
-}: {
-  title: string;
-  tiles: { label: string; icon: string; xp: string }[];
-  compact?: boolean;
-}) {
-  return (
-    <>
-      <p
-        className={`font-display font-bold ${compact ? "text-sm" : "text-base"}`}
-      >
-        {title}
-      </p>
-      <div className={`${compact ? "mt-2" : "mt-3"} grid grid-cols-3 gap-2`}>
-        {tiles.map((tile) => (
-          <div
-            key={tile.label}
-            className="rounded-[var(--radius-md)] bg-[var(--bg-section-alt)] p-2 text-center"
-          >
-            <Image
-              src={tile.icon}
-              alt=""
-              width={compact ? 26 : 30}
-              height={compact ? 26 : 30}
-              className="mx-auto"
-              aria-hidden="true"
-            />
-            <p className="mt-1 text-[0.7rem] font-bold">{tile.label}</p>
-            <p className="text-[0.65rem] text-[var(--accent-primary)]">
-              {tile.xp}
-            </p>
-          </div>
-        ))}
+        <div className="h-full w-[34%] rounded-full bg-grad-xp" />
       </div>
     </>
   );

@@ -3,13 +3,30 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { FaqItem } from "@/lib/content/faq";
+import type { Locale } from "@/lib/i18n/config";
 
 interface FaqAccordionProps {
   items: FaqItem[];
+  locale: Locale;
 }
 
-export function FaqAccordion({ items }: FaqAccordionProps) {
+/**
+ * Locale-sensitive accordion timing.
+ * JA gets slower, softer motion — FAQ reads as reference documentation there,
+ * not a quick snappy CTA. EN/VI keep their current snappy-but-calm timing.
+ */
+const TIMING: Record<
+  Locale,
+  { expand: number; icon: number; ease: [number, number, number, number] }
+> = {
+  ja: { expand: 0.32, icon: 0.22, ease: [0.25, 0.1, 0.25, 1] },
+  en: { expand: 0.24, icon: 0.18, ease: [0.4, 0, 0.2, 1] },
+  vi: { expand: 0.26, icon: 0.18, ease: [0.4, 0, 0.2, 1] },
+};
+
+export function FaqAccordion({ items, locale }: FaqAccordionProps) {
   const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null);
+  const t = TIMING[locale];
 
   return (
     <div className="grid gap-2">
@@ -29,7 +46,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
               </span>
               <motion.span
                 animate={{ rotate: isOpen ? 45 : 0 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
+                transition={{ duration: t.icon, ease: t.ease }}
                 className="shrink-0 text-xl font-light leading-none text-[var(--accent-primary)]"
                 aria-hidden="true"
               >
@@ -45,7 +62,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.24, ease: [0.4, 0, 0.2, 1] }}
+                  transition={{ duration: t.expand, ease: t.ease }}
                   className="overflow-hidden"
                 >
                   <p className="px-5 pb-4 pt-0 text-sm leading-6 text-[var(--text-secondary)]">

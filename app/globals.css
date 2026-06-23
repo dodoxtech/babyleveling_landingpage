@@ -585,6 +585,39 @@ body::before {
   }
 }
 
+/* Care-to-XP story motion (TASK-0025) ---------------------------------------- */
+
+/* Tile tap — press-down bounce when a care action is "logged". */
+@keyframes care-tap {
+  0%   { transform: scale(1) rotate(0deg); }
+  28%  { transform: scale(0.86) rotate(-2deg); }
+  65%  { transform: scale(1.07) rotate(1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* XP badge — floats up from the tapped tile then fades out. */
+@keyframes xp-pop {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(4px) scale(0.8); }
+  32%  { opacity: 1; transform: translateX(-50%) translateY(-3px) scale(1.1); }
+  62%  { opacity: 0.9; transform: translateX(-50%) translateY(-6px) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-18px) scale(0.92); }
+}
+
+/* Bar glow — brief halo pulse after the XP bar fills. */
+@keyframes bar-glow-pulse {
+  0%   { opacity: 0; }
+  22%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Mascot glow — radial XP aura that briefly haloes the hero on XP earn. */
+@keyframes mascot-glow {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+  30%  { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+  70%  { opacity: 0.6; transform: translate(-50%, -50%) scale(1.08); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.18); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
