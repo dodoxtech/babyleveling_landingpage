@@ -261,7 +261,7 @@ const POSTS: BlogPost[] = [
           "BabyLeveling is the only baby tracker where logging earns XP for a fantasy hero. Feed → +8 XP. Sleep → +10 XP. Growth check → +30 XP. Hit your daily care goals → +50 XP bonus. The hero levels up as the baby grows. It sounds like a gimmick until you realise the mechanic solves the one problem every other tracker ignores: what gets you to open the app at 3 AM when you're eight weeks in and running on four hours of sleep.",
           "The Apple Watch companion is built for exactly that moment — two taps on your wrist, no phone unlock, log saved. It's the fastest logging flow of any tracker on this list.",
           "The data underneath is as rigorous as any clinical app. Parent Mode strips the RPG layer entirely and shows the same logs in pediatrician-ready format: feeding history, sleep totals, WHO growth percentile charts, medication and vaccine records. Same data, two views, one tap to switch.",
-          "BabyLeveling is pre-launch. Join the waitlist at babyleveling.app — pricing isn't set yet, but waitlist members get founder access.",
+          "BabyLeveling is pre-launch. Join the waitlist at babyleveling.com — pricing isn't set yet, but waitlist members get founder access.",
           "Best for: Parents who have tried and quit plain trackers. Parents who want to log from Apple Watch. Both parents sharing a single timeline.",
         ],
       },

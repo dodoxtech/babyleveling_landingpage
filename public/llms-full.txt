@@ -16,7 +16,7 @@ the hero's level, XP bar, active buffs, daily quests, and skill tree. Parent Mod
 record: pediatrician-ready charts, chronological logs, WHO growth percentile curves, and a full
 health history. Switching modes does not change or lose data; it changes only the presentation.
 
-BabyLeveling is pre-launch. A waitlist is open at babyleveling.app. Pricing has not been set;
+BabyLeveling is pre-launch. A waitlist is open at babyleveling.com. Pricing has not been set;
 waitlist members are notified first and receive founder-tier access. Baby data is stored on-device
 and is not sold or shared with advertisers.
 
@@ -232,11 +232,11 @@ intake form — the app is the record.
 
 ## Optional
 
-- Full site: https://babyleveling.app
-- Features in depth: https://babyleveling.app/en/features
-- RPG System — how the care-to-XP loop works: https://babyleveling.app/en/rpg-system
-- For Parents — Parent Mode and data privacy: https://babyleveling.app/en/parents
-- Pricing: https://babyleveling.app/en/pricing
-- FAQ (full list): https://babyleveling.app/en/faq
-- Blog: https://babyleveling.app/en/blog
-- Contact: https://babyleveling.app/en/contact
+- Full site: https://babyleveling.com
+- Features in depth: https://babyleveling.com/en/features
+- RPG System — how the care-to-XP loop works: https://babyleveling.com/en/rpg-system
+- For Parents — Parent Mode and data privacy: https://babyleveling.com/en/parents
+- Pricing: https://babyleveling.com/en/pricing
+- FAQ (full list): https://babyleveling.com/en/faq
+- Blog: https://babyleveling.com/en/blog
+- Contact: https://babyleveling.com/en/contact
