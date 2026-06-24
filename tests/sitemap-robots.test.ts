@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
+import { beforeAll, describe, it, expect } from "vitest";
 import sitemap from "@/app/sitemap";
-import robots from "@/app/robots";
+import { GET as robotsTxt } from "@/app/robots.txt/route";
 import { SITE_URL } from "@/lib/seo";
 import { getAllPosts } from "@/lib/content/blog";
 
@@ -68,39 +68,38 @@ describe("sitemap()", () => {
 
 // ─── robots ─────────────────────────────────────────────────────────────────
 
-describe("robots()", () => {
-  const result = robots();
-  const agentNames = (result.rules as { userAgent: string; allow: string }[]).map(
-    (r) => r.userAgent,
-  );
+describe("robots.txt", () => {
+  let body = "";
 
-  it("allows anthropic-ai", () => {
-    expect(agentNames).toContain("anthropic-ai");
+  beforeAll(async () => {
+    body = await robotsTxt().text();
   });
 
-  it("allows Applebot-Extended", () => {
-    expect(agentNames).toContain("Applebot-Extended");
-  });
-
-  it("allows YouBot", () => {
-    expect(agentNames).toContain("YouBot");
-  });
-
-  it("allows DuckAssistBot", () => {
-    expect(agentNames).toContain("DuckAssistBot");
-  });
-
-  it("allows cohere-ai", () => {
-    expect(agentNames).toContain("cohere-ai");
-  });
-
-  it("allows Bytespider", () => {
-    expect(agentNames).toContain("Bytespider");
+  it("declares an explicit User-agent group for each AI crawler", () => {
+    const bots = [
+      "anthropic-ai",
+      "Applebot-Extended",
+      "YouBot",
+      "DuckAssistBot",
+      "cohere-ai",
+      "Bytespider",
+    ];
+    for (const bot of bots) {
+      expect(body, `missing AI crawler ${bot}`).toContain(`User-agent: ${bot}`);
+    }
   });
 
   it("retains original bots (GPTBot, ClaudeBot, PerplexityBot, Google-Extended)", () => {
     for (const bot of ["GPTBot", "ClaudeBot", "PerplexityBot", "Google-Extended"]) {
-      expect(agentNames, `missing original bot ${bot}`).toContain(bot);
+      expect(body, `missing original bot ${bot}`).toContain(`User-agent: ${bot}`);
     }
+  });
+
+  it("declares the Content-Signal directive in the wildcard group", () => {
+    expect(body).toContain("Content-Signal: search=yes, ai-input=yes, ai-train=no");
+  });
+
+  it("points at the sitemap", () => {
+    expect(body).toContain(`Sitemap: ${SITE_URL}/sitemap.xml`);
   });
 });

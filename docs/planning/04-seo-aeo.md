@@ -1,6 +1,6 @@
 ---
 tags: [planning, seo, aeo]
-updated: 2026-06-16
+updated: 2026-06-24
 ---
 
 # SEO & AEO Strategy
@@ -157,11 +157,22 @@ answer first, then detail. Mark up with `FAQPage` schema. Seed questions:
 - Publish **`/llms.txt`** summarizing the product, key facts, and canonical URLs for AI crawlers.
 - Keep `robots.txt` permissive to reputable AI crawlers (GPTBot, Google-Extended,
   PerplexityBot, ClaudeBot) — a deliberate, documented choice for AEO reach.
+- Declare [Content Signals](https://contentsignals.org/) in `robots.txt`:
+  `Content-Signal: search=yes, ai-input=yes, ai-train=no` — allow search indexing and
+  AI answer-engine input (our AEO strategy), reserve content from AI model training.
+  Emitted via the `app/robots.txt/route.ts` Route Handler, since the typed Next.js
+  `MetadataRoute.Robots` API cannot express the `Content-Signal` directive.
 - Ensure server-rendered HTML (SSG) so non-JS-executing crawlers get full content.
 - Maintain a fact-dense, frequently-cited **comparison + FAQ** surface (the most-quoted
   format in AI answers).
 - Track: measure share-of-voice by periodically querying the five target prompts across the
   four engines; log whether BabyLeveling appears and how it's described.
+- Advertise machine-readable resources via **RFC 8288 `Link` response headers** on the
+  homepage (every locale) so agents discover them without guessing paths. Configured in
+  `next.config.ts` `headers()` with registered IANA relations only:
+  `</llms.txt>; rel="describedby"`, `</llms-full.txt>; rel="service-doc"`, and
+  `</sitemap.xml>; rel="sitemap"`. No `api-catalog`/`service-desc` is advertised — this is a
+  marketing + waitlist site with no public API.
 
 → Copy that satisfies these targets, in 3 languages: [[05-copy-multilingual]]
 </content>
