@@ -11,7 +11,7 @@
  * is chosen.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://babyleveling.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://babyleveling.com";
 
 export const SITE_NAME = "BabyLeveling";
 

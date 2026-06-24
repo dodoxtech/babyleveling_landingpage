@@ -35,7 +35,15 @@ export async function GET(request: NextRequest) {
     return new Response("Bad Request", { status: 400 });
   }
 
-  const target = new URL(path, request.nextUrl.origin);
+  // Use the internal Vercel deployment URL for the self-fetch when running on
+  // Vercel, rather than the public hostname. The public domain may sit behind
+  // Cloudflare (or another proxy) that blocks server-to-server requests from
+  // Vercel IPs with 403. VERCEL_URL is always the raw .vercel.app origin,
+  // bypassing any proxy layer. Falls back to request.nextUrl.origin locally.
+  const selfOrigin = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : request.nextUrl.origin;
+  const target = new URL(path, selfOrigin);
 
   let htmlResponse: Response;
   try {
