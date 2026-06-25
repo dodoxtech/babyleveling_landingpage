@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Fredoka, Poppins, Baloo_2, Be_Vietnam_Pro } from "next/font/google";
 import Script from "next/script";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
