@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Fredoka, Poppins, Baloo_2, Be_Vietnam_Pro } from "next/font/google";
+import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
@@ -115,6 +117,8 @@ export default async function LocaleLayout({
       ? `${balooVi.variable} ${beVietnam.variable}`
       : `${fredoka.variable} ${poppins.variable}`;
 
+  const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+
   return (
     <html lang={locale}>
       <body className={`${fontVars} font-sans antialiased`}>
@@ -123,6 +127,23 @@ export default async function LocaleLayout({
           <SiteHeader locale={locale} />
           {children}
         </LenisProvider>
+        {/* Vercel Analytics — zero-config page-view + Web Vitals tracking */}
+        <Analytics />
+        {/* Microsoft Clarity — heatmaps + session recordings. Injected only
+            when NEXT_PUBLIC_CLARITY_ID is set so local dev stays noise-free. */}
+        {clarityId && (
+          <Script
+            id="ms-clarity"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `(function(c,l,a,r,i,t,y){
+  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window,document,"clarity","script","${clarityId}");`,
+            }}
+          />
+        )}
       </body>
     </html>
   );

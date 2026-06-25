@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-24
+updated: 2026-06-25
 ---
 
 # Architecture Overview
@@ -32,6 +32,7 @@ through the app.
 | Forms | **Next.js Route Handler** (`app/api/waitlist`) | Server-side email capture; pluggable `WaitlistProvider` behind the handler. |
 | Waitlist storage | **Google Sheets** via `googleapis` (service account) | Confirmed signups appended as rows to a sheet; near-zero ops/cost, human-readable + exportable. See [[decisions/ADR-0002-waitlist-provider]]. |
 | Deploy | **Vercel** | Zero-config Next.js hosting, preview deploys per PR. |
+| Analytics | **Vercel Analytics 2** + **Microsoft Clarity** | Page views, Web Vitals, referrers (Vercel); heatmaps, scroll depth, session recordings (Clarity). Both are cookie-free and GDPR-compliant. See TASK-0035. |
 | Tooling | ESLint 9 + Prettier 3 | Lint/format consistency. |
 | Testing | **Vitest 4** | Fast unit tests for pure logic (e.g. waitlist input validation/sanitization). `pnpm test` (CI), `pnpm test:watch` (local). `vitest.config.ts` mirrors the `@/*` tsconfig path alias. |
 
