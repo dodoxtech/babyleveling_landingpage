@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import { assetPath } from "@/lib/content/assets";
@@ -47,12 +48,12 @@ export function HowItWorksSteps({ steps }: HowItWorksStepsProps) {
           }
           className="glass flex flex-1 basis-56 items-center gap-4 rounded-2xl px-5 py-4"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element -- small decorative icon, not the LCP element */}
-          <img
+          <Image
             src={assetPath(step.icon)}
             alt=""
             width={36}
             height={36}
+            aria-hidden="true"
           />
           <div className="text-left">
             <p className="text-sm text-lo">{step.realAction}</p>

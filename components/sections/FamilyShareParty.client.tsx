@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import { assetPath } from "@/lib/content/assets";
@@ -93,12 +94,12 @@ export function FamilyShareParty({ roles }: FamilySharePartyProps) {
               }
               className="glass flex flex-col items-center gap-2 rounded-2xl p-5 text-center"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element -- small decorative party-member icon */}
-              <img
+              <Image
                 src={assetPath(role.sprite)}
                 alt=""
                 width={32}
                 height={32}
+                aria-hidden="true"
               />
               <p className="text-sm font-semibold text-hi">{role.role}</p>
               <p className="text-xs leading-relaxed text-lo">{role.blurb}</p>

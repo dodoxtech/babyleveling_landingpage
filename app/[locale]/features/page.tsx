@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { getFeatures } from "@/lib/content/features";
 import { assetPath } from "@/lib/content/assets";
 import { DepthPageShell } from "@/components/seo/DepthPageShell";
@@ -78,12 +79,12 @@ export default async function FeaturesPage({ params }: PageProps) {
               className="glass rounded-2xl p-8"
             >
               <div className="flex items-center gap-4">
-                {/* eslint-disable-next-line @next/next/no-img-element -- small decorative icon */}
-                <img
+                <Image
                   src={assetPath(feature.icon)}
                   alt=""
                   width={40}
                   height={40}
+                  aria-hidden="true"
                 />
                 <h2 className="font-display text-2xl text-hi">
                   {feature.title}
