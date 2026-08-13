@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-22
+updated: 2026-08-13
 ---
 
 # Modules & Dependencies
@@ -19,7 +19,7 @@ updated: 2026-06-22
 | **content** | `lib/content/` | Typed, static content data: assets, hero, loop, modes, family, features, themes, FAQ, screenshots, nav, and blog. The single source of marketing copy and semantic asset keys. `assets.ts` maps every frontend image key to `public/assets`. |
 | **waitlist** | `lib/waitlist.ts` + `lib/waitlist-validation.ts` + `lib/waitlist-provider.ts` + `app/api/waitlist/route.ts` | Client submission helper + server handler for email capture. `lib/waitlist-validation.ts` (pure, dependency-free) is the single source of truth for input safety — `normalizeEmail()`, `isValidEmail()` (shape + length + control-char rejection), `sanitizeSource()` (control-char strip + length cap), and `sanitizeCellValue()` (spreadsheet formula-injection guard); covered by `tests/waitlist-validation.test.ts`. `lib/waitlist.ts` (client-safe) holds the `WaitlistEntry` type, `isValidEmail()` (delegates to the validation module so client and server agree), and `submitToWaitlist()`. `lib/waitlist-provider.ts` (server-only) defines the `WaitlistProvider` interface the route handler depends on, plus the `GoogleSheetsWaitlistProvider` implementation behind `getWaitlistProvider()` — appends `[email, source, createdAt]` (each passed through `sanitizeCellValue`) to a Google Sheet, deduped by email, authenticated via a service account (`googleapis`). The route handler normalizes + validates input via the validation module before constructing the entry. See [[decisions/ADR-0002-waitlist-provider]]. |
 | **analytics** | `lib/analytics.ts` + `lib/sound.ts` + `app/api/analytics/route.ts` | TASK-0013. `lib/analytics.ts` — `trackEvent(name, props)` (fires to `/api/analytics` in prod, console in dev via `navigator.sendBeacon`), `getCtaVariant()` (stable A/B assignment in localStorage, SSR-safe "a" default), `observeSection(el, id)` (IntersectionObserver wrapper, fires `section_viewed` once per section). `lib/sound.ts` — synthesized level-up chime via Web Audio API (C5→E5→G5 ascending), `playLevelUp()` fires only when user has opted in via `SoundToggle`. `app/api/analytics/route.ts` — no-op POST endpoint (204), ready to forward to any provider. |
-| **contact** | `components/sections/ContactForm.tsx` + `app/api/contact/route.ts` | Contact form client island + server route handler. `ContactForm` validates email/message client-side and POSTs to `/api/contact`. The route handler validates server-side, rate-limits (3 req/min/IP), and logs submissions; wired to an email provider at deployment time. |
+| **contact** | `components/sections/ContactForm.tsx` + `app/api/contact/route.ts` + `lib/contact-provider.ts` | Contact form client island + server route handler. `ContactForm` validates email/message client-side and POSTs to `/api/contact`. The route handler validates server-side, rate-limits (3 req/min/IP), then hands off to `lib/contact-provider.ts` (server-only) — `GoogleSheetsContactProvider` behind `getContactProvider()` appends `[email, subject, message, createdAt]` (each passed through `sanitizeCellValue` from `lib/waitlist-validation.ts`) to a dedicated "Contact" tab in the same spreadsheet used by the waitlist (kept on a separate tab so the two submission streams don't mix), authenticated via the same service account. Tab name overridable via `GOOGLE_SHEETS_CONTACT_TAB_NAME`. |
 | **seo** | `lib/seo.ts` + `components/seo/` | Sitewide SEO/AEO constants (`SITE_URL`, `SITE_TITLE`, `SITE_DESCRIPTION`, `SITE_DESCRIPTOR` — see [[../planning/04-seo-aeo]] §9.5/§10.3) and JSON-LD components (`JsonLd.tsx`: `SiteJsonLd` for `Organization`/`WebSite`/`MobileApplication`, mounted once in `app/layout.tsx`; `FaqPageJsonLd`, mounted in `Faq.tsx`; `BreadcrumbJsonLd`, landed TASK-0010, mounted via `Breadcrumbs.tsx`). Also as of TASK-0010: `Breadcrumbs.tsx` (the visible breadcrumb nav, paired 1:1 with `BreadcrumbJsonLd` so the schema can't drift from what's on screen) and `DepthPageShell.tsx` (the shared chrome — breadcrumb + `<WaitlistSignup />` — every depth page composes). A leaf module: pure constants/markup, no business logic; `DepthPageShell` is the one exception that composes a `sections` component (`WaitlistSignup`), which `app/*/page.tsx` files depend on. |
 
 ## Dependency graph
@@ -33,6 +33,9 @@ content      ──→ i18n/config (Locale type for locale-keyed data structures
 i18n         ──→ (no internal dependencies — pure config + static JSON)
 waitlist     ──→ WaitlistProvider interface (lib/waitlist-provider.ts) →
                  GoogleSheetsWaitlistProvider → googleapis (Google Sheets API)
+contact      ──→ ContactProvider interface (lib/contact-provider.ts) →
+                 GoogleSheetsContactProvider → googleapis (Google Sheets API);
+                 sanitizeCellValue (lib/waitlist-validation.ts)
 analytics    ──→ (no internal dependencies — pure browser APIs + fetch)
 seo          ──→ sections (DepthPageShell.tsx → WaitlistSignup only — see Rules); i18n (localeAlternates)
 ```

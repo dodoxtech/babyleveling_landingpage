@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getContactProvider } from "@/lib/contact-provider";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_EMAIL_LENGTH = 254;
@@ -60,13 +61,18 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid submission." }, { status: 400 });
   }
 
-  // In production: forward to email provider (Resend, SendGrid, etc.).
-  // Pre-launch: log server-side and return success.
-  console.log("[contact]", {
-    email,
-    subject: typeof body.subject === "string" ? body.subject : "Other",
-    messageLength: message.length,
-  });
+  const subject = typeof body.subject === "string" ? body.subject : "Other";
+
+  try {
+    await getContactProvider().submit({
+      email,
+      subject,
+      message,
+      createdAt: new Date().toISOString(),
+    });
+  } catch {
+    return NextResponse.json({ error: "Could not save submission." }, { status: 500 });
+  }
 
   return NextResponse.json({ ok: true }, { status: 200 });
 }
