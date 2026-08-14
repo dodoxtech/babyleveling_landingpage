@@ -57,7 +57,7 @@ const termsCopy: Record<
       {
         heading: "Accounts and sign-in",
         body: [
-          "The free tier does not require an account. To use Premium features, you create an account with Sign in with Apple or an email address and password, and you are responsible for keeping your credentials and any device you sign in from secure.",
+          "The free tier does not require an account. To use Premium features, you create an account with Sign in with Apple — the only sign-in method we offer — and you are responsible for keeping your Apple ID and any device you sign in from secure.",
           "You are responsible for activity under your account, including entries made by anyone you invite to a shared baby profile. Contact us promptly if you believe your account has been accessed without authorization.",
         ],
       },
@@ -178,7 +178,7 @@ const termsCopy: Record<
       {
         heading: "Tài khoản và đăng nhập",
         body: [
-          "Bản miễn phí không yêu cầu tài khoản. Để sử dụng tính năng Premium, bạn tạo tài khoản bằng Sign in with Apple hoặc email và mật khẩu, và bạn chịu trách nhiệm bảo mật thông tin đăng nhập cũng như bất kỳ thiết bị nào bạn dùng để đăng nhập.",
+          "Bản miễn phí không yêu cầu tài khoản. Để sử dụng tính năng Premium, bạn tạo tài khoản bằng Sign in with Apple — phương thức đăng nhập duy nhất chúng tôi cung cấp — và bạn chịu trách nhiệm bảo mật Apple ID cũng như bất kỳ thiết bị nào bạn dùng để đăng nhập.",
           "Bạn chịu trách nhiệm cho các hoạt động diễn ra dưới tài khoản của mình, bao gồm các mục do bất kỳ ai bạn mời vào hồ sơ bé được chia sẻ nhập vào. Vui lòng liên hệ chúng tôi ngay nếu bạn nghi ngờ tài khoản của mình bị truy cập trái phép.",
         ],
       },
@@ -299,7 +299,7 @@ const termsCopy: Record<
       {
         heading: "アカウントとログイン",
         body: [
-          "無料版はアカウントを必要としません。Premium 機能を利用するには、Sign in with Apple またはメールアドレスとパスワードでアカウントを作成し、認証情報およびログインに使用する端末の安全管理はご自身の責任となります。",
+          "無料版はアカウントを必要としません。Premium 機能を利用するには、当社が提供する唯一のログイン方法である Sign in with Apple でアカウントを作成します。Apple ID およびログインに使用する端末の安全管理はご自身の責任となります。",
           "共有中の赤ちゃんプロフィールに招待した人による入力を含め、ご自身のアカウントの下で行われる活動についてはご自身に責任があります。アカウントが不正にアクセスされたと思われる場合は、速やかに当社までご連絡ください。",
         ],
       },

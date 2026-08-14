@@ -65,7 +65,7 @@ const privacyCopy: Record<
       {
         heading: "Account and sign-in information",
         body: [
-          "The free tier does not require an account. If you unlock Premium or join a shared family, you create an account with Sign in with Apple or an email address and password. With Sign in with Apple, we receive Apple's unique identifier for your account and, if you allow it, your name and email — including a private relay address if you use Apple's \"Hide My Email.\" With email sign-up, we verify the address with a one-time code and store only a securely hashed version of your password.",
+          "The free tier does not require an account. If you unlock Premium or join a shared family, you create an account with Sign in with Apple — the only sign-in method we offer. We receive Apple's unique identifier for your account and, if you allow it, your name and email — including a private relay address if you use Apple's \"Hide My Email.\"",
           "We also store sign-in sessions as securely hashed, rotating tokens so you can stay signed in, and, if you enable notifications, a push token for your device so we can deliver them.",
         ],
       },
@@ -108,7 +108,7 @@ const privacyCopy: Record<
       {
         heading: "How we use your information",
         body: [
-          "We use the information above to operate the app (showing your baby tracker, RPG progress, level-up moments, and activity history), to sync and share data you choose to sync or share, to authenticate you and keep your account secure, to process subscriptions, to respond to support and contact requests, to send account-related emails such as one-time codes, family invitations, and deletion confirmations, and to maintain and improve the app and website.",
+          "We use the information above to operate the app (showing your baby tracker, RPG progress, level-up moments, and activity history), to sync and share data you choose to sync or share, to authenticate you and keep your account secure, to process subscriptions, to respond to support and contact requests, to send account-related emails such as family invitations and deletion confirmations, and to maintain and improve the app and website.",
           "We do not use baby care data — sensitive or otherwise — to train AI or machine-learning models, to build advertising profiles, or to serve ads, and we do not sell or rent it to data brokers or advertisers.",
         ],
       },
@@ -204,7 +204,7 @@ const privacyCopy: Record<
       {
         heading: "Thông tin tài khoản và đăng nhập",
         body: [
-          "Bản miễn phí không yêu cầu tài khoản. Nếu bạn mở khóa Premium hoặc tham gia một gia đình được chia sẻ, bạn sẽ tạo tài khoản bằng Sign in with Apple hoặc email và mật khẩu. Với Sign in with Apple, chúng tôi nhận mã định danh duy nhất từ Apple cho tài khoản của bạn và, nếu bạn cho phép, tên và email — kể cả địa chỉ ẩn danh nếu bạn dùng tính năng \"Ẩn email\" (Hide My Email) của Apple. Khi đăng ký bằng email, chúng tôi xác minh địa chỉ bằng mã dùng một lần và chỉ lưu bản băm (hash) an toàn của mật khẩu, không lưu mật khẩu gốc.",
+          "Bản miễn phí không yêu cầu tài khoản. Nếu bạn mở khóa Premium hoặc tham gia một gia đình được chia sẻ, bạn sẽ tạo tài khoản bằng Sign in with Apple — đây là phương thức đăng nhập duy nhất chúng tôi cung cấp. Chúng tôi nhận mã định danh duy nhất từ Apple cho tài khoản của bạn và, nếu bạn cho phép, tên và email — kể cả địa chỉ ẩn danh nếu bạn dùng tính năng \"Ẩn email\" (Hide My Email) của Apple.",
           "Chúng tôi cũng lưu phiên đăng nhập dưới dạng token đã băm và luân phiên thay đổi để giữ bạn đăng nhập, và nếu bạn bật thông báo, một mã thiết bị (push token) để gửi thông báo đến bạn.",
         ],
       },
@@ -247,7 +247,7 @@ const privacyCopy: Record<
       {
         heading: "Cách chúng tôi sử dụng thông tin của bạn",
         body: [
-          "Chúng tôi dùng các thông tin trên để vận hành app (hiển thị nhật ký chăm sóc, tiến trình RPG, khoảnh khắc lên cấp và lịch sử hoạt động), để đồng bộ và chia sẻ dữ liệu mà bạn chọn đồng bộ hoặc chia sẻ, để xác thực và bảo vệ tài khoản của bạn, để xử lý thuê bao, để phản hồi yêu cầu hỗ trợ và liên hệ, để gửi email liên quan tài khoản như mã dùng một lần, lời mời gia đình và xác nhận xóa tài khoản, và để duy trì, cải thiện app và website.",
+          "Chúng tôi dùng các thông tin trên để vận hành app (hiển thị nhật ký chăm sóc, tiến trình RPG, khoảnh khắc lên cấp và lịch sử hoạt động), để đồng bộ và chia sẻ dữ liệu mà bạn chọn đồng bộ hoặc chia sẻ, để xác thực và bảo vệ tài khoản của bạn, để xử lý thuê bao, để phản hồi yêu cầu hỗ trợ và liên hệ, để gửi email liên quan tài khoản như lời mời gia đình và xác nhận xóa tài khoản, và để duy trì, cải thiện app và website.",
           "Chúng tôi không dùng dữ liệu chăm sóc bé — dù nhạy cảm hay không — để huấn luyện AI hay mô hình máy học, để xây dựng hồ sơ quảng cáo, hoặc để hiển thị quảng cáo, và không bán hay cho thuê dữ liệu này cho data broker hay nhà quảng cáo.",
         ],
       },
@@ -343,7 +343,7 @@ const privacyCopy: Record<
       {
         heading: "アカウントおよびログイン情報",
         body: [
-          "無料版はアカウントを必要としません。Premium を利用する場合や、共有された家族グループに参加する場合は、Sign in with Apple、またはメールアドレスとパスワードでアカウントを作成します。Sign in with Apple を利用する場合、Apple が発行する一意の識別子を受け取り、許可いただければ氏名とメールアドレス(Apple の「メールを非公開」機能を利用した場合は非公開のリレーアドレスを含む)も受け取ります。メールで登録する場合は、ワンタイムコードでアドレスを確認し、パスワードは安全にハッシュ化した状態でのみ保存します。",
+          "無料版はアカウントを必要としません。Premium を利用する場合や、共有された家族グループに参加する場合は、当社が提供する唯一のログイン方法である Sign in with Apple でアカウントを作成します。この際、Apple が発行する一意の識別子を受け取り、許可いただければ氏名とメールアドレス(Apple の「メールを非公開」機能を利用した場合は非公開のリレーアドレスを含む)も受け取ります。",
           "また、ログイン状態を維持するために、安全にハッシュ化されローテーションするログインセッションのトークンを保存し、通知を有効にした場合は通知を届けるための端末のプッシュトークンも保存します。",
         ],
       },
@@ -386,7 +386,7 @@ const privacyCopy: Record<
       {
         heading: "情報の利用目的",
         body: [
-          "上記の情報は、アプリの機能提供(育児記録、RPG の進行、レベルアップ演出、履歴の表示)、利用者が選択した範囲でのデータ同期・共有、本人確認とアカウントの安全確保、サブスクリプションの処理、サポート・お問い合わせへの対応、ワンタイムコード・家族招待・削除完了通知などアカウントに関するメール送信、そしてアプリとウェブサイトの維持・改善のために利用します。",
+          "上記の情報は、アプリの機能提供(育児記録、RPG の進行、レベルアップ演出、履歴の表示)、利用者が選択した範囲でのデータ同期・共有、本人確認とアカウントの安全確保、サブスクリプションの処理、サポート・お問い合わせへの対応、家族招待・削除完了通知などアカウントに関するメール送信、そしてアプリとウェブサイトの維持・改善のために利用します。",
           "赤ちゃんのケア記録は、機微な情報であるか否かにかかわらず、AI・機械学習モデルの学習、広告プロファイルの構築、広告配信のいずれにも利用しません。また、データブローカーや広告主への販売・貸与も行いません。",
         ],
       },
