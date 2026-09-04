@@ -7,11 +7,6 @@ export interface Screenshot {
   caption?: string;
 }
 
-interface ScreenshotBase {
-  id: string;
-  src: string;
-}
-
 interface ScreenshotText {
   alt: string;
   caption: string;
@@ -19,16 +14,13 @@ interface ScreenshotText {
 
 /**
  * S7 Screenshot Gallery manifest  -  see docs/planning/05-copy-multilingual.md ("S7
- * Screenshots") and docs/features/screenshot-gallery.md. The redesigned carousel renders
- * app-preview cards from `public/assets` until final app screenshots are exported.
- * Translated `alt`/`caption` live in `SCREENSHOT_TEXT` below  -  see TASK-0011.
+ * Screenshots") and docs/features/screenshot-gallery.md. Images are real App Store
+ * screenshots (captured from the shipped app, see BabyLeveling/assets/app-review),
+ * one localized set per locale under `public/screenshots/<locale>/<id>.png` -
+ * each `id` here maps 1:1 to the closest real app screen: quest-log -> the
+ * activity/quest log, skill-tree -> milestones, trophy-room -> the rank-up moment.
  */
-const SCREENSHOT_BASE: ScreenshotBase[] = [
-  { id: "dashboard", src: "/screenshots/dashboard.png" },
-  { id: "quest-log", src: "/screenshots/quest-log.png" },
-  { id: "skill-tree", src: "/screenshots/skill-tree.png" },
-  { id: "trophy-room", src: "/screenshots/trophy-room.png" },
-];
+const SCREENSHOT_IDS = ["dashboard", "quest-log", "skill-tree", "trophy-room"] as const;
 
 const SCREENSHOT_TEXT: Record<Locale, Record<string, ScreenshotText>> = {
   en: {
@@ -89,5 +81,9 @@ const SCREENSHOT_TEXT: Record<Locale, Record<string, ScreenshotText>> = {
 
 export function getScreenshots(locale: Locale): Screenshot[] {
   const text = SCREENSHOT_TEXT[locale];
-  return SCREENSHOT_BASE.map((base) => ({ ...base, ...text[base.id] }));
+  return SCREENSHOT_IDS.map((id) => ({
+    id,
+    src: `/screenshots/${locale}/${id}.png`,
+    ...text[id],
+  }));
 }

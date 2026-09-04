@@ -1,7 +1,7 @@
 ---
 tags: [feature]
 status: implemented
-updated: 2026-06-20
+updated: 2026-09-04
 ---
 
 # Screenshot Gallery
@@ -51,24 +51,31 @@ phone-UI components:
 - The section opts out of the vertical story snap (`scroll-snap-align: none`,
   `min-height: 0` on `#screenshots` in `globals.css`) so the tall sticky region owns its own
   scroll budget without fighting [[features/full-screen-scroll-snap-story]].
-- Phone hardware is CSS-built: metal bezel, side buttons, Dynamic Island, screen glass,
-  depth shadow, and subtle reflection — built once in `PhoneFrame`; `PhoneScreen` renders the
-  swapping content.
-- Demo screens are rendered as high-fidelity app previews from existing public assets until
-  final exported app screenshots are available.
+- Phone hardware is CSS-built: metal bezel, side buttons, screen glass, depth shadow, and
+  subtle reflection — built once in `PhoneFrame`; `PhoneScreen` renders the swapping content.
+  No synthetic Dynamic Island overlay is drawn anymore (2026-09-04) — the real screenshots
+  already include the device's own status bar/island, so a fake one would double up.
+- Demo screens are **real App Store screenshots** of the shipped app (2026-09-04), not
+  synthetic app previews — see Data below.
 - Pacing is tuned by the section height (`screenshots.length * 100svh`).
 
 ## Data
 
 - Driven by the `Screenshot[]` manifest in `lib/content/screenshots.ts`; see [[architecture/data-flow]].
-- All visible copy (section heading, per-screen narrative, chapter labels, scroll hint, and the
-  text inside the simulated phone screens) is localized via `home.shots` in the dictionary —
-  `screens`/`mock` are keyed by `Screenshot.id`. The server `Screenshots.tsx` reads the active
-  locale's `shots` block and passes it to `ScreenshotsCarousel.client.tsx` as `copy`. Only
-  numeric game stats (XP/HP totals, `Level NN`, `9:41`) stay as literals.
-- Real screenshot files will live in `public/screenshots/` once the design track delivers
-  them; until then, `ScreenshotsCarousel.client.tsx` renders a polished app-preview screen
-  per `Screenshot.id`.
+- Narrative copy (section heading, per-screen eyebrow/heading/body, chapter labels, scroll
+  hint) is localized via `home.shots` in the dictionary — `screens` is keyed by
+  `Screenshot.id`. The server `Screenshots.tsx` reads the active locale's `shots` block and
+  passes it to `ScreenshotsCarousel.client.tsx` as `copy`. (`home.shots.mock` still exists in
+  the dictionary but is no longer read by the carousel now that screens are real screenshots,
+  not simulated UI — kept in case a future synthetic-preview fallback needs it.)
+- Screenshot images: `getScreenshots(locale)` in `lib/content/screenshots.ts` builds each
+  `Screenshot.src` as `/screenshots/<locale>/<id>.png`. Files live under
+  `public/screenshots/{en,ja,vi}/{dashboard,quest-log,skill-tree,trophy-room}.png` — real
+  captures sourced from `BabyLeveling/assets/app-review/iphone/{en,jp,vn}/raw/*.png` (resized
+  to 750px wide via `sips`). The manifest id doesn't always match the raw filename 1:1: id
+  `quest-log` uses the app's `logs.png`, `skill-tree` uses `milestones.png`, and `trophy-room`
+  uses `rank-up.png` (closest real screen to each narrative beat). Regenerate by re-running
+  that resize step against a fresh `assets/app-review` export when the app's UI changes.
 
 ## Related
 - [[features/feature-showcase]]

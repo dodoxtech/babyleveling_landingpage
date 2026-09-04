@@ -220,6 +220,8 @@ export interface Dictionary {
       error: string;
       successHeadline: string;
       successBody: string;
+      /** Small note under the App Store download button, e.g. "Free · iOS & watchOS". */
+      subNote: string;
     };
   };
   depth: {

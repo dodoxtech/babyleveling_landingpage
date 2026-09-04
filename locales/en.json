@@ -1,6 +1,6 @@
 {
   "nav": {
-    "cta": "Join the waitlist",
+    "cta": "Get the App",
     "features": "Features",
     "rpg": "RPG System",
     "parents": "For Parents",
@@ -28,8 +28,8 @@
       "headlineLead": "Raise your baby's",
       "headlineEmphasis": "little hero.",
       "tagline": "Track feeds, sleep, diapers, growth, and milestones with XP, quests, and a mascot parents actually love.",
-      "ctaPrimary": "Join the Waitlist",
-      "platformNote": "iOS and watchOS planned",
+      "ctaPrimary": "Download on the App Store",
+      "platformNote": "Available now on iOS & watchOS",
       "cardLevelStatus": "Explorer unlocked",
       "cardQuickLog": "Today's quick log",
       "questFeed": "Feed",
@@ -65,11 +65,26 @@
       "body": "Every feed, every nap, every tiny milestone — it all counts. BabyLeveling turns the care you already give into a story you grow together.",
       "railLabel": "XP rail",
       "stages": [
-        { "title": "Newborn", "note": "Day one" },
-        { "title": "Explorer", "note": "Your first days" },
-        { "title": "Little Star", "note": "Week one" },
-        { "title": "Adventurer", "note": "The early weeks" },
-        { "title": "Legend", "note": "The long adventure" }
+        {
+          "title": "Newborn",
+          "note": "Day one"
+        },
+        {
+          "title": "Explorer",
+          "note": "Your first days"
+        },
+        {
+          "title": "Little Star",
+          "note": "Week one"
+        },
+        {
+          "title": "Adventurer",
+          "note": "The early weeks"
+        },
+        {
+          "title": "Legend",
+          "note": "The long adventure"
+        }
       ],
       "achievement": "Achievement unlocked",
       "payoffLead": "First smile becomes a trophy.",
@@ -81,9 +96,18 @@
       "title": "The RPG loop is the care loop.",
       "body": "BabyLeveling does not gamify pressure. It makes the tiny care actions easier to notice, repeat, and celebrate.",
       "stats": [
-        { "value": "6", "label": "care types" },
-        { "value": "1", "label": "thumb tap" },
-        { "value": "∞", "label": "memories kept" }
+        {
+          "value": "6",
+          "label": "care types"
+        },
+        {
+          "value": "1",
+          "label": "thumb tap"
+        },
+        {
+          "value": "∞",
+          "label": "memories kept"
+        }
       ],
       "steps": [
         {
@@ -164,21 +188,49 @@
           "title": "Daily quests",
           "subtitle": "Four care moments already counted",
           "quests": [
-            { "title": "Bottle", "note": "Logged at 7:20", "reward": "+8 XP" },
-            { "title": "Nap", "note": "Well rested", "reward": "+10 XP" },
-            { "title": "Growth", "note": "Weight saved", "reward": "+30 XP" },
-            { "title": "Photo", "note": "Memory added", "reward": "Badge" }
+            {
+              "title": "Bottle",
+              "note": "Logged at 7:20",
+              "reward": "+8 XP"
+            },
+            {
+              "title": "Nap",
+              "note": "Well rested",
+              "reward": "+10 XP"
+            },
+            {
+              "title": "Growth",
+              "note": "Weight saved",
+              "reward": "+30 XP"
+            },
+            {
+              "title": "Photo",
+              "note": "Memory added",
+              "reward": "Badge"
+            }
           ]
         },
         "skillTree": {
           "title": "Milestone path",
-          "milestones": ["Smile", "Roll", "Reach", "Legend"],
+          "milestones": [
+            "Smile",
+            "Roll",
+            "Reach",
+            "Legend"
+          ],
           "unlocked": "First smile unlocked",
           "unlockedNote": "Saved to the family timeline"
         },
         "trophyRoom": {
           "title": "Trophy room",
-          "trophies": ["Streak", "Guard", "Story", "Party", "Firsts", "Rare"]
+          "trophies": [
+            "Streak",
+            "Guard",
+            "Story",
+            "Party",
+            "Firsts",
+            "Rare"
+          ]
         }
       }
     },
@@ -201,8 +253,14 @@
         }
       ],
       "stats": [
-        { "value": "3 s", "label": "to log a care action" },
-        { "value": "3 a.m.", "label": "friendly, dark, one-handed" }
+        {
+          "value": "3 s",
+          "label": "to log a care action"
+        },
+        {
+          "value": "3 a.m.",
+          "label": "friendly, dark, one-handed"
+        }
       ]
     },
     "themes": {
@@ -215,17 +273,29 @@
         "cute": {
           "persona": "Warm & soft",
           "blurb": "Pillowy cards, candy-coral rewards and a nurturing blush glow — the bright, cuddly world for anyone who loves warm, playful color.",
-          "tags": ["Coral + lavender", "Pillow-soft corners", "Warm blush base"]
+          "tags": [
+            "Coral + lavender",
+            "Pillow-soft corners",
+            "Warm blush base"
+          ]
         },
         "focus": {
           "persona": "Cool & crisp",
           "blurb": "Restrained ink, one confident electric accent and crisp edges. The understated, premium feel that makes upgrading a no-brainer.",
-          "tags": ["Electric indigo", "Crisp edges", "High-contrast ink"]
+          "tags": [
+            "Electric indigo",
+            "Crisp edges",
+            "High-contrast ink"
+          ]
         },
         "zen": {
           "persona": "Zen",
           "blurb": "Sage, sand and terracotta on warm paper. Low-saturation calm for parents who want tracking to feel like a deep breath.",
-          "tags": ["Sage + sand", "Quiet luxury", "Low saturation"]
+          "tags": [
+            "Sage + sand",
+            "Quiet luxury",
+            "Low saturation"
+          ]
         }
       }
     },
@@ -236,10 +306,22 @@
       "body": "The app launches free and fully on your device, no account needed. Shared logging for partners and caregivers is the big feature we're building next.",
       "badgeSuffix": "roles, one synced timeline",
       "roles": [
-        { "role": "Parent", "note": "Owns the daily rhythm" },
-        { "role": "Partner", "note": "Sees what changed" },
-        { "role": "Grandparent", "note": "Keeps memories close" },
-        { "role": "Caregiver", "note": "Logs the handoff" }
+        {
+          "role": "Parent",
+          "note": "Owns the daily rhythm"
+        },
+        {
+          "role": "Partner",
+          "note": "Sees what changed"
+        },
+        {
+          "role": "Grandparent",
+          "note": "Keeps memories close"
+        },
+        {
+          "role": "Caregiver",
+          "note": "Logs the handoff"
+        }
       ]
     },
     "faq": {
@@ -247,17 +329,18 @@
       "title": "Your baby's data is yours. iOS 17+ & Apple Watch. Launching soon."
     },
     "waitlist": {
-      "headline": "Be there at Level 1.",
-      "body": "Your adventure begins at launch. Claim your spot on the waitlist.",
+      "headline": "Your hero's story starts now.",
+      "body": "BabyLeveling is live on the App Store — free to download.",
       "placeholder": "you@email.com",
       "emailLabel": "Email address",
-      "cta": "Join the waitlist",
-      "ctaVariantB": "Begin your hero's story",
+      "cta": "Download on the App Store",
+      "ctaVariantB": "Start your hero's story",
       "ctaSubmitting": "Joining…",
       "invalid": "Please enter a valid email.",
       "error": "Something went wrong — try again.",
       "successHeadline": "You're in. +1 Party Member!",
-      "successBody": "We'll email you the moment the quest begins."
+      "successBody": "We'll email you the moment the quest begins.",
+      "subNote": "Free download · iOS & watchOS"
     }
   },
   "blog": {
@@ -307,11 +390,23 @@
       "h1": "Every feature. One full RPG.",
       "intro": "BabyLeveling is a gamified baby activity tracker for iOS and Apple Watch — here's everything it tracks, and every way that tracking turns into a game.",
       "closing": [
-        { "text": "Curious exactly how a feed or a nap turns into XP? " },
-        { "text": "See the care-to-XP system in depth", "href": "/rpg-system" },
-        { "text": ", or " },
-        { "text": "read about Parent Mode", "href": "/parents" },
-        { "text": " if you want the clinical side first." }
+        {
+          "text": "Curious exactly how a feed or a nap turns into XP? "
+        },
+        {
+          "text": "See the care-to-XP system in depth",
+          "href": "/rpg-system"
+        },
+        {
+          "text": ", or "
+        },
+        {
+          "text": "read about Parent Mode",
+          "href": "/parents"
+        },
+        {
+          "text": " if you want the clinical side first."
+        }
       ],
       "featureDepth": {
         "xp-levels": "Every log — a feed, a nap, a diaper change — adds XP toward your baby's next level, so progress is visible every single day, not just at milestones.",
@@ -326,11 +421,23 @@
       "h1": "Real care. Real XP. No skin-deep gamification.",
       "intro": "BabyLeveling is a parenting RPG: every real act of care — feeding, sleep, diaper changes, medicine, vaccines, growth logs, and milestones — earns XP. Here's exactly how the loop works.",
       "closing": [
-        { "text": "Want the full RPG, not just the loop? " },
-        { "text": "See every feature this powers", "href": "/features" },
-        { "text": ". And this exact data also " },
-        { "text": "feeds Parent Mode", "href": "/parents" },
-        { "text": " — nothing here replaces a rigorous tracker, it adds to one." }
+        {
+          "text": "Want the full RPG, not just the loop? "
+        },
+        {
+          "text": "See every feature this powers",
+          "href": "/features"
+        },
+        {
+          "text": ". And this exact data also "
+        },
+        {
+          "text": "feeds Parent Mode",
+          "href": "/parents"
+        },
+        {
+          "text": " — nothing here replaces a rigorous tracker, it adds to one."
+        }
       ],
       "loopDepth": {
         "feeding": "Every bottle, breastfeed, or solid-food log earns XP — the steady reward for the feeds you're already giving.",
@@ -346,11 +453,23 @@
       "twoModesHeading": "The same data, shown plainly",
       "twoModesBody": "The joy is the wrapper. The record stays serious. RPG Mode and Parent Mode read the exact same activity log — switch between them without losing a single entry. When you need the facts, the record reads the way a pediatrician visit, or a 3 a.m. gut-check, actually needs.",
       "closing": [
-        { "text": "Want to see the same data as an adventure? " },
-        { "text": "Read about the RPG system", "href": "/rpg-system" },
-        { "text": ", or " },
-        { "text": "check the full FAQ", "href": "/faq" },
-        { "text": " for more on privacy, platforms, and launch timing." }
+        {
+          "text": "Want to see the same data as an adventure? "
+        },
+        {
+          "text": "Read about the RPG system",
+          "href": "/rpg-system"
+        },
+        {
+          "text": ", or "
+        },
+        {
+          "text": "check the full FAQ",
+          "href": "/faq"
+        },
+        {
+          "text": " for more on privacy, platforms, and launch timing."
+        }
       ]
     },
     "pricing": {
@@ -362,13 +481,27 @@
         "The final pricing model isn't set — we'll email the waitlist the moment it is, before it's public anywhere else."
       ],
       "closing": [
-        { "text": "Not sure it's for you yet? " },
-        { "text": "See every feature", "href": "/features" },
-        { "text": " or " },
-        { "text": "read the full FAQ", "href": "/faq" },
-        { "text": " before you decide." }
+        {
+          "text": "Not sure it's for you yet? "
+        },
+        {
+          "text": "See every feature",
+          "href": "/features"
+        },
+        {
+          "text": " or "
+        },
+        {
+          "text": "read the full FAQ",
+          "href": "/faq"
+        },
+        {
+          "text": " before you decide."
+        }
       ]
     },
-    "faq": { "h1": "Frequently asked questions." }
+    "faq": {
+      "h1": "Frequently asked questions."
+    }
   }
 }

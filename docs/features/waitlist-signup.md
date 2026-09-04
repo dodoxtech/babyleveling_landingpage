@@ -1,17 +1,39 @@
 ---
 tags: [feature]
-status: implemented
-updated: 2026-06-22
+status: superseded
+updated: 2026-09-04
 ---
 
-# Waitlist Signup
+# Waitlist Signup (pre-launch — superseded by App Store download)
 
-> The site's one conversion goal and its only runtime/dynamic surface.
+> Historical: the site's conversion goal before launch. As of 2026-09-04 the app is live on
+> the App Store, and every primary CTA (header, hero, closing S11 section) now links straight
+> to the real listing (`lib/app-store.ts`) instead of this form. This doc is kept for the
+> still-live backend infra (route handler, provider, rate limiting) — see Current state below.
 
-## Overview
+## Current state (2026-09-04)
 
-An email capture form so visitors can be notified at launch. This is the single piece of
-user-generated data on the site and the only path that hits a server. Submission flows
+- `components/sections/WaitlistSignup.tsx` no longer renders an email form. It keeps its
+  component name, file path, and `#waitlist` section id/anchor (still linked from
+  footer/blog/nav comments) but now renders a download push: headline + body copy (repurposed
+  `home.waitlist.headline`/`.body`/`.cta` strings) and a `DownloadCta` button
+  (`components/sections/DownloadCta.client.tsx`) linking to `APP_STORE_URL`.
+- The header CTA (`SiteHeaderClient`) and the Hero CTA (`Hero.tsx`) also link straight to
+  `APP_STORE_URL` (`target="_blank"`), replacing their old `#waitlist`/`#waitlist` anchor
+  hrefs. `lib/content/nav.ts`'s `navCtaHref` now equals `APP_STORE_URL`.
+- The backend below (`lib/waitlist.ts`, `app/api/waitlist/route.ts`,
+  `lib/waitlist-provider.ts`, the Google Sheets provider) is **unused by any current UI** but
+  intentionally left in place/undeleted — no user-facing form calls it anymore. Safe to remove
+  in a follow-up cleanup task if the waitlist is confirmed permanently retired.
+- `home.waitlist.ctaVariantB`, `.ctaSubmitting`, `.placeholder`, `.emailLabel`, `.invalid`,
+  `.error`, `.successHeadline`, `.successBody` are dictionary keys the removed form used to
+  read; they're unused now but left in the locale JSON/type rather than deleted, to keep this
+  change reviewable as a behavior swap, not a data-model edit.
+
+## Overview (pre-launch, historical)
+
+An email capture form so visitors could be notified at launch. This was the single piece of
+user-generated data on the site and the only path that hit a server. Submission flowed
 through a Next.js route handler to an email/storage provider — see [[architecture/data-flow]].
 
 ## User Stories

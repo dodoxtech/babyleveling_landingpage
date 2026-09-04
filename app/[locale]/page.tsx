@@ -8,8 +8,10 @@
  * `/pricing`, `/faq` depth pages (`lib/content/nav.ts`), not at the section
  * IDs below  -  those IDs remain as landmarks/`aria-label`s and as targets for
  * in-page narrative links (e.g. Reveal's "See how it works" CTA), not nav
- * targets. The header CTA always targets S11 waitlist (`#waitlist`), which
- * exists on every page.
+ * targets. The header CTA now targets the live App Store listing directly
+ * (`lib/app-store.ts`) instead of the pre-launch `#waitlist` anchor; the S11
+ * section keeps the `#waitlist` id/anchor (still linked from footer/blog) but
+ * renders a download push, not a signup form  -  see `WaitlistSignup.tsx`.
  *
  * Every section S1-S12 is a real component as of TASK-0003/TASK-0004/TASK-0005/
  * TASK-0006/TASK-0007. As of TASK-0011, every section receives `locale` and

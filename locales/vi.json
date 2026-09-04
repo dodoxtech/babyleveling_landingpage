@@ -1,6 +1,6 @@
 {
   "nav": {
-    "cta": "Tham gia danh sách chờ",
+    "cta": "Tải ứng dụng",
     "features": "Tính năng",
     "rpg": "Hệ thống RPG",
     "parents": "Dành cho ba mẹ",
@@ -28,8 +28,8 @@
       "headlineLead": "Nuôi dưỡng",
       "headlineEmphasis": "người hùng nhỏ của bạn.",
       "tagline": "Theo dõi cữ bú, giấc ngủ, tã, tăng trưởng và các cột mốc — với XP, nhiệm vụ và một linh vật mà ba mẹ thật sự yêu thích.",
-      "ctaPrimary": "Tham gia danh sách chờ",
-      "platformNote": "Dự kiến cho iOS và watchOS",
+      "ctaPrimary": "Tải trên App Store",
+      "platformNote": "Đã có trên iOS & watchOS",
       "cardLevelStatus": "Mở khóa Nhà thám hiểm",
       "cardQuickLog": "Ghi nhanh hôm nay",
       "questFeed": "Bú",
@@ -65,11 +65,26 @@
       "body": "Mỗi cữ bú, mỗi giấc ngủ, mỗi cột mốc nhỏ xíu — tất cả đều có ý nghĩa. BabyLeveling biến tình yêu thương bạn đang trao thành một hành trình lớn lên cùng nhau.",
       "railLabel": "Thanh XP",
       "stages": [
-        { "title": "Sơ sinh", "note": "Ngày đầu tiên" },
-        { "title": "Nhà thám hiểm", "note": "Những ngày đầu" },
-        { "title": "Ngôi sao nhỏ", "note": "Tuần đầu tiên" },
-        { "title": "Nhà phiêu lưu", "note": "Những tuần đầu" },
-        { "title": "Huyền thoại", "note": "Hành trình dài" }
+        {
+          "title": "Sơ sinh",
+          "note": "Ngày đầu tiên"
+        },
+        {
+          "title": "Nhà thám hiểm",
+          "note": "Những ngày đầu"
+        },
+        {
+          "title": "Ngôi sao nhỏ",
+          "note": "Tuần đầu tiên"
+        },
+        {
+          "title": "Nhà phiêu lưu",
+          "note": "Những tuần đầu"
+        },
+        {
+          "title": "Huyền thoại",
+          "note": "Hành trình dài"
+        }
       ],
       "achievement": "Mở khóa thành tựu",
       "payoffLead": "Nụ cười đầu tiên trở thành một chiếc cúp.",
@@ -81,9 +96,18 @@
       "title": "Vòng lặp RPG chính là vòng lặp chăm con.",
       "body": "BabyLeveling không biến áp lực thành trò chơi. Nó giúp những việc chăm con nhỏ bé dễ nhận ra, dễ lặp lại và dễ ăn mừng hơn.",
       "stats": [
-        { "value": "6", "label": "loại chăm sóc" },
-        { "value": "1", "label": "chạm ngón tay" },
-        { "value": "∞", "label": "kỷ niệm lưu giữ" }
+        {
+          "value": "6",
+          "label": "loại chăm sóc"
+        },
+        {
+          "value": "1",
+          "label": "chạm ngón tay"
+        },
+        {
+          "value": "∞",
+          "label": "kỷ niệm lưu giữ"
+        }
       ],
       "steps": [
         {
@@ -164,21 +188,49 @@
           "title": "Nhiệm vụ hằng ngày",
           "subtitle": "Đã tính bốn khoảnh khắc chăm sóc",
           "quests": [
-            { "title": "Bú bình", "note": "Ghi lúc 7:20", "reward": "+8 XP" },
-            { "title": "Ngủ trưa", "note": "Nghỉ ngơi đầy đủ", "reward": "+10 XP" },
-            { "title": "Tăng trưởng", "note": "Đã lưu cân nặng", "reward": "+30 XP" },
-            { "title": "Ảnh", "note": "Đã thêm kỷ niệm", "reward": "Huy hiệu" }
+            {
+              "title": "Bú bình",
+              "note": "Ghi lúc 7:20",
+              "reward": "+8 XP"
+            },
+            {
+              "title": "Ngủ trưa",
+              "note": "Nghỉ ngơi đầy đủ",
+              "reward": "+10 XP"
+            },
+            {
+              "title": "Tăng trưởng",
+              "note": "Đã lưu cân nặng",
+              "reward": "+30 XP"
+            },
+            {
+              "title": "Ảnh",
+              "note": "Đã thêm kỷ niệm",
+              "reward": "Huy hiệu"
+            }
           ]
         },
         "skillTree": {
           "title": "Lộ trình cột mốc",
-          "milestones": ["Cười", "Lẫy", "Với", "Huyền thoại"],
+          "milestones": [
+            "Cười",
+            "Lẫy",
+            "Với",
+            "Huyền thoại"
+          ],
           "unlocked": "Mở khóa nụ cười đầu tiên",
           "unlockedNote": "Đã lưu vào dòng thời gian gia đình"
         },
         "trophyRoom": {
           "title": "Phòng cúp",
-          "trophies": ["Chuỗi", "Khiên", "Truyện", "Tiệc", "Lần đầu", "Hiếm"]
+          "trophies": [
+            "Chuỗi",
+            "Khiên",
+            "Truyện",
+            "Tiệc",
+            "Lần đầu",
+            "Hiếm"
+          ]
         }
       }
     },
@@ -201,8 +253,14 @@
         }
       ],
       "stats": [
-        { "value": "3 giây", "label": "để ghi một thao tác chăm sóc" },
-        { "value": "3 giờ sáng", "label": "thân thiện, tối, một tay" }
+        {
+          "value": "3 giây",
+          "label": "để ghi một thao tác chăm sóc"
+        },
+        {
+          "value": "3 giờ sáng",
+          "label": "thân thiện, tối, một tay"
+        }
       ]
     },
     "themes": {
@@ -215,17 +273,29 @@
         "cute": {
           "persona": "Ấm áp & dịu dàng",
           "blurb": "Những thẻ bồng bềnh, phần thưởng màu san hô kẹo ngọt và ánh hồng nuôi dưỡng — thế giới tươi sáng, đáng ôm cho ai yêu màu sắc ấm áp, vui tươi.",
-          "tags": ["San hô + oải hương", "Góc mềm như gối", "Nền hồng ấm"]
+          "tags": [
+            "San hô + oải hương",
+            "Góc mềm như gối",
+            "Nền hồng ấm"
+          ]
         },
         "focus": {
           "persona": "Mát & sắc nét",
           "blurb": "Mực tiết chế, một điểm nhấn điện sắc tự tin và các cạnh sắc nét. Cảm giác cao cấp, kín đáo khiến việc nâng cấp trở nên hiển nhiên.",
-          "tags": ["Chàm điện", "Cạnh sắc nét", "Mực tương phản cao"]
+          "tags": [
+            "Chàm điện",
+            "Cạnh sắc nét",
+            "Mực tương phản cao"
+          ]
         },
         "zen": {
           "persona": "Thiền",
           "blurb": "Xanh xô thơm, cát và đất nung trên giấy ấm. Sự tĩnh lặng ít bão hòa cho ba mẹ muốn việc theo dõi như một hơi thở sâu.",
-          "tags": ["Xô thơm + cát", "Sang trọng tĩnh lặng", "Độ bão hòa thấp"]
+          "tags": [
+            "Xô thơm + cát",
+            "Sang trọng tĩnh lặng",
+            "Độ bão hòa thấp"
+          ]
         }
       }
     },
@@ -236,10 +306,22 @@
       "body": "Ứng dụng ra mắt miễn phí và chạy hoàn toàn trên thiết bị của bạn, không cần tài khoản. Tính năng ghi nhận chung cho bạn đời và người chăm sóc là điều lớn chúng tôi đang xây tiếp theo.",
       "badgeSuffix": "vai trò, một dòng thời gian chung",
       "roles": [
-        { "role": "Ba mẹ", "note": "Giữ nhịp mỗi ngày" },
-        { "role": "Bạn đời", "note": "Thấy điều gì đã thay đổi" },
-        { "role": "Ông bà", "note": "Giữ kỷ niệm ở gần" },
-        { "role": "Người chăm bé", "note": "Ghi lại lúc bàn giao" }
+        {
+          "role": "Ba mẹ",
+          "note": "Giữ nhịp mỗi ngày"
+        },
+        {
+          "role": "Bạn đời",
+          "note": "Thấy điều gì đã thay đổi"
+        },
+        {
+          "role": "Ông bà",
+          "note": "Giữ kỷ niệm ở gần"
+        },
+        {
+          "role": "Người chăm bé",
+          "note": "Ghi lại lúc bàn giao"
+        }
       ]
     },
     "faq": {
@@ -247,17 +329,18 @@
       "title": "Dữ liệu của bé là của bạn. iOS 17+ & Apple Watch. Sắp ra mắt."
     },
     "waitlist": {
-      "headline": "Có mặt ngay từ Cấp 1.",
-      "body": "Hành trình bắt đầu khi ra mắt. Giữ chỗ trong danh sách chờ.",
+      "headline": "Câu chuyện người hùng bắt đầu ngay bây giờ.",
+      "body": "BabyLeveling đã có mặt trên App Store — tải miễn phí ngay.",
       "placeholder": "ban@email.com",
       "emailLabel": "Địa chỉ email",
-      "cta": "Tham gia danh sách chờ",
+      "cta": "Tải trên App Store",
       "ctaVariantB": "Bắt đầu câu chuyện anh hùng",
       "ctaSubmitting": "Đang tham gia…",
       "invalid": "Vui lòng nhập email hợp lệ.",
       "error": "Có lỗi xảy ra — thử lại nhé.",
       "successHeadline": "Xong rồi. +1 thành viên đội!",
-      "successBody": "Chúng tôi sẽ email ngay khi cuộc phiêu lưu bắt đầu."
+      "successBody": "Chúng tôi sẽ email ngay khi cuộc phiêu lưu bắt đầu.",
+      "subNote": "Miễn phí tải · iOS & watchOS"
     }
   },
   "blog": {
@@ -307,11 +390,23 @@
       "h1": "Mọi tính năng. Một game RPG trọn vẹn.",
       "intro": "BabyLeveling là ứng dụng theo dõi em bé kiểu game cho iPhone và Apple Watch — đây là tất cả những gì app ghi nhận, và mọi cách việc ghi nhận đó biến thành một trò chơi.",
       "closing": [
-        { "text": "Muốn biết chính xác một cữ bú hay giấc ngủ trở thành XP như thế nào? " },
-        { "text": "Xem chi tiết hệ thống chăm sóc thành XP", "href": "/rpg-system" },
-        { "text": ". Hoặc " },
-        { "text": "đọc về Chế độ Ba Mẹ", "href": "/parents" },
-        { "text": " nếu bạn muốn tìm hiểu khía cạnh thực tế trước." }
+        {
+          "text": "Muốn biết chính xác một cữ bú hay giấc ngủ trở thành XP như thế nào? "
+        },
+        {
+          "text": "Xem chi tiết hệ thống chăm sóc thành XP",
+          "href": "/rpg-system"
+        },
+        {
+          "text": ". Hoặc "
+        },
+        {
+          "text": "đọc về Chế độ Ba Mẹ",
+          "href": "/parents"
+        },
+        {
+          "text": " nếu bạn muốn tìm hiểu khía cạnh thực tế trước."
+        }
       ],
       "featureDepth": {
         "xp-levels": "Mỗi lần ghi nhận — một cữ bú, một giấc ngủ, một lần thay tã — đều cộng XP hướng tới cấp độ tiếp theo của bé, giúp tiến trình hiện rõ mỗi ngày, không chỉ ở các cột mốc.",
@@ -326,11 +421,23 @@
       "h1": "Chăm sóc thật. XP thật. Không phải game hóa hời hợt.",
       "intro": "BabyLeveling là một ứng dụng RPG dành cho ba mẹ: mỗi hành động chăm sóc thật — cho bú, giấc ngủ, thay tã, thuốc, tiêm chủng, ghi nhận tăng trưởng và cột mốc — đều nhận XP. Đây là cách vòng lặp đó hoạt động.",
       "closing": [
-        { "text": "Muốn biết cả bộ RPG đầy đủ, không chỉ vòng lặp này? " },
-        { "text": "Xem mọi tính năng được vận hành bởi nó", "href": "/features" },
-        { "text": ". Và chính dữ liệu này cũng " },
-        { "text": "tiếp sức cho Chế độ Ba Mẹ", "href": "/parents" },
-        { "text": " — không có gì ở đây thay thế một bộ theo dõi nghiêm túc, nó chỉ bổ sung thêm cho nó." }
+        {
+          "text": "Muốn biết cả bộ RPG đầy đủ, không chỉ vòng lặp này? "
+        },
+        {
+          "text": "Xem mọi tính năng được vận hành bởi nó",
+          "href": "/features"
+        },
+        {
+          "text": ". Và chính dữ liệu này cũng "
+        },
+        {
+          "text": "tiếp sức cho Chế độ Ba Mẹ",
+          "href": "/parents"
+        },
+        {
+          "text": " — không có gì ở đây thay thế một bộ theo dõi nghiêm túc, nó chỉ bổ sung thêm cho nó."
+        }
       ],
       "loopDepth": {
         "feeding": "Mỗi bình sữa, mỗi cữ bú mẹ, hay mỗi lần ăn dặm đều nhận XP — phần thưởng đều đặn cho những cữ bú bạn vốn đã trao cho con.",
@@ -346,11 +453,23 @@
       "twoModesHeading": "Cùng một dữ liệu, hiển thị rõ ràng",
       "twoModesBody": "Niềm vui chỉ là lớp vỏ. Bản ghi luôn nghiêm túc. Chế độ RPG và Chế độ Ba Mẹ đọc đúng một nhật ký hoạt động — chuyển qua lại không bao giờ làm mất một ghi nhận nào. Khi bạn cần sự thật, bản ghi hiện ra theo đúng cách mà một buổi khám bác sĩ, hay một lần kiểm tra lúc 3 giờ sáng, thật sự cần.",
       "closing": [
-        { "text": "Muốn xem cùng dữ liệu đó dưới dạng một cuộc phiêu lưu? " },
-        { "text": "Đọc về hệ thống RPG", "href": "/rpg-system" },
-        { "text": ", hoặc " },
-        { "text": "xem toàn bộ phần Hỏi đáp", "href": "/faq" },
-        { "text": " để biết thêm về quyền riêng tư, thiết bị hỗ trợ, và thời điểm ra mắt." }
+        {
+          "text": "Muốn xem cùng dữ liệu đó dưới dạng một cuộc phiêu lưu? "
+        },
+        {
+          "text": "Đọc về hệ thống RPG",
+          "href": "/rpg-system"
+        },
+        {
+          "text": ", hoặc "
+        },
+        {
+          "text": "xem toàn bộ phần Hỏi đáp",
+          "href": "/faq"
+        },
+        {
+          "text": " để biết thêm về quyền riêng tư, thiết bị hỗ trợ, và thời điểm ra mắt."
+        }
       ]
     },
     "pricing": {
@@ -362,13 +481,27 @@
         "Mô hình giá cuối cùng vẫn chưa được ấn định — chúng tôi sẽ email cho danh sách chờ ngay khi có, trước khi công bố ở bất kỳ đâu khác."
       ],
       "closing": [
-        { "text": "Chưa chắc app này phù hợp với bạn? " },
-        { "text": "Xem mọi tính năng", "href": "/features" },
-        { "text": " hoặc " },
-        { "text": "đọc toàn bộ phần Hỏi đáp", "href": "/faq" },
-        { "text": " trước khi quyết định." }
+        {
+          "text": "Chưa chắc app này phù hợp với bạn? "
+        },
+        {
+          "text": "Xem mọi tính năng",
+          "href": "/features"
+        },
+        {
+          "text": " hoặc "
+        },
+        {
+          "text": "đọc toàn bộ phần Hỏi đáp",
+          "href": "/faq"
+        },
+        {
+          "text": " trước khi quyết định."
+        }
       ]
     },
-    "faq": { "h1": "Các câu hỏi thường gặp." }
+    "faq": {
+      "h1": "Các câu hỏi thường gặp."
+    }
   }
 }

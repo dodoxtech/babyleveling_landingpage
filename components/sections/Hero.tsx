@@ -6,6 +6,7 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 import { CareXpSimulator, type SimTile } from "@/components/sections/CareXpSimulator.client";
 import { MascotXpGlow } from "@/components/sections/MascotXpGlow.client";
+import { APP_STORE_URL } from "@/lib/app-store";
 
 interface HeroProps {
   locale: Locale;
@@ -53,7 +54,12 @@ export function Hero({ locale }: HeroProps) {
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a href="#waitlist" className="btn-primary w-full sm:w-auto">
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary w-full sm:w-auto"
+              >
                 {t.ctaPrimary}
               </a>
             </div>

@@ -1,3 +1,5 @@
+import { APP_STORE_URL } from "@/lib/app-store";
+
 /** One link in the persistent header nav  -  id maps to a `dict.nav.<id>` label. */
 export interface NavLink {
   id: "features" | "rpg" | "parents" | "pricing" | "faq";
@@ -23,7 +25,8 @@ export const navLinks: NavLink[] = [
   { id: "faq", path: "/faq" },
 ];
 
-/** The single header CTA  -  always points at the S11 waitlist section (same-page anchor, never locale-prefixed). */
-export const navCtaHref = "#waitlist";
+/** The single header CTA  -  the app is live, so this always points at the real
+ * App Store listing (external link) rather than the pre-launch `#waitlist` anchor. */
+export const navCtaHref = APP_STORE_URL;
 
 export const wordmark = "BabyLeveling";

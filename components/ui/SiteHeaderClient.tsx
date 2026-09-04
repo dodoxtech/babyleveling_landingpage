@@ -57,7 +57,12 @@ export function SiteHeaderClient({
     <>
       {/* CTA — desktop: visible at md+; mobile: visible below md. Both hidden until scrolled. */}
       {ctaVisible && (
-        <a href={ctaHref} className="btn-primary btn-sm">
+        <a
+          href={ctaHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary btn-sm"
+        >
           {ctaLabel}
         </a>
       )}

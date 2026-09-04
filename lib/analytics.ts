@@ -19,7 +19,7 @@ export type EventName =
 
 export interface EventProps {
   // CTA events
-  location?: "hero" | "header" | "reveal";
+  location?: "hero" | "header" | "reveal" | "download_section";
   ab_variant?: "a" | "b";
   // Section scroll events
   section?: string;
