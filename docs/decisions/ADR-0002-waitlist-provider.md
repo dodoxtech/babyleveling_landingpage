@@ -1,8 +1,13 @@
 ---
 tags: [adr]
-status: accepted
+status: superseded
 date: 2026-06-20
 ---
+
+> [!note] Superseded 2026-09-04
+> The waitlist feature this ADR describes was deleted outright once the app shipped — see
+> [[../features/waitlist-signup]] and [[../architecture/modules]] "Removed: waitlist module".
+> Kept as a historical record of the decision; `GoogleSheetsWaitlistProvider` no longer exists.
 
 # ADR-0002 — Store waitlist signups in a Google Sheet
 

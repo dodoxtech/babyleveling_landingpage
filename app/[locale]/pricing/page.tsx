@@ -36,9 +36,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 /**
- * `/pricing`  -  per the task brief, must not over-promise on a pricing model
- * that hasn't been decided. As of TASK-0011, fully locale-aware: all copy
- * from the dictionary (h1, sectionTitle, bullets, closing).
+ * `/pricing`  -  the app is live: free tier + an in-app-priced Premium
+ * subscription, billed through the App Store (no numeric price hardcoded
+ * here since Apple is the source of truth for current pricing). Fully
+ * locale-aware: all copy from the dictionary (h1, sectionTitle, bullets,
+ * closing).
  */
 export default async function PricingPage({ params }: PageProps) {
   const { locale: raw } = await params;

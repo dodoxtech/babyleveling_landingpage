@@ -248,8 +248,8 @@
           "body": "Everything lives on your device. No account to start, and nothing is uploaded without your say-so."
         },
         {
-          "title": "Join the parents already waiting",
-          "body": "The only number we count is how many of us are waiting for launch day."
+          "title": "Now live on the App Store",
+          "body": "No waitlist, no waiting. Download BabyLeveling today and start your baby's first quest."
         }
       ],
       "stats": [
@@ -328,18 +328,10 @@
       "eyebrow": "Trust",
       "title": "Your baby's data is yours. iOS 17+ & Apple Watch. Launching soon."
     },
-    "waitlist": {
+    "download": {
       "headline": "Your hero's story starts now.",
       "body": "BabyLeveling is live on the App Store — free to download.",
-      "placeholder": "you@email.com",
-      "emailLabel": "Email address",
       "cta": "Download on the App Store",
-      "ctaVariantB": "Start your hero's story",
-      "ctaSubmitting": "Joining…",
-      "invalid": "Please enter a valid email.",
-      "error": "Something went wrong — try again.",
-      "successHeadline": "You're in. +1 Party Member!",
-      "successBody": "We'll email you the moment the quest begins.",
       "subNote": "Free download · iOS & watchOS"
     }
   },
@@ -473,12 +465,12 @@
       ]
     },
     "pricing": {
-      "h1": "Be there at launch — free.",
-      "sectionTitle": "What we know today",
+      "h1": "Free to download.",
+      "sectionTitle": "What's included",
       "bullets": [
-        "Joining the waitlist is free and always will be.",
-        "Waitlist members get launch-day access and founder perks ahead of the public release.",
-        "The final pricing model isn't set — we'll email the waitlist the moment it is, before it's public anywhere else."
+        "The free tier works fully on your device — no account required, and it's free for as long as you use it.",
+        "Premium unlocks cloud sync and family sharing across your own devices, billed through the App Store.",
+        "Exact pricing, billing cycle, and auto-renewal terms are shown in the app before you subscribe."
       ],
       "closing": [
         {

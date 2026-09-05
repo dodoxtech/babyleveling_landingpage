@@ -5,23 +5,23 @@ import { SectionObserver } from "@/components/sections/SectionObserver.client";
 import { ThemedBabyMascot } from "@/components/sections/ThemedBabyMascot.client";
 import { DownloadCta } from "@/components/sections/DownloadCta.client";
 
-interface WaitlistSignupProps {
+interface DownloadSectionProps {
   locale: Locale;
 }
 
 /**
  * S11 closing CTA. Pre-launch this was an email waitlist form; the app has
- * since shipped, so it's now a straight App Store download push  -  see
- * TASK "update iOS link + demo screenshots" (2026-09-04). Section id/anchor
- * stays `#waitlist` since the header/footer/blog still link to it.
+ * since shipped, so this is a straight App Store download push and the
+ * waitlist feature (form, API route, Google Sheets provider) has been
+ * removed entirely  -  see docs/features/waitlist-signup.md (superseded).
  */
-export function WaitlistSignup({ locale }: WaitlistSignupProps) {
-  const { waitlist } = getDictionary(locale).home;
+export function DownloadSection({ locale }: DownloadSectionProps) {
+  const { download: copy } = getDictionary(locale).home;
 
   return (
-    <SectionObserver sectionId="waitlist">
+    <SectionObserver sectionId="download">
       <section
-        id="waitlist"
+        id="download"
         aria-label="Download"
         className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8"
       >
@@ -37,16 +37,13 @@ export function WaitlistSignup({ locale }: WaitlistSignupProps) {
           </div>
 
           <div>
-            <h2 className="text-h2">{waitlist.headline}</h2>
+            <h2 className="text-h2">{copy.headline}</h2>
             <p className="mt-4 max-w-[34rem] text-lg leading-8 text-[var(--text-secondary)]">
-              {waitlist.body}
+              {copy.body}
             </p>
 
             <div className="mt-7 flex flex-col items-start gap-3">
-              <DownloadCta
-                label={waitlist.cta}
-                location="download_section"
-              />
+              <DownloadCta label={copy.cta} location="download_section" />
               <span className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--text-secondary)]">
                 <Image
                   src="/assets/icons/xp-badge.png"
@@ -55,7 +52,7 @@ export function WaitlistSignup({ locale }: WaitlistSignupProps) {
                   height={18}
                   aria-hidden="true"
                 />
-                {waitlist.subNote}
+                {copy.subNote}
               </span>
             </div>
           </div>

@@ -178,8 +178,8 @@ export interface Dictionary {
         trophyRoom: { title: string; trophies: string[] };
       };
     };
-    /** S6 Parent Mode reassurance section. Pre-launch we have no real users to
-     * quote, so `trust` carries founder/privacy/waitlist points, not testimonials. */
+    /** S6 Parent Mode reassurance section. No collected user quotes yet, so
+     * `trust` carries founder/privacy/download points, not testimonials. */
     parents: {
       eyebrow: string;
       title: string;
@@ -208,18 +208,12 @@ export interface Dictionary {
       roles: { role: string; note: string }[];
     };
     faq: { eyebrow: string; title: string };
-    waitlist: {
+    /** S11 closing CTA copy (`DownloadSection.tsx`)  -  a straight App Store
+     * download push, not a waitlist form. */
+    download: {
       headline: string;
       body: string;
-      placeholder: string;
-      emailLabel: string;
       cta: string;
-      ctaVariantB: string;
-      ctaSubmitting: string;
-      invalid: string;
-      error: string;
-      successHeadline: string;
-      successBody: string;
       /** Small note under the App Store download button, e.g. "Free · iOS & watchOS". */
       subNote: string;
     };

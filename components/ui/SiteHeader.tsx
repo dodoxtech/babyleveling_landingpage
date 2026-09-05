@@ -13,8 +13,8 @@ interface SiteHeaderProps {
 
 /**
  * S0 - Nav. Bright, compact bar with the wordmark, key routes, mode toggle,
- * and a scroll-aware waitlist CTA (hidden until user passes the hero so it
- * never duplicates the hero's own CTA button).
+ * and a scroll-aware App Store download CTA (hidden until user passes the
+ * hero so it never duplicates the hero's own CTA button).
  */
 export function SiteHeader({ locale }: SiteHeaderProps) {
   const dict = getDictionary(locale);

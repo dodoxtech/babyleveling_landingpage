@@ -8,10 +8,11 @@
  * `/pricing`, `/faq` depth pages (`lib/content/nav.ts`), not at the section
  * IDs below  -  those IDs remain as landmarks/`aria-label`s and as targets for
  * in-page narrative links (e.g. Reveal's "See how it works" CTA), not nav
- * targets. The header CTA now targets the live App Store listing directly
- * (`lib/app-store.ts`) instead of the pre-launch `#waitlist` anchor; the S11
- * section keeps the `#waitlist` id/anchor (still linked from footer/blog) but
- * renders a download push, not a signup form  -  see `WaitlistSignup.tsx`.
+ * targets. The header CTA, the Hero CTA, and the S11 closing section
+ * (`DownloadSection.tsx`) all target the live App Store listing directly
+ * (`lib/app-store.ts`). The pre-launch email waitlist (form, API route,
+ * Google Sheets provider) has been removed entirely now that the app has
+ * shipped  -  see docs/features/waitlist-signup.md (superseded).
  *
  * Every section S1-S12 is a real component as of TASK-0003/TASK-0004/TASK-0005/
  * TASK-0006/TASK-0007. As of TASK-0011, every section receives `locale` and
@@ -31,7 +32,7 @@ import { Screenshots } from "@/components/sections/Screenshots";
 import { ThemeGallery } from "@/components/sections/ThemeGallery";
 import { FamilyShare } from "@/components/sections/FamilyShare";
 import { Faq } from "@/components/sections/Faq";
-import { WaitlistSignup } from "@/components/sections/WaitlistSignup";
+import { DownloadSection } from "@/components/sections/DownloadSection";
 import { SiteFooter } from "@/components/ui/SiteFooter";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
@@ -80,8 +81,8 @@ export default async function Home({ params }: HomeProps) {
 
         <LegalTrustLinks locale={locale} />
 
-        {/* S11  -  Final CTA / Waitlist (header CTA scrolls here) */}
-        <WaitlistSignup locale={locale} />
+        {/* S11  -  Final CTA / App Store download */}
+        <DownloadSection locale={locale} />
       </main>
 
       {/* S12  -  Footer. Sibling of <main>, not nested in it  -  SiteFooter
@@ -97,7 +98,7 @@ function LegalTrustLinks({ locale }: { locale: Locale }) {
     {
       href: localeHref(locale, "/legal/privacy"),
       label: dict.legal.privacyH1,
-      body: "How baby data, platform permissions, waitlist email, and deletion requests are handled.",
+      body: "How baby data, platform permissions, contact email, and deletion requests are handled.",
     },
     {
       href: localeHref(locale, "/legal/terms"),

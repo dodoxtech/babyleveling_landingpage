@@ -11,7 +11,7 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-const LAST_UPDATED = "2026-08-12";
+const LAST_UPDATED = "2026-09-04";
 const CONTACT_EMAIL = "contact@babyleveling.com";
 
 const privacyCopy: Record<
@@ -30,7 +30,7 @@ const privacyCopy: Record<
     intro:
       "BabyLeveling treats care logs as family records first. This policy explains what stays on your device on the free tier, what Premium cloud sync and family sharing upload to our servers, what the website collects, and the rights available to you depending on where you live.",
     metadataDescription:
-      "How BabyLeveling handles on-device baby logs, Premium cloud sync, backups, and family sharing, account and subscription data, Cloudflare storage, waitlist and contact data, our no-AI-training / no-advertising rule, and regional privacy rights under CCPA/CPRA, APPI, PIPEDA, and Decree 13/2023.",
+      "How BabyLeveling handles on-device baby logs, Premium cloud sync, backups, and family sharing, account and subscription data, Cloudflare storage, contact data, our no-AI-training / no-advertising rule, and regional privacy rights under CCPA/CPRA, APPI, PIPEDA, and Decree 13/2023.",
     asideTitle: "Coverage",
     readLabel: "Read",
     contactLinkLabel: "contact page",
@@ -99,10 +99,9 @@ const privacyCopy: Record<
         ],
       },
       {
-        heading: "Website, waitlist, and contact data",
+        heading: "Website and contact data",
         body: [
-          "If you join the waitlist, we collect your email address, the page or source that submitted it, and a server timestamp so we can send launch updates.",
-          "If you contact us through the contact form, we collect the email address, subject, and message you submit so we can respond. The website may also collect first-party, privacy-focused analytics such as page views, section views, CTA clicks, waitlist success counts, and device category to understand whether the website works.",
+          "If you contact us through the contact form, we collect the email address, subject, and message you submit so we can respond. The website may also collect first-party, privacy-focused analytics such as page views, section views, CTA clicks, and device category to understand whether the website works.",
         ],
       },
       {
@@ -141,13 +140,13 @@ const privacyCopy: Record<
           "Local app data stays on your device until you delete it in the app, delete the app, erase the device, or remove the related device backup through your platform settings.",
           "If you use Premium, cloud-synced baby profiles, activity logs, and media stay on our servers while your account is active. If you delete your account from Settings in the app, we immediately mark your account and email address for deletion and revoke your sessions, then permanently delete your account, database records, and files stored on Cloudflare — including photos, videos, and backups — within 30 days, and send a confirmation email once that is complete.",
           "If a family member is removed from a shared baby profile, they lose further access to it through the app, but information already synced to their own device before removal may remain there until they delete it locally.",
-          `To remove waitlist or contact data collected through the website, email ${CONTACT_EMAIL} from the address you used. We will remove it from active records within 30 days unless we need to keep a limited record for security, fraud prevention, or legal reasons.`,
+          `To remove contact data collected through the website, email ${CONTACT_EMAIL} from the address you used. We will remove it from active records within 30 days unless we need to keep a limited record for security, fraud prevention, or legal reasons.`,
         ],
       },
       {
         heading: "Children's privacy",
         body: [
-          "BabyLeveling is for parents, guardians, and caregivers. It is not intended for children to create accounts, submit contact information, join the website waitlist, or otherwise interact with us directly.",
+          "BabyLeveling is for parents, guardians, and caregivers. It is not intended for children to create accounts, submit contact information, or otherwise interact with us directly.",
           "Adults enter information about a child for family care tracking after confirming they are the child's parent or legal guardian. We do not knowingly collect personal information directly from children, and we do not knowingly let a child create an account.",
         ],
       },
@@ -169,7 +168,7 @@ const privacyCopy: Record<
     intro:
       "BabyLeveling xem nhật ký chăm sóc bé là dữ liệu của gia đình trước hết. Chính sách này nói rõ dữ liệu nào ở lại trên thiết bị với bản miễn phí, dữ liệu nào được tải lên máy chủ khi bạn bật đồng bộ đám mây và chia sẻ gia đình ở bản Premium, website thu thập gì, và các quyền bạn có tùy theo nơi bạn sinh sống.",
     metadataDescription:
-      "Cách BabyLeveling xử lý nhật ký chăm sóc bé trên thiết bị, đồng bộ đám mây, sao lưu (backup) và chia sẻ gia đình ở bản Premium, dữ liệu tài khoản và thuê bao, lưu trữ trên Cloudflare, dữ liệu danh sách chờ/liên hệ, nguyên tắc không dùng dữ liệu để huấn luyện AI hay quảng cáo, và quyền riêng tư theo khu vực theo CCPA/CPRA, APPI, PIPEDA và Nghị định 13/2023.",
+      "Cách BabyLeveling xử lý nhật ký chăm sóc bé trên thiết bị, đồng bộ đám mây, sao lưu (backup) và chia sẻ gia đình ở bản Premium, dữ liệu tài khoản và thuê bao, lưu trữ trên Cloudflare, dữ liệu liên hệ, nguyên tắc không dùng dữ liệu để huấn luyện AI hay quảng cáo, và quyền riêng tư theo khu vực theo CCPA/CPRA, APPI, PIPEDA và Nghị định 13/2023.",
     asideTitle: "Phạm vi",
     readLabel: "Đọc",
     contactLinkLabel: "trang liên hệ",
@@ -238,10 +237,9 @@ const privacyCopy: Record<
         ],
       },
       {
-        heading: "Dữ liệu website, danh sách chờ và liên hệ",
+        heading: "Dữ liệu website và liên hệ",
         body: [
-          "Nếu bạn tham gia danh sách chờ, chúng tôi thu thập email, trang hoặc nguồn gửi form, và thời điểm server ghi nhận để gửi thông tin ra mắt.",
-          "Nếu bạn gửi form liên hệ, chúng tôi thu thập email, chủ đề và nội dung tin nhắn để phản hồi. Website cũng có thể thu thập analytics first-party, tôn trọng quyền riêng tư, như lượt xem trang, lượt xem từng section, lượt bấm CTA, số lần đăng ký danh sách chờ thành công và loại thiết bị để hiểu website có hoạt động tốt không.",
+          "Nếu bạn gửi form liên hệ, chúng tôi thu thập email, chủ đề và nội dung tin nhắn để phản hồi. Website cũng có thể thu thập analytics first-party, tôn trọng quyền riêng tư, như lượt xem trang, lượt xem từng section, lượt bấm CTA và loại thiết bị để hiểu website có hoạt động tốt không.",
         ],
       },
       {
@@ -280,13 +278,13 @@ const privacyCopy: Record<
           "Dữ liệu app lưu local sẽ ở trên thiết bị cho đến khi bạn xóa trong app, xóa app, xóa thiết bị, hoặc xóa bản sao lưu liên quan qua cài đặt nền tảng.",
           "Nếu bạn dùng Premium, hồ sơ bé, nhật ký hoạt động và media đã đồng bộ đám mây sẽ lưu trên máy chủ của chúng tôi trong thời gian tài khoản còn hoạt động. Nếu bạn xóa tài khoản từ Cài đặt trong app, chúng tôi ngay lập tức đánh dấu tài khoản và địa chỉ email của bạn để xóa và thu hồi các phiên đăng nhập, sau đó xóa vĩnh viễn tài khoản, bản ghi trong cơ sở dữ liệu và tệp lưu trên Cloudflare — bao gồm ảnh, video và bản sao lưu — trong vòng 30 ngày, và gửi email xác nhận khi hoàn tất.",
           "Nếu một thành viên gia đình bị xóa khỏi hồ sơ bé được chia sẻ, họ sẽ mất quyền truy cập tiếp theo qua app, nhưng thông tin đã đồng bộ về thiết bị riêng của họ trước khi bị xóa có thể vẫn còn ở đó cho đến khi họ tự xóa cục bộ.",
-          `Để xóa dữ liệu danh sách chờ hoặc liên hệ thu thập qua website, hãy email ${CONTACT_EMAIL} từ địa chỉ bạn đã dùng. Chúng tôi sẽ xóa dữ liệu khỏi hồ sơ đang hoạt động trong vòng 30 ngày, trừ khi cần giữ một bản ghi giới hạn vì bảo mật, chống gian lận hoặc lý do pháp lý.`,
+          `Để xóa dữ liệu liên hệ thu thập qua website, hãy email ${CONTACT_EMAIL} từ địa chỉ bạn đã dùng. Chúng tôi sẽ xóa dữ liệu khỏi hồ sơ đang hoạt động trong vòng 30 ngày, trừ khi cần giữ một bản ghi giới hạn vì bảo mật, chống gian lận hoặc lý do pháp lý.`,
         ],
       },
       {
         heading: "Quyền riêng tư của trẻ em",
         body: [
-          "BabyLeveling dành cho ba mẹ, người giám hộ và người chăm sóc. App không được thiết kế để trẻ tự tạo tài khoản, gửi thông tin liên hệ, tham gia danh sách chờ trên website hoặc tương tác trực tiếp với chúng tôi theo cách khác.",
+          "BabyLeveling dành cho ba mẹ, người giám hộ và người chăm sóc. App không được thiết kế để trẻ tự tạo tài khoản, gửi thông tin liên hệ, hoặc tương tác trực tiếp với chúng tôi theo cách khác.",
           "Người lớn nhập thông tin về trẻ để theo dõi việc chăm sóc trong gia đình sau khi đã xác nhận họ là ba/mẹ hoặc người giám hộ hợp pháp của trẻ. Chúng tôi không cố ý thu thập thông tin cá nhân trực tiếp từ trẻ em, và không cố ý cho phép trẻ em tự tạo tài khoản.",
         ],
       },
@@ -308,7 +306,7 @@ const privacyCopy: Record<
     intro:
       "BabyLeveling は、赤ちゃんのケア記録をまず家族の記録として扱います。このポリシーでは、無料版で端末内に残るデータ、Premium のクラウド同期・家族共有でサーバーに送信される情報、ウェブサイトで収集する情報、そしてお住まいの地域に応じて利用できる権利について説明します。",
     metadataDescription:
-      "BabyLeveling における端末内の育児記録、Premium のクラウド同期・バックアップ・家族共有、アカウントおよびサブスクリプション情報、Cloudflare でのデータ保存、ウェイトリスト・お問い合わせデータ、AI学習・広告に一切利用しないという方針、CCPA/CPRA・APPI・PIPEDA・ベトナム政令13号に基づく地域別プライバシー権について。",
+      "BabyLeveling における端末内の育児記録、Premium のクラウド同期・バックアップ・家族共有、アカウントおよびサブスクリプション情報、Cloudflare でのデータ保存、お問い合わせデータ、AI学習・広告に一切利用しないという方針、CCPA/CPRA・APPI・PIPEDA・ベトナム政令13号に基づく地域別プライバシー権について。",
     asideTitle: "対象範囲",
     readLabel: "読む",
     contactLinkLabel: "お問い合わせページ",
@@ -377,10 +375,9 @@ const privacyCopy: Record<
         ],
       },
       {
-        heading: "ウェブサイト、ウェイトリスト、お問い合わせ",
+        heading: "ウェブサイトとお問い合わせ",
         body: [
-          "ウェイトリストに登録する場合、ローンチ情報をお知らせするために、メールアドレス、送信元ページまたはソース、サーバー側の登録時刻を収集します。",
-          "お問い合わせフォームを利用する場合、返信のためにメールアドレス、件名、メッセージ内容を収集します。ウェブサイトでは、ページ閲覧、セクション閲覧、CTA クリック、ウェイトリスト登録成功数、端末カテゴリなど、サイト改善のためのファーストパーティかつプライバシーに配慮した分析情報を収集する場合があります。",
+          "お問い合わせフォームを利用する場合、返信のためにメールアドレス、件名、メッセージ内容を収集します。ウェブサイトでは、ページ閲覧、セクション閲覧、CTA クリック、端末カテゴリなど、サイト改善のためのファーストパーティかつプライバシーに配慮した分析情報を収集する場合があります。",
         ],
       },
       {
@@ -419,13 +416,13 @@ const privacyCopy: Record<
           "端末内のアプリデータは、アプリ内で削除する、アプリを削除する、端末を消去する、または関連する端末バックアップをプラットフォーム設定から削除するまで、端末に残ります。",
           "Premium をご利用の場合、クラウド同期された赤ちゃんプロフィール、ケア記録、メディアは、アカウントが有効である間、当社のサーバーに保存されます。アプリ内の設定からアカウントを削除すると、直ちにアカウントとメールアドレスに削除の印を付け、ログインセッションを無効化します。その後30日以内に、アカウント、データベースの記録、写真・動画・バックアップを含む Cloudflare 上のファイルを完全に削除し、完了後に削除完了の確認メールを送信します。",
           "家族の一員が共有中の赤ちゃんプロフィールから除外された場合、その人はアプリを通じたそれ以降のアクセス権を失いますが、除外される前にその人自身の端末に同期済みの情報は、本人がローカルで削除するまで端末に残る場合があります。",
-          `ウェブサイトで収集したウェイトリストまたはお問い合わせデータの削除を希望する場合は、登録時に使用したメールアドレスから ${CONTACT_EMAIL} へご連絡ください。セキュリティ、不正防止、法的理由により限定的な記録を保持する必要がある場合を除き、30日以内にアクティブな記録から削除します。`,
+          `ウェブサイトで収集したお問い合わせデータの削除を希望する場合は、登録時に使用したメールアドレスから ${CONTACT_EMAIL} へご連絡ください。セキュリティ、不正防止、法的理由により限定的な記録を保持する必要がある場合を除き、30日以内にアクティブな記録から削除します。`,
         ],
       },
       {
         heading: "子どものプライバシー",
         body: [
-          "BabyLeveling は、保護者、親権者、養育者のためのサービスです。子ども本人がアカウントを作成したり、連絡先情報を送信したり、ウェイトリストに登録したり、その他の方法で当社と直接やり取りしたりすることは想定していません。",
+          "BabyLeveling は、保護者、親権者、養育者のためのサービスです。子ども本人がアカウントを作成したり、連絡先情報を送信したり、その他の方法で当社と直接やり取りしたりすることは想定していません。",
           "大人の利用者は、自身がその子どもの保護者または親権者であることを確認したうえで、家庭内のケア記録のために子どもに関する情報を入力します。当社は、13歳未満を含む子どもから直接個人情報を収集することを意図しておらず、子ども本人によるアカウント作成を意図的に許可することもありません。",
         ],
       },

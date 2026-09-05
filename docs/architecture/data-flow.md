@@ -1,6 +1,6 @@
 ---
 tags: [architecture]
-updated: 2026-06-22
+updated: 2026-09-04
 ---
 
 # Data Models & State Flow
@@ -11,7 +11,15 @@ updated: 2026-06-22
 ## Two kinds of data
 
 1. **Static content** — marketing copy and assets, known at build time. The bulk of the site.
-2. **Waitlist submission** — the one piece of runtime, user-generated data.
+2. **Contact submission** — the one remaining piece of runtime, user-generated data (see
+   `lib/contact-provider.ts` in [[modules]]).
+
+> [!note] Waitlist removed (2026-09-04)
+> The app has shipped, so the pre-launch email waitlist — model, client helper, API route,
+> and Google Sheets provider — was deleted outright rather than left dormant. Every CTA now
+> links straight to the real App Store listing (`lib/app-store.ts`). What follows below still
+> describes it in the past tense for historical/audit purposes; see [[modules]] "Removed:
+> waitlist module" and [[../features/waitlist-signup]] for the full picture.
 
 ## Content models
 
@@ -62,8 +70,7 @@ interface ThemeDefinition {
 Theme-aware mascot images are runtime UI state, not content data. `HeroMascot.client.tsx`
 and `ThemedBabyMascot.client.tsx` read `getStoredTheme()` and listen for the shared
 `theme-change` event. The `focus` website skin swaps mascot poses to
-`cute-baby-boy-*.png`; `cute`/`zen` keep the girl mascot variants unless a section is in a
-non-mascot success state such as the waitlist trophy.
+`cute-baby-boy-*.png`; `cute`/`zen` keep the girl mascot variants.
 
 ### Narrative content models (landed in TASK-0001)
 
@@ -136,7 +143,7 @@ the home narrative and its depth-page counterpart. The only genuinely new per-pa
 is each page's own `<h1>`/intro copy and the `FEATURE_DEPTH_COPY`/`LOOP_DEPTH_COPY` lookup
 records (one elaboration sentence per feature/loop step), which stay local `const`s in
 `app/features/page.tsx`/`app/rpg-system/page.tsx` — same reasoning `Reveal.tsx` and
-`WaitlistSignup.tsx` record for their own local copy: no other page needs to read it.
+`DownloadSection.tsx` record for their own local copy: no other page needs to read it.
 `/faq` has no new copy at all — it renders `<Faq />` directly under its own `<h1>`.
 
 ### Nav content model (landed in TASK-0002)
@@ -147,7 +154,7 @@ interface NavLink { id: string; label: string; href: string; }
 interface LocaleOption { id: string; label: string; }
 
 export const navLinks: NavLink[];        // Features, RPG System, For Parents, Pricing, FAQ
-export const navCta: { label: string; href: string };   // "Join the waitlist" -> #waitlist
+export const navCta: { label: string; href: string };   // "Get the App" -> APP_STORE_URL (lib/app-store.ts)
 export const localeOptions: LocaleOption[];               // EN / 日本語 / Tiếng Việt stub
 export const wordmark: string;
 ```
@@ -162,9 +169,9 @@ since the standalone `/features`/`/rpg-system`/`/parents`/`/pricing` depth pages
 them (plus a standalone `/faq`), every `navLinks` entry points at its real route instead — an
 anchor like `#features` only resolves on the one page that actually has a `#features` element,
 and `SiteHeader`/`SiteFooter` are persistent chrome rendered on every route via `app/layout.tsx`,
-so a route-relative anchor would silently do nothing on any other page. `navCta.href` stays
-`#waitlist`: every page (home and all five depth pages, via `DepthPageShell`) renders its own
-`<WaitlistSignup />`, so that anchor genuinely resolves everywhere.
+so a route-relative anchor would silently do nothing on any other page. `navCta.href` now
+points at `APP_STORE_URL` (`lib/app-store.ts`) directly (2026-09-04) instead of an in-page
+`#waitlist` anchor, since the app has shipped — see the waitlist-removal note above.
 
 ### Hero content model (real copy landed in TASK-0003)
 
@@ -187,10 +194,10 @@ copy here (the same reason `nav.ts` did in TASK-0002). JA/VI variants land in TA
 S3 Reveal's copy (headline/body/CTA) stays a local `const` inside `Reveal.tsx` rather than a
 new `lib/content/reveal.ts` model, since no other section currently needs to read it.
 
-## Waitlist model
+## Waitlist model (removed 2026-09-04 — historical)
 
 ```ts
-// lib/waitlist.ts
+// lib/waitlist.ts — deleted
 interface WaitlistEntry {
   email: string;
   source?: string;      // optional UTM / referrer tag
@@ -213,21 +220,21 @@ HTML rendered at build (SSG) → served via Vercel CDN
 Static content never round-trips to a server at runtime. It is imported directly and
 rendered in Server Components, so most of the page ships as static HTML/CSS.
 
-## Waitlist flow (runtime)
+## Waitlist flow (removed 2026-09-04 — historical)
 
 ```
-WaitlistSignup (Client Component)
+WaitlistSignup (Client Component)  -  now DownloadSection, a static App Store link
       │  user submits email
       ▼
-lib/waitlist.ts  → fetch POST /api/waitlist
+lib/waitlist.ts  → fetch POST /api/waitlist        -  all deleted
       │
       ▼
-app/api/waitlist/route.ts  (server)
+app/api/waitlist/route.ts  (server)                 -  deleted
       │  honeypot + rate-limit, then lib/waitlist-validation.ts:
       │  normalizeEmail → isValidEmail (shape/length/control-char),
       │  sanitizeSource (strip control chars, cap length), stamp createdAt
       ▼
-getWaitlistProvider() → GoogleSheetsWaitlistProvider
+getWaitlistProvider() → GoogleSheetsWaitlistProvider  -  deleted
       │  dedupe by email, append [email, source, createdAt] row —
       │  each cell run through sanitizeCellValue (formula-injection guard)
       ▼
@@ -237,22 +244,29 @@ Google Sheet (via googleapis, service-account auth)
 Response → WaitlistSignup shows success / error state
 ```
 
-**Input safety.** All untrusted-input rules live in one pure module,
-`lib/waitlist-validation.ts`, shared by the client helper, the route handler,
-and the provider so the three never drift. It rejects malformed/oversized
-emails and embedded control characters, bounds and de-controls the optional
-`source` tag, and neutralizes spreadsheet **formula injection** — values
-written to the sheet with `valueInputOption: "RAW"` are inert in-sheet but a
-cell beginning with `= + - @` (or tab/CR) would execute on CSV export, so any
-such value is prefixed with `'`. Rules are unit-tested in
-`tests/waitlist-validation.test.ts` (run `pnpm test`).
+**Input safety (historical).** All untrusted-input rules lived in one pure module,
+`lib/waitlist-validation.ts`, shared by the client helper, the route handler, and the
+provider so the three never drifted. It rejected malformed/oversized emails and embedded
+control characters, bounded and de-controlled the optional `source` tag, and neutralized
+spreadsheet **formula injection** — values written to the sheet with
+`valueInputOption: "RAW"` are inert in-sheet but a cell beginning with `= + - @` (or tab/CR)
+would execute on CSV export, so any such value was prefixed with `'`. That last guard,
+`sanitizeCellValue()`, is the one piece still alive today: it moved to
+`lib/sheets-sanitize.ts` (tested in `tests/sheets-sanitize.test.ts`) since `lib/contact-provider.ts`
+still appends rows to a Google Sheet and needs the same protection. Everything else in this
+flow — the email model, the route, the rate limit, the provider — was deleted, not just
+unmounted, once the app shipped and every CTA switched to linking `lib/app-store.ts`'s
+`APP_STORE_URL` directly.
 
-State here is local and ephemeral: the form holds `idle | submitting | success | error` in
-component state. There is no global client store — the site has no cross-section shared
-runtime state.
+**Current CTA state has no client-side state machine.** `DownloadSection` (the S11 closing
+section) and `DownloadCta.client.tsx` (the shared download button) are just a styled
+`<a href={APP_STORE_URL} target="_blank">` that fires a `cta_clicked` analytics event on
+click — no form, no `idle | submitting | success | error` state, no server round-trip. The
+site currently has no cross-section shared runtime state and no user-generated data flow at
+all beyond the contact form above.
 
 ## Related
 - [[modules]]
 - [[overview]]
-- [[features/waitlist-signup]]
-- [[decisions/ADR-0002-waitlist-provider]]
+- [[features/waitlist-signup]] (superseded)
+- [[decisions/ADR-0002-waitlist-provider]] (historical — no live consumer)

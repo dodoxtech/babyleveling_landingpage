@@ -55,13 +55,13 @@ const FAQ_TEXT: Record<Locale, Record<(typeof FAQ_IDS)[number], FaqItem>> = {
       id: "free-and-launch",
       question: "Is BabyLeveling free? When does it launch?",
       answer:
-        "BabyLeveling hasn't launched yet, so pricing isn't set. Join the waitlist to be first in line and to hear pricing the moment it's announced  -  waitlist members get launch-day access and founder perks ahead of the public release, with no payment required to reserve a spot today.",
+        "BabyLeveling is live now on the App Store for iPhone and Apple Watch. The free tier works fully on your device with no account required; Premium adds cloud sync and family sharing, billed through the App Store, with exact pricing shown in the app before you subscribe.",
     },
     "data-privacy": {
       id: "data-privacy",
       question: "Is baby tracking data private and safe in BabyLeveling?",
       answer:
-        "Your baby's data is yours. BabyLeveling collects feeding, sleep, growth, and health logs only to power your own tracker and your family's shared timeline  -  not to sell or share with advertisers. Full details will be published on the privacy page ahead of launch.",
+        "Your baby's data is yours. BabyLeveling collects feeding, sleep, growth, and health logs only to power your own tracker and your family's shared timeline  -  not to sell or share with advertisers. Full details are on the privacy page.",
     },
     "tracker-or-game": {
       id: "tracker-or-game",
@@ -103,7 +103,7 @@ const FAQ_TEXT: Record<Locale, Record<(typeof FAQ_IDS)[number], FaqItem>> = {
       id: "offline-no-subscription",
       question: "Does BabyLeveling work offline? Is there a subscription?",
       answer:
-        "BabyLeveling stores your baby's data on-device first, so it works fully offline  -  no connectivity needed to log a 3 AM feed. Pricing hasn't been set yet; join the waitlist for founder-tier access and to be the first to know the final price. Core tracking will not require an ongoing subscription to use.",
+        "BabyLeveling stores your baby's data on-device first, so it works fully offline  -  no connectivity needed to log a 3 AM feed. The free tier covers core tracking with no ongoing subscription required; Premium is an optional paid upgrade for cloud sync and family sharing.",
     },
     "switch-from-other-tracker": {
       id: "switch-from-other-tracker",
@@ -141,13 +141,13 @@ const FAQ_TEXT: Record<Locale, Record<(typeof FAQ_IDS)[number], FaqItem>> = {
       id: "free-and-launch",
       question: "無料ですか?いつリリースされますか?",
       answer:
-        "BabyLeveling はまだリリースされていないため、料金は未定です。ウェイトリストに登録すると、いちばん早く順番が確保され、料金が決まった瞬間にお知らせが届きます。ウェイトリストのメンバーは、一般公開に先がけてローンチ日アクセスと先行者特典を受け取れます。今日、席を確保するのに支払いは不要です。",
+        "BabyLeveling は現在 App Store で配信中で、iPhone と Apple Watch に対応しています。無料版はアカウント不要で端末内だけで完全に動作します。Premium ではクラウド同期と家族共有が使え、App Store 経由で課金され、正確な価格は登録前にアプリ内に表示されます。",
     },
     "data-privacy": {
       id: "data-privacy",
       question: "BabyLeveling の育児記録データは安全でプライベートですか?",
       answer:
-        "赤ちゃんのデータは、あなたのものです。BabyLeveling が収集する授乳・睡眠・成長・健康の記録は、あなた自身のトラッカーとご家族の共有タイムラインを動かすためだけに使われます -  - 広告主への販売や共有は行いません。詳細は、リリースに先がけてプライバシーページで公開します。",
+        "赤ちゃんのデータは、あなたのものです。BabyLeveling が収集する授乳・睡眠・成長・健康の記録は、あなた自身のトラッカーとご家族の共有タイムラインを動かすためだけに使われます -  - 広告主への販売や共有は行いません。詳細はプライバシーページに記載しています。",
     },
     "tracker-or-game": {
       id: "tracker-or-game",
@@ -189,7 +189,7 @@ const FAQ_TEXT: Record<Locale, Record<(typeof FAQ_IDS)[number], FaqItem>> = {
       id: "offline-no-subscription",
       question: "BabyLeveling はオフラインで使えますか? サブスクは必要ですか?",
       answer:
-        "BabyLeveling はデータをまずオンデバイスに保存するため、深夜3時の授乳記録にもネット接続は不要です。料金はまだ未定です。先行者特典を受けるためにウェイトリストに登録してください。コアのトラッキング機能には継続課金のサブスクリプションは必要ありません。",
+        "BabyLeveling はデータをまずオンデバイスに保存するため、深夜3時の授乳記録にもネット接続は不要です。コアのトラッキング機能は無料版のみで完結し、継続課金のサブスクリプションは不要です。Premium はクラウド同期と家族共有を追加する任意の有料アップグレードです。",
     },
     "switch-from-other-tracker": {
       id: "switch-from-other-tracker",
@@ -227,13 +227,13 @@ const FAQ_TEXT: Record<Locale, Record<(typeof FAQ_IDS)[number], FaqItem>> = {
       id: "free-and-launch",
       question: "BabyLeveling có miễn phí không? Khi nào ra mắt?",
       answer:
-        "BabyLeveling chưa ra mắt, nên giá vẫn chưa được ấn định. Tham gia danh sách chờ để là người đầu tiên và biết giá ngay khi được công bố  -  thành viên danh sách chờ được truy cập từ ngày ra mắt và nhận ưu đãi dành cho người đến trước, trước khi phát hành công khai, mà không cần thanh toán gì để giữ chỗ ngay hôm nay.",
+        "BabyLeveling đã có mặt trên App Store cho iPhone và Apple Watch. Bản miễn phí hoạt động đầy đủ trên thiết bị, không cần tài khoản; Premium bổ sung đồng bộ đám mây và chia sẻ gia đình, thanh toán qua App Store, với giá chính xác hiển thị trong app trước khi bạn đăng ký.",
     },
     "data-privacy": {
       id: "data-privacy",
       question: "Dữ liệu theo dõi em bé trong BabyLeveling có riêng tư và an toàn không?",
       answer:
-        "Dữ liệu của bé là của bạn. BabyLeveling thu thập các ghi nhận về cữ bú, giấc ngủ, tăng trưởng và sức khỏe chỉ để vận hành bộ theo dõi của riêng bạn và dòng thời gian chung của gia đình  -  không bán hay chia sẻ với bên quảng cáo. Chi tiết đầy đủ sẽ được công bố trên trang quyền riêng tư trước khi ra mắt.",
+        "Dữ liệu của bé là của bạn. BabyLeveling thu thập các ghi nhận về cữ bú, giấc ngủ, tăng trưởng và sức khỏe chỉ để vận hành bộ theo dõi của riêng bạn và dòng thời gian chung của gia đình  -  không bán hay chia sẻ với bên quảng cáo. Chi tiết đầy đủ có trên trang quyền riêng tư.",
     },
     "tracker-or-game": {
       id: "tracker-or-game",
@@ -275,7 +275,7 @@ const FAQ_TEXT: Record<Locale, Record<(typeof FAQ_IDS)[number], FaqItem>> = {
       id: "offline-no-subscription",
       question: "BabyLeveling có hoạt động offline không? Có cần đăng ký thuê bao không?",
       answer:
-        "BabyLeveling lưu trữ dữ liệu của bé trực tiếp trên thiết bị, nên hoạt động hoàn toàn offline  -  không cần kết nối để ghi lại cữ bú lúc 3 giờ sáng. Giá vẫn chưa được ấn định; tham gia danh sách chờ để được truy cập ưu đãi sớm và là người đầu tiên biết giá cuối cùng. Tính năng theo dõi cốt lõi sẽ không yêu cầu thuê bao định kỳ để sử dụng.",
+        "BabyLeveling lưu trữ dữ liệu của bé trực tiếp trên thiết bị, nên hoạt động hoàn toàn offline  -  không cần kết nối để ghi lại cữ bú lúc 3 giờ sáng. Tính năng theo dõi cốt lõi nằm trọn trong bản miễn phí, không yêu cầu thuê bao định kỳ. Premium là bản nâng cấp trả phí tùy chọn cho đồng bộ đám mây và chia sẻ gia đình.",
     },
     "switch-from-other-tracker": {
       id: "switch-from-other-tracker",

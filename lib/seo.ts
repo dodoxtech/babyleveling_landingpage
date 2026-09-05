@@ -19,9 +19,9 @@ export const SITE_NAME = "BabyLeveling";
 export const SITE_TITLE =
   "BabyLeveling  -  The Baby Tracker That Plays Like an RPG";
 
-/** `<meta description>` / OG description  -  see §9.5. 149 characters, within the ≤155 budget. */
+/** `<meta description>` / OG description  -  see §9.5. Within the ≤155 budget. */
 export const SITE_DESCRIPTION =
-  "Track feeding, sleep, and growth  -  and watch every log level up your baby's hero. The gamified baby tracker for iOS & Apple Watch. Join the waitlist.";
+  "Track feeding, sleep, and growth  -  and watch every log level up your baby's hero. The gamified baby tracker for iOS & Apple Watch. Download now.";
 
 /**
  * The stable, self-contained entity descriptor  -  see §10.3 ("Definition

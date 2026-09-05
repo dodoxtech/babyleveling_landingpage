@@ -7,28 +7,37 @@ updated: 2026-09-04
 # Waitlist Signup (pre-launch — superseded by App Store download)
 
 > Historical: the site's conversion goal before launch. As of 2026-09-04 the app is live on
-> the App Store, and every primary CTA (header, hero, closing S11 section) now links straight
-> to the real listing (`lib/app-store.ts`) instead of this form. This doc is kept for the
-> still-live backend infra (route handler, provider, rate limiting) — see Current state below.
+> the App Store, and the entire waitlist feature — form, dictionary fields, API route,
+> validation module, and Google Sheets provider — has been **deleted outright**, not just
+> unmounted. Every primary CTA (header, hero, closing S11 section) now links straight to the
+> real listing (`lib/app-store.ts`). Everything below this point describes the removed
+> feature for historical/audit reference only; none of the named files still exist except
+> where noted.
 
-## Current state (2026-09-04)
+## Current state (2026-09-04) — removed, not repurposed
 
-- `components/sections/WaitlistSignup.tsx` no longer renders an email form. It keeps its
-  component name, file path, and `#waitlist` section id/anchor (still linked from
-  footer/blog/nav comments) but now renders a download push: headline + body copy (repurposed
-  `home.waitlist.headline`/`.body`/`.cta` strings) and a `DownloadCta` button
-  (`components/sections/DownloadCta.client.tsx`) linking to `APP_STORE_URL`.
-- The header CTA (`SiteHeaderClient`) and the Hero CTA (`Hero.tsx`) also link straight to
-  `APP_STORE_URL` (`target="_blank"`), replacing their old `#waitlist`/`#waitlist` anchor
-  hrefs. `lib/content/nav.ts`'s `navCtaHref` now equals `APP_STORE_URL`.
-- The backend below (`lib/waitlist.ts`, `app/api/waitlist/route.ts`,
-  `lib/waitlist-provider.ts`, the Google Sheets provider) is **unused by any current UI** but
-  intentionally left in place/undeleted — no user-facing form calls it anymore. Safe to remove
-  in a follow-up cleanup task if the waitlist is confirmed permanently retired.
-- `home.waitlist.ctaVariantB`, `.ctaSubmitting`, `.placeholder`, `.emailLabel`, `.invalid`,
-  `.error`, `.successHeadline`, `.successBody` are dictionary keys the removed form used to
-  read; they're unused now but left in the locale JSON/type rather than deleted, to keep this
-  change reviewable as a behavior swap, not a data-model edit.
+- `components/sections/WaitlistSignup.tsx` was deleted and replaced by
+  `components/sections/DownloadSection.tsx` (new file, not a repurposed version of the old
+  one): a headline + body + `DownloadCta` button (`components/sections/DownloadCta.client.tsx`)
+  linking to `APP_STORE_URL`. The section id/anchor changed from `#waitlist` to `#download`.
+- The header CTA (`SiteHeaderClient`) and the Hero CTA (`Hero.tsx`) link straight to
+  `APP_STORE_URL` (`target="_blank"`). `lib/content/nav.ts`'s `navCtaHref` now equals
+  `APP_STORE_URL` directly (no more `#waitlist` anchor anywhere in the codebase).
+- **Deleted files:** `lib/waitlist.ts`, `lib/waitlist-validation.ts`, `lib/waitlist-provider.ts`,
+  `app/api/waitlist/route.ts`, `components/sections/WaitlistConfetti.client.tsx`,
+  `tests/waitlist-validation.test.ts`. The one piece of shared logic among them,
+  `sanitizeCellValue()` (spreadsheet formula-injection guard), moved to a new leaf module
+  `lib/sheets-sanitize.ts` since `lib/contact-provider.ts` still needs it; its tests moved to
+  `tests/sheets-sanitize.test.ts`.
+- The dictionary's `home.waitlist` node was renamed to `home.download` and trimmed to just
+  `headline`/`body`/`cta`/`subNote` — the email-form-only fields (`placeholder`, `emailLabel`,
+  `ctaVariantB`, `ctaSubmitting`, `invalid`, `error`, `successHeadline`, `successBody`) were
+  deleted from the type and all three locale JSON files, not left dangling.
+- `lib/analytics.ts`'s `EventName` no longer has `waitlist_submit`/`waitlist_success`/
+  `waitlist_error`, and `EventProps` no longer has `status`. Pre-launch copy that referenced
+  the waitlist or "hasn't launched yet" was also updated where it appeared outside this
+  component: legal privacy/terms pages, `/pricing`, and several FAQ answers — see those
+  pages' git history for the specific wording changes made alongside this removal.
 
 ## Overview (pre-launch, historical)
 

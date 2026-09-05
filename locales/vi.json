@@ -248,8 +248,8 @@
           "body": "Mọi thứ nằm trên thiết bị của bạn. Không cần tài khoản để bắt đầu, và không gì được tải lên nếu bạn chưa đồng ý."
         },
         {
-          "title": "Cùng những ba mẹ đang chờ",
-          "body": "Con số duy nhất chúng tôi đếm là bao nhiêu người đang chờ ngày ra mắt."
+          "title": "Đã có mặt trên App Store",
+          "body": "Không cần chờ danh sách nào nữa. Tải BabyLeveling ngay hôm nay và bắt đầu nhiệm vụ đầu tiên của bé."
         }
       ],
       "stats": [
@@ -328,18 +328,10 @@
       "eyebrow": "Tin tưởng",
       "title": "Dữ liệu của bé là của bạn. iOS 17+ & Apple Watch. Sắp ra mắt."
     },
-    "waitlist": {
+    "download": {
       "headline": "Câu chuyện người hùng bắt đầu ngay bây giờ.",
       "body": "BabyLeveling đã có mặt trên App Store — tải miễn phí ngay.",
-      "placeholder": "ban@email.com",
-      "emailLabel": "Địa chỉ email",
       "cta": "Tải trên App Store",
-      "ctaVariantB": "Bắt đầu câu chuyện anh hùng",
-      "ctaSubmitting": "Đang tham gia…",
-      "invalid": "Vui lòng nhập email hợp lệ.",
-      "error": "Có lỗi xảy ra — thử lại nhé.",
-      "successHeadline": "Xong rồi. +1 thành viên đội!",
-      "successBody": "Chúng tôi sẽ email ngay khi cuộc phiêu lưu bắt đầu.",
       "subNote": "Miễn phí tải · iOS & watchOS"
     }
   },
@@ -473,12 +465,12 @@
       ]
     },
     "pricing": {
-      "h1": "Có mặt từ ngày ra mắt — miễn phí.",
-      "sectionTitle": "Những gì chúng tôi biết hôm nay",
+      "h1": "Tải miễn phí.",
+      "sectionTitle": "Những gì bạn nhận được",
       "bullets": [
-        "Tham gia danh sách chờ là miễn phí và sẽ luôn miễn phí.",
-        "Thành viên danh sách chờ được truy cập từ ngày ra mắt và nhận ưu đãi dành cho người đến trước, trước khi phát hành công khai.",
-        "Mô hình giá cuối cùng vẫn chưa được ấn định — chúng tôi sẽ email cho danh sách chờ ngay khi có, trước khi công bố ở bất kỳ đâu khác."
+        "Bản miễn phí hoạt động đầy đủ trên thiết bị của bạn — không cần tài khoản, và miễn phí mãi mãi ở mức này.",
+        "Premium mở khóa đồng bộ đám mây và chia sẻ gia đình giữa các thiết bị của bạn, thanh toán qua App Store.",
+        "Giá cụ thể, chu kỳ thanh toán và điều khoản tự động gia hạn được hiển thị trong app trước khi bạn đăng ký."
       ],
       "closing": [
         {

@@ -11,7 +11,7 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-const LAST_UPDATED = "2026-08-12";
+const LAST_UPDATED = "2026-09-04";
 const CONTACT_EMAIL = "contact@babyleveling.com";
 
 const termsCopy: Record<
@@ -28,9 +28,9 @@ const termsCopy: Record<
 > = {
   en: {
     intro:
-      "These terms cover the BabyLeveling website, waitlist, iOS/watchOS app, the free on-device tier, Premium cloud sync and family sharing, and the responsibilities that come with entering and sharing baby care data.",
+      "These terms cover the BabyLeveling website, iOS/watchOS app, the free on-device tier, Premium cloud sync and family sharing, and the responsibilities that come with entering and sharing baby care data.",
     metadataDescription:
-      "Terms for BabyLeveling website, waitlist, iOS/watchOS app license, App Store rules, guardian confirmation, accounts, Premium subscriptions, family sharing, baby-care logging, medical disclaimers, and contact.",
+      "Terms for BabyLeveling website, iOS/watchOS app license, App Store rules, guardian confirmation, accounts, Premium subscriptions, family sharing, baby-care logging, medical disclaimers, and contact.",
     asideTitle: "Terms scope",
     readLabel: "Read",
     contactLinkLabel: "contact page",
@@ -43,8 +43,8 @@ const termsCopy: Record<
       {
         heading: "Acceptance",
         body: [
-          "By using BabyLeveling, this website, the waitlist, or any related app experience, you agree to these Terms of Service. If you do not agree, do not use the app or website.",
-          "These terms apply to the public website, the waitlist, the free on-device tier of the iOS/watchOS app, and Premium cloud sync and family sharing when you enable them. If BabyLeveling later expands to Android or other platforms, the relevant platform terms may also apply.",
+          "By using BabyLeveling, this website, or any related app experience, you agree to these Terms of Service. If you do not agree, do not use the app or website.",
+          "These terms apply to the public website, the free on-device tier of the iOS/watchOS app, and Premium cloud sync and family sharing when you enable them. If BabyLeveling later expands to Android or other platforms, the relevant platform terms may also apply.",
         ],
       },
       {
@@ -73,7 +73,7 @@ const termsCopy: Record<
         body: [
           "If you download BabyLeveling from the Apple App Store, Apple's App Store terms and policies also apply, including Apple rules for purchases, refunds, and device permissions.",
           "If BabyLeveling is distributed through Google Play or another store in the future, that store's terms and policies may also apply. Those future platform references do not mean the Android version is available today.",
-          "Apple and other platform providers are not responsible for this website, the waitlist, or BabyLeveling support unless their own platform terms say otherwise.",
+          "Apple and other platform providers are not responsible for this website or BabyLeveling support unless their own platform terms say otherwise.",
         ],
       },
       {
@@ -107,7 +107,7 @@ const termsCopy: Record<
       {
         heading: "Payments, subscriptions, and refunds",
         body: [
-          "Joining the waitlist and using the free tier are free. Premium subscriptions and redeem codes are billed and managed through the Apple App Store; pricing, billing cycle, and auto-renewal terms are shown in the app before you subscribe, as required by Apple's guidelines.",
+          "Using the free tier is free. Premium subscriptions and redeem codes are billed and managed through the Apple App Store; pricing, billing cycle, and auto-renewal terms are shown in the app before you subscribe, as required by Apple's guidelines.",
           "Purchases, refunds, renewals, and cancellations are handled by Apple according to Apple's own terms — we cannot issue refunds directly. If we add other platforms or payment providers later, their store terms will also apply to purchases made there.",
         ],
       },
@@ -149,9 +149,9 @@ const termsCopy: Record<
   },
   vi: {
     intro:
-      "Các điều khoản này áp dụng cho website BabyLeveling, danh sách chờ, app iOS/watchOS, bản miễn phí lưu trên thiết bị, đồng bộ đám mây và chia sẻ gia đình của Premium, cùng trách nhiệm đi kèm khi bạn nhập và chia sẻ dữ liệu chăm sóc bé.",
+      "Các điều khoản này áp dụng cho website BabyLeveling, app iOS/watchOS, bản miễn phí lưu trên thiết bị, đồng bộ đám mây và chia sẻ gia đình của Premium, cùng trách nhiệm đi kèm khi bạn nhập và chia sẻ dữ liệu chăm sóc bé.",
     metadataDescription:
-      "Điều khoản cho website BabyLeveling, danh sách chờ, giấy phép app iOS/watchOS, quy định App Store, xác nhận vai trò giám hộ, tài khoản, thuê bao Premium, chia sẻ gia đình, ghi nhận chăm sóc bé, miễn trừ y tế và liên hệ.",
+      "Điều khoản cho website BabyLeveling, giấy phép app iOS/watchOS, quy định App Store, xác nhận vai trò giám hộ, tài khoản, thuê bao Premium, chia sẻ gia đình, ghi nhận chăm sóc bé, miễn trừ y tế và liên hệ.",
     asideTitle: "Phạm vi điều khoản",
     readLabel: "Đọc",
     contactLinkLabel: "trang liên hệ",
@@ -164,8 +164,8 @@ const termsCopy: Record<
       {
         heading: "Chấp nhận điều khoản",
         body: [
-          "Khi sử dụng BabyLeveling, website này, danh sách chờ hoặc bất kỳ trải nghiệm app liên quan nào, bạn đồng ý với các Điều khoản dịch vụ này. Nếu không đồng ý, vui lòng không sử dụng app hoặc website.",
-          "Các điều khoản này áp dụng cho website công khai, danh sách chờ, bản miễn phí lưu trên thiết bị của app iOS/watchOS, và tính năng đồng bộ đám mây, chia sẻ gia đình của Premium khi bạn bật các tính năng đó. Nếu BabyLeveling sau này mở rộng sang Android hoặc nền tảng khác, điều khoản của nền tảng tương ứng cũng có thể áp dụng.",
+          "Khi sử dụng BabyLeveling, website này hoặc bất kỳ trải nghiệm app liên quan nào, bạn đồng ý với các Điều khoản dịch vụ này. Nếu không đồng ý, vui lòng không sử dụng app hoặc website.",
+          "Các điều khoản này áp dụng cho website công khai, bản miễn phí lưu trên thiết bị của app iOS/watchOS, và tính năng đồng bộ đám mây, chia sẻ gia đình của Premium khi bạn bật các tính năng đó. Nếu BabyLeveling sau này mở rộng sang Android hoặc nền tảng khác, điều khoản của nền tảng tương ứng cũng có thể áp dụng.",
         ],
       },
       {
@@ -194,7 +194,7 @@ const termsCopy: Record<
         body: [
           "Nếu bạn tải BabyLeveling từ Apple App Store, điều khoản và chính sách của Apple App Store cũng áp dụng, bao gồm quy định của Apple về mua hàng, hoàn tiền và quyền truy cập thiết bị.",
           "Nếu BabyLeveling được phân phối qua Google Play hoặc cửa hàng khác trong tương lai, điều khoản và chính sách của cửa hàng đó cũng có thể áp dụng. Các nhắc đến nền tảng tương lai không có nghĩa là bản Android có sẵn ở thời điểm hiện tại.",
-          "Apple và các nhà cung cấp nền tảng khác không chịu trách nhiệm cho website này, danh sách chờ hoặc hỗ trợ BabyLeveling, trừ khi điều khoản riêng của họ quy định khác.",
+          "Apple và các nhà cung cấp nền tảng khác không chịu trách nhiệm cho website này hoặc hỗ trợ BabyLeveling, trừ khi điều khoản riêng của họ quy định khác.",
         ],
       },
       {
@@ -228,7 +228,7 @@ const termsCopy: Record<
       {
         heading: "Thanh toán, thuê bao và hoàn tiền",
         body: [
-          "Tham gia danh sách chờ và dùng bản miễn phí là miễn phí. Thuê bao Premium và mã đổi thưởng được Apple App Store thanh toán và quản lý; giá, chu kỳ thanh toán và điều khoản tự động gia hạn được hiển thị trong app trước khi bạn đăng ký, theo đúng yêu cầu của Apple.",
+          "Dùng bản miễn phí là miễn phí. Thuê bao Premium và mã đổi thưởng được Apple App Store thanh toán và quản lý; giá, chu kỳ thanh toán và điều khoản tự động gia hạn được hiển thị trong app trước khi bạn đăng ký, theo đúng yêu cầu của Apple.",
           "Giao dịch mua, hoàn tiền, gia hạn và hủy được Apple xử lý theo điều khoản riêng của Apple — chúng tôi không thể trực tiếp hoàn tiền. Nếu sau này chúng tôi bổ sung nền tảng hoặc nhà cung cấp thanh toán khác, điều khoản cửa hàng của họ cũng sẽ áp dụng cho giao dịch thực hiện ở đó.",
         ],
       },
@@ -270,9 +270,9 @@ const termsCopy: Record<
   },
   ja: {
     intro:
-      "本規約は、BabyLeveling のウェブサイト、ウェイトリスト、iOS / watchOS アプリ、端末内で完結する無料版、Premium のクラウド同期・家族共有、そして赤ちゃんのケア記録を入力・共有する際の責任について定めるものです。",
+      "本規約は、BabyLeveling のウェブサイト、iOS / watchOS アプリ、端末内で完結する無料版、Premium のクラウド同期・家族共有、そして赤ちゃんのケア記録を入力・共有する際の責任について定めるものです。",
     metadataDescription:
-      "BabyLeveling のウェブサイト、ウェイトリスト、iOS/watchOS アプリのライセンス、App Store 規約、保護者確認、アカウント、Premium サブスクリプション、家族共有、育児記録、医療免責、お問い合わせに関する利用規約。",
+      "BabyLeveling のウェブサイト、iOS/watchOS アプリのライセンス、App Store 規約、保護者確認、アカウント、Premium サブスクリプション、家族共有、育児記録、医療免責、お問い合わせに関する利用規約。",
     asideTitle: "規約の範囲",
     readLabel: "読む",
     contactLinkLabel: "お問い合わせページ",
@@ -285,8 +285,8 @@ const termsCopy: Record<
       {
         heading: "同意",
         body: [
-          "BabyLeveling、本ウェブサイト、ウェイトリスト、または関連するアプリ体験を利用することで、本利用規約に同意したものとみなされます。同意しない場合は、アプリおよびウェブサイトを利用しないでください。",
-          "本規約は、公開ウェブサイト、ウェイトリスト、iOS / watchOS アプリの端末内で完結する無料版、および有効化した場合の Premium クラウド同期・家族共有に適用されます。将来 BabyLeveling が Android またはその他のプラットフォームへ展開する場合、該当するプラットフォーム規約も適用されることがあります。",
+          "BabyLeveling、本ウェブサイト、または関連するアプリ体験を利用することで、本利用規約に同意したものとみなされます。同意しない場合は、アプリおよびウェブサイトを利用しないでください。",
+          "本規約は、公開ウェブサイト、iOS / watchOS アプリの端末内で完結する無料版、および有効化した場合の Premium クラウド同期・家族共有に適用されます。将来 BabyLeveling が Android またはその他のプラットフォームへ展開する場合、該当するプラットフォーム規約も適用されることがあります。",
         ],
       },
       {
@@ -315,7 +315,7 @@ const termsCopy: Record<
         body: [
           "Apple App Store から BabyLeveling をダウンロードする場合、購入、返金、端末権限などに関する Apple App Store の規約およびポリシーも適用されます。",
           "将来 BabyLeveling が Google Play または他のストアで配信される場合、そのストアの規約およびポリシーも適用されることがあります。将来のプラットフォームへの言及は、Android 版が現時点で提供されていることを意味しません。",
-          "Apple、その他のプラットフォーム提供者は、それぞれの規約で別途定める場合を除き、本ウェブサイト、ウェイトリスト、または BabyLeveling のサポートについて責任を負いません。",
+          "Apple、その他のプラットフォーム提供者は、それぞれの規約で別途定める場合を除き、本ウェブサイトまたは BabyLeveling のサポートについて責任を負いません。",
         ],
       },
       {
@@ -349,7 +349,7 @@ const termsCopy: Record<
       {
         heading: "支払い、サブスクリプション、返金",
         body: [
-          "ウェイトリストへの登録および無料版の利用は無料です。Premium のサブスクリプションおよび引き換えコードは Apple App Store を通じて課金・管理され、Apple のガイドラインに従い、価格、課金サイクル、自動更新の条件は登録前にアプリ内に表示されます。",
+          "無料版の利用は無料です。Premium のサブスクリプションおよび引き換えコードは Apple App Store を通じて課金・管理され、Apple のガイドラインに従い、価格、課金サイクル、自動更新の条件は登録前にアプリ内に表示されます。",
           "購入、返金、更新、解約は Apple 自身の規約に従い Apple が処理するため、当社が直接返金を行うことはできません。将来、他のプラットフォームや決済プロバイダーを追加する場合、そこでの購入にはそのストアの規約も適用されます。",
         ],
       },

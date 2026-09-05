@@ -1,12 +1,11 @@
 /**
  * Contact-form storage provider — server-side only.
  *
- * Stores submissions in a Google Sheet tab, separate from the waitlist tab
- * (same spreadsheet as `lib/waitlist-provider.ts` by default). Each row:
+ * Stores submissions in a Google Sheet tab. Each row:
  * [email, subject, message, createdAt].
  *
  * Required env vars (set in Vercel dashboard + .env.local):
- *   GOOGLE_SHEETS_SPREADSHEET_ID  — same spreadsheet ID used by the waitlist
+ *   GOOGLE_SHEETS_SPREADSHEET_ID  — the ID from your sheet URL
  *   GOOGLE_SHEETS_CLIENT_EMAIL    — service account email from credentials JSON
  *   GOOGLE_SHEETS_PRIVATE_KEY     — service account private key (include \n characters)
  *   GOOGLE_SHEETS_CONTACT_TAB_NAME — tab/sheet name to append rows to
@@ -14,14 +13,13 @@
  *                                    in the spreadsheet if it doesn't exist)
  *
  * Setup:
- *   1. In the same Google Sheet used for the waitlist, add a new tab named
- *      "Contact" (or set GOOGLE_SHEETS_CONTACT_TAB_NAME to your tab's name).
- *   2. The existing service account (shared as Editor on the spreadsheet)
- *      already has access — no extra sharing step needed.
+ *   1. In the Google Sheet, add a new tab named "Contact" (or set
+ *      GOOGLE_SHEETS_CONTACT_TAB_NAME to your tab's name).
+ *   2. Share the sheet with the service account email (Editor role).
  */
 
 import { google } from "googleapis";
-import { sanitizeCellValue } from "@/lib/waitlist-validation";
+import { sanitizeCellValue } from "@/lib/sheets-sanitize";
 
 export interface ContactEntry {
   email: string;

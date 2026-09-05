@@ -10,9 +10,6 @@
 
 export type EventName =
   | "cta_clicked"
-  | "waitlist_submit"
-  | "waitlist_success"
-  | "waitlist_error"
   | "section_viewed"
   | "share"
   | "sound_toggled";
@@ -23,8 +20,6 @@ export interface EventProps {
   ab_variant?: "a" | "b";
   // Section scroll events
   section?: string;
-  // Waitlist events
-  status?: "created" | "duplicate" | "error";
   // Sound events
   enabled?: boolean;
 }
