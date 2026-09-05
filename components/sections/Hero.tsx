@@ -6,7 +6,7 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import type { Locale } from "@/lib/i18n/config";
 import { CareXpSimulator, type SimTile } from "@/components/sections/CareXpSimulator.client";
 import { MascotXpGlow } from "@/components/sections/MascotXpGlow.client";
-import { APP_STORE_URL } from "@/lib/app-store";
+import { DownloadCta } from "@/components/sections/DownloadCta.client";
 
 interface HeroProps {
   locale: Locale;
@@ -53,22 +53,17 @@ export function Hero({ locale }: HeroProps) {
               {t.tagline}
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={APP_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+            <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <DownloadCta
+                label={t.ctaPrimary}
+                location="hero"
                 className="btn-primary w-full sm:w-auto"
-              >
-                {t.ctaPrimary}
-              </a>
+              />
+              <PlatformBadge>{t.platformNote}</PlatformBadge>
             </div>
 
-            <div className="mt-7 hidden flex-wrap items-center gap-4 sm:flex">
+            <div className="mt-7 hidden sm:flex">
               <ThemeToggle />
-              <div className="rounded-[var(--radius-md)] bg-white px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] shadow-[0_3px_0_rgba(23,32,42,0.1)]">
-                {t.platformNote}
-              </div>
             </div>
           </div>
         </div>
@@ -77,7 +72,6 @@ export function Hero({ locale }: HeroProps) {
           {/* Mobile: stacked character sheet */}
           <div className="w-full sm:hidden">
             <MobileCharacterSheet
-              platformNote={t.platformNote}
               status={t.cardLevelStatus}
               title={t.cardQuickLog}
               tiles={questTiles}
@@ -113,13 +107,26 @@ export function Hero({ locale }: HeroProps) {
   );
 }
 
+/** "Live now" badge next to the download button — a small pulsing dot
+ * (the familiar "online now" shorthand) rather than a second Apple mark,
+ * so it reads as a status signal, not a duplicate of the button's icon. */
+function PlatformBadge({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-[var(--radius-md)] bg-white px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] shadow-[0_3px_0_rgba(23,32,42,0.1)]">
+      <span className="relative flex h-2 w-2 shrink-0">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent-primary)] opacity-75 motion-reduce:hidden" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent-primary)]" />
+      </span>
+      {children}
+    </span>
+  );
+}
+
 function MobileCharacterSheet({
-  platformNote,
   status,
   title,
   tiles,
 }: {
-  platformNote: string;
   status: string;
   title: string;
   tiles: SimTile[];
@@ -133,12 +140,9 @@ function MobileCharacterSheet({
         <div className="absolute left-5 top-5 h-20 w-20 rounded-full bg-[var(--accent-secondary)] opacity-20" />
         <div className="absolute bottom-4 right-4 h-24 w-24 rounded-full bg-[var(--accent-pink)] opacity-20" />
 
-        <div className="relative z-10 flex min-w-0 flex-col justify-between gap-3">
+        <div className="relative z-10 flex min-w-0 flex-col justify-start gap-3">
           <div className="rounded-[var(--radius-lg)] bg-white/78 p-3 shadow-[0_4px_0_rgba(23,32,42,0.07)] backdrop-blur">
             <LevelCardBody status={status} compact />
-          </div>
-          <div className="rounded-[var(--radius-lg)] bg-white/70 p-3 text-center font-display text-xs font-bold text-[var(--text-secondary)] shadow-[0_4px_0_rgba(23,32,42,0.06)] backdrop-blur">
-            {platformNote}
           </div>
         </div>
 
