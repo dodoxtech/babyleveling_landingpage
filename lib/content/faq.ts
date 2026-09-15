@@ -22,6 +22,7 @@ const FAQ_IDS = [
   "offline-no-subscription",
   "switch-from-other-tracker",
   "why-gamification-helps",
+  "home-screen-widget",
 ] as const;
 
 /**
@@ -117,6 +118,12 @@ const FAQ_TEXT: Record<Locale, Record<(typeof FAQ_IDS)[number], FaqItem>> = {
       answer:
         "BabyLeveling is designed for exactly that. Every care act  -  a 3 AM feed, a diaper change, a nap  -  earns EXP, restores your hero's HP, and moves a visible adventure forward. Parents stop dreading the log and start seeing their own effort reflected back as real achievement, turning routine care into something that genuinely feels like progress, not just another entry on a list.",
     },
+    "home-screen-widget": {
+      id: "home-screen-widget",
+      question: "Does BabyLeveling have a Home Screen widget?",
+      answer:
+        "Yes  -  BabyLeveling includes a Home Screen widget for iPhone with a small and a medium size. It shows the last feed, last sleep, and last diaper change without opening the app, and the medium size adds a short newest-first activity log. Tapping the widget opens straight into BabyLeveling.",
+    },
   },
   ja: {
     "what-is-babyleveling": {
@@ -203,6 +210,12 @@ const FAQ_TEXT: Record<Locale, Record<(typeof FAQ_IDS)[number], FaqItem>> = {
       answer:
         "BabyLeveling はまさにそのために設計されています。深夜3時の授乳、おむつ替え、お昼寝 -  - そのすべてでEXPが貯まり、ヒーローのHPが回復し、冒険が前進します。記録が億劫に感じなくなり、自分の頑張りが本物の達成として目に見えるようになります。毎日の育児がただの入力作業ではなく、前に進んでいる実感に変わります。",
     },
+    "home-screen-widget": {
+      id: "home-screen-widget",
+      question: "BabyLeveling にはホーム画面ウィジェットはありますか?",
+      answer:
+        "はい -  - BabyLeveling には iPhone 用のホーム画面ウィジェットがあり、小サイズと中サイズを用意しています。アプリを開かなくても最後の授乳・睡眠・おむつ替えが表示され、中サイズでは新しい順の簡易アクティビティログも追加されます。ウィジェットをタップすると、そのまま BabyLeveling が開きます。",
+    },
   },
   vi: {
     "what-is-babyleveling": {
@@ -288,6 +301,12 @@ const FAQ_TEXT: Record<Locale, Record<(typeof FAQ_IDS)[number], FaqItem>> = {
       question: "Một ứng dụng có thể giúp việc chăm sóc trẻ sơ sinh bớt áp lực và có ý nghĩa hơn không?",
       answer:
         "BabyLeveling được thiết kế cho đúng điều đó. Mỗi hành động chăm sóc  -  cữ bú lúc 3 giờ sáng, thay tã, một giấc ngủ  -  đều kiếm EXP, hồi phục HP của người hùng và đẩy cuộc phiêu lưu tiến lên. Cha mẹ không còn ngại ghi chép mà bắt đầu thấy nỗ lực của mình phản ánh thành thành tích thật. Chăm sóc thường nhật trở thành cảm giác tiến bộ, không chỉ là điền vào form.",
+    },
+    "home-screen-widget": {
+      id: "home-screen-widget",
+      question: "BabyLeveling có widget màn hình chính không?",
+      answer:
+        "Có  -  BabyLeveling có widget màn hình chính cho iPhone, gồm kích thước nhỏ và vừa. Widget hiển thị cữ bú, giấc ngủ và lần thay tã gần nhất mà không cần mở app, và kích thước vừa còn thêm một nhật ký hoạt động ngắn theo thứ tự mới nhất. Chạm vào widget sẽ mở thẳng vào BabyLeveling.",
     },
   },
 };

@@ -1,7 +1,7 @@
 ---
 tags: [feature]
 status: implemented
-updated: 2026-06-20
+updated: 2026-09-15
 ---
 
 # Feature Showcase
@@ -22,6 +22,7 @@ consistent with the landing page's bright game-world theme:
 | **Achievements** | Hexagonal badges and trophies for streaks and milestones. |
 | **Streaks & Buffs** | Consistency rewards: "3-day streak, +50 XP bonus". |
 | **Apple Watch** | Log feeding/sleep from the wrist in ≤ 2 taps. |
+| **Home Screen Widget** | Last feed, sleep, and diaper change on the Home Screen — no app open needed. |
 
 ## User Stories
 

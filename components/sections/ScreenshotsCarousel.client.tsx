@@ -35,6 +35,7 @@ const previewData: Record<string, PreviewData> = {
   "quest-log": { accent: "var(--accent-secondary)" },
   "skill-tree": { accent: "var(--accent-tertiary)" },
   "trophy-room": { accent: "var(--accent-pink)" },
+  widget: { accent: "var(--accent-feed)" },
 };
 
 /**
@@ -125,7 +126,6 @@ export function ScreenshotsCarousel({
         // neighbours are symmetric, their opacities sum to ~1 (no flash/blank).
         const opacity = 1 - smoothstep(0.5 - BAND, 0.5 + BAND, ad);
         el.style.opacity = opacity.toFixed(3);
-        el.style.transform = `translateY(${(-d * 2).toFixed(2)}%) scale(${(1 - Math.min(ad, 1) * 0.04).toFixed(3)})`;
         el.style.zIndex = String(opacity > 0.5 ? 10 : 1);
         el.style.pointerEvents = ad < 0.5 ? "auto" : "none";
       }
@@ -268,8 +268,6 @@ export function ScreenshotsCarousel({
                     }}
                     initialStyle={{
                       opacity: index === 0 ? 1 : 0,
-                      transform:
-                        index === 0 ? "none" : "translateY(4%) scale(0.95)",
                       zIndex: index === 0 ? 10 : 0,
                     }}
                   />
@@ -403,11 +401,11 @@ function PhoneScreen({
       aria-hidden={!active}
       className={
         tour
-          ? "absolute inset-0 will-change-transform motion-reduce:transition-none"
-          : `absolute inset-0 transition duration-500 [transition-timing-function:var(--ease-press)] motion-reduce:transition-none ${
+          ? "absolute inset-0 motion-reduce:transition-none"
+          : `absolute inset-0 transition-opacity duration-500 [transition-timing-function:var(--ease-press)] motion-reduce:transition-none ${
               active
-                ? "z-10 opacity-100 [transform:scale(1)]"
-                : "pointer-events-none opacity-0 [transform:scale(0.94)_translateY(14px)]"
+                ? "z-10 opacity-100"
+                : "pointer-events-none opacity-0"
             }`
       }
       style={tour ? initialStyle : undefined}

@@ -174,6 +174,13 @@
           "eyebrow": "Achievements",
           "heading": "Tiny victories you get to keep",
           "body": "Streaks and firsts become badges the whole family gets to celebrate."
+        },
+        "widget": {
+          "tabTitle": "Home Widget",
+          "subtitle": "One glance, no unlock",
+          "eyebrow": "Home Screen widget",
+          "heading": "The status right on your Home Screen",
+          "body": "Last feed, last nap, last diaper change  -  glance at your Home Screen and you already know."
         }
       },
       "mock": {
@@ -406,7 +413,8 @@
         "skill-tree": "Every milestone you unlock pins to a growing map of firsts, so you can see at a glance how far your baby has come.",
         "achievements": "Badges stay in a permanent trophy case, so the wins from week one are still there to look back on at month twelve.",
         "streaks-buffs": "Streaks track consecutive days of consistent logging, with bonus XP as the reward for simply showing up.",
-        "apple-watch": "Built for one-handed, middle-of-the-night use, so you never have to fully wake up — or unlock your phone — just to log a feed."
+        "apple-watch": "Built for one-handed, middle-of-the-night use, so you never have to fully wake up — or unlock your phone — just to log a feed.",
+        "home-widget": "Add the widget to your Home Screen and the last feed, sleep, and diaper change are right there the moment you glance at your phone — no unlock, no app switch."
       }
     },
     "rpgSystem": {

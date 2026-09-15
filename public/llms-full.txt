@@ -56,6 +56,11 @@ and is not sold or shared with advertisers.
 - **Apple Watch** — Companion app designed for one-handed, middle-of-the-night logging. Two
   taps to record a feed or nap from the wrist. Syncs instantly with iPhone via the family timeline.
 
+- **Home Screen Widget** — An iPhone Home Screen widget in small and medium sizes. Shows the
+  last feed and sleep at a glance (small), or a short newest-first log of feeding, sleep,
+  diaper changes, and medicine (medium) — no need to unlock the phone or open the app. Tapping
+  the widget opens straight into BabyLeveling.
+
 - **Family Sharing** — Partners and grandparents join the same baby's quest. Everyone logs to
   one shared timeline and one shared hero. Care becomes a co-op game instead of one parent's
   solo log.
@@ -192,6 +197,12 @@ A: BabyLeveling tracks the same core data as Huckleberry and Baby Tracker — fe
 diapers, growth, and health records — so your daily routine transfers immediately. Data import is
 not available at launch; the cleanest switch is to start BabyLeveling from birth or from a natural
 break point like the end of a feeding method change.
+
+**Q: Does BabyLeveling have a Home Screen widget?**
+A: Yes — BabyLeveling includes a Home Screen widget for iPhone with a small and a medium size.
+It shows the last feed, last sleep, and last diaper change without opening the app, and the
+medium size adds a short newest-first activity log. Tapping the widget opens straight into
+BabyLeveling.
 
 **Q: Can an app make newborn care feel less stressful and more rewarding?**
 A: BabyLeveling is designed for exactly that. Every care act — a 3 AM feed, a diaper change, a

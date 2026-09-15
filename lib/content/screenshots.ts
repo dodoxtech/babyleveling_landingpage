@@ -19,8 +19,17 @@ interface ScreenshotText {
  * one localized set per locale under `public/screenshots/<locale>/<id>.png` -
  * each `id` here maps 1:1 to the closest real app screen: quest-log -> the
  * activity/quest log, skill-tree -> milestones, trophy-room -> the rank-up moment.
+ * `widget` is the odd one out: it's a Home Screen capture (Simulator, not the
+ * in-app UI) showing the `LatestActivityWidget` WidgetKit extension  -  see
+ * BabyLeveling/docs/features/home-screen-widget.md.
  */
-const SCREENSHOT_IDS = ["dashboard", "quest-log", "skill-tree", "trophy-room"] as const;
+const SCREENSHOT_IDS = [
+  "dashboard",
+  "quest-log",
+  "skill-tree",
+  "trophy-room",
+  "widget",
+] as const;
 
 const SCREENSHOT_TEXT: Record<Locale, Record<string, ScreenshotText>> = {
   en: {
@@ -40,6 +49,10 @@ const SCREENSHOT_TEXT: Record<Locale, Record<string, ScreenshotText>> = {
       alt: "The BabyLeveling trophy room, displaying earned badges and achievements",
       caption: "Trophy Room",
     },
+    widget: {
+      alt: "A BabyLeveling Home Screen widget showing the baby's last feed, sleep, and diaper change at a glance",
+      caption: "Home Screen Widget",
+    },
   },
   ja: {
     dashboard: {
@@ -58,6 +71,10 @@ const SCREENSHOT_TEXT: Record<Locale, Record<string, ScreenshotText>> = {
       alt: "BabyLeveling のトロフィールーム。獲得したバッジとアチーブメントを表示",
       caption: "トロフィールーム",
     },
+    widget: {
+      alt: "BabyLeveling のホーム画面ウィジェット。最後の授乳・睡眠・おむつ替えをひと目で表示",
+      caption: "ホーム画面ウィジェット",
+    },
   },
   vi: {
     dashboard: {
@@ -75,6 +92,10 @@ const SCREENSHOT_TEXT: Record<Locale, Record<string, ScreenshotText>> = {
     "trophy-room": {
       alt: "Phòng cúp của BabyLeveling, trưng bày các huy hiệu và thành tựu đã đạt được",
       caption: "Phòng cúp",
+    },
+    widget: {
+      alt: "Widget màn hình chính của BabyLeveling, hiển thị cữ bú, giấc ngủ và lần thay tã gần nhất chỉ trong một cái nhìn",
+      caption: "Widget màn hình chính",
     },
   },
 };

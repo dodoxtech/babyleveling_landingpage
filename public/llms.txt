@@ -16,6 +16,8 @@ EXP, and milestones unlock achievements.
   pediatrician-ready charts and records) — neither is a skin on the other.
 - Core mechanics: XP & Levels, Daily Quests, Skill Tree, Achievements, Streaks & Buffs,
   Apple Watch 2-tap logging.
+- Home Screen widget (small and medium) shows the last feed, sleep, and diaper change without
+  opening the app.
 - Three visual themes per baby: Royal ("Soft power."), Warrior ("Forged in fire."), Zen
   ("Gentle and intentional.").
 - Family sharing: partners and grandparents join the same baby's quest and timeline.

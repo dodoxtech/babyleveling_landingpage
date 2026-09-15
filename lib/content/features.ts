@@ -54,6 +54,11 @@ const FEATURE_BASE: FeatureBase[] = [
     accent: "var(--accent-growth)",
     xpTick: 10,
   },
+  {
+    id: "home-widget",
+    icon: "feature.home-widget",
+    accent: "var(--accent-feed)",
+  },
 ];
 
 const FEATURE_TEXT: Record<Locale, Record<string, FeatureText>> = {
@@ -84,6 +89,11 @@ const FEATURE_TEXT: Record<Locale, Record<string, FeatureText>> = {
       title: "Apple Watch",
       blurb: "Log a feed or nap from your wrist in two taps.",
     },
+    "home-widget": {
+      title: "Home Screen Widget",
+      blurb:
+        "The last feed, nap, and diaper change  -  right on your Home Screen, no app open needed.",
+    },
   },
   ja: {
     "xp-levels": {
@@ -109,6 +119,10 @@ const FEATURE_TEXT: Record<Locale, Record<string, FeatureText>> = {
     "apple-watch": {
       title: "Apple Watch",
       blurb: "授乳もおひるねも、手首から2タップで記録。",
+    },
+    "home-widget": {
+      title: "ホーム画面ウィジェット",
+      blurb: "最後の授乳・おひるね・おむつ替えを、アプリを開かずホーム画面でひと目で確認。",
     },
   },
   vi: {
@@ -137,6 +151,11 @@ const FEATURE_TEXT: Record<Locale, Record<string, FeatureText>> = {
     "apple-watch": {
       title: "Apple Watch",
       blurb: "Ghi cữ bú hay giấc ngủ ngay trên cổ tay, chỉ 2 chạm.",
+    },
+    "home-widget": {
+      title: "Widget màn hình chính",
+      blurb:
+        "Cữ bú, giấc ngủ và lần thay tã gần nhất  -  ngay trên màn hình chính, không cần mở app.",
     },
   },
 };

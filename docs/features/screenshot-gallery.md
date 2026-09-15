@@ -1,7 +1,7 @@
 ---
 tags: [feature]
 status: implemented
-updated: 2026-09-04
+updated: 2026-09-15
 ---
 
 # Screenshot Gallery
@@ -70,12 +70,17 @@ phone-UI components:
   not simulated UI — kept in case a future synthetic-preview fallback needs it.)
 - Screenshot images: `getScreenshots(locale)` in `lib/content/screenshots.ts` builds each
   `Screenshot.src` as `/screenshots/<locale>/<id>.png`. Files live under
-  `public/screenshots/{en,ja,vi}/{dashboard,quest-log,skill-tree,trophy-room}.png` — real
+  `public/screenshots/{en,ja,vi}/{dashboard,quest-log,skill-tree,trophy-room,widget}.png` — real
   captures sourced from `BabyLeveling/assets/app-review/iphone/{en,jp,vn}/raw/*.png` (resized
   to 750px wide via `sips`). The manifest id doesn't always match the raw filename 1:1: id
   `quest-log` uses the app's `logs.png`, `skill-tree` uses `milestones.png`, and `trophy-room`
   uses `rank-up.png` (closest real screen to each narrative beat). Regenerate by re-running
   that resize step against a fresh `assets/app-review` export when the app's UI changes.
+- `widget` (2026-09-15) is the one id in this manifest that isn't an in-app screen: it's an iOS
+  **Simulator Home Screen capture** showing the `LatestActivityWidget` WidgetKit extension (see
+  `BabyLeveling/docs/features/home-screen-widget.md`), because a widget only exists on a Home
+  Screen — there's no in-app view of it to export from `assets/app-review`. Captured via
+  `xcrun simctl io <udid> screenshot`, then resized the same way as the other screenshots.
 
 ## Related
 - [[features/feature-showcase]]

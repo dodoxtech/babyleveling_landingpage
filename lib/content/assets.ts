@@ -39,6 +39,7 @@ export const assets = {
   "feature.achievements": "/assets/features/achievements.png",
   "feature.streaks-buffs": "/assets/features/streaks-buffs.png",
   "feature.apple-watch": "/assets/features/apple-watch.png",
+  "feature.home-widget": "/assets/features/home-widget.png",
 
   /* Logo */
   "logo.light": "/assets/logo/babyleveling-logo.png",

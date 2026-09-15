@@ -18,6 +18,7 @@ const CORE_TRACKING_FEATURES = [
   "Family sharing for partners and grandparents on one shared timeline",
   "3 visual themes: Royal, Warrior, and Zen",
   "Parent Mode — pediatrician-ready log without RPG overlay",
+  "Home Screen widget showing the last feed, sleep, and diaper change at a glance",
 ];
 
 export function buildMobileApplicationSchema(): Record<string, unknown> {
@@ -35,6 +36,10 @@ export function buildMobileApplicationSchema(): Record<string, unknown> {
     countriesSupported: ["US", "JP", "VN"],
     featureList: [...CORE_TRACKING_FEATURES, ...rpgFeatureList],
     url: SITE_URL,
+    screenshot: [
+      `${SITE_URL}/screenshots/en/dashboard.png`,
+      `${SITE_URL}/screenshots/en/widget.png`,
+    ],
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["#hero h2", "#faq"],

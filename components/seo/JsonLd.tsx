@@ -35,9 +35,11 @@ function JsonLd({ data }: JsonLdProps) {
  * - `MobileApplication.offers`/`aggregateRating`  -  pricing isn't set yet
  *   (docs/planning/reconciliation-log.md, "Outstanding decisions") and
  *   there are no real ratings pre-launch.
- * - `MobileApplication.screenshot`  -  depends on real App Store screenshots;
- *   add once the app store listing is live.
  * None of these are required for the corresponding schema to validate.
+ *
+ * `MobileApplication.screenshot` was added once the app shipped: it points at
+ * the real captured screenshots under `public/screenshots/en/`, including the
+ * Home Screen widget capture  -  see `buildMobileApplicationSchema`.
  *
  * Enriched in TASK-0029 (GEO): Organization gains `knowsAbout` + `contactPoint`;
  * MobileApplication gains `featureList`, `applicationSubCategory`,
